@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-10 17:13+0000\n"
+"POT-Creation-Date: 2025-03-10 18:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,131 +18,135 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: breeding/models.py:52 breeding/models.py:81 breeding/models.py:132
-#: breeding/models.py:217
+#: breeding/forms.py:32 breeding/forms.py:38 breeding/models.py:286
+msgid "price in euros"
+msgstr "preço em euros"
+
+#: breeding/models.py:64 breeding/models.py:93 breeding/models.py:144
+#: breeding/models.py:229
 msgid "name"
 msgstr "nome"
 
-#: breeding/models.py:57 breeding/models.py:108 breeding/models.py:159
-#: breeding/models.py:198 breeding/models.py:310 breeding/models.py:371
+#: breeding/models.py:69 breeding/models.py:120 breeding/models.py:171
+#: breeding/models.py:210 breeding/models.py:322 breeding/models.py:393
 #: frontoffice/models.py:46
 msgid "order"
 msgstr "ordem"
 
-#: breeding/models.py:63
+#: breeding/models.py:75
 msgid "animal kind"
 msgstr "tipo de animal"
 
-#: breeding/models.py:64
+#: breeding/models.py:76
 msgid "animals kinds"
 msgstr "tipos de animais"
 
-#: breeding/models.py:76
+#: breeding/models.py:88
 msgid "kind"
 msgstr "tipo"
 
-#: breeding/models.py:88
+#: breeding/models.py:100
 msgid "cover"
 msgstr "capa"
 
-#: breeding/models.py:93 breeding/models.py:137 breeding/models.py:222
-#: breeding/models.py:353
+#: breeding/models.py:105 breeding/models.py:149 breeding/models.py:234
+#: breeding/models.py:376
 msgid "description"
 msgstr "descrição"
 
-#: breeding/models.py:101 breeding/models.py:145
+#: breeding/models.py:113 breeding/models.py:157
 msgid "parent"
 msgstr "pai/mãe"
 
-#: breeding/models.py:127
+#: breeding/models.py:139
 msgid "code"
 msgstr "código"
 
-#: breeding/models.py:154
+#: breeding/models.py:166
 msgid "breeds"
 msgstr "raças"
 
-#: breeding/models.py:165 breeding/models.py:185
+#: breeding/models.py:177 breeding/models.py:197
 msgid "certification"
 msgstr "certificação"
 
-#: breeding/models.py:166 breeding/models.py:263
+#: breeding/models.py:178 breeding/models.py:275
 msgid "certifications"
 msgstr "certificações"
 
-#: breeding/models.py:177 breeding/models.py:339
+#: breeding/models.py:189 breeding/models.py:355
 msgid "animal"
 msgstr "animal"
 
-#: breeding/models.py:193
+#: breeding/models.py:205
 msgid "date"
 msgstr "data"
 
-#: breeding/models.py:202
+#: breeding/models.py:214
 msgid "animal certification"
 msgstr "certificação do animal"
 
-#: breeding/models.py:203
+#: breeding/models.py:215
 msgid "animal certifications"
 msgstr "certificações do animal"
 
-#: breeding/models.py:226
+#: breeding/models.py:238
 msgid "birth date"
 msgstr "data de nascimento"
 
-#: breeding/models.py:233
+#: breeding/models.py:245
 msgid "gender"
 msgstr "género"
 
-#: breeding/models.py:240
+#: breeding/models.py:252
 msgid "father"
 msgstr "pai"
 
-#: breeding/models.py:249
+#: breeding/models.py:261
 msgid "mother"
 msgstr "mãe"
 
-#: breeding/models.py:255
+#: breeding/models.py:267
 msgid "has training"
 msgstr "tem treino"
 
-#: breeding/models.py:274
-msgid "price in euros"
-msgstr "preço em euros"
-
-#: breeding/models.py:285
+#: breeding/models.py:297
 msgid "discount in euros"
 msgstr "desconto em euros"
 
-#: breeding/models.py:291
+#: breeding/models.py:303
 msgid "sold at"
 msgstr "vendido em"
 
-#: breeding/models.py:299
+#: breeding/models.py:311
 msgid "sold to"
 msgstr "vendido para"
 
-#: breeding/models.py:305 frontoffice/models.py:41
+#: breeding/models.py:317 frontoffice/models.py:41
 msgid "active"
 msgstr "ativo"
 
-#: breeding/models.py:347
+#: breeding/models.py:363
 msgid "file"
 msgstr "ficheiro"
 
-#: breeding/models.py:359
+#: breeding/models.py:370
+msgid "thumbnail"
+msgstr ""
+
+#: breeding/models.py:382
 msgid "filename"
 msgstr "nome do ficheiro"
 
-#: breeding/models.py:365
+#: breeding/models.py:388
 msgid "content type"
 msgstr "tipo de conteúdo"
 
-#: breeding/models.py:375
+#: breeding/models.py:397
 msgid "animal file"
 msgstr "ficheiro do animal"
 
-#: breeding/models.py:376
+#: breeding/models.py:398
 msgid "animal files"
 msgstr "ficheiros do animal"
 
@@ -211,8 +215,8 @@ msgid ""
 "We are committed to ethical practices, transparency, and the well-being of "
 "every dog in our care."
 msgstr ""
-"Comprometemo-nos com práticas éticas, transparência e o bem-estar de cada cão "
-"sob os nossos cuidados."
+"Comprometemo-nos com práticas éticas, transparência e o bem-estar de cada "
+"cão sob os nossos cuidados."
 
 #: frontoffice/templates/about_us.html:75
 msgid "Partnership"
@@ -453,9 +457,10 @@ msgid ""
 "grow in a healthy, loving environment, focusing on temperament, "
 "intelligence, and physical ability to produce exceptional companions."
 msgstr ""
-"No Fortissimus Bellator, acreditamos em práticas de criação éticas. Os nossos "
-"cães crescem num ambiente saudável e amoroso, com foco no temperamento, "
-"inteligência e capacidade física para produzir companheiros excecionais."
+"No Fortissimus Bellator, acreditamos em práticas de criação éticas. Os "
+"nossos cães crescem num ambiente saudável e amoroso, com foco no "
+"temperamento, inteligência e capacidade física para produzir companheiros "
+"excecionais."
 
 #: frontoffice/templates/home/index.html:36
 msgid "Our Breeds"
@@ -466,8 +471,9 @@ msgid ""
 "Each of our breeds is carefully selected and raised with dedication to "
 "ensure they become well-balanced companions in loving homes."
 msgstr ""
-"Cada uma das nossas raças é cuidadosamente selecionada e criada com dedicação "
-"para garantir que se tornem companheiros equilibrados em lares amorosos."
+"Cada uma das nossas raças é cuidadosamente selecionada e criada com "
+"dedicação para garantir que se tornem companheiros equilibrados em lares "
+"amorosos."
 
 #: frontoffice/templates/home/index.html:53
 msgid "Responsible Ownership"

@@ -8,6 +8,7 @@ from urllib.parse import unquote
 from django import forms
 from django.conf import settings
 from django.core.files.storage import default_storage
+from django.utils.translation import gettext_lazy as _
 
 from breeding import models
 from breeding.widgets import FilePreviewWidget, FilePreviewInlineWidget
@@ -25,8 +26,17 @@ class DecimalToIntegerField(forms.IntegerField):
 
 
 class AnimalForm(forms.ModelForm):
-    price_in_euros = DecimalToIntegerField(min_value=0, required=True)
-    discount_in_euros = DecimalToIntegerField(min_value=0, required=False)
+    price_in_euros = DecimalToIntegerField(
+        min_value=0,
+        required=False,
+        label=_('price in euros')
+    )
+
+    discount_in_euros = DecimalToIntegerField(
+        min_value=0,
+        required=False,
+        label=_('price in euros')
+    )
 
     class Meta:
         model = models.Animal
