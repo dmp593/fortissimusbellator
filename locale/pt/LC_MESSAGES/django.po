@@ -140,7 +140,7 @@ msgstr "ficheiro"
 
 #: breeding/models.py:370
 msgid "thumbnail"
-msgstr ""
+msgstr "miniatura"
 
 #: breeding/models.py:382
 msgid "filename"
