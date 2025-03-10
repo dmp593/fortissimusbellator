@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-10 18:02+0000\n"
+"POT-Creation-Date: 2025-03-10 18:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: breeding/forms.py:32 breeding/forms.py:38 breeding/models.py:286
-msgid "price in euros"
-msgstr "preço em euros"
+#: breeding/forms.py:32
+msgid "Price (€)"
+msgstr "Preço (€)"
+
+#: breeding/forms.py:38
+msgid "Discount (€)"
+msgstr "Desconto (€)"
 
 #: breeding/models.py:64 breeding/models.py:93 breeding/models.py:144
 #: breeding/models.py:229
@@ -110,9 +114,13 @@ msgstr "mãe"
 msgid "has training"
 msgstr "tem treino"
 
+#: breeding/models.py:286
+msgid "price in euros"
+msgstr "preço (€)"
+
 #: breeding/models.py:297
 msgid "discount in euros"
-msgstr "desconto em euros"
+msgstr "desconto (€)"
 
 #: breeding/models.py:303
 msgid "sold at"

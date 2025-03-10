@@ -29,13 +29,13 @@ class AnimalForm(forms.ModelForm):
     price_in_euros = DecimalToIntegerField(
         min_value=0,
         required=False,
-        label=_('price in euros')
+        label=_('Price (€)')
     )
 
     discount_in_euros = DecimalToIntegerField(
         min_value=0,
         required=False,
-        label=_('price in euros')
+        label=_('Discount (€)')
     )
 
     class Meta:
