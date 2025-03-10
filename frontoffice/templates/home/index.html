@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <div class="bg-cover bg-center h-screen relative" style="background-image: url({% static 'imgs/home.jpg' %});">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent"></div>
+        <!-- <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div> -->
+        <div class="flex items-center justify-center h-full relative">
+            <div class="text-center text-white px-6">
+                <h1 class="font-serif text-5xl font-bold uppercase drop-shadow-lg">
+                    {% translate "Welcome to Fortissimus Bellator" %}
+                </h1>
+                <p class="font-sans text-lg mt-4 max-w-2xl mx-auto drop-shadow-md">
+                    {% translate "Dedicated to breeding strong, intelligent, and well-socialized dogs. Our passion ensures that each breed maintains its unique characteristics and health." %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Our Breeding Philosophy -->
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 class="font-serif text-3xl font-bold text-center text-stone-900 dark:text-white">
+            {% translate "Our Philosophy" %}
+        </h2>
+        <p class="font-sans text-center text-stone-700 dark:text-stone-300 mt-4 max-w-3xl mx-auto leading-relaxed">
+            {% translate "At Fortissimus Bellator, we believe in ethical breeding practices. Our dogs grow in a healthy, loving environment, focusing on temperament, intelligence, and physical ability to produce exceptional companions." %}
+        </p>
+    </div>
+
+    <!-- Featured Breeds Section -->
+    <div class="px-4 sm:px-6 lg:px-8 py-16 bg-stone-100 dark:bg-stone-800">
+        <div class="mx-auto max-w-7xl">
+            <h2 class="font-serif text-3xl font-bold text-center text-stone-900 dark:text-white">
+                {% translate "Our Breeds" %}
+            </h2>
+            <p class="font-sans text-center text-stone-700 dark:text-stone-300 mt-4 max-w-3xl mx-auto leading-relaxed">
+                {% translate "Each of our breeds is carefully selected and raised with dedication to ensure they become well-balanced companions in loving homes." %}
+            </p>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for breed in breeds %}
+                    {% include "home/_card_breed.html" with breed=breed %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Responsible Ownership Section -->
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-white">
+                {% translate "Responsible Ownership" %}
+            </h2>
+            <p class="font-sans text-stone-700 dark:text-stone-300 mt-4 max-w-3xl mx-auto leading-relaxed">
+                {% translate "Owning a dog is a lifelong commitment. We guide future owners on training, nutrition, and care to ensure our dogs find the best homes." %}
+            </p>
+        </div>
+    </div>
+{% endblock %}

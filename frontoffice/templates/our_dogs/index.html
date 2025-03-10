@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Filter Section -->
+    <div class="mb-8 p-6 bg-white dark:bg-stone-800 rounded-lg shadow-lg border border-stone-200 dark:border-stone-700">
+        <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-white mb-6"> 🐶 {% translate "Looking for a companion?" %}</h2>
+        <form id="filter-form" hx-get="{% url 'our_dogs' %}" hx-target="#dogs-grid" hx-swap="innerHTML" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
+            <!-- Breed Filter -->
+            <div>
+                <label for="breed" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2 flex items-center space-x-2">
+                    {% include "icons/sparkles.html" %}
+                    <span>{% translate "Breed" %}</span>
+                </label>
+                <div class="mt-1 grid grid-cols-1">
+                    <select
+                        id="breed"
+                        name="breed"
+                        class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white dark:bg-stone-900 py-2 pr-8 pl-3 text-sm text-stone-900 dark:text-stone-100 outline-none ring-1 ring-stone-300 dark:ring-stone-700 focus:ring-2 focus:ring-stone-500 transition duration-300"
+                    >
+                        <option value="">{% translate "All Breeds" %}</option>
+                        {% for breed in breeds %}
+                        <option value="{{ breed.id }}" {% if filter_values.breed == breed.id|stringformat:"s" %}selected{% endif %}>{{ breed.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <svg
+                        class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-stone-500 dark:text-stone-400"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        aria-hidden="true"
+                    >
+                        <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Gender Filter -->
+            <div>
+                <label for="gender" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2 flex items-center space-x-2">
+                    {% include "icons/genders/ambiguous.html" %}
+                    <span>{% translate "Gender" %}</span>
+                </label>
+                <div class="mt-1 grid grid-cols-1">
+                    <select
+                        id="gender"
+                        name="gender"
+                        class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white dark:bg-stone-900 py-2 pr-8 pl-3 text-sm text-stone-900 dark:text-stone-100 outline-none ring-1 ring-stone-300 dark:ring-stone-700 focus:ring-2 focus:ring-stone-500 transition duration-300"
+                    >
+                        <option value="">{% translate "All Genders" %}</option>
+                        <option value="M" {% if filter_values.gender == 'M' %}selected{% endif %}>{% translate "Male" %}</option>
+                        <option value="F" {% if filter_values.gender == 'F' %}selected{% endif %}>{% translate "Female" %}</option>
+                    </select>
+                    <svg
+                        class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-stone-500 dark:text-stone-400"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        aria-hidden="true"
+                    >
+                        <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Age Filter -->
+            <div>
+                <label for="age" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2 flex items-center space-x-2">
+                    {% include "icons/cake.html" %}
+                    <span>{% translate "Age" %}</span>
+                </label>
+                <div class="mt-1 grid grid-cols-1">
+                    <select
+                        id="age"
+                        name="age"
+                        class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white dark:bg-stone-900 py-2 pr-8 pl-3 text-sm text-stone-900 dark:text-stone-100 outline-none ring-1 ring-stone-300 dark:ring-stone-700 focus:ring-2 focus:ring-stone-500 transition duration-300"
+                    >
+                        <option value="">{% translate "All Ages" %}</option>
+                        <option value="puppy" {% if filter_values.age == 'puppy' %}selected{% endif %}>{% translate "Puppies (up to 6 months)" %}</option>
+                        <option value="junior" {% if filter_values.age == 'junior' %}selected{% endif %}>{% translate "Juniors (6-12 months)" %}</option>
+                        <option value="adult" {% if filter_values.age == 'adult' %}selected{% endif %}>{% translate "Adults (over 12 months)" %}</option>
+                    </select>
+                    <svg
+                        class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-stone-500 dark:text-stone-400"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        aria-hidden="true"
+                    >
+                        <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+            <!-- Training and Certifications -->
+            <div class="flex flex-col space-y-4">
+                <!-- Has Training Checkbox -->
+                <div class="flex items-center gap-3">
+                    <div class="relative flex h-5 w-5 shrink-0 items-center justify-center">
+                        <input
+                            type="checkbox"
+                            id="has_training"
+                            name="has_training"
+                            {% if filter_values.has_training == 'on' %}checked{% endif %}
+                            class="peer h-5 w-5 appearance-none rounded-sm border border-stone-300 bg-white checked:border-stone-700 checked:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2 dark:border-stone-600 dark:bg-stone-800 dark:checked:border-stone-500 dark:checked:bg-stone-500"
+                        />
+                        <svg
+                            class="pointer-events-none absolute hidden h-3.5 w-3.5 stroke-white peer-checked:block"
+                            viewBox="0 0 14 14"
+                            fill="none"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M3 8L6 11L11 3.5" />
+                        </svg>
+                    </div>
+                    <label
+                        for="has_training"
+                        class="text-sm font-medium text-stone-700 dark:text-stone-300 flex items-center gap-2"
+                    >
+                        {% include "icons/dog_training.html" %}
+                        <span>{% translate "Has Training" %}</span>
+                    </label>
+                </div>
+
+                <!-- Has Certifications Checkbox -->
+                <div class="flex items-center gap-3">
+                    <div class="relative flex h-5 w-5 shrink-0 items-center justify-center">
+                        <input
+                            type="checkbox"
+                            id="has_certifications"
+                            name="has_certifications"
+                            {% if filter_values.has_certifications == 'on' %}checked{% endif %}
+                            class="peer h-5 w-5 appearance-none rounded-sm border border-stone-300 bg-white checked:border-stone-700 checked:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2 dark:border-stone-600 dark:bg-stone-800 dark:checked:border-stone-500 dark:checked:bg-stone-500"
+                        />
+                        <svg
+                            class="pointer-events-none absolute hidden h-3.5 w-3.5 stroke-white peer-checked:block"
+                            viewBox="0 0 14 14"
+                            fill="none"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M3 8L6 11L11 3.5" />
+                        </svg>
+                    </div>
+                    <label
+                        for="has_certifications"
+                        class="text-sm font-medium text-stone-700 dark:text-stone-300 flex items-center gap-2"
+                    >
+                        {% include "icons/academic_cap.html" %}
+                        <span>{% translate "Has Certifications" %}</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="sm:col-span-2 lg:col-span-4 mt-8">
+                <button type="submit" class="w-full bg-stone-700 text-white px-4 py-2 rounded-lg hover:bg-stone-600 transition duration-300 flex items-center justify-center space-x-2">
+                    {% include "icons/funnel.html" %}
+                    <span>{% translate "Find your fur" %}</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Dogs Grid -->
+    <div id="dogs-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% include 'our_dogs/dogs_cards.html' with dogs=dogs %}
+    </div>
+
+    <!-- Load More Button -->
+    {% if pagination.has_more %}
+    <div id="dogs-load-more" class="mt-6 text-center">
+        <button
+            id="load-more"
+            data-url="{% url 'our_dogs' %}"
+            data-next-page="{{ pagination.next_page }}"
+            data-total-pages="{{ pagination.total_pages }}"
+            data-filters="{{ request.GET.urlencode }}"
+            class="bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300"
+        >
+            {% translate "Load More" %}
+        </button>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/pages/our_dogs/index.js' %}"></script>
+{% endblock %}

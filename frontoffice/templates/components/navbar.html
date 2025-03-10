@@ -1,0 +1,71 @@
+{% load static %}
+{% load i18n %}
+
+<nav class="bg-white dark:bg-stone-800 shadow-md fixed w-full top-0 z-[1001]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <!-- Logo and Brand Name (always visible) -->
+            <div class="flex items-center flex-shrink-0">
+                <!-- Logo -->
+                <img id="logo-light" src="{% static 'imgs/logo-light.svg' %}" alt="Fortissimus Bellator Logo" class="{% if theme == 'dark' %}hidden{% endif %} h-16 object-contain">
+                <img id="logo-dark" src="{% static 'imgs/logo-dark.svg' %}" alt="Fortissimus Bellator Logo" class="{% if theme == 'light' %}hidden{% endif %} h-16 object-contain">
+                <!-- Brand Name (hidden on small screens) -->
+                <a href="javascript:" class="hidden sm:flex ml-2 font-serif font-bold text-xl">Fortissimus Bellator</a>
+            </div>
+
+            <!-- Desktop Menu (hidden on mobile) -->
+            <div class="hidden lg:flex space-x-6 items-center">
+                <a href="{% url 'home' %}" class="hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Home" %}</a>
+                <a href="{% url 'our_dogs' %}" class="hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Our Dogs" %}</a>
+                <a href="{% url 'about_us' %}" class="hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "About Us" %}</a>
+                <a href="{% url 'faqs' %}" class="hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "FAQs" %}</a>
+                <a href="{% url 'contact_us' %}" class="hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Contact Us" %}</a>
+            </div>
+
+            <!-- Right Side: Contact, Language, Theme, and Mobile Menu Button -->
+            <div class="flex items-center space-x-4">
+                <!-- Telephone -->
+                <a href="tel:+351924454382" class="font-extrabold text-sm text-yellow-600 dark:text-yellow-500 whitespace-nowrap">924 454 382</a>
+
+                <!-- Language Toggle -->
+                <button id="language-toggle" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition">
+                    {% if request.LANGUAGE_CODE == 'en' %}
+                    <img id="language-icon" src="{% static 'flags/pt.png' %}" alt="Language" class="w-6 h-6">
+                    {% else %}
+                    <img id="language-icon" src="{% static 'flags/uk.png' %}" alt="Language" class="w-6 h-6">
+                    {% endif %}
+                </button>
+
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition">
+                    <svg id="theme-icon" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path id="sun-icon" class="{% if theme == 'light' %}hidden{% endif %}" stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                        <path id="moon-icon" class="{% if theme == 'dark' %}hidden{% endif %}" stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                    </svg>
+                </button>
+
+                <!-- Mobile Menu Button (hidden on desktop) -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-button" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (hidden by default) -->
+        <div id="mobile-menu" class="lg:hidden hidden">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="{% url 'home' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Home" %}</a>
+                <a href="{% url 'our_dogs' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Our Dogs" %}</a>
+                <a href="{% url 'about_us' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "About Us" %}</a>
+                <a href="{% url 'faqs' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "FAQs" %}</a>
+                <a href="{% url 'contact_us' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Contact Us" %}</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script src="{% static 'js/components/navbar.js' %}"></script>

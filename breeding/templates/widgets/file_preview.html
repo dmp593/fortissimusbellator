@@ -1,0 +1,20 @@
+{% load static %}
+{% load string_utils %}
+
+<div class="file-preview-container">
+    <div class="file-preview">
+        {% if widget.value %}
+            {% if widget.value.name|endswith:'.png' or widget.value.name|endswith:'.jpg' or widget.value.name|endswith:'.jpeg' or widget.value.name|endswith:'.gif' %}
+                <img src="{{ widget.value.url }}" alt="Image preview" id="file-preview-{{ widget.name }}" class="file-preview-element" />
+            {% elif widget.value.name|endswith:'.mp4' or widget.value.name|endswith:'.webm' or widget.value.name|endswith:'.ogg' or widget.value.name|endswith:'.mov' %}
+                <video src="{{ widget.value.url }}" controls id="file-preview-{{ widget.name }}" class="file-preview-element"></video>
+            {% elif widget.value.name|endswith:'.pdf' %}
+                <iframe src="{{ widget.value.url }}" width="250" height="150" class="file-preview-element"></iframe>
+                <div class="file-preview-click-layer"></div>
+            {% else %}
+                <p id="file-preview-{{ widget.name }}" class="file-preview-element">{{ widget.value.name }}</p>
+            {% endif %}
+        {% endif %}
+    </div>
+    <input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+</div>

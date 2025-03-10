@@ -1,0 +1,76 @@
+{% load i18n %}
+
+{% for dog in dogs %}
+<div class="bg-white dark:bg-stone-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 flex flex-col">
+    <!-- Dog Image -->
+    <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-64 object-cover">
+
+    <!-- Dog Details -->
+    <div class="p-6 flex flex-col flex-grow">
+        <h3 class="text-xl font-serif font-bold text-stone-900 dark:text-white">{{ dog.name }}</h3>
+        <p class="text-sm text-stone-600 dark:text-stone-300 mt-2">{{ dog.breed.name }}</p>
+
+        <!-- Icons for Gender, Birthdate, Certifications, and Training -->
+        <div class="mt-4 space-y-4">
+            <!-- Gender Icon -->
+            <div class="flex items-center space-x-2">
+                {% if dog.gender == 'M' %}
+                {% include "icons/genders/male.html" %}
+                <span class="text-sm text-stone-700 dark:text-stone-300">{% translate "Male" %}</span>
+                {% elif dog.gender == 'F' %}
+                {% include "icons/genders/female.html" %}
+                <span class="text-sm text-stone-700 dark:text-stone-300">{% translate "Female" %}</span>
+                {% else %}
+                {% include "icons/genders/ambiguous.html" %}
+                <span class="text-sm text-stone-700 dark:text-stone-300">{% translate "Unknown" %}</span>
+                {% endif %}
+            </div>
+
+            <!-- Birthdate Icon -->
+            <div class="flex items-center space-x-2">
+                {% include "icons/cake.html" %}
+                <span class="text-sm text-stone-700 dark:text-stone-300">{{ dog.birth_date|date:"M d, Y" }}</span>
+            </div>
+
+            <!-- Training Icon -->
+            {% if dog.has_training %}
+            <div class="flex items-center space-x-2">
+                {% include "icons/dog_training.html" %}
+                <span class="text-sm text-stone-700 dark:text-stone-300">{% translate "Trained" %}</span>
+            </div>
+            {% endif %}
+
+            <!-- Certifications Icon -->
+            {% if dog.certifications.exists or True %}
+            <div class="flex items-center space-x-2">
+                {% include "icons/academic_cap.html" %}
+                <span class="text-sm text-stone-700 dark:text-stone-300">{% translate "Certified" %}</span>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="mt-auto">
+            <!-- Price -->
+            {% if dog.for_sale %}
+            <div class="mt-4">
+                <p class="text-lg font-bold text-stone-700 dark:text-stone-300">
+                    {% if dog.discount_in_euros %}
+                    <span class="line-through text-stone-700 dark:text-stone-300">{{ dog.price_in_euros }}€</span>
+                    <span class="text-yellow-600 dark:text-yellow-500">{{ dog.current_price_in_euros }}€</span>
+                    {% else %}
+                    {{ dog.price_in_euros }}€
+                    {% endif %}
+                </p>
+            </div>
+            {% endif %}
+
+            <!-- Details Button -->
+            <div class="pt-6">
+                <a href="{% url 'dog_detail' dog.pk %}" class="w-full bg-stone-700 text-white px-4 py-2 rounded-lg hover:bg-stone-600 transition duration-300 block text-center">
+                    {% translate "View Details" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

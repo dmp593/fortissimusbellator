@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-stone-100 dark:bg-stone-700 py-20">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col items-center justify-center text-center">
+            <h1 class="text-4xl font-serif font-bold text-stone-900 dark:text-white">{% translate "About Fortissimus Bellator" %}</h1>
+            <p class="text-lg font-sans text-stone-600 dark:text-stone-300 mt-4">
+                {% translate "Dedicated to breeding and training exceptional dogs for work, service, and companionship." %}
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Our Mission Section -->
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
+            <!-- Photo of Working and Companion Dogs -->
+            <div class="w-full lg:w-1/2">
+                <img src="{% static 'imgs/about-us.jpg' %}" 
+                     alt="Working and Companion Dogs" 
+                     class="w-full h-auto rounded-lg shadow-lg">
+            </div>
+
+            <!-- Narrative About Fortissimus Bellator -->
+            <div class="w-full lg:w-1/2">
+                <h2 class="text-3xl font-serif font-bold text-stone-900 dark:text-white">{% translate "Our Mission" %}</h2>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-4 leading-relaxed">
+                    At Fortissimus Bellator, we are passionate about breeding and training high-quality dogs that excel in both work and companionship. Our journey began with a deep respect for the intelligence, loyalty, and versatility of dogs. Over the years, we have dedicated ourselves to producing dogs that meet the highest standards of health, temperament, and performance.
+                </p>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-4 leading-relaxed">
+                    Whether it’s for police work, service roles, or as beloved family pets, every dog we breed is raised with care, trained with expertise, and nurtured to reach their full potential. We believe in the power of a well-trained dog to make a difference in the lives of individuals and communities.
+                </p>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-4 leading-relaxed">
+                    Our commitment goes beyond breeding. We provide lifelong support to our clients, ensuring that every dog thrives in their environment and continues to grow in their role.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="bg-stone-100 dark:bg-stone-700 py-20">
+    <div class="container mx-auto px-4">
+        <div class="text-center">
+            <h2 class="text-3xl font-serif font-bold text-stone-900 dark:text-white">{% translate "Our Core Values" %}</h2>
+            <p class="text-lg font-sans text-stone-600 dark:text-stone-300 mt-4">
+                {% translate "The principles that guide everything we do." %}
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            <!-- Value 1: Excellence -->
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center">
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">{% translate "Excellence" %}</h3>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-4">
+                    {% translate "We strive for excellence in every aspect of breeding, training, and care, ensuring our dogs are the best they can be." %}
+                </p>
+            </div>
+
+            <!-- Value 2: Integrity -->
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center">
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">{% translate "Integrity" %}</h3>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-4">
+                    {% translate "We are committed to ethical practices, transparency, and the well-being of every dog in our care." %}
+                </p>
+            </div>
+
+            <!-- Value 3: Partnership -->
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center">
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">{% translate "Partnership" %}</h3>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-4">
+                    {% translate "We value collaboration and communication with our clients, working together to ensure the success of every dog." %}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-serif font-bold text-stone-900 dark:text-white text-center mb-8">
+            {% translate "Capturing Our Passion" %}
+        </h2>
+        
+        <!-- Horizontal Scrollable Gallery -->
+        <div class="flex justify-center">
+            <div class="inline-flex gap-4 mx-auto overflow-x-auto scroll-smooth snap-x whitespace-nowrap">
+                {% for file in gallery %}
+                    <div class="inline-block w-64 h-64 rounded-lg shadow-lg overflow-hidden snap-center flex-shrink-0">
+                        <img src="{{ file.file.url }}" alt="{{ file.description|default:'Dog' }}" class="w-full h-full object-cover">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Training and Care Section -->
+<section class="py-20 bg-stone-100 dark:bg-stone-700">
+    <div class="container mx-auto px-4">
+        <div class="text-center">
+            <h2 class="text-3xl font-serif font-bold text-stone-900 dark:text-white">{% translate "Training and Care" %}</h2>
+            <p class="text-lg font-sans text-stone-600 dark:text-stone-300 mt-4">
+                {% translate "Our approach to raising and training exceptional dogs." %}
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            <!-- Training -->
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center">
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">{% translate "Professional Training" %}</h3>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-4">
+                    {% translate "Our dogs undergo rigorous training tailored to their roles, whether for police work, service, or as family companions." %}
+                </p>
+            </div>
+
+            <!-- Health -->
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center">
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">{% translate "Health and Wellness" %}</h3>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-4">
+                   {% translate " We prioritize the health and well-being of our dogs, ensuring they are physically and mentally fit for their roles." %}
+                </p>
+            </div>
+
+            <!-- Support -->
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center">
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">{% translate "Lifelong Support" %}</h3>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-4">
+                    {% translate "We provide ongoing support and resources to our clients, ensuring a smooth transition and continued success for every dog." %}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

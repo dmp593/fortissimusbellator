@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<div class="bg-white dark:bg-stone-900 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 overflow-hidden">
+    {% if breed.cover %}
+    <img src="{{ breed.cover.url }}" alt="{{ breed }}" class="w-full h-64 object-cover rounded-t-lg">
+    {% endif %}
+    <div class="p-6">
+        <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white">
+            {{ breed }}
+        </h3>
+        <p class="font-sans text-stone-700 dark:text-stone-300 mt-4 leading-relaxed">
+            {{ breed.description }}
+        </p>
+        <a href="{% url 'our_dogs' %}?breed={{ breed.pk }}" class="mt-6 inline-block bg-stone-700 text-white px-6 py-3 rounded-full hover:bg-stone-600 transition duration-300 font-sans shadow-lg">
+            {% translate "Learn More" %}
+        </a>
+    </div>
+</div>

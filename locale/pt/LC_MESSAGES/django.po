@@ -1,0 +1,559 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Daniel Pinto <dmp593@gmail.com>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-10 17:13+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: breeding/models.py:52 breeding/models.py:81 breeding/models.py:132
+#: breeding/models.py:217
+msgid "name"
+msgstr "nome"
+
+#: breeding/models.py:57 breeding/models.py:108 breeding/models.py:159
+#: breeding/models.py:198 breeding/models.py:310 breeding/models.py:371
+#: frontoffice/models.py:46
+msgid "order"
+msgstr "ordem"
+
+#: breeding/models.py:63
+msgid "animal kind"
+msgstr "tipo de animal"
+
+#: breeding/models.py:64
+msgid "animals kinds"
+msgstr "tipos de animais"
+
+#: breeding/models.py:76
+msgid "kind"
+msgstr "tipo"
+
+#: breeding/models.py:88
+msgid "cover"
+msgstr "capa"
+
+#: breeding/models.py:93 breeding/models.py:137 breeding/models.py:222
+#: breeding/models.py:353
+msgid "description"
+msgstr "descrição"
+
+#: breeding/models.py:101 breeding/models.py:145
+msgid "parent"
+msgstr "pai/mãe"
+
+#: breeding/models.py:127
+msgid "code"
+msgstr "código"
+
+#: breeding/models.py:154
+msgid "breeds"
+msgstr "raças"
+
+#: breeding/models.py:165 breeding/models.py:185
+msgid "certification"
+msgstr "certificação"
+
+#: breeding/models.py:166 breeding/models.py:263
+msgid "certifications"
+msgstr "certificações"
+
+#: breeding/models.py:177 breeding/models.py:339
+msgid "animal"
+msgstr "animal"
+
+#: breeding/models.py:193
+msgid "date"
+msgstr "data"
+
+#: breeding/models.py:202
+msgid "animal certification"
+msgstr "certificação do animal"
+
+#: breeding/models.py:203
+msgid "animal certifications"
+msgstr "certificações do animal"
+
+#: breeding/models.py:226
+msgid "birth date"
+msgstr "data de nascimento"
+
+#: breeding/models.py:233
+msgid "gender"
+msgstr "género"
+
+#: breeding/models.py:240
+msgid "father"
+msgstr "pai"
+
+#: breeding/models.py:249
+msgid "mother"
+msgstr "mãe"
+
+#: breeding/models.py:255
+msgid "has training"
+msgstr "tem treino"
+
+#: breeding/models.py:274
+msgid "price in euros"
+msgstr "preço em euros"
+
+#: breeding/models.py:285
+msgid "discount in euros"
+msgstr "desconto em euros"
+
+#: breeding/models.py:291
+msgid "sold at"
+msgstr "vendido em"
+
+#: breeding/models.py:299
+msgid "sold to"
+msgstr "vendido para"
+
+#: breeding/models.py:305 frontoffice/models.py:41
+msgid "active"
+msgstr "ativo"
+
+#: breeding/models.py:347
+msgid "file"
+msgstr "ficheiro"
+
+#: breeding/models.py:359
+msgid "filename"
+msgstr "nome do ficheiro"
+
+#: breeding/models.py:365
+msgid "content type"
+msgstr "tipo de conteúdo"
+
+#: breeding/models.py:375
+msgid "animal file"
+msgstr "ficheiro do animal"
+
+#: breeding/models.py:376
+msgid "animal files"
+msgstr "ficheiros do animal"
+
+#: fortissimusbellator/settings.py:141
+msgid "English"
+msgstr "Inglês"
+
+#: fortissimusbellator/settings.py:142
+msgid "Portuguese"
+msgstr "Português"
+
+#: frontoffice/models.py:24
+msgid "question"
+msgstr "pergunta"
+
+#: frontoffice/models.py:30
+msgid "answer"
+msgstr "resposta"
+
+#: frontoffice/models.py:36
+msgid "image"
+msgstr "imagem"
+
+#: frontoffice/templates/about_us.html:10
+msgid "About Fortissimus Bellator"
+msgstr "Sobre o Fortissimus Bellator"
+
+#: frontoffice/templates/about_us.html:12
+msgid ""
+"Dedicated to breeding and training exceptional dogs for work, service, and "
+"companionship."
+msgstr ""
+"Dedicados à criação e treino de cães excecionais para trabalho, serviço e "
+"companhia."
+
+#: frontoffice/templates/about_us.html:31
+msgid "Our Mission"
+msgstr "A Nossa Missão"
+
+#: frontoffice/templates/about_us.html:50
+msgid "Our Core Values"
+msgstr "Os Nossos Valores Fundamentais"
+
+#: frontoffice/templates/about_us.html:52
+msgid "The principles that guide everything we do."
+msgstr "Os princípios que guiam tudo o que fazemos."
+
+#: frontoffice/templates/about_us.html:59
+msgid "Excellence"
+msgstr "Excelência"
+
+#: frontoffice/templates/about_us.html:61
+msgid ""
+"We strive for excellence in every aspect of breeding, training, and care, "
+"ensuring our dogs are the best they can be."
+msgstr ""
+"Esforçamo-nos pela excelência em todos os aspetos da criação, treino e "
+"cuidados, garantindo que os nossos cães são os melhores possíveis."
+
+#: frontoffice/templates/about_us.html:67
+msgid "Integrity"
+msgstr "Integridade"
+
+#: frontoffice/templates/about_us.html:69
+msgid ""
+"We are committed to ethical practices, transparency, and the well-being of "
+"every dog in our care."
+msgstr ""
+"Comprometemo-nos com práticas éticas, transparência e o bem-estar de cada cão "
+"sob os nossos cuidados."
+
+#: frontoffice/templates/about_us.html:75
+msgid "Partnership"
+msgstr "Parceria"
+
+#: frontoffice/templates/about_us.html:77
+msgid ""
+"We value collaboration and communication with our clients, working together "
+"to ensure the success of every dog."
+msgstr ""
+"Valorizamos a colaboração e comunicação com os nossos clientes, trabalhando "
+"juntos para garantir o sucesso de cada cão."
+
+#: frontoffice/templates/about_us.html:88
+msgid "Capturing Our Passion"
+msgstr "Captando a Nossa Paixão"
+
+#: frontoffice/templates/about_us.html:108
+msgid "Training and Care"
+msgstr "Treino e Cuidados"
+
+#: frontoffice/templates/about_us.html:110
+msgid "Our approach to raising and training exceptional dogs."
+msgstr "A nossa abordagem para criar e treinar cães excecionais."
+
+#: frontoffice/templates/about_us.html:117
+msgid "Professional Training"
+msgstr "Treino Profissional"
+
+#: frontoffice/templates/about_us.html:119
+msgid ""
+"Our dogs undergo rigorous training tailored to their roles, whether for "
+"police work, service, or as family companions."
+msgstr ""
+"Os nossos cães passam por um treino rigoroso adaptado aos seus papéis, seja "
+"para trabalho policial, serviço ou como companheiros de família."
+
+#: frontoffice/templates/about_us.html:125
+msgid "Health and Wellness"
+msgstr "Saúde e Bem-Estar"
+
+#: frontoffice/templates/about_us.html:127
+msgid ""
+" We prioritize the health and well-being of our dogs, ensuring they are "
+"physically and mentally fit for their roles."
+msgstr ""
+"Priorizamos a saúde e o bem-estar dos nossos cães, garantindo que estão "
+"fisicamente e mentalmente aptos para os seus papéis."
+
+#: frontoffice/templates/about_us.html:133
+msgid "Lifelong Support"
+msgstr "Apoio Vitalício"
+
+#: frontoffice/templates/about_us.html:135
+msgid ""
+"We provide ongoing support and resources to our clients, ensuring a smooth "
+"transition and continued success for every dog."
+msgstr ""
+"Oferecemos apoio contínuo e recursos aos nossos clientes, garantindo uma "
+"transição suave e sucesso contínuo para cada cão."
+
+#: frontoffice/templates/components/footer.html:7
+msgid "Address"
+msgstr "Morada"
+
+#: frontoffice/templates/components/footer.html:12
+msgid "Partnerships"
+msgstr "Parcerias"
+
+#: frontoffice/templates/components/footer.html:14
+msgid "Our Veterinary"
+msgstr "O Nosso Veterinário"
+
+#: frontoffice/templates/components/footer.html:15
+msgid "Material and Accessories"
+msgstr "Material e Acessórios"
+
+#: frontoffice/templates/components/footer.html:16
+msgid "School and Training"
+msgstr "Escola e Treino"
+
+#: frontoffice/templates/components/footer.html:21
+msgid "All rights reserved"
+msgstr "Todos os direitos reservados"
+
+#: frontoffice/templates/components/footer.html:22
+msgid "Developed with ❤️ by"
+msgstr "Desenvolvido com ❤️ por"
+
+#: frontoffice/templates/components/navbar.html:18
+#: frontoffice/templates/components/navbar.html:61
+msgid "Home"
+msgstr "Início"
+
+#: frontoffice/templates/components/navbar.html:19
+#: frontoffice/templates/components/navbar.html:62
+msgid "Our Dogs"
+msgstr "Os Nossos Cães"
+
+#: frontoffice/templates/components/navbar.html:20
+#: frontoffice/templates/components/navbar.html:63
+msgid "About Us"
+msgstr "Sobre Nós"
+
+#: frontoffice/templates/components/navbar.html:21
+#: frontoffice/templates/components/navbar.html:64
+msgid "FAQs"
+msgstr "Perguntas Frequentes"
+
+#: frontoffice/templates/components/navbar.html:22
+#: frontoffice/templates/components/navbar.html:65
+#: frontoffice/templates/contact_us.html:13
+msgid "Contact Us"
+msgstr "Contacte-Nos"
+
+#: frontoffice/templates/contact_us.html:16
+msgid "Have questions or want to learn more? Reach out to us!"
+msgstr "Tem perguntas ou quer saber mais? Contacte-nos!"
+
+#: frontoffice/templates/contact_us.html:25
+msgid "Name"
+msgstr "Nome"
+
+#: frontoffice/templates/contact_us.html:29
+msgid "Your Name"
+msgstr "O Seu Nome"
+
+#: frontoffice/templates/contact_us.html:35
+msgid "Email"
+msgstr "E-mail"
+
+#: frontoffice/templates/contact_us.html:39
+msgid "Your Email"
+msgstr "O Seu E-mail"
+
+#: frontoffice/templates/contact_us.html:45
+msgid "Message"
+msgstr "Mensagem"
+
+#: frontoffice/templates/contact_us.html:49
+msgid "Your Message"
+msgstr "A Sua Mensagem"
+
+#: frontoffice/templates/contact_us.html:57
+msgid "Send Message"
+msgstr "Enviar Mensagem"
+
+#: frontoffice/templates/contact_us.html:65
+msgid "Our Location"
+msgstr "A Nossa Localização"
+
+#: frontoffice/templates/contact_us.html:68
+msgid "Visit us at our facility in Leiria, Portugal."
+msgstr "Visite-nos nas nossas instalações em Leiria, Portugal."
+
+#: frontoffice/templates/contact_us.html:75
+msgid "View Larger Map"
+msgstr "Ver Mapa Maior"
+
+#: frontoffice/templates/dog_detail/dog_gallery.html:8
+msgid "Gallery"
+msgstr "Galeria"
+
+#: frontoffice/templates/dog_detail/index.html:32
+msgid "About"
+msgstr "Sobre"
+
+#: frontoffice/templates/dog_detail/index.html:43
+msgid "Certifications"
+msgstr "Certificações"
+
+#: frontoffice/templates/dog_detail/index.html:62
+msgid "Certified on"
+msgstr "Certificado em"
+
+#: frontoffice/templates/dog_detail/index.html:78
+msgid "Details"
+msgstr "Detalhes"
+
+#: frontoffice/templates/dog_detail/index.html:85
+#: frontoffice/templates/our_dogs/dogs_cards.html:19
+#: frontoffice/templates/our_dogs/index.html:52
+msgid "Male"
+msgstr "Macho"
+
+#: frontoffice/templates/dog_detail/index.html:88
+#: frontoffice/templates/our_dogs/dogs_cards.html:22
+#: frontoffice/templates/our_dogs/index.html:53
+msgid "Female"
+msgstr "Fêmea"
+
+#: frontoffice/templates/dog_detail/index.html:91
+#: frontoffice/templates/our_dogs/dogs_cards.html:25
+msgid "Unknown"
+msgstr "Desconhecido"
+
+#: frontoffice/templates/dog_detail/index.html:108
+#: frontoffice/templates/our_dogs/dogs_cards.html:39
+msgid "Trained"
+msgstr "Treinado"
+
+#: frontoffice/templates/dog_detail/index.html:133
+msgid "Call Us"
+msgstr "Ligue-nos"
+
+#: frontoffice/templates/dog_detail/index.html:145
+msgid "Back to Our Dogs"
+msgstr "Voltar aos Nossos Cães"
+
+#: frontoffice/templates/faqs.html:9
+msgid "Frequently Asked Questions"
+msgstr "Perguntas Frequentes"
+
+#: frontoffice/templates/home/_card_breed.html:15
+msgid "Learn More"
+msgstr "Saiba Mais"
+
+#: frontoffice/templates/home/index.html:13
+msgid "Welcome to Fortissimus Bellator"
+msgstr "Bem-vindo ao Fortissimus Bellator"
+
+#: frontoffice/templates/home/index.html:16
+msgid ""
+"Dedicated to breeding strong, intelligent, and well-socialized dogs. Our "
+"passion ensures that each breed maintains its unique characteristics and "
+"health."
+msgstr ""
+"Dedicados à criação de cães fortes, inteligentes e bem socializados. A nossa "
+"paixão garante que cada raça mantenha as suas características únicas e saúde."
+
+#: frontoffice/templates/home/index.html:25
+msgid "Our Philosophy"
+msgstr "A Nossa Filosofia"
+
+#: frontoffice/templates/home/index.html:28
+msgid ""
+"At Fortissimus Bellator, we believe in ethical breeding practices. Our dogs "
+"grow in a healthy, loving environment, focusing on temperament, "
+"intelligence, and physical ability to produce exceptional companions."
+msgstr ""
+"No Fortissimus Bellator, acreditamos em práticas de criação éticas. Os nossos "
+"cães crescem num ambiente saudável e amoroso, com foco no temperamento, "
+"inteligência e capacidade física para produzir companheiros excecionais."
+
+#: frontoffice/templates/home/index.html:36
+msgid "Our Breeds"
+msgstr "As Nossas Raças"
+
+#: frontoffice/templates/home/index.html:39
+msgid ""
+"Each of our breeds is carefully selected and raised with dedication to "
+"ensure they become well-balanced companions in loving homes."
+msgstr ""
+"Cada uma das nossas raças é cuidadosamente selecionada e criada com dedicação "
+"para garantir que se tornem companheiros equilibrados em lares amorosos."
+
+#: frontoffice/templates/home/index.html:53
+msgid "Responsible Ownership"
+msgstr "Posse Responsável"
+
+#: frontoffice/templates/home/index.html:56
+msgid ""
+"Owning a dog is a lifelong commitment. We guide future owners on training, "
+"nutrition, and care to ensure our dogs find the best homes."
+msgstr ""
+"Ter um cão é um compromisso para a vida. Orientamos os futuros donos sobre "
+"treino, nutrição e cuidados para garantir que os nossos cães encontrem os "
+"melhores lares."
+
+#: frontoffice/templates/our_dogs/dogs_cards.html:47
+msgid "Certified"
+msgstr "Certificado"
+
+#: frontoffice/templates/our_dogs/dogs_cards.html:70
+msgid "View Details"
+msgstr "Ver Detalhes"
+
+#: frontoffice/templates/our_dogs/index.html:9
+msgid "Looking for a companion?"
+msgstr "À procura de um companheiro?"
+
+#: frontoffice/templates/our_dogs/index.html:15
+msgid "Breed"
+msgstr "Raça"
+
+#: frontoffice/templates/our_dogs/index.html:23
+msgid "All Breeds"
+msgstr "Todas as Raças"
+
+#: frontoffice/templates/our_dogs/index.html:43
+msgid "Gender"
+msgstr "Género"
+
+#: frontoffice/templates/our_dogs/index.html:51
+msgid "All Genders"
+msgstr "Todos os Géneros"
+
+#: frontoffice/templates/our_dogs/index.html:70
+msgid "Age"
+msgstr "Idade"
+
+#: frontoffice/templates/our_dogs/index.html:78
+msgid "All Ages"
+msgstr "Todas as Idades"
+
+#: frontoffice/templates/our_dogs/index.html:79
+msgid "Puppies (up to 6 months)"
+msgstr "Cachorros (até 6 meses)"
+
+#: frontoffice/templates/our_dogs/index.html:80
+msgid "Juniors (6-12 months)"
+msgstr "Júniores (6-12 meses)"
+
+#: frontoffice/templates/our_dogs/index.html:81
+msgid "Adults (over 12 months)"
+msgstr "Adultos (mais de 12 meses)"
+
+#: frontoffice/templates/our_dogs/index.html:121
+msgid "Has Training"
+msgstr "Tem Treino"
+
+#: frontoffice/templates/our_dogs/index.html:151
+msgid "Has Certifications"
+msgstr "Tem Certificações"
+
+#: frontoffice/templates/our_dogs/index.html:160
+msgid "Find your fur"
+msgstr "Encontre o seu companheiro"
+
+#: frontoffice/templates/our_dogs/index.html:182
+msgid "Load More"
+msgstr "Carregar Mais"
+
+#: frontoffice/views.py:33
+msgid "Please fill out all fields."
+msgstr "Por favor, preencha todos os campos."
+
+#: frontoffice/views.py:51
+msgid "Thank you! We will get back to you soon."
+msgstr "Obrigado! Entraremos em contacto consigo brevemente."
+
+#: frontoffice/views.py:53
+msgid "Ups... Try again later."
+msgstr "Ups... Tente novamente mais tarde."

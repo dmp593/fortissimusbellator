@@ -1,0 +1,122 @@
+[
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 1,
+        "fields": {
+            "question_en": "What breeds of dogs do you sell?",
+            "question_pt": "Que raças de cães vendem?",
+            "answer_en": "We specialize in selling high-quality breeds such as the German Shepherd, the Belgian Shepherd Malinois and the German Spitz.",
+            "answer_pt": "Especializamo-nos na venda de raças de alta qualidade, como o Pastor Alemão, o Pastor Belga Malinois e o Spitz Alemão.",
+            "order": 1,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 2,
+        "fields": {
+            "question_en": "Are your dogs vaccinated?",
+            "question_pt": "Os vossos cães são vacinados?",
+            "answer_en": "Yes, all our dogs are fully vaccinated and come with a health certificate from a licensed veterinarian.",
+            "answer_pt": "Sim, todos os nossos cães são totalmente vacinados e vêm com um certificado de saúde emitido por um veterinário licenciado.",
+            "order": 2,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 3,
+        "fields": {
+            "question_en": "Can I visit your facility to see the dogs?",
+            "question_pt": "Posso visitar as vossas instalações para ver os cães?",
+            "answer_en": "Yes, we welcome visits! Please contact us to schedule an appointment.",
+            "answer_pt": "Sim, recebemos visitas! Por favor, contacte-nos para marcar uma visita.",
+            "order": 3,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 4,
+        "fields": {
+            "question_en": "Do you provide pedigree certificates for your dogs?",
+            "question_pt": "Fornecem certificados de pedigree para os vossos cães?",
+            "answer_en": "Yes, all our dogs come with official pedigree certificates.",
+            "answer_pt": "Sim, todos os nossos cães vêm com certificados de pedigree oficiais.",
+            "order": 4,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 5,
+        "fields": {
+            "question_en": "What is included in the price of a dog?",
+            "question_pt": "O que está incluído no preço de um cão?",
+            "answer_en": "The price includes vaccinations, a health certificate, and a starter kit with food and care instructions.",
+            "answer_pt": "O preço inclui vacinas, um certificado de saúde e um kit inicial com comida e instruções de cuidados.",
+            "order": 5,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 6,
+        "fields": {
+            "question_en": "Can I reserve a puppy before it is ready to go home?",
+            "question_pt": "Posso reservar um cachorro antes de ele estar pronto para ir para casa?",
+            "answer_en": "Yes, you can reserve a puppy with a deposit. Contact us for more details.",
+            "answer_pt": "Sim, pode reservar um cachorro com um depósito. Contacte-nos para mais detalhes.",
+            "order": 6,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 7,
+        "fields": {
+            "question_en": "Do you ship dogs internationally?",
+            "question_pt": "Fazem envios de cães para o estrangeiro?",
+            "answer_en": "Yes, we can arrange international shipping under specific conditions. Contact us for details.",
+            "answer_pt": "Sim, podemos organizar envios internacionais sob condições específicas. Contacte-nos para mais informações.",
+            "order": 7,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 8,
+        "fields": {
+            "question_en": "What should I prepare before bringing a dog home?",
+            "question_pt": "O que devo preparar antes de levar um cão para casa?",
+            "answer_en": "You should prepare a safe space, food, water bowls, toys, and a comfortable bed for your new dog.",
+            "answer_pt": "Deve preparar um espaço seguro, comida, taças de água, brinquedos e uma cama confortável para o seu novo cão.",
+            "order": 8,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 9,
+        "fields": {
+            "question_en": "Do you offer a health guarantee for your dogs?",
+            "question_pt": "Oferecem uma garantia de saúde para os vossos cães?",
+            "answer_en": "Yes, we provide a health guarantee for all our dogs. Please contact us for the terms and conditions.",
+            "answer_pt": "Sim, fornecemos uma garantia de saúde para todos os nossos cães. Contacte-nos para conhecer os termos e condições.",
+            "order": 9,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 10,
+        "fields": {
+            "question_en": "Can I return a dog if there are issues?",
+            "question_pt": "Posso devolver um cão se houver problemas?",
+            "answer_en": "We have a return policy in case of health issues. Please contact us within 14 days of purchase.",
+            "answer_pt": "Temos uma política de devolução em caso de problemas de saúde. Por favor, contacte-nos no prazo de 14 dias após a compra.",
+            "order": 10,
+            "active": true
+        }
+    }
+]

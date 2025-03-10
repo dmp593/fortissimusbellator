@@ -1,0 +1,18 @@
+{
+  "name": "Fortissimus Bellator",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./styles.css -o ./assets/css/styles.css --minify",
+    "watch": "npx @tailwindcss/cli -i ./styles.css -o ./assets/css/styles.css --optimize --watch"
+  },
+  "author": "Daniel Pinto <dmp593@gmail.com>",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
+  }
+}

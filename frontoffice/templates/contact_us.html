@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'leaflet/leaflet.css' %}" />
+<link rel="stylesheet" href="{% static 'css/pages/contact_us.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="font-serif text-3xl font-bold text-center text-stone-900 dark:text-white">
+        {% translate "Contact Us" %}
+    </h2>
+    <p class="font-sans text-center text-stone-700 dark:text-stone-300 mt-4 max-w-3xl mx-auto leading-relaxed">
+        {% translate "Have questions or want to learn more? Reach out to us!" %}
+    </p>
+
+    <div class="mt-12 max-w-2xl mx-auto">
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            <!-- Name Field -->
+            <div>
+                <label for="id_name" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    {% translate "Name" %}
+                </label>
+                <input type="text" name="name" id="id_name" 
+                       class="w-full px-4 py-3 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                       placeholder="{% translate 'Your Name' %}">
+            </div>
+
+            <!-- Email Field -->
+            <div>
+                <label for="id_email" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    {% translate "Email" %}
+                </label>
+                <input type="email" name="email" id="id_email" 
+                       class="w-full px-4 py-3 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                       placeholder="{% translate 'Your Email' %}">
+            </div>
+
+            <!-- Message Field -->
+            <div>
+                <label for="id_message" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    {% translate "Message" %}
+                </label>
+                <textarea name="message" id="id_message" rows="5" 
+                          class="w-full px-4 py-3 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                          placeholder="{% translate 'Your Message' %}"></textarea>
+            </div>
+
+            <!-- reCAPTCHA Field -->
+            {{ form.captcha }}
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300 font-sans shadow-lg focus:outline-none focus:ring-2 focus:ring-stone-500">
+                {% translate "Send Message" %}
+            </button>
+        </form>
+    </div>
+
+    <!-- Map Section -->
+    <div class="mt-16 max-w-7xl mx-auto">
+        <h2 class="font-serif text-3xl font-bold text-center text-stone-900 dark:text-white">
+            {% translate "Our Location" %}
+        </h2>
+        <p class="font-sans text-center text-stone-700 dark:text-stone-300 mt-4 max-w-3xl mx-auto leading-relaxed">
+            {% translate "Visit us at our facility in Leiria, Portugal." %}
+        </p>
+        <div id="map" class="mt-8 h-96 w-full rounded-lg overflow-hidden shadow-lg"></div>
+        <div class="mt-4 text-center">
+            <a href="https://www.openstreetmap.org/?mlat=39.7054288&amp;mlon=-8.8573286#map=15/39.7054288/-8.8573286" 
+               target="_blank" 
+               class="text-stone-700 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition duration-300">
+                {% translate "View Larger Map" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'leaflet/leaflet.js' %}"></script>
+<script src="{% static 'js/pages/contact_us.js' %}"></script>
+{% endblock %}

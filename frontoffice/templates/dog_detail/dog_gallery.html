@@ -1,0 +1,59 @@
+{% load i18n %}
+{% load static %}
+{% load string_utils %}
+
+<!-- Gallery Section -->
+<div class="mt-12">
+    <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
+        {% translate "Gallery" %}
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {% for file in dog.files.all %}
+        <div class="modal-open relative group cursor-pointer transform transition-transform duration-300 hover:scale-105" data-file-url="{{ file.file.url }}" data-file-type="{% if file.content_type|startswith:'image' %}image{% else %}video{% endif %}">
+            {% if file.content_type|startswith:'image' %}
+            <img src="{{ file.file.url }}" alt="{{ dog.name }}" class="w-full h-48 object-cover rounded-lg shadow-lg">
+            {% else %}
+            <div class="w-full h-48 bg-stone-200 dark:bg-stone-700 rounded-lg shadow-lg flex items-center justify-center relative hover:opacity-80 transition-opacity duration-300">
+                {% if file.thumbnail %}
+                <div class="relative w-full h-48">
+                    <img src="{{ file.thumbnail.url }}" alt="{{ dog.name }}" class="w-full h-48 object-cover rounded-lg">
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg">
+                        {% include "icons/video_camera.html" %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="w-full h-48 bg-black rounded-lg flex items-center justify-center">
+                    {% include "icons/video_camera.html" %}
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="gallery-modal" class="fixed inset-0 z-[2000] hidden">
+    <!-- Background Overlay (with opacity) -->
+    <div id="modal-overlay" class="absolute inset-0 bg-black/67 backdrop-blur-md"></div>
+
+    <!-- Modal Content (no opacity) -->
+    <div id="modal-content" class="relative w-full h-full flex items-center justify-center">
+        <!-- Close Button -->
+        <button id="close-modal" class="absolute top-4 right-4 text-white text-4xl hover:text-stone-300 transition duration-300 z-[2001]">
+            &times;
+        </button>
+        
+        <!-- Modal Content -->
+        <div class="w-full max-w-4xl h-full max-h-[90vh] flex items-center justify-center z-[2001]">
+            <img id="modalImage" alt="" class="hidden w-full h-full object-contain rounded-lg">
+            
+            <video id="modalVideo" controls class="hidden w-full h-full object-contain rounded-lg">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/pages/dog_detail/dog_gallery.js' %}"></script>

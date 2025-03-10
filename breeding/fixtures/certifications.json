@@ -1,0 +1,133 @@
+[
+    {
+        "model": "breeding.certification",
+        "pk": 1,
+        "fields": {
+            "code": "WB",
+            "name": "Wesensbeurteilung",
+            "breeds": [
+                ["German Shepherd", "Dog"],
+                ["Belgian Malinois", "Dog"]
+            ],
+            "description": "Wesensbeurteilung: The WB is a temperament examination performed between the ages of 9 and 13 months. This allows the licensed judge to see the true character and temperament of the dog before being influenced by training.",
+            "description_en": "Wesensbeurteilung: The WB is a temperament examination performed between the ages of 9 and 13 months. This allows the licensed judge to see the true character and temperament of the dog before being influenced by training.",
+            "description_pt": "Wesensbeurteilung: O WB é um exame de temperamento realizado entre os 9 e 13 meses de idade. Isso permite ao juiz licenciado ver o verdadeiro caráter e temperamento do cão antes de ser influenciado pelo treinamento.",
+            "order": 1
+        }
+    },
+    {
+        "model": "breeding.certification",
+        "pk": 2,
+        "fields": {
+            "code": "AD",
+            "name": "Ausdauerpruefung",
+            "breeds": [
+                ["German Shepherd", "Dog"],
+                ["Belgian Malinois", "Dog"]
+            ],
+            "description": "Ausdauerpruefung: This title denotes a dog who passed an endurance test by gaiting for 12.5 miles at around six miles per hour with a ten minute rest at the halfway point, followed by a light obedience exam to finish. A requirement for a breed survey.",    
+            "description_en": "Ausdauerpruefung: This title denotes a dog who passed an endurance test by gaiting for 12.5 miles at around six miles per hour with a ten minute rest at the halfway point, followed by a light obedience exam to finish. A requirement for a breed survey.",
+            "description_pt": "Ausdauerpruefung: Este título denota um cão que passou em um teste de resistência, trotando por 12,5 milhas a cerca de seis milhas por hora com um descanso de dez minutos no ponto intermediário, seguido por um exame leve de obediência para terminar. Um requisito para uma pesquisa de raça",
+            "order": 2
+        }
+    },
+    {
+        "model": "breeding.certification",
+        "pk": 3,
+        "fields": {
+            "code": "BH",
+            "name": "Begleitungshund",
+            "breeds": [
+                ["German Shepherd", "Dog"],
+                ["Belgian Malinois", "Dog"]
+            ],
+            "description": "Begleitungshund: The BH is a companion dog test and the first step towards pursuing Schutzhund titles. The main focus of a BH is the temperament test; however, the dog must pass obedience before proceeding to the temperament portion of the BH exam. A dog must earn the BH before competing for IGP titles",
+            "description_en": "Begleitungshund: The BH is a companion dog test and the first step towards pursuing Schutzhund titles. The main focus of a BH is the temperament test; however, the dog must pass obedience before proceeding to the temperament portion of the BH exam. A dog must earn the BH before competing for IGP titles",
+            "description_pt": "Begleitungshund: O BH é um teste de cão de companhia e o primeiro passo para buscar títulos de Schutzhund. O foco principal de um BH é o teste de temperamento; no entanto, o cão deve passar na obediência antes de prosseguir para a parte de temperamento do exame BH. Um cão deve ganhar o BH antes",
+            "order": 3
+        }
+    },
+    {
+        "model": "breeding.certification",
+        "pk": 4,
+        "fields": {
+            "code": "IGP",
+            "name": "Internationale Gebrauchshundepruefung",
+            "breeds": [
+                ["German Shepherd", "Dog"],
+                ["Belgian Malinois", "Dog"]
+            ],
+            "description": "Internationale Gebrauchshundepruefung: The IGP is a three-part title that includes tracking, obedience, and protection. The IGP is a combination of the BH, IPO1, IPO2, and IPO3 titles. The IGP is a requirement for the KKL.",
+            "description_en": "Internationale Gebrauchshundepruefung: The IGP is a three-part title that includes tracking, obedience, and protection. The IGP is a combination of the BH, IPO1, IPO2, and IPO3 titles. The IGP is a requirement for the KKL.",
+            "description_pt": "Internationale Gebrauchshundepruefung: O IGP é um título de três partes que inclui rastreamento, obediência e proteção. O IGP é uma combinação dos títulos BH, IPO1, IPO2 e IPO3. O IGP é um requisito para o KKL.",
+            "order": 4
+        }
+    },
+    {
+        "model": "breeding.certification",
+        "pk": 5,
+        "fields": {
+            "code": "IGP1",
+            "parent": ["IGP"],
+            "name": "Internationale Gebrauchshundepruefung 1",
+            "breeds": [
+                ["German Shepherd", "Dog"],
+                ["Belgian Malinois", "Dog"]
+            ],
+            "description": "Internationale Gebrauchshundepruefung 1: The IGP1 is the first level of the IGP titles. The IGP1 is a combination of tracking, obedience, and protection. The tracking portion is a 20 minute old track with 2-4 turns. The obedience portion includes heeling, retrieves, and a long down. The protection portion includes a search of hiding places, a hold and bark, and a courage test.",
+            "description_en": "Internationale Gebrauchshundepruefung 1: The IGP1 is the first level of the IGP titles. The IGP1 is a combination of tracking, obedience, and protection. The tracking portion is a 20 minute old track with 2-4 turns. The obedience portion includes heeling, retrieves, and a long down. The protection portion includes a search of hiding places, a hold and bark, and a courage test.",
+            "description_pt": "Internationale Gebrauchshundepruefung 1: O IGP1 é o primeiro nível dos títulos IGP. O IGP1 é uma combinação de rastreamento, obediência e proteção. A parte de rastreamento é uma pista de 20 minutos com 2-4 voltas. A parte de obediência inclui heeling, recuperações e um longo descanso. A parte de proteção inclui uma busca de esconderijos, uma espera e latido e um teste de coragem.",
+            "order": 5
+        }
+    },
+    {
+        "model": "breeding.certification",
+        "pk": 6,
+        "fields": {
+            "code": "IGP2",
+            "parent": ["IGP"],
+            "name": "Internationale Gebrauchshundepruefung 2",
+            "breeds": [
+                ["German Shepherd", "Dog"],
+                ["Belgian Malinois", "Dog"]
+            ],
+            "description": "Internationale Gebrauchshundepruefung 2: The IGP2 is the second level of the IGP titles. The IGP2 is a combination of tracking, obedience, and protection. The tracking portion is a 30 minute old track with 4-6 turns. The obedience portion includes heeling, retrieves, and a long down. The protection portion includes a search of hiding places, a hold and bark, and a courage test.",
+            "description_en": "Internationale Gebrauchshundepruefung 1: The IGP1 is the first level of the IGP titles. The IGP1 is a combination of tracking, obedience, and protection. The tracking portion is a 20 minute old track with 2-4 turns. The obedience portion includes heeling, retrieves, and a long down. The protection portion includes a search of hiding places, a hold and bark, and a courage test.",
+            "description_pt": "Internationale Gebrauchshundepruefung 2: O IGP2 é o segundo nível dos títulos IGP. O IGP2 é uma combinação de rastreamento, obediência e proteção. A parte de rastreamento é uma pista de 30 minutos com 4-6 voltas. A parte de obediência inclui heeling, recuperações e um longo descanso. A parte de proteção inclui uma busca de esconderijos, uma espera e latido e um teste de coragem.",
+            "order": 6
+        }
+    },
+    {
+        "model": "breeding.certification",
+        "pk": 7,
+        "fields": {
+            "code": "IGP3",
+            "parent": ["IGP"],
+            "name": "Internationale Gebrauchshundepruefung 3",
+            "breeds": [
+                ["German Shepherd", "Dog"],
+                ["Belgian Malinois", "Dog"]
+            ],
+            "description": "Internationale Gebrauchshundepruefung 3: The IGP3 is the third level of the IGP titles. The IGP3 is a combination of tracking, obedience, and protection. The tracking portion is a 60 minute old track with 6-8 turns. The obedience portion includes heeling, retrieves, and a long down. The protection portion includes a search of hiding places, a hold and bark, and a courage test.",
+            "description_en": "Internationale Gebrauchshundepruefung 3: The IGP3 is the third level of the IGP titles. The IGP3 is a combination of tracking, obedience, and protection. The tracking portion is a 60 minute old track with 6-8 turns. The obedience portion includes heeling, retrieves, and a long down. The protection portion includes a search of hiding places, a hold and bark, and a courage test.",
+            "description_pt": "Internationale Gebrauchshundepruefung 3: O IGP3 é o terceiro nível dos títulos IGP. O IGP3 é uma combinação de rastreamento, obediência e proteção. A parte de rastreamento é uma pista de 60 minutos com 6-8 voltas. A parte de obediência inclui heeling, recuperações e um longo descanso. A parte de proteção inclui uma busca de esconderijos, uma espera e latido e um teste de coragem.",
+            "order": 7
+        }
+    },
+    {
+        "model": "breeding.certification",
+        "pk": 8,
+        "fields": {
+            "code": "KKL",
+            "name": "Koerklasse",
+            "breeds": [
+                ["German Shepherd", "Dog"],
+                ["Belgian Malinois", "Dog"]
+            ],
+            "description": "Koerklasse: A KKL certifies that every dog in the pedigree has earned a breed survey, which deems the dog especially recommended for breeding. In order to get the KKL, the dog must have certified hips and elbows, a BH temperament and competition degree, a conformation show title, as well as a working title (IGP).",
+            "description_en": "Koerklasse: A KKL certifies that every dog in the pedigree has earned a breed survey, which deems the dog especially recommended for breeding. In order to get the KKL, the dog must have certified hips and elbows, a BH temperament and competition degree, a conformation show title, as well as a working title (IGP).",
+            "description_pt": "Koerklasse: Um KKL certifica que cada cão na árvore genealógica obteve uma pesquisa de raça, o que torna o cão especialmente recomendado para reprodução. Para obter o KKL, o cão deve ter quadris e cotovelos certificados, um temperamento BH e grau de competição, um título de show de conformação, bem como um título de trabalho (IGP).",
+            "order": 8
+        }
+    }
+]

@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<footer class="bg-white dark:bg-stone-800 shadow-md w-full py-12 z-[1001]">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
+            <div>
+                <h3 class="font-bold text-lg mb-4">{% translate "Address" %}</h3>
+                <p>Rua Quinta dos Frades, 904</p>
+                <p>2400-821 Leiria, Portugal</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">{% translate "Partnerships" %}</h3>
+                <ul>
+                    <li>{% translate "Our Veterinary" %}: <a class="text-yellow-600 dark:text-yellow-500" href="https://outvets.pt/" target="_blank">OutVets</a></li>
+                    <li>{% translate "Material and Accessories"%}: <a class="text-yellow-600 dark:text-yellow-500" href="https://www.facebook.com/profile.php?id=100063537554454" target="_blank">KaliuZ K9</a></li>
+                    <li>{% translate "School and Training" %}: <a class="text-yellow-600 dark:text-yellow-500" href="https://www.olhocaocentrocanino.com/" target="_blank">Olhó Cão Centro Canino</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-stone-700 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-xs ">&copy; {% now "Y" %} Fortissimus Bellator. {% translate "All rights reserved" %}.</p>
+            <p class="text-xs ">{% translate "Developed with ❤️ by" %} <a href="https://www.linkedin.com/in/dmp593/" target="_blank">Daniel Pinto</a></p>
+        </div>
+    </div>
+</footer>

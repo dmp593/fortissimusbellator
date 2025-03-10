@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="{{ request.LANGUAGE_CODE }}" class="{% if theme == 'dark' %}dark{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortissimus Bellator</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'imgs/favicon/favicon.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block styles %}{% endblock %}
+</head>
+<body class="bg-stone-50 dark:bg-stone-900 text-stone-900 dark:text-white flex flex-col min-h-screen">
+    <!-- Navbar -->
+    {% include "components/navbar.html" %}
+
+    <!-- Messages -->
+    {% include "components/messages.html" %}
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-16"> <!-- Add pt-16 to account for the navbar height -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% include "components/footer.html" %}
+
+    <!-- Scripts -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>

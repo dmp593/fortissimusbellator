@@ -1,0 +1,12 @@
+[
+    {
+        "model": "breeding.animalkind",
+        "pk": 1,
+        "fields": {
+            "name": "Dog",
+            "name_en": "Dog",
+            "name_pt": "Cão",
+            "order": 1
+        }
+    }
+]
