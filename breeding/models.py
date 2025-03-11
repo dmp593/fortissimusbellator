@@ -2,7 +2,6 @@ import mimetypes
 import pathlib
 import cv2
 
-
 from io import BytesIO
 from uuid import uuid4
 

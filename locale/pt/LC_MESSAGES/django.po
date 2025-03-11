@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-10 18:03+0000\n"
+"POT-Creation-Date: 2025-03-11 16:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,371 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: accounts/forms.py:11 accounts/forms.py:17
+msgid "Required."
+msgstr "Obrigatório"
+
+#: accounts/forms.py:23
+msgid "Required. Enter a valid email address."
+msgstr "Obrigatório. Insira um endereço de e-mail válido."
+
+#: accounts/forms.py:29
+msgid "Required. Enter your phone number."
+msgstr "Obrigatório. Insira o seu contacto telefónico."
+
+#: accounts/models.py:12
+msgid "user"
+msgstr "utilizador"
+
+#: accounts/models.py:16
+msgid "phone number"
+msgstr "contacto telefónico"
+
+#: accounts/templates/email_confirmation_sent.html:9
+msgid "Email Confirmation Sent"
+msgstr "Email de Confirmação Enviado"
+
+#: accounts/templates/email_confirmation_sent.html:12
+msgid ""
+"We've sent you an email with a link to activate your account. Please check "
+"your inbox and follow the instructions."
+msgstr ""
+"Enviamos-lhe um e-mail com um link para ativar a sua conta. Verifique a sua "
+"caixa de entrada e siga as instruções."
+
+#: accounts/templates/email_confirmation_sent.html:15
+msgid "If you don't see the email, please check your spam folder."
+msgstr "Caso não veja o e-mail, verifique a sua pasta de spam."
+
+#: accounts/templates/email_confirmation_sent.html:19
+msgid "Back to Login"
+msgstr "Voltar aos Nossos Cães"
+
+#: accounts/templates/login.html:9 accounts/templates/login.html:43
+msgid "Login"
+msgstr "Entrar"
+
+#: accounts/templates/login.html:15 accounts/templates/register.html:126
+msgid "Username"
+msgstr "Nome de utilizador"
+
+#: accounts/templates/login.html:20 accounts/templates/register.html:131
+msgid "Enter your username"
+msgstr "Insira o seu nome de utilizador"
+
+#: accounts/templates/login.html:30 accounts/templates/register.html:149
+msgid "Password"
+msgstr "Palavra-passe"
+
+#: accounts/templates/login.html:35 accounts/templates/register.html:154
+msgid "Enter your password"
+msgstr "Insira a sua palavra-passe"
+
+#: accounts/templates/login.html:51
+msgid "Don't have an account?"
+msgstr "Não tem conta?"
+
+#: accounts/templates/login.html:51
+msgid "Register here"
+msgstr "Registe-se aqui"
+
+#: accounts/templates/login.html:55
+msgid "Forgot your password?"
+msgstr "Esqueceu-se da sua palavra-passe?"
+
+#: accounts/templates/logout.html:8
+msgid "You have been logged out"
+msgstr "Terminou a sua sessão"
+
+#: accounts/templates/logout.html:11
+msgid "Login again"
+msgstr "Entrar novamente"
+
+#: accounts/templates/password/password_reset_complete.html:9
+msgid "Password Reset Complete"
+msgstr "Redefinição de palavra-passe concluída"
+
+#: accounts/templates/password/password_reset_complete.html:12
+msgid "Your password has been set. You may now log in."
+msgstr "A sua palavra-passe foi definida. Pode voltar a entrar."
+
+#: accounts/templates/password/password_reset_complete.html:16
+msgid "Log in"
+msgstr "Entrar"
+
+#: accounts/templates/password/password_reset_confirm.html:10
+msgid "Set New Password"
+msgstr "Definir Nova Palavra-passe"
+
+#: accounts/templates/password/password_reset_confirm.html:20
+msgid "New Password"
+msgstr "Nova Palavra-passe"
+
+#: accounts/templates/password/password_reset_confirm.html:25
+msgid "Enter your new password"
+msgstr "Introduza a sua nova palavra-passe"
+
+#: accounts/templates/password/password_reset_confirm.html:35
+msgid "Confirm New Password"
+msgstr "Confirme a nova palavra-passe"
+
+#: accounts/templates/password/password_reset_confirm.html:40
+msgid "Confirm your new password"
+msgstr "Confirme a sua nova palavra-passe"
+
+#: accounts/templates/password/password_reset_confirm.html:63
+msgid "Change Password"
+msgstr "Alterar Palavra-passe"
+
+#: accounts/templates/password/password_reset_done.html:9
+msgid "Password Reset Sent"
+msgstr "Redefinição de palavra-passe enviada"
+
+#: accounts/templates/password/password_reset_done.html:12
+msgid ""
+"We've emailed you instructions for setting your password. If you don't "
+"receive an email, please make sure you've entered the address you registered "
+"with."
+msgstr ""
+"Enviamos-lhe por e-mail as instruções para definir a sua palavra-passe. Caso "
+"não tenha, recebido um e-mail, certifique-se de que introduz o endereço com "
+"que se registou."
+
+#: accounts/templates/password/password_reset_done.html:16
+#: accounts/templates/password/password_reset_form.html:27
+msgid "Back to login"
+msgstr "Voltar aos Nossos Cães"
+
+#: accounts/templates/password/password_reset_email.html:6
+#: accounts/templates/password/password_reset_email.html:66
+msgid "Password Reset"
+msgstr "Redefinição de Palavra-passe"
+
+#: accounts/templates/password/password_reset_email.html:71
+msgid "Hello,"
+msgstr "Olá,"
+
+#: accounts/templates/password/password_reset_email.html:72
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"account at Fortissimus Bellator."
+msgstr ""
+"Está a receber este e-mail porque solicitou uma redefinição de palavra-passe "
+"para a sua conta no Fortissimus Bellator."
+
+#: accounts/templates/password/password_reset_email.html:73
+msgid "Please click the button below to reset your password:"
+msgstr "Clique no botão abaixo para repor a sua palavra-passe:"
+
+#: accounts/templates/password/password_reset_email.html:75
+#: accounts/templates/password/password_reset_form.html:9
+#: accounts/templates/password/password_reset_form.html:22
+msgid "Reset Password"
+msgstr "Redefinir Palavra-passe"
+
+#: accounts/templates/password/password_reset_email.html:77
+msgid "If you didn't request this, please ignore this email."
+msgstr "Se não o solicitou, ignore este e-mail."
+
+#: accounts/templates/password/password_reset_email.html:78
+msgid "Thank you,"
+msgstr "Obrigado,"
+
+#: accounts/templates/password/password_reset_email.html:79
+msgid "The Fortissimus Bellator Team"
+msgstr "Sobre o Fortissimus Bellator"
+
+#: accounts/templates/password/password_reset_email.html:84
+msgid "This is an automated message. Please do not reply."
+msgstr "Esta é uma mensagem automática. Por favor, não responda."
+
+#: accounts/templates/password/password_reset_form.html:15
+#: accounts/templates/register.html:80
+#: accounts/templates/resend_activation_email.html:15
+#: frontoffice/templates/contact_us.html:71
+msgid "Email"
+msgstr "E-mail"
+
+#: accounts/templates/password/password_reset_form.html:19
+#: accounts/templates/register.html:85
+#: accounts/templates/resend_activation_email.html:19
+msgid "Enter your email"
+msgstr "O Seu E-mail"
+
+#: accounts/templates/register.html:11
+msgid "Create an Account"
+msgstr "Cria uma Conta"
+
+#: accounts/templates/register.html:14
+msgid "Join Fortissimus Bellator to manage your dogs and purchases."
+msgstr "Junte-se ao Fortissimus Bellator para gerir os seus cães e compras."
+
+#: accounts/templates/register.html:34
+msgid "First Name"
+msgstr "O Seu Nome"
+
+#: accounts/templates/register.html:39
+msgid "Enter your first name"
+msgstr "Insira o seu primeiro nome"
+
+#: accounts/templates/register.html:57
+msgid "Last Name"
+msgstr "Nome"
+
+#: accounts/templates/register.html:62
+msgid "Enter your last name"
+msgstr "Insira o seu último nome"
+
+#: accounts/templates/register.html:103
+#: frontoffice/templates/contact_us.html:53
+msgid "Phone"
+msgstr "Contacto Telefónico"
+
+#: accounts/templates/register.html:108
+msgid "Enter your phone number"
+msgstr "Insira do seu contacto telefónico"
+
+#: accounts/templates/register.html:172
+msgid "Confirm Password"
+msgstr "Confirmar Palavra-passe"
+
+#: accounts/templates/register.html:177
+msgid "Confirm your password"
+msgstr "Confirme a sua palavra-passe"
+
+#: accounts/templates/register.html:197
+msgid "Register"
+msgstr "Registar"
+
+#: accounts/templates/register.html:204
+msgid "Already have an account?"
+msgstr "Já tem uma conta?"
+
+#: accounts/templates/register.html:204
+msgid "Login here"
+msgstr "Entrar aqui"
+
+#: accounts/templates/resend_activation_email.html:9
+msgid "Resend Activation Email"
+msgstr "Reenviar Email de Ativação de Conta"
+
+#: accounts/templates/resend_activation_email.html:22
+msgid "Resend Email"
+msgstr "Reenviar email"
+
+#: accounts/templates/welcome.html:10
+msgid "Welcome, "
+msgstr "Olá, "
+
+#: accounts/templates/welcome.html:13
+msgid "We're thrilled to have you here. Let's make a difference together!"
+msgstr ""
+"Estamos muito felizes por estar connosco. Vamos fazer a diferença juntos!"
+
+#: accounts/templates/welcome.html:19 accounts/templates/welcome.html:137
+msgid "Explore Our Dogs"
+msgstr "Os Nossos Cães"
+
+#: accounts/templates/welcome.html:29
+msgid "Quick Actions"
+msgstr "Ações Rápidas"
+
+#: accounts/templates/welcome.html:37
+msgid "Admin Panel"
+msgstr "Painel de Administração"
+
+#: accounts/templates/welcome.html:40
+msgid "Manage the platform and keep everything running smoothly."
+msgstr "Faça a gestão da plataforma e mantenha tudo a funcionar perfeitamente."
+
+#: accounts/templates/welcome.html:44
+msgid "Go to Admin Panel"
+msgstr "Aceder ao Painel Administrativo"
+
+#: accounts/templates/welcome.html:51
+#: frontoffice/templates/components/navbar.html:21
+#: frontoffice/templates/components/navbar.html:85
+msgid "FAQs"
+msgstr "Perguntas Frequentes"
+
+#: accounts/templates/welcome.html:54
+msgid ""
+"Find answers to common questions about dog training, adoption, and care."
+msgstr ""
+"Encontre respostas a perguntas comuns sobre treino, adoção e cuidados a ter "
+"com cães."
+
+#: accounts/templates/welcome.html:58
+msgid "View FAQs"
+msgstr "Perguntas Frequentes"
+
+#: accounts/templates/welcome.html:68
+#: frontoffice/templates/components/navbar.html:19
+#: frontoffice/templates/components/navbar.html:83
+msgid "Our Dogs"
+msgstr "Os Nossos Cães"
+
+#: accounts/templates/welcome.html:71
+msgid "Discover our exceptional dogs and their unique qualities."
+msgstr "Descubra os nossos cães excecionais e as suas qualidades únicas."
+
+#: accounts/templates/welcome.html:75
+msgid "Explore Now"
+msgstr "Explorar Agora"
+
+#: accounts/templates/welcome.html:83 accounts/templates/welcome.html:142
+#: frontoffice/templates/components/navbar.html:22
+#: frontoffice/templates/components/navbar.html:86
+#: frontoffice/templates/contact_us.html:13
+msgid "Contact Us"
+msgstr "Contacte-Nos"
+
+#: accounts/templates/welcome.html:86
+msgid "Have questions? Reach out to us for assistance."
+msgstr "Tem perguntas ou quer saber mais? Contacte-nos!"
+
+#: accounts/templates/welcome.html:90
+msgid "Get in Touch"
+msgstr "Entre em Contacto"
+
+#: accounts/templates/welcome.html:102
+msgid "Every Dog Deserves a Chance to Shine!"
+msgstr "Todo o cão merece uma oportunidade de brilhar!"
+
+#: accounts/templates/welcome.html:104
+msgid ""
+"At Fortissimus Bellator, we believe in the unique potential of every dog. "
+"Whether it's through training, care, or companionship, we're here to make a "
+"difference in their lives—and yours."
+msgstr ""
+"Em Fortissimus Bellator, acreditamos no potencial único de cada cão.Seja "
+"através de formação, cuidado ou companheirismo, estamos aqui para fazer "
+"umdiferença na vida deles - e na sua."
+
+#: accounts/templates/welcome.html:110
+msgid "Learn More About Us"
+msgstr "Saiba Mais"
+
+#: accounts/templates/welcome.html:118
+msgid "Happy Dog"
+msgstr "Cão Feliz"
+
+#: accounts/templates/welcome.html:128
+msgid "Ready to Make a Difference?"
+msgstr "Pronto para fazer a diferença?"
+
+#: accounts/templates/welcome.html:131
+msgid ""
+"Join us in our mission to breed and train exceptional dogs. Explore, "
+"connect, and be part of the journey."
+msgstr ""
+"Junte-se a nós na nossa missão de criar e treinar cães excecionais. Explore, "
+"conecte-se e faça parte da jornada."
+
+#: accounts/views.py:75 accounts/views.py:101
+msgid "Activate your account"
+msgstr "Ativar a sua conta"
+
 #: breeding/forms.py:32
 msgid "Price (€)"
 msgstr "Preço (€)"
@@ -26,145 +391,158 @@ msgstr "Preço (€)"
 msgid "Discount (€)"
 msgstr "Desconto (€)"
 
-#: breeding/models.py:64 breeding/models.py:93 breeding/models.py:144
-#: breeding/models.py:229
+#: breeding/models.py:63 breeding/models.py:92 breeding/models.py:143
+#: breeding/models.py:228
 msgid "name"
 msgstr "nome"
 
-#: breeding/models.py:69 breeding/models.py:120 breeding/models.py:171
-#: breeding/models.py:210 breeding/models.py:322 breeding/models.py:393
+#: breeding/models.py:68 breeding/models.py:119 breeding/models.py:170
+#: breeding/models.py:209 breeding/models.py:321 breeding/models.py:392
 #: frontoffice/models.py:46
 msgid "order"
 msgstr "ordem"
 
-#: breeding/models.py:75
+#: breeding/models.py:74
 msgid "animal kind"
 msgstr "tipo de animal"
 
-#: breeding/models.py:76
+#: breeding/models.py:75
 msgid "animals kinds"
 msgstr "tipos de animais"
 
-#: breeding/models.py:88
+#: breeding/models.py:87
 msgid "kind"
 msgstr "tipo"
 
-#: breeding/models.py:100
+#: breeding/models.py:99
 msgid "cover"
 msgstr "capa"
 
-#: breeding/models.py:105 breeding/models.py:149 breeding/models.py:234
-#: breeding/models.py:376
+#: breeding/models.py:104 breeding/models.py:148 breeding/models.py:233
+#: breeding/models.py:375
 msgid "description"
 msgstr "descrição"
 
-#: breeding/models.py:113 breeding/models.py:157
+#: breeding/models.py:112 breeding/models.py:156
 msgid "parent"
 msgstr "pai/mãe"
 
-#: breeding/models.py:139
+#: breeding/models.py:138
 msgid "code"
 msgstr "código"
 
-#: breeding/models.py:166
+#: breeding/models.py:165
 msgid "breeds"
 msgstr "raças"
 
-#: breeding/models.py:177 breeding/models.py:197
+#: breeding/models.py:176 breeding/models.py:196
 msgid "certification"
 msgstr "certificação"
 
-#: breeding/models.py:178 breeding/models.py:275
+#: breeding/models.py:177 breeding/models.py:274
 msgid "certifications"
 msgstr "certificações"
 
-#: breeding/models.py:189 breeding/models.py:355
+#: breeding/models.py:188 breeding/models.py:354
 msgid "animal"
 msgstr "animal"
 
-#: breeding/models.py:205
+#: breeding/models.py:204
 msgid "date"
 msgstr "data"
 
-#: breeding/models.py:214
+#: breeding/models.py:213
 msgid "animal certification"
 msgstr "certificação do animal"
 
-#: breeding/models.py:215
+#: breeding/models.py:214
 msgid "animal certifications"
 msgstr "certificações do animal"
 
-#: breeding/models.py:238
+#: breeding/models.py:237
 msgid "birth date"
 msgstr "data de nascimento"
 
-#: breeding/models.py:245
+#: breeding/models.py:244
 msgid "gender"
 msgstr "género"
 
-#: breeding/models.py:252
+#: breeding/models.py:251
 msgid "father"
 msgstr "pai"
 
-#: breeding/models.py:261
+#: breeding/models.py:260
 msgid "mother"
 msgstr "mãe"
 
-#: breeding/models.py:267
+#: breeding/models.py:266
 msgid "has training"
 msgstr "tem treino"
 
-#: breeding/models.py:286
+#: breeding/models.py:285
 msgid "price in euros"
 msgstr "preço (€)"
 
-#: breeding/models.py:297
+#: breeding/models.py:296
 msgid "discount in euros"
 msgstr "desconto (€)"
 
-#: breeding/models.py:303
+#: breeding/models.py:302
 msgid "sold at"
 msgstr "vendido em"
 
-#: breeding/models.py:311
+#: breeding/models.py:310
 msgid "sold to"
 msgstr "vendido para"
 
-#: breeding/models.py:317 frontoffice/models.py:41
+#: breeding/models.py:316 frontoffice/models.py:41
 msgid "active"
 msgstr "ativo"
 
-#: breeding/models.py:363
+#: breeding/models.py:362
 msgid "file"
 msgstr "ficheiro"
 
-#: breeding/models.py:370
+#: breeding/models.py:369
 msgid "thumbnail"
 msgstr "miniatura"
 
-#: breeding/models.py:382
+#: breeding/models.py:381
 msgid "filename"
 msgstr "nome do ficheiro"
 
-#: breeding/models.py:388
+#: breeding/models.py:387
 msgid "content type"
 msgstr "tipo de conteúdo"
 
-#: breeding/models.py:397
+#: breeding/models.py:396
 msgid "animal file"
 msgstr "ficheiro do animal"
 
-#: breeding/models.py:398
+#: breeding/models.py:397
 msgid "animal files"
 msgstr "ficheiros do animal"
 
-#: fortissimusbellator/settings.py:141
+#: fortissimusbellator/settings.py:176
 msgid "English"
 msgstr "Inglês"
 
-#: fortissimusbellator/settings.py:142
+#: fortissimusbellator/settings.py:177
 msgid "Portuguese"
 msgstr "Português"
+
+#: frontoffice/forms.py:11 frontoffice/templates/contact_us.html:39
+msgid "Your Name"
+msgstr "O Seu Nome"
+
+#: frontoffice/forms.py:19 frontoffice/forms.py:27
+#: frontoffice/templates/contact_us.html:75
+msgid "Your Email"
+msgstr "O Seu E-mail"
+
+#: frontoffice/forms.py:35 frontoffice/templates/contact_us.html:93
+msgid "Your Message"
+msgstr "A Sua Mensagem"
 
 #: frontoffice/models.py:24
 msgid "question"
@@ -193,6 +571,42 @@ msgstr ""
 #: frontoffice/templates/about_us.html:31
 msgid "Our Mission"
 msgstr "A Nossa Missão"
+
+#: frontoffice/templates/about_us.html:33
+msgid ""
+"At Fortissimus Bellator, we are passionate about breeding and training high-"
+"quality dogs that excel in both work and companionship. Our journey began "
+"with a deep respect for the intelligence, loyalty, and versatility of dogs. "
+"Over the years, we have dedicated ourselves to producing dogs that meet the "
+"highest standards of health, temperament, and performance."
+msgstr ""
+"Em Fortissimus Bellator, somos apaixonados pela criação e treino de cãoes"
+"de alta qualidade que se destacam tanto no trabalho como no companheirismo. A nossa viagem começou"
+"com um profundo respeito pela inteligência, lealdade e versatilidade dos cães."
+"Ao longo dos anos, dedicámo-nos a produzir cães que vão ao encontro das"
+"os mais elevados padrões de saúde, temperamento e desempenho."
+
+#: frontoffice/templates/about_us.html:36
+msgid ""
+"Whether it's for police work, service roles, or as beloved family pets, "
+"every dog we breed is raised with care, trained with expertise, and nurtured "
+"to reach their full potential. We believe in the power of a well-trained dog "
+"to make a difference in the lives of individuals and communities."
+msgstr ""
+"Seja para trabalho policial, funções de serviço ou como adorados animais de estimação da família, "
+"cada cão que criamos é criado com cuidado, treinado com experiência e nutrido"
+"para atingir todo o seu potencial. Acreditamos no poder de um cão bem treinado "
+"fazer a diferença na vida dos indivíduos e das comunidades."
+
+#: frontoffice/templates/about_us.html:39
+msgid ""
+"Our commitment goes beyond breeding. We provide lifelong support to our "
+"clients, ensuring that every dog thrives in their environment and continues "
+"to grow in their role."
+msgstr ""
+"O nosso compromisso vai além da criação. Oferecemos apoio vitalício aos nossos "
+"clientes, garantindo que cada cão prospera no seu ambiente e continua"
+"para crescer no seu papel."
 
 #: frontoffice/templates/about_us.html:50
 msgid "Our Core Values"
@@ -315,72 +729,44 @@ msgid "Developed with ❤️ by"
 msgstr "Desenvolvido com ❤️ por"
 
 #: frontoffice/templates/components/navbar.html:18
-#: frontoffice/templates/components/navbar.html:61
+#: frontoffice/templates/components/navbar.html:82
 msgid "Home"
 msgstr "Início"
 
-#: frontoffice/templates/components/navbar.html:19
-#: frontoffice/templates/components/navbar.html:62
-msgid "Our Dogs"
-msgstr "Os Nossos Cães"
-
 #: frontoffice/templates/components/navbar.html:20
-#: frontoffice/templates/components/navbar.html:63
+#: frontoffice/templates/components/navbar.html:84
 msgid "About Us"
 msgstr "Sobre Nós"
-
-#: frontoffice/templates/components/navbar.html:21
-#: frontoffice/templates/components/navbar.html:64
-msgid "FAQs"
-msgstr "Perguntas Frequentes"
-
-#: frontoffice/templates/components/navbar.html:22
-#: frontoffice/templates/components/navbar.html:65
-#: frontoffice/templates/contact_us.html:13
-msgid "Contact Us"
-msgstr "Contacte-Nos"
 
 #: frontoffice/templates/contact_us.html:16
 msgid "Have questions or want to learn more? Reach out to us!"
 msgstr "Tem perguntas ou quer saber mais? Contacte-nos!"
 
-#: frontoffice/templates/contact_us.html:25
+#: frontoffice/templates/contact_us.html:35
 msgid "Name"
 msgstr "Nome"
 
-#: frontoffice/templates/contact_us.html:29
-msgid "Your Name"
+#: frontoffice/templates/contact_us.html:57
+msgid "Your Phone"
 msgstr "O Seu Nome"
 
-#: frontoffice/templates/contact_us.html:35
-msgid "Email"
-msgstr "E-mail"
-
-#: frontoffice/templates/contact_us.html:39
-msgid "Your Email"
-msgstr "O Seu E-mail"
-
-#: frontoffice/templates/contact_us.html:45
+#: frontoffice/templates/contact_us.html:89
 msgid "Message"
 msgstr "Mensagem"
 
-#: frontoffice/templates/contact_us.html:49
-msgid "Your Message"
-msgstr "A Sua Mensagem"
-
-#: frontoffice/templates/contact_us.html:57
+#: frontoffice/templates/contact_us.html:117
 msgid "Send Message"
 msgstr "Enviar Mensagem"
 
-#: frontoffice/templates/contact_us.html:65
+#: frontoffice/templates/contact_us.html:125
 msgid "Our Location"
 msgstr "A Nossa Localização"
 
-#: frontoffice/templates/contact_us.html:68
+#: frontoffice/templates/contact_us.html:128
 msgid "Visit us at our facility in Leiria, Portugal."
 msgstr "Visite-nos nas nossas instalações em Leiria, Portugal."
 
-#: frontoffice/templates/contact_us.html:75
+#: frontoffice/templates/contact_us.html:135
 msgid "View Larger Map"
 msgstr "Ver Mapa Maior"
 
@@ -560,14 +946,14 @@ msgstr "Encontre o seu companheiro"
 msgid "Load More"
 msgstr "Carregar Mais"
 
-#: frontoffice/views.py:33
+#: frontoffice/views.py:63
 msgid "Please fill out all fields."
 msgstr "Por favor, preencha todos os campos."
 
-#: frontoffice/views.py:51
+#: frontoffice/views.py:68
 msgid "Thank you! We will get back to you soon."
 msgstr "Obrigado! Entraremos em contacto consigo brevemente."
 
-#: frontoffice/views.py:53
+#: frontoffice/views.py:71
 msgid "Ups... Try again later."
 msgstr "Ups... Tente novamente mais tarde."

@@ -10,29 +10,32 @@
                 <img id="logo-light" src="{% static 'imgs/logo-light.svg' %}" alt="Fortissimus Bellator Logo" class="{% if theme == 'dark' %}hidden{% endif %} h-16 object-contain">
                 <img id="logo-dark" src="{% static 'imgs/logo-dark.svg' %}" alt="Fortissimus Bellator Logo" class="{% if theme == 'light' %}hidden{% endif %} h-16 object-contain">
                 <!-- Brand Name (hidden on small screens) -->
-                <a href="javascript:" class="hidden sm:flex ml-2 font-serif font-bold text-xl">Fortissimus Bellator</a>
+                <a href="javascript:" class="hidden xl:flex ml-2 font-bold font-metamorphous text-sm">Fortissimus Bellator</a>
             </div>
 
             <!-- Desktop Menu (hidden on mobile) -->
             <div class="hidden lg:flex space-x-6 items-center">
-                <a href="{% url 'home' %}" class="hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Home" %}</a>
-                <a href="{% url 'our_dogs' %}" class="hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Our Dogs" %}</a>
-                <a href="{% url 'about_us' %}" class="hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "About Us" %}</a>
-                <a href="{% url 'faqs' %}" class="hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "FAQs" %}</a>
-                <a href="{% url 'contact_us' %}" class="hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Contact Us" %}</a>
+                <a href="{% url 'home' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "Home" %}</a>
+                <a href="{% url 'our_dogs' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "Our Dogs" %}</a>
+                <a href="{% url 'about_us' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "About Us" %}</a>
+                <a href="{% url 'faqs' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "FAQs" %}</a>
+                <a href="{% url 'contact_us' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "Contact Us" %}</a>
             </div>
 
             <!-- Right Side: Contact, Language, Theme, and Mobile Menu Button -->
-            <div class="flex items-center space-x-4">
-                <!-- Telephone -->
-                <a href="tel:+351924454382" class="font-extrabold text-sm text-yellow-600 dark:text-yellow-500 whitespace-nowrap">924 454 382</a>
+            <div class="flex items-center justify-center space-x-4">
+                <!-- Telephones (stacked vertically) -->
+                <div class="flex flex-col space-y-1">
+                    <a href="tel:+351924454382" class="font-b612-mono font-extrabold text-xs text-yellow-600 dark:text-yellow-500 whitespace-nowrap">924 454 382</a>
+                    <a href="tel:+351916749407" class="font-b612-mono font-extrabold text-xs text-yellow-600 dark:text-yellow-500 whitespace-nowrap">916 749 407</a>
+                </div>
 
                 <!-- Language Toggle -->
-                <button id="language-toggle" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition">
+                <button id="language-toggle" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition flex-shrink-0">
                     {% if request.LANGUAGE_CODE == 'en' %}
-                    <img id="language-icon" src="{% static 'flags/pt.png' %}" alt="Language" class="w-6 h-6">
+                    <img id="language-icon" src="{% static 'flags/pt.png' %}" alt="Language pt-pt" class="w-6 h-6">
                     {% else %}
-                    <img id="language-icon" src="{% static 'flags/uk.png' %}" alt="Language" class="w-6 h-6">
+                    <img id="language-icon" src="{% static 'flags/uk.png' %}" alt="Language en-uk" class="w-6 h-6">
                     {% endif %}
                 </button>
 
@@ -43,6 +46,24 @@
                         <path id="moon-icon" class="{% if theme == 'dark' %}hidden{% endif %}" stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
                     </svg>
                 </button>
+
+                <!-- Login/Logout Icon -->
+                {% if user.is_authenticated %}
+                <form action="{% url 'accounts:logout' %}" method="post" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition">
+                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+                        </svg>
+                    </button>
+                </form>
+                {% else %}
+                <a href="{% url 'accounts:login' %}" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+                    </svg>
+                </a>
+                {% endif %}
 
                 <!-- Mobile Menu Button (hidden on desktop) -->
                 <div class="lg:hidden flex items-center">

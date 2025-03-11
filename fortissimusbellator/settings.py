@@ -20,13 +20,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
     # <key>=(<casting>, <default-value>),
-    SECRET_KEY=(str, 'django-insecure-pu1c&f17&m0kg@%v6wdqnmam(v#dfb2+1qz-mlx519kgompj-x'),
+    SECRET_KEY=(
+        str,
+        'django-insecure-pu1c&f17&m0kg@%v6wdqnmam(v#dfb2+1qz-mlx519kgompj-x'
+    ),
+
     DEBUG=(bool, False),
+
+    EMAIL_HOST=(str, 'localhost'),
+    EMAIL_PORT=(int, 25),
+    EMAIL_HOST_USER=(str, ''),
+    EMAIL_HOST_PASSWORD=(str, ''),
+    EMAIL_USE_TLS=(bool, False),
+    EMAIL_USE_SSL=(bool, False),
+
     DEFAULT_FROM_EMAIL=(str, 'no-reply@fortissimusbellator.pt'),
+
+    RECIPIENT_LIST_ON_CONTACT_US_REQUEST=(
+        list, ['geral@fortissimusbellator.pt', 'luiscosta2001@gmail.com']
+    ),
+
     ALLOWED_HOSTS=(list, ['*']),
+
     DATABASE_URL=(str, 'sqlite:///db.sqlite3'),
+
     STATIC_ROOT=(str, BASE_DIR / 'static'),
     MEDIA_ROOT=(str, BASE_DIR / 'media'),
+
     RECAPTCHA_SITE_KEY=(str, ''),
     RECAPTCHA_SECRET_KEY=(str, ''),
 )
@@ -41,7 +61,15 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_USE_SSL = env('EMAIL_USE_SSL')
+
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+RECIPIENT_LIST_ON_CONTACT_US_REQUEST = env('RECIPIENT_LIST_ON_CONTACT_US_REQUEST')
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
@@ -64,6 +92,7 @@ INSTALLED_APPS = [
     'modeltranslation',
     'django_recaptcha',
 
+    'accounts',
     'breeding',
     'frontoffice',
 ]
@@ -113,6 +142,12 @@ WSGI_APPLICATION = 'fortissimusbellator.wsgi.application'
 DATABASES = {
     'default': env.db()
 }
+
+
+LOGIN_URL = 'accounts:login'
+LOGOUT_URL = 'accounts:logout'
+LOGIN_REDIRECT_URL = 'accounts:welcome'  # Redirect after login
+LOGOUT_REDIRECT_URL = 'home'    # Redirect after logout
 
 
 # Password validation

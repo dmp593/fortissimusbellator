@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="font-serif text-3xl font-bold text-center text-stone-900 dark:text-white">
+        {% translate "You have been logged out" %}
+    </h2>
+    <p class="mt-4 text-center text-stone-700 dark:text-stone-300">
+        <a href="{% url 'accounts:login' %}" class="text-yellow-600 dark:text-yellow-500 hover:underline">{% translate "Login again" %}</a>.
+    </p>
+</div>
+{% endblock %}

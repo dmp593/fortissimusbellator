@@ -23,6 +23,7 @@ from .views import FileUploadView
 
 urlpatterns = [
     path('', include('frontoffice.urls')),
+    path('accounts/', include('accounts.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
     path('upload/', FileUploadView.as_view(), name='upload'),

@@ -41,7 +41,7 @@
             {% endif %}
 
             <!-- Certifications Icon -->
-            {% if dog.certifications.exists or True %}
+            {% if dog.certifications.exists %}
             <div class="flex items-center space-x-2">
                 {% include "icons/academic_cap.html" %}
                 <span class="text-sm text-stone-700 dark:text-stone-300">{% translate "Certified" %}</span>
