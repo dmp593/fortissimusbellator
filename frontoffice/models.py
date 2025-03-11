@@ -46,5 +46,10 @@ class FrequentlyAskedQuestion(models.Model):
         verbose_name=_('order'),
     )
 
+    class Meta:
+        verbose_name = _('Frequently Asked Question')
+        verbose_name_plural = _('Frequently Asked Questions')
+        ordering = ['order']
+
     def __str__(self):
         return f"{self.question}"

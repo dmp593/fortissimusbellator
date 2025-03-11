@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-11 16:33+0000\n"
+"POT-Creation-Date: 2025-03-11 16:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -556,6 +556,15 @@ msgstr "resposta"
 msgid "image"
 msgstr "imagem"
 
+#: frontoffice/models.py:50
+#, fuzzy
+msgid "Frequently Asked Question"
+msgstr "Pergunta Frequente"
+
+#: frontoffice/models.py:51 frontoffice/templates/faqs.html:9
+msgid "Frequently Asked Questions"
+msgstr "Perguntas Frequentes"
+
 #: frontoffice/templates/about_us.html:10
 msgid "About Fortissimus Bellator"
 msgstr "Sobre o Fortissimus Bellator"
@@ -580,11 +589,12 @@ msgid ""
 "Over the years, we have dedicated ourselves to producing dogs that meet the "
 "highest standards of health, temperament, and performance."
 msgstr ""
-"Em Fortissimus Bellator, somos apaixonados pela criação e treino de cãoes"
-"de alta qualidade que se destacam tanto no trabalho como no companheirismo. A nossa viagem começou"
-"com um profundo respeito pela inteligência, lealdade e versatilidade dos cães."
-"Ao longo dos anos, dedicámo-nos a produzir cães que vão ao encontro das"
-"os mais elevados padrões de saúde, temperamento e desempenho."
+"Em Fortissimus Bellator, somos apaixonados pela criação e treino de cãoesde "
+"alta qualidade que se destacam tanto no trabalho como no companheirismo. A "
+"nossa viagem começoucom um profundo respeito pela inteligência, lealdade e "
+"versatilidade dos cães.Ao longo dos anos, dedicámo-nos a produzir cães que "
+"vão ao encontro dasos mais elevados padrões de saúde, temperamento e "
+"desempenho."
 
 #: frontoffice/templates/about_us.html:36
 msgid ""
@@ -593,10 +603,11 @@ msgid ""
 "to reach their full potential. We believe in the power of a well-trained dog "
 "to make a difference in the lives of individuals and communities."
 msgstr ""
-"Seja para trabalho policial, funções de serviço ou como adorados animais de estimação da família, "
-"cada cão que criamos é criado com cuidado, treinado com experiência e nutrido"
-"para atingir todo o seu potencial. Acreditamos no poder de um cão bem treinado "
-"fazer a diferença na vida dos indivíduos e das comunidades."
+"Seja para trabalho policial, funções de serviço ou como adorados animais de "
+"estimação da família, cada cão que criamos é criado com cuidado, treinado "
+"com experiência e nutridopara atingir todo o seu potencial. Acreditamos no "
+"poder de um cão bem treinado fazer a diferença na vida dos indivíduos e das "
+"comunidades."
 
 #: frontoffice/templates/about_us.html:39
 msgid ""
@@ -604,9 +615,9 @@ msgid ""
 "clients, ensuring that every dog thrives in their environment and continues "
 "to grow in their role."
 msgstr ""
-"O nosso compromisso vai além da criação. Oferecemos apoio vitalício aos nossos "
-"clientes, garantindo que cada cão prospera no seu ambiente e continua"
-"para crescer no seu papel."
+"O nosso compromisso vai além da criação. Oferecemos apoio vitalício aos "
+"nossos clientes, garantindo que cada cão prospera no seu ambiente e "
+"continuapara crescer no seu papel."
 
 #: frontoffice/templates/about_us.html:50
 msgid "Our Core Values"
@@ -819,10 +830,6 @@ msgstr "Ligue-nos"
 #: frontoffice/templates/dog_detail/index.html:145
 msgid "Back to Our Dogs"
 msgstr "Voltar aos Nossos Cães"
-
-#: frontoffice/templates/faqs.html:9
-msgid "Frequently Asked Questions"
-msgstr "Perguntas Frequentes"
 
 #: frontoffice/templates/home/_card_breed.html:15
 msgid "Learn More"
