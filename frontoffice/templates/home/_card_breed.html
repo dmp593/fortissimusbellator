@@ -2,7 +2,7 @@
 
 <div class="bg-white dark:bg-stone-900 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 overflow-hidden">
     {% if breed.cover %}
-    <img src="{{ breed.cover.url }}" alt="{{ breed }}" class="w-full h-64 object-cover rounded-t-lg">
+    <img src="{{ breed.cover.url }}" alt="{{ breed }}" class="w-full h-64 object-cover rounded-t-lg" loading="lazy">
     {% endif %}
     <div class="p-6">
         <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white">

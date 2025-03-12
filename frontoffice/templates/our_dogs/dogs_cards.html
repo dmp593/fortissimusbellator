@@ -3,7 +3,7 @@
 {% for dog in dogs %}
 <div class="bg-white dark:bg-stone-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 flex flex-col">
     <!-- Dog Image -->
-    <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-64 object-cover">
+    <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-64 object-cover" loading="lazy">
 
     <!-- Dog Details -->
     <div class="p-6 flex flex-col flex-grow">
@@ -51,8 +51,8 @@
 
         <div class="mt-auto">
             <!-- Price -->
-            {% if dog.for_sale %}
             <div class="mt-4">
+                {% if dog.price_in_euros %}
                 <p class="text-lg font-bold text-stone-700 dark:text-stone-300">
                     {% if dog.discount_in_euros %}
                     <span class="line-through text-stone-700 dark:text-stone-300">{{ dog.price_in_euros }}€</span>
@@ -61,8 +61,12 @@
                     {{ dog.price_in_euros }}€
                     {% endif %}
                 </p>
+                {% else %}
+                <p class="text-lg font-bold italic text-yellow-800 dark:text-yellow-400">
+                    <span>{% translate "Call for Pricing" %}</span>
+                </p>
+                {% endif %}
             </div>
-            {% endif %}
 
             <!-- Details Button -->
             <div class="pt-6">

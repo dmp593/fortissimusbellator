@@ -79,7 +79,7 @@ def our_dogs(request):
     breeds = Breed.objects.exclude(id__in=parent_breeds)
 
     # Fetch dogs with optional filters
-    dogs = Animal.objects.filter(active=True, sold_at__isnull=True)
+    dogs = Animal.objects.filter(active=True, for_sale=True, sold_at__isnull=True)
 
     # Get filter values from the request
     breed_filter = request.GET.get('breed')

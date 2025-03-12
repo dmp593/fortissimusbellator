@@ -73,6 +73,7 @@ class AnimalKind(models.Model):
     class Meta:
         verbose_name = _('animal kind')
         verbose_name_plural = _('animals kinds')
+        ordering = ['order']
 
     def __str__(self):
         return f"{self.name}"
@@ -123,6 +124,9 @@ class Breed(models.Model):
 
     class Meta:
         unique_together = ['kind', 'name']
+        verbose_name = _('breed')
+        verbose_name_plural = _('breeds')
+        ordering = ['order']
 
     def __str__(self):
         if self.parent and self.parent.name not in self.name:
@@ -212,6 +216,7 @@ class AnimalCertification(models.Model):
     class Meta:
         verbose_name = _('animal certification')
         verbose_name_plural = _('animal certifications')
+        ordering = ['order']
 
     def __str__(self):
         return f"{self.animal.name} - {self.certification.code}"
@@ -220,7 +225,10 @@ class AnimalCertification(models.Model):
 class Animal(models.Model):
     breed = models.ForeignKey(
         Breed,
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        verbose_name=_('breed'),
+        related_name='animals',
+        related_query_name='animal',
     )
 
     name = models.CharField(
@@ -261,11 +269,6 @@ class Animal(models.Model):
         related_name='mother_children',
     )
 
-    has_training = models.BooleanField(
-        default=False,
-        verbose_name=_('has training'),
-    )
-
     certifications = models.ManyToManyField(
         Certification,
         through=AnimalCertification,
@@ -296,7 +299,7 @@ class Animal(models.Model):
         verbose_name=_('discount in euros'),
     )
 
-    sold_at = models.DateTimeField(
+    sold_at = models.DateField(
         null=True,
         blank=True,
         verbose_name=_('sold at')
@@ -316,14 +319,20 @@ class Animal(models.Model):
         verbose_name=_('active')
     )
 
+    has_training = models.BooleanField(
+        default=False,
+        verbose_name=_('has training'),
+    )
+
+    for_sale = models.BooleanField(
+        default=False,
+        verbose_name=_('for sale'),
+    )
+
     order = models.IntegerField(
         default=999,
         verbose_name=_('order'),
     )
-
-    @property
-    def for_sale(self):
-        return self.price_in_euros is not None
 
     @property
     def current_price_in_euros(self):

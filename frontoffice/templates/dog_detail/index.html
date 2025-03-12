@@ -18,7 +18,7 @@
     <!-- Cover Photo -->
     <div class="mb-12">
         {% if dog.cover %}
-        <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-96 md:h-[500px] object-cover rounded-lg shadow-lg">
+        <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-96 md:h-[500px] object-cover rounded-lg shadow-lg" loading="lazy">
         {% endif %}
     </div>
 
@@ -111,7 +111,7 @@
                     {% endif %}
 
                     <!-- Price -->
-                    {% if dog.for_sale %}
+                    {% if dog.price_in_euros %}
                     <div class="flex items-center space-x-2">
                         {% include "icons/currency_euro.html" %}
                         <span class="font-sans text-stone-600 dark:text-stone-300">
@@ -122,6 +122,11 @@
                             {{ dog.price_in_euros }}€
                             {% endif %}
                         </span>
+                    </div>
+                    {% else %}
+                    <div class="flex items-center space-x-2 text-yellow-800 dark:text-yellow-400">
+                        {% include "icons/currency_euro.html" %}
+                        <span>{% translate "Call for Pricing" %}</span>
                     </div>
                     {% endif %}
                 </div>

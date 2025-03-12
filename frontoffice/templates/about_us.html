@@ -23,7 +23,8 @@
             <div class="w-full lg:w-1/2">
                 <img src="{% static 'imgs/about-us.jpg' %}" 
                      alt="Working and Companion Dogs" 
-                     class="w-full h-auto rounded-lg shadow-lg">
+                     class="w-full h-auto rounded-lg shadow-lg"
+                     loading="lazy">
             </div>
 
             <!-- Narrative About Fortissimus Bellator -->
@@ -93,7 +94,7 @@
             <div class="inline-flex gap-4 mx-auto overflow-x-auto scroll-smooth snap-x whitespace-nowrap">
                 {% for file in gallery %}
                     <div class="inline-block w-64 h-64 rounded-lg shadow-lg overflow-hidden snap-center flex-shrink-0">
-                        <img src="{{ file.file.url }}" alt="{{ file.description|default:'Dog' }}" class="w-full h-full object-cover">
+                        <img src="{{ file.file.url }}" alt="{{ file.description|default:'Dog' }}" class="w-full h-full object-cover" loading="lazy">
                     </div>
                 {% endfor %}
             </div>

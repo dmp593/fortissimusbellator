@@ -7,8 +7,8 @@
             <!-- Logo and Brand Name (always visible) -->
             <div class="flex items-center flex-shrink-0">
                 <!-- Logo -->
-                <img id="logo-light" src="{% static 'imgs/logo-light.svg' %}" alt="Fortissimus Bellator Logo" class="{% if theme == 'dark' %}hidden{% endif %} h-16 object-contain">
-                <img id="logo-dark" src="{% static 'imgs/logo-dark.svg' %}" alt="Fortissimus Bellator Logo" class="{% if theme == 'light' %}hidden{% endif %} h-16 object-contain">
+                <img id="logo-light" src="{% static 'imgs/logo-light.svg' %}" alt="Fortissimus Bellator Logo" class="{% if theme == 'dark' %}hidden{% endif %} h-16 object-contain" loading="lazy">
+                <img id="logo-dark" src="{% static 'imgs/logo-dark.svg' %}" alt="Fortissimus Bellator Logo" class="{% if theme == 'light' %}hidden{% endif %} h-16 object-contain" loading="lazy">
                 <!-- Brand Name (hidden on small screens) -->
                 <a href="javascript:" class="hidden xl:flex ml-2 font-bold font-metamorphous text-sm">Fortissimus Bellator</a>
             </div>
@@ -33,9 +33,9 @@
                 <!-- Language Toggle -->
                 <button id="language-toggle" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition flex-shrink-0">
                     {% if request.LANGUAGE_CODE == 'en' %}
-                    <img id="language-icon" src="{% static 'flags/pt.png' %}" alt="Language pt-pt" class="w-6 h-6">
+                    <img id="language-icon" src="{% static 'flags/pt.png' %}" alt="Language pt-pt" class="w-6 h-6" loading="lazy">
                     {% else %}
-                    <img id="language-icon" src="{% static 'flags/uk.png' %}" alt="Language en-uk" class="w-6 h-6">
+                    <img id="language-icon" src="{% static 'flags/uk.png' %}" alt="Language en-uk" class="w-6 h-6" loading="lazy">
                     {% endif %}
                 </button>
 

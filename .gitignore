@@ -576,7 +576,8 @@ GitHub.sublime-settings
 # End of https://www.toptal.com/developers/gitignore/api/macos,django,python,pycharm+all,sublimetext,visualstudiocode,node
 
 
+.backup/
 static/
+
 !.env.example
 .env.*
-
