@@ -1,16 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const navbar = document.getElementById("navbar");
-    const logo = document.getElementById("logo");
-
-    window.addEventListener("scroll", function () {
-        if (window.scrollY > 50) { // Adjust the scroll threshold as needed
-            navbar.classList.remove("text-white");
-            navbar.classList.add("bg-white", "dark:bg-stone-800", "shadow-md", "text-stone-800");
-        } else {
-            navbar.classList.remove("bg-white", "dark:bg-stone-800", "shadow-md", "text-stone-800");
-            navbar.classList.add("text-white");
-        }
-    });
+    function isDarkTheme() {
+        return document.documentElement.classList.contains('dark');
+    }
 
     function setTheme(theme) {
         const moonIcon = document.getElementById('moon-icon');
@@ -26,25 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
             moonIcon.classList.remove('hidden');
         }
 
-        // Update logo color if scrolled
-        if (window.scrollY > 50) {
-            if (theme === 'dark') {
-                logo.classList.remove("text-stone-800");
-                logo.classList.add("text-white");
-            } else {
-                logo.classList.remove("text-white");
-                logo.classList.add("text-stone-800");
-            }
-        }
-
         document.cookie = `theme=${theme}; path=/; max-age=31536000`;
     }
 
     function toggleTheme() {
-        const isDarkMode = document.documentElement.classList.contains('dark');
-        const newTheme = isDarkMode ? 'light' : 'dark';
+        const newTheme = isDarkTheme() ? 'light' : 'dark';
         setTheme(newTheme);
-        // window.location.reload();
+        window.location.reload();
     }
 
     document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
