@@ -35,7 +35,7 @@ def animal_file_upload_to(instance: 'AnimalFile', filename: str) -> str:
     if content_type:
         instance.content_type = content_type
 
-    return f"animals/{instance.animal.breed.kind.name}/{instance.animal.breed.name}/{instance.animal.name}/{uuid4().hex}{extension}"
+    return f"animals/{instance.pk}/{uuid4().hex}{extension}"
 
 
 def animal_file_thumbnail_upload_to(instance: 'AnimalFile', filename: str) -> str:
@@ -44,7 +44,7 @@ def animal_file_thumbnail_upload_to(instance: 'AnimalFile', filename: str) -> st
     if not extension:
         extension = pathlib.Path(filename).suffix
 
-    return f"animals/{instance.animal.breed.kind.name}/{instance.animal.breed.name}/{instance.animal.name}/thumbnails/{uuid4().hex}{extension}"
+    return f"animals/{instance.pk}/thumbnails/{uuid4().hex}{extension}"
 
 
 def breed_cover_upload_to(instance: 'Breed', filename: str) -> str:
@@ -53,7 +53,7 @@ def breed_cover_upload_to(instance: 'Breed', filename: str) -> str:
     if not extension:
         extension = pathlib.Path(filename).suffix
 
-    return f"breeds/{instance.kind.name}/{instance.name}/{uuid4().hex}{extension}"
+    return f"breeds/{instance.pk}/{uuid4().hex}{extension}"
 
 
 class AnimalKind(models.Model):
