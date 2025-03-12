@@ -7,9 +7,10 @@
     <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
         {% translate "Gallery" %}
     </h2>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    {% if dog.files.exists %}
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {% for file in dog.files.all %}
-        <div class="modal-open relative group cursor-pointer transform transition-transform duration-300 hover:scale-105" data-file-url="{{ file.file.url }}" data-file-type="{% if file.content_type|startswith:'image' %}image{% else %}video{% endif %}">
+        <div class="modal-open relative group cursor-pointer transform transition-transform duration-300 hover:scale-105" data-file-url="{{ file.file.url }}" data-file-type="{% if file.content_type|startswith:'image' %}image{% else %}'video'{% endif %}">
             {% if file.content_type|startswith:'image' %}
             <img src="{{ file.file.url }}" alt="{{ dog.name }}" class="w-full h-48 object-cover rounded-lg shadow-lg" loading="lazy">
             {% else %}
@@ -31,17 +32,22 @@
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <p class="text-center text-stone-500 dark:text-stone-400">
+        {% translate "No media available in the gallery." %}
+    </p>
+    {% endif %}
 </div>
 
 <!-- Modal -->
-<div id="gallery-modal" class="fixed inset-0 z-[2000] hidden">
-    <!-- Background Overlay (with opacity) -->
+<div id="gallery-modal" class="fixed inset-0 z-[2000] hidden" aria-hidden="true" tabindex="-1">
+    <!-- Background Overlay -->
     <div id="modal-overlay" class="absolute inset-0 bg-black/67 backdrop-blur-md"></div>
 
-    <!-- Modal Content (no opacity) -->
+    <!-- Modal Content -->
     <div id="modal-content" class="relative w-full h-full flex items-center justify-center">
         <!-- Close Button -->
-        <button id="close-modal" class="absolute top-4 right-4 text-white text-4xl hover:text-stone-300 transition duration-300 z-[2001]">
+        <button id="close-modal" class="absolute top-4 right-4 text-white text-4xl hover:text-stone-300 transition duration-300 z-[2001]" aria-label="{% translate 'Close modal' %}">
             &times;
         </button>
         
@@ -50,7 +56,7 @@
             <img id="modalImage" alt="" class="hidden w-full h-full object-contain rounded-lg" loading="lazy">
             
             <video id="modalVideo" controls class="hidden w-full h-full object-contain rounded-lg">
-                Your browser does not support the video tag.
+                {% translate "Your browser does not support the video tag." %}
             </video>
         </div>
     </div>

@@ -15,10 +15,9 @@
         </p>
     </div>
 
-    <!-- Cover Photo -->
     <div class="mb-12">
         {% if dog.cover %}
-        <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-96 md:h-[500px] object-cover rounded-lg shadow-lg" loading="lazy">
+            <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="aspect-[4/5] sm:aspect-[3/4] md:aspect-square lg:aspect-video w-full h-full object-cover rounded-lg shadow-lg" loading="lazy">
         {% endif %}
     </div>
 
