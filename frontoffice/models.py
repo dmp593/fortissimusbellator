@@ -13,7 +13,7 @@ def faq_image_upload_to(instance: 'FrequentlyAskedQuestion', filename: str) -> s
     if not extension:
         extension = pathlib.Path(filename).suffix
 
-    return f"faqs/{instance.pk}/{uuid4().hex}{extension}"
+    return f"faqs/{uuid4().hex}{extension}"
 
 
 class FrequentlyAskedQuestion(models.Model):
