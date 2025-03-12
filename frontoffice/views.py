@@ -73,13 +73,17 @@ def contact_us(request):
     return redirect('contact_us')
 
 
+def dogs_queryset():
+    return Animal.objects.filter(active=True, for_sale=True, sold_at__isnull=True)
+
+
 def our_dogs(request):
     # Fetch breeds for the filter dropdown
     parent_breeds = Breed.objects.filter(parent__isnull=False).values_list('parent', flat=True)
     breeds = Breed.objects.exclude(id__in=parent_breeds)
 
     # Fetch dogs with optional filters
-    dogs = Animal.objects.filter(active=True, for_sale=True, sold_at__isnull=True)
+    dogs = dogs_queryset()
 
     # Get filter values from the request
     breed_filter = request.GET.get('breed')
@@ -149,8 +153,11 @@ def our_dogs(request):
 
 
 def dog_detail(request, dog_id):
-    dog = get_object_or_404(Animal, id=dog_id, active=True)
-    return render(request, 'dog_detail/index.html', {'dog': dog})
+    try:
+        dog = dogs_queryset().get(pk=dog_id)
+        return render(request, 'dog_detail/index.html', {'dog': dog})
+    except Animal.DoesNotExist:
+        return redirect('our_dogs')
 
 
 def faqs(request):

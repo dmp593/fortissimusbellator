@@ -1,7 +1,4 @@
 module.exports = {
-  plugins: [
-    require("@designbycode/tailwindcss-text-stroke")
-  ],
   content: [
     './templates/**/*.html',
     './**/templates/**/*.html',

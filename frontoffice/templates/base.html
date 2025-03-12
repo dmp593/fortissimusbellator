@@ -1,11 +1,68 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="{{ request.LANGUAGE_CODE }}" class="{% if theme == 'dark' %}dark{% endif %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fortissimus Bellator</title>
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Fortissimus Bellator",
+          "description": "Professional dog breeders in Portugal specializing in quality breeds such as German Shepherds, Belgian Malinois, and German Spitz.",
+          "url": "https://fortissimusbellator.pt",
+          "logo": "{% static 'imgs/logo.svg' %}",
+          "image": "{% static 'imgs/home.webp' %}",
+          "telephone": "+351924454382",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Rua Quinta dos Frades, 904",
+            "addressLocality": "Leiria",
+            "addressRegion": "Leiria",
+            "postalCode": "2400-821",
+            "addressCountry": "PT"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 39.7054288,
+            "longitude": -8.8573286
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          "sameAs": [
+            "https://www.facebook.com/afixodefortissimusbellator",
+            "https://www.instagram.com/fortissimus_bellator/"
+          ],
+          "@typeAdditionalType": ["https://schema.org/PetStore"]
+        }
+    </script>
+    
+    <meta name="description" content="Professional premium dog breeders in Portugal. Criadores de cães especializados com raças de qualidade. Contact us today!">
+    <meta name="keywords" content="dog breeder, criadores cães portugal, portuguese dog breeders, cães de raça, malinois, german shepherd breeder, belgian malinois breeder, german spitz breeder, criadores de pastor alemão, criadores de malinois, criadores de pastores belgas malinois, criadores de spitz alemão">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="canonical" href="https://fortissimusbellator.pt" />
+    
+    <meta property="og:title" content="Dog Breeder in Portugal | Criadores de Cães em Portugal">
+    <meta property="og:description" content="Find professional dog breeders in Portugal offering premium quality breeds. Contact us now!">
+    <meta property="og:url" content="https://fortissimusbellator.pt">    
+    <meta property="og:image" content="{% static 'imgs/logo.svg' %}">
+
+    <title>Fortissimus Bellator | {% translate "Dog Breeder in Portugal" %}</title>
+    
     <link rel="shortcut icon" type="image/png" href="{% static 'imgs/favicon/favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% block styles %}{% endblock %}
