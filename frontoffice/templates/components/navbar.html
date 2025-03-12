@@ -1,21 +1,19 @@
 {% load static %}
 {% load i18n %}
 
-<nav class="bg-white dark:bg-stone-800 shadow-md fixed w-full top-0 z-[1001]">
+<nav class="fixed w-full top-0 z-[1001] transition-colors duration-300 text-white bg-transparent" id="navbar">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
-            <!-- Logo and Brand Name (always visible) -->
-            <div class="flex items-center flex-shrink-0">
-                <!-- Logo -->
-                <img id="logo-light" src="{% static 'imgs/logo-light.svg' %}" alt="Fortissimus Bellator Logo" class="{% if theme == 'dark' %}hidden{% endif %} h-16 object-contain" loading="lazy">
-                <img id="logo-dark" src="{% static 'imgs/logo-dark.svg' %}" alt="Fortissimus Bellator Logo" class="{% if theme == 'light' %}hidden{% endif %} h-16 object-contain" loading="lazy">
-                <!-- Brand Name (hidden on small screens) -->
-                <a href="javascript:" class="hidden xl:flex ml-2 font-bold font-metamorphous text-sm">Fortissimus Bellator</a>
-            </div>
+            <!-- Logo and Brand Name -->
+            <a href="{% url 'home' %}" aria-label="link to home page">
+                <div class="flex items-center flex-shrink-0">
+                    {% include "components/logo.html" with className="dark:text-yellow-400 h-16" width="64" height="64" %}
+                    <span class="hidden xl:flex ml-2 font-bold font-metamorphous text-sm">Fortissimus Bellator</span>
+                </div>
+            </a>
 
-            <!-- Desktop Menu (hidden on mobile) -->
+            <!-- Desktop Menu -->
             <div class="hidden lg:flex space-x-6 items-center">
-                <a href="{% url 'home' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "Home" %}</a>
                 <a href="{% url 'our_dogs' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "Our Dogs" %}</a>
                 <a href="{% url 'about_us' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "About Us" %}</a>
                 <a href="{% url 'faqs' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "FAQs" %}</a>
@@ -24,10 +22,10 @@
 
             <!-- Right Side: Contact, Language, Theme, and Mobile Menu Button -->
             <div class="flex items-center justify-center space-x-2 sm:space-x-4">
-                <!-- Telephones (stacked vertically) -->
+                <!-- Telephones -->
                 <div class="flex flex-col space-y-1">
-                    <a href="tel:+351924454382" class="font-b612-mono font-extrabold text-sm text-yellow-800 dark:text-yellow-400 whitespace-nowrap">924 454 382</a>
-                    <a href="tel:+351916749407" class="font-b612-mono font-extrabold text-sm text-yellow-800 dark:text-yellow-400 whitespace-nowrap">916 749 407</a>
+                    <a href="tel:+351924454382" class="font-b612-mono font-extrabold text-sm whitespace-nowrap">924 454 382</a>
+                    <a href="tel:+351916749407" class="font-b612-mono font-extrabold text-sm whitespace-nowrap">916 749 407</a>
                 </div>
 
                 <!-- Language Toggle -->
@@ -65,7 +63,7 @@
                 </a>
                 {% endif %}
 
-                <!-- Mobile Menu Button (hidden on desktop) -->
+                <!-- Mobile Menu Button -->
                 <div class="lg:hidden flex items-center">
                     <button id="mobile-menu-button" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition" aria-label="mobile menu toggle">
                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -76,10 +74,9 @@
             </div>
         </div>
 
-        <!-- Mobile Menu (hidden by default) -->
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="lg:hidden hidden">
             <div class="pt-2 pb-3 space-y-1">
-                <a href="{% url 'home' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Home" %}</a>
                 <a href="{% url 'our_dogs' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Our Dogs" %}</a>
                 <a href="{% url 'about_us' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "About Us" %}</a>
                 <a href="{% url 'faqs' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "FAQs" %}</a>

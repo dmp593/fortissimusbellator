@@ -5,20 +5,27 @@
 {% block content %}
     <!-- Hero Section -->
     <div class="bg-cover bg-center h-screen relative" style="background-image: url({% static 'imgs/home.webp' %});">
-        <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent"></div>
-        <!-- <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div> -->
-        <div class="flex items-center justify-center h-full relative">
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-black/30 to-transparent"></div>
+    
+        <!-- Content Wrapper -->
+        <div class="flex items-end justify-center h-full relative pb-16 lg:pb-24">
             <div class="text-center text-white px-6">
-                <h1 class="font-serif text-5xl font-bold uppercase drop-shadow-lg">
-                    {% translate "Welcome to Fortissimus Bellator" %}
-                </h1>
-                <p class="font-sans text-lg mt-4 max-w-2xl mx-auto drop-shadow-md">
-                    {% translate "Dedicated to breeding strong, intelligent, and well-socialized dogs. Our passion ensures that each breed maintains its unique characteristics and health." %}
-                </p>
+                <!-- Text Container -->
+                <div class="backdrop-blur-md bg-black/30 p-8 md:p-12 rounded-xl shadow-lg">
+                    <!-- Heading -->
+                    <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-metamorphous font-bold drop-shadow-lg tracking-wide">
+                        Fortissimus Bellator
+                    </h1>
+                    <!-- Subtitle -->
+                    <p class="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl pt-4 mt-2 md:mt-4 max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-5xl mx-auto leading-relaxed tracking-wide">
+                        {% translate "Dedicated to breeding strong, intelligent, and well-socialized dogs. Our passion ensures that each breed maintains its unique characteristics and health." %}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-
+    
     <!-- About Our Breeding Philosophy -->
     <div class="mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <h2 class="font-serif text-3xl font-bold text-center text-stone-900 dark:text-white">

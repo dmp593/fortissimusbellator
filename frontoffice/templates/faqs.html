@@ -3,37 +3,39 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-16">
-    <!-- Page Title -->
-    <h2 class="font-serif text-4xl font-bold text-center text-stone-900 dark:text-white mb-8">
-        {% translate "Frequently Asked Questions" %}
-    </h2>
-
-    <!-- FAQs Section -->
-    <div class="max-w-4xl mx-auto space-y-6">
-        {% for faq in faqs %}
-        <div class="bg-white dark:bg-stone-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
-            <!-- Question -->
-            <div class="question p-6 cursor-pointer flex justify-between items-center">
-                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">
-                    {{ faq.question }}
-                </h3>
-                <span class="text-stone-700 dark:text-stone-300 transform transition-transform duration-300">▼</span>
+<div class="pt-16">
+    <div class="container mx-auto px-4 py-16">
+        <!-- Page Title -->
+        <h2 class="font-serif text-4xl font-bold text-center text-stone-900 dark:text-white mb-8">
+            {% translate "Frequently Asked Questions" %}
+        </h2>
+    
+        <!-- FAQs Section -->
+        <div class="max-w-4xl mx-auto space-y-6">
+            {% for faq in faqs %}
+            <div class="bg-white dark:bg-stone-800 rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+                <!-- Question -->
+                <div class="question p-6 cursor-pointer flex justify-between items-center">
+                    <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">
+                        {{ faq.question }}
+                    </h3>
+                    <span class="text-stone-700 dark:text-stone-300 transform transition-transform duration-300">▼</span>
+                </div>
+    
+                <!-- Answer (hidden by default) -->
+                <div class="answer px-6 pb-6 hidden">
+                    <p class="font-sans text-stone-600 dark:text-stone-300 leading-relaxed">
+                        {{ faq.answer }}
+                    </p>
+    
+                    <!-- Optional: A FAQ image -->
+                    {% if faq.image %}
+                    <img src="{{ faq.image.url }}" alt="Image for FAQ '{{ faq.question }}'" class="mt-4 w-full object-cover rounded-lg shadow-md" loading="lazy"> <!-- class="h-48" -->
+                    {% endif %}
+                </div>
             </div>
-
-            <!-- Answer (hidden by default) -->
-            <div class="answer px-6 pb-6 hidden">
-                <p class="font-sans text-stone-600 dark:text-stone-300 leading-relaxed">
-                    {{ faq.answer }}
-                </p>
-
-                <!-- Optional: A FAQ image -->
-                {% if faq.image %}
-                <img src="{{ faq.image.url }}" alt="Image for FAQ '{{ faq.question }}'" class="mt-4 w-full object-cover rounded-lg shadow-md" loading="lazy"> <!-- class="h-48" -->
-                {% endif %}
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}
