@@ -1,5 +1,6 @@
 from django import forms
 from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV3
 from django.utils.translation import gettext_lazy as _
 
 
@@ -20,7 +21,7 @@ class ContactForm(forms.Form):
             }
         )
     )
-    
+
     phone = forms.CharField(
         widget=forms.EmailInput(
             attrs={
@@ -28,7 +29,7 @@ class ContactForm(forms.Form):
             }
         )
     )
-    
+
     message = forms.CharField(
         widget=forms.Textarea(
             attrs={
@@ -37,5 +38,7 @@ class ContactForm(forms.Form):
             }
         )
     )
-    
-    captcha = ReCaptchaField()
+
+    captcha = ReCaptchaField(
+        widget=ReCaptchaV3()
+    )
