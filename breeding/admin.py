@@ -2,21 +2,6 @@ from django.contrib import admin
 from . import models, forms
 
 
-@admin.register(models.AnimalFile)
-class AnimalFileAdmin(admin.ModelAdmin):
-    form = forms.AnimalFileForm
-    ordering = ('-animal', 'order')
-    list_display = (
-        'animal',
-        'filename',
-        'content_type'
-    )
-    list_filter = (
-        'animal',
-        'content_type',
-    )
-
-
 class AnimalFileStackedInline(admin.StackedInline):
     model = models.AnimalFile
     form = forms.AnimalFileInlineForm
@@ -24,6 +9,9 @@ class AnimalFileStackedInline(admin.StackedInline):
 
 class AnimalCertificationStackedInline(admin.StackedInline):
     model = models.AnimalCertification
+
+
+admin.site.register(models.AnimalKind)
 
 
 @admin.register(models.Animal)
@@ -72,7 +60,3 @@ class CertificationAdmin(admin.ModelAdmin):
     )
 
     ordering = ('order',)
-
-
-admin.site.register(models.AnimalKind)
-admin.site.register(models.AnimalCertification)
