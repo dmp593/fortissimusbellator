@@ -78,7 +78,7 @@
                             {% include "icons/users.html" %}
                             <span class="font-sans text-stone-600 dark:text-stone-300">
                                 {% if litter.expected_babies %}
-                                {{ litter.expected_babies }} {% translate "babies" %}
+                                {% blocktranslate count babies=litter.expected_babies|default:0 %}1 baby{% plural %}{{ babies }} babies{% endblocktranslate %}
                                 {% else %}
                                 {% translate "Expected Number of Babies yet to be determined" %}
                                 {% endif %}
