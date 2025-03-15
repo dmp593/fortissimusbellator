@@ -152,7 +152,7 @@ def buy_a_dog(request):
 def dog_detail(request, dog_id):
     try:
         dog = Animal.dogs_for_sale.get(pk=dog_id)
-        return render(request, 'dog_detail/index.html', {'dog': dog})
+        return render(request, 'buy_a_dog/detail.html', {'dog': dog})
     except Animal.DoesNotExist:
         return redirect('buy_a_dog')
 
