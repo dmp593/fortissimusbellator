@@ -180,9 +180,7 @@
         </div>
 
         <!-- Load More -->
-        {% if litters and pagination.has_more %}
         {% include "components/paginated_loader.html" with pagination=pagination url_name='buy_a_dog' target="grid" %}
-        {% endif %}
     </div>
 </div>
 {% endblock %}
