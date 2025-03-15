@@ -801,7 +801,7 @@ msgstr "Voltar atrás"
 
 #: frontoffice/templates/buy_a_dog/index.html:10
 msgid "Find Your Perfect Companion"
-msgstr "Encontra o teu Cão-panheiro perfeito"
+msgstr "Encontre o seu Cão-panheiro perfeito"
 
 #: frontoffice/templates/buy_a_dog/index.html:16
 #: frontoffice/templates/upcoming_litters/index.html:16
