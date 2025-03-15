@@ -1,0 +1,23 @@
+{% load static %}
+{% load i18n %}
+
+<!-- Load More Button -->
+{% if pagination.has_more %}
+<div class="mt-6 text-center paginated-loader-container">
+    <button
+        data-target="{{ target }}"
+        data-url="{% url url_name %}"
+        data-per-page="{{ pagination.per_page }}"
+        data-next-page="{{ pagination.next_page }}"
+        data-total-pages="{{ pagination.total_pages }}"
+        data-filters="{{ request.GET.urlencode }}"
+        class="paginated-loader-button bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300"
+    >
+        {% translate "Load More" %}
+    </button>
+</div>
+{% endif %}
+
+{% block scripts %}
+<script src="{% static 'js/components/paginated_loader.js' %}"></script>
+{% endblock %}

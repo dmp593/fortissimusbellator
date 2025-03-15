@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-12 11:46+0000\n"
+"POT-Creation-Date: 2025-03-14 17:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -279,9 +279,12 @@ msgid "We're thrilled to have you here. Let's make a difference together!"
 msgstr ""
 "Estamos muito felizes por estar connosco. Vamos fazer a diferença juntos!"
 
-#: accounts/templates/welcome.html:19 accounts/templates/welcome.html:138
-msgid "Explore Our Dogs"
-msgstr "Os Nossos Cães"
+#: accounts/templates/welcome.html:19 accounts/templates/welcome.html:68
+#: accounts/templates/welcome.html:138
+#: frontoffice/templates/components/navbar.html:17
+#: frontoffice/templates/components/navbar.html:81
+msgid "Buy a Dog"
+msgstr "Adquirir um Cão"
 
 #: accounts/templates/welcome.html:29
 msgid "Quick Actions"
@@ -300,8 +303,8 @@ msgid "Go to Admin Panel"
 msgstr "Aceder ao Painel Administrativo"
 
 #: accounts/templates/welcome.html:51
-#: frontoffice/templates/components/navbar.html:19
-#: frontoffice/templates/components/navbar.html:82
+#: frontoffice/templates/components/navbar.html:20
+#: frontoffice/templates/components/navbar.html:84
 msgid "FAQs"
 msgstr "Perguntas Frequentes"
 
@@ -316,12 +319,6 @@ msgstr ""
 msgid "View FAQs"
 msgstr "Perguntas Frequentes"
 
-#: accounts/templates/welcome.html:68
-#: frontoffice/templates/components/navbar.html:17
-#: frontoffice/templates/components/navbar.html:80
-msgid "Our Dogs"
-msgstr "Os Nossos Cães"
-
 #: accounts/templates/welcome.html:71
 msgid "Discover our exceptional dogs and their unique qualities."
 msgstr "Descubra os nossos cães excecionais e as suas qualidades únicas."
@@ -331,8 +328,8 @@ msgid "Explore Now"
 msgstr "Explorar Agora"
 
 #: accounts/templates/welcome.html:83 accounts/templates/welcome.html:143
-#: frontoffice/templates/components/navbar.html:20
-#: frontoffice/templates/components/navbar.html:83
+#: frontoffice/templates/components/navbar.html:21
+#: frontoffice/templates/components/navbar.html:85
 #: frontoffice/templates/contact_us.html:14
 msgid "Contact Us"
 msgstr "Contacte-Nos"
@@ -383,174 +380,196 @@ msgstr ""
 msgid "Activate your account"
 msgstr "Ativar a sua conta"
 
-#: breeding/forms.py:32
-msgid "Price (€)"
-msgstr "Preço (€)"
-
-#: breeding/forms.py:38
-msgid "Discount (€)"
-msgstr "Desconto (€)"
-
-#: breeding/models.py:63 breeding/models.py:93 breeding/models.py:147
-#: breeding/models.py:236
-msgid "name"
-msgstr "nome"
-
-#: breeding/models.py:68 breeding/models.py:120 breeding/models.py:174
-#: breeding/models.py:213 breeding/models.py:334 breeding/models.py:401
-#: frontoffice/models.py:46
-msgid "order"
-msgstr "ordem"
-
-#: breeding/models.py:74
-msgid "animal kind"
-msgstr "tipo de animal"
-
-#: breeding/models.py:75
-msgid "animals kinds"
-msgstr "tipos de animais"
-
-#: breeding/models.py:88
-msgid "kind"
-msgstr "tipo"
-
-#: breeding/models.py:100
-msgid "cover"
-msgstr "capa"
-
-#: breeding/models.py:105 breeding/models.py:152 breeding/models.py:241
-#: breeding/models.py:384
-msgid "description"
-msgstr "descrição"
-
-#: breeding/models.py:113 breeding/models.py:160
-msgid "parent"
-msgstr "pai/mãe"
-
-#: breeding/models.py:127 breeding/models.py:229
-#, fuzzy
-#| msgid "breeds"
-msgid "breed"
-msgstr "raças"
-
-#: breeding/models.py:128 breeding/models.py:169
-msgid "breeds"
-msgstr "raças"
-
-#: breeding/models.py:142
-msgid "code"
-msgstr "código"
-
-#: breeding/models.py:180 breeding/models.py:200
-msgid "certification"
-msgstr "certificação"
-
-#: breeding/models.py:181 breeding/models.py:277
-msgid "certifications"
-msgstr "certificações"
-
-#: breeding/models.py:192 breeding/models.py:363
-msgid "animal"
-msgstr "animal"
-
-#: breeding/models.py:208
-msgid "date"
-msgstr "data"
-
-#: breeding/models.py:217
-msgid "animal certification"
-msgstr "certificação do animal"
-
-#: breeding/models.py:218
-msgid "animal certifications"
-msgstr "certificações do animal"
-
-#: breeding/models.py:245
-msgid "birth date"
-msgstr "data de nascimento"
-
-#: breeding/models.py:252
-msgid "gender"
-msgstr "género"
-
-#: breeding/models.py:259
-msgid "father"
-msgstr "pai"
-
-#: breeding/models.py:268
-msgid "mother"
-msgstr "mãe"
-
-#: breeding/models.py:288
-msgid "price in euros"
-msgstr "preço (€)"
-
-#: breeding/models.py:299
-msgid "discount in euros"
-msgstr "desconto (€)"
-
-#: breeding/models.py:305
-msgid "sold at"
-msgstr "vendido em"
-
-#: breeding/models.py:313
-msgid "sold to"
-msgstr "vendido para"
-
-#: breeding/models.py:319 frontoffice/models.py:41
-msgid "active"
-msgstr "ativo"
-
-#: breeding/models.py:324
-msgid "has training"
-msgstr "tem treino"
-
-#: breeding/models.py:329
-msgid "for sale"
-msgstr "para venda"
-
-#: breeding/models.py:371
+#: attachments/models.py:47
 msgid "file"
 msgstr "ficheiro"
 
-#: breeding/models.py:378
+#: attachments/models.py:54
 msgid "thumbnail"
 msgstr "miniatura"
 
-#: breeding/models.py:390
+#: attachments/models.py:75 breeding/models.py:80 breeding/models.py:127
+#: breeding/models.py:216 breeding/models.py:362
+msgid "description"
+msgstr "descrição"
+
+#: attachments/models.py:81
 msgid "filename"
 msgstr "nome do ficheiro"
 
+#: attachments/models.py:89
+msgid "MIME type"
+msgstr "tipo de MIME"
+
+#: attachments/models.py:94 breeding/models.py:43 breeding/models.py:95
+#: breeding/models.py:149 breeding/models.py:188 breeding/models.py:311
+#: breeding/models.py:408 frontoffice/models.py:46
+msgid "order"
+msgstr "ordem"
+
+#: attachments/models.py:116
+msgid "attachment"
+msgstr "anexo"
+
+#: attachments/models.py:117
+msgid "attachments"
+msgstr "anexos"
+
+#: breeding/forms.py:21
+msgid "Price (€)"
+msgstr "Preço (€)"
+
+#: breeding/forms.py:27
+msgid "Discount (€)"
+msgstr "Desconto (€)"
+
+#: breeding/models.py:38 breeding/models.py:68 breeding/models.py:122
+#: breeding/models.py:211 breeding/models.py:357
+msgid "name"
+msgstr "nome"
+
+#: breeding/models.py:49
+msgid "animal kind"
+msgstr "tipo de animal"
+
+#: breeding/models.py:50
+msgid "animals kinds"
+msgstr "tipos de animais"
+
+#: breeding/models.py:63
+msgid "kind"
+msgstr "tipo"
+
+#: breeding/models.py:75
+msgid "cover"
+msgstr "capa"
+
+#: breeding/models.py:88 breeding/models.py:135
+msgid "parent"
+msgstr "parente"
+
+#: breeding/models.py:102 breeding/models.py:204 breeding/models.py:350
+msgid "breed"
+msgstr "raça"
+
+#: breeding/models.py:103 breeding/models.py:144
+msgid "breeds"
+msgstr "raças"
+
+#: breeding/models.py:117
+msgid "code"
+msgstr "código"
+
+#: breeding/models.py:155 breeding/models.py:175
+msgid "certification"
+msgstr "certificação"
+
+#: breeding/models.py:156 breeding/models.py:254
+msgid "certifications"
+msgstr "certificações"
+
+#: breeding/models.py:167 breeding/models.py:338
+msgid "animal"
+msgstr "animal"
+
+#: breeding/models.py:183
+msgid "date"
+msgstr "data"
+
+#: breeding/models.py:192
+msgid "animal certification"
+msgstr "certificação do animal"
+
+#: breeding/models.py:193
+msgid "animal certifications"
+msgstr "certificações do animal"
+
+#: breeding/models.py:220
+msgid "birth date"
+msgstr "data de nascimento"
+
+#: breeding/models.py:227
+msgid "gender"
+msgstr "género"
+
+#: breeding/models.py:234 breeding/models.py:369
+msgid "father"
+msgstr "pai"
+
+#: breeding/models.py:244 breeding/models.py:378
+msgid "mother"
+msgstr "mãe"
+
+#: breeding/models.py:265
+msgid "price in euros"
+msgstr "preço (€)"
+
+#: breeding/models.py:276
+msgid "discount in euros"
+msgstr "desconto (€)"
+
+#: breeding/models.py:282
+msgid "sold at"
+msgstr "vendido em"
+
+#: breeding/models.py:290
+msgid "sold to"
+msgstr "vendido para"
+
+#: breeding/models.py:296 breeding/models.py:403 frontoffice/models.py:41
+msgid "active"
+msgstr "ativo"
+
+#: breeding/models.py:301
+msgid "has training"
+msgstr "tem treino"
+
+#: breeding/models.py:306
+msgid "for sale"
+msgstr "para venda"
+
+#: breeding/models.py:339
+msgid "animals"
+msgstr "animals"
+
+#: breeding/models.py:384
+msgid "expected birth date"
+msgstr "data de nascimento prevista"
+
+#: breeding/models.py:390
+msgid "expected delivery date"
+msgstr "data de entrega prevista"
+
 #: breeding/models.py:396
-msgid "content type"
-msgstr "tipo de conteúdo"
+msgid "expected number of babies"
+msgstr "numero expectável de bebés"
 
-#: breeding/models.py:405
-msgid "animal file"
-msgstr "ficheiro do animal"
+#: breeding/models.py:421
+msgid "litter"
+msgstr "ninhada"
 
-#: breeding/models.py:406
-msgid "animal files"
-msgstr "ficheiros do animal"
+#: breeding/models.py:422
+msgid "litters"
+msgstr "ninhadas"
 
-#: fortissimusbellator/settings.py:176
+#: fortissimusbellator/settings.py:177
 msgid "English"
 msgstr "Inglês"
 
-#: fortissimusbellator/settings.py:177
+#: fortissimusbellator/settings.py:178
 msgid "Portuguese"
 msgstr "Português"
 
-#: frontoffice/forms.py:11 frontoffice/templates/contact_us.html:40
+#: frontoffice/forms.py:12 frontoffice/templates/contact_us.html:40
 msgid "Your Name"
 msgstr "O Seu Nome"
 
-#: frontoffice/forms.py:19 frontoffice/forms.py:27
+#: frontoffice/forms.py:20 frontoffice/forms.py:28
 #: frontoffice/templates/contact_us.html:76
 msgid "Your Email"
 msgstr "O Seu E-mail"
 
-#: frontoffice/forms.py:35 frontoffice/templates/contact_us.html:94
+#: frontoffice/forms.py:36 frontoffice/templates/contact_us.html:94
 msgid "Your Message"
 msgstr "A Sua Mensagem"
 
@@ -580,8 +599,12 @@ msgid "About Fortissimus Bellator"
 msgstr "Sobre o Fortissimus Bellator"
 
 #: frontoffice/templates/about_us.html:13
-msgid "Dedicated to breeding and training exceptional dogs for work, service, and companionship."
-msgstr "Dedicados à criação e treino de cães excecionais para trabalho, serviço e companhia."
+msgid ""
+"Dedicated to breeding and training exceptional dogs for work, service, and "
+"companionship."
+msgstr ""
+"Dedicados à criação e treino de cães excecionais para trabalho, serviço e "
+"companhia."
 
 #: frontoffice/templates/about_us.html:33
 msgid "Our Mission"
@@ -717,6 +740,102 @@ msgstr ""
 "Oferecemos apoio contínuo e recursos aos nossos clientes, garantindo uma "
 "transição suave e sucesso contínuo para cada cão."
 
+#: frontoffice/templates/base.html:64
+msgid "Dog Breeder in Portugal"
+msgstr "Criador de Cães em Portugal"
+
+#: frontoffice/templates/buy_a_dog/dogs_cards.html:19
+#: frontoffice/templates/buy_a_dog/index.html:53
+#: frontoffice/templates/dog_detail/index.html:85
+msgid "Male"
+msgstr "Macho"
+
+#: frontoffice/templates/buy_a_dog/dogs_cards.html:22
+#: frontoffice/templates/buy_a_dog/index.html:54
+#: frontoffice/templates/dog_detail/index.html:88
+msgid "Female"
+msgstr "Fêmea"
+
+#: frontoffice/templates/buy_a_dog/dogs_cards.html:25
+#: frontoffice/templates/buy_a_dog/index.html:55
+#: frontoffice/templates/dog_detail/index.html:91
+msgid "Unknown"
+msgstr "Desconhecido"
+
+#: frontoffice/templates/buy_a_dog/dogs_cards.html:39
+#: frontoffice/templates/dog_detail/index.html:108
+msgid "Trained"
+msgstr "Treinado"
+
+#: frontoffice/templates/buy_a_dog/dogs_cards.html:47
+msgid "Certified"
+msgstr "Certificado"
+
+#: frontoffice/templates/buy_a_dog/dogs_cards.html:66
+#: frontoffice/templates/dog_detail/index.html:129
+msgid "Call for Pricing"
+msgstr "Contacte-nos para Preço"
+
+#: frontoffice/templates/buy_a_dog/dogs_cards.html:74
+msgid "View Details"
+msgstr "Ver Detalhes"
+
+#: frontoffice/templates/buy_a_dog/index.html:10
+msgid "Looking for a companion?"
+msgstr "À procura de um companheiro?"
+
+#: frontoffice/templates/buy_a_dog/index.html:16
+msgid "Breed"
+msgstr "Raça"
+
+#: frontoffice/templates/buy_a_dog/index.html:24
+msgid "All Breeds"
+msgstr "Todas as Raças"
+
+#: frontoffice/templates/buy_a_dog/index.html:44
+msgid "Gender"
+msgstr "Género"
+
+#: frontoffice/templates/buy_a_dog/index.html:52
+msgid "All Genders"
+msgstr "Todos os Géneros"
+
+#: frontoffice/templates/buy_a_dog/index.html:72
+msgid "Age"
+msgstr "Idade"
+
+#: frontoffice/templates/buy_a_dog/index.html:80
+msgid "All Ages"
+msgstr "Todas as Idades"
+
+#: frontoffice/templates/buy_a_dog/index.html:81
+msgid "Puppies (up to 6 months)"
+msgstr "Cachorros (até 6 meses)"
+
+#: frontoffice/templates/buy_a_dog/index.html:82
+msgid "Juniors (6-12 months)"
+msgstr "Júniores (6-12 meses)"
+
+#: frontoffice/templates/buy_a_dog/index.html:83
+msgid "Adults (over 12 months)"
+msgstr "Adultos (mais de 12 meses)"
+
+#: frontoffice/templates/buy_a_dog/index.html:123
+msgid "Has Training"
+msgstr "Tem Treino"
+
+#: frontoffice/templates/buy_a_dog/index.html:153
+msgid "Has Certifications"
+msgstr "Tem Certificações"
+
+#: frontoffice/templates/buy_a_dog/index.html:162
+msgid "Find your fur"
+msgstr "Encontre o seu companheiro"
+
+#: frontoffice/templates/buy_a_dog/index.html:184
+msgid "Load More"
+msgstr "Carregar Mais"
+
 #: frontoffice/templates/components/footer.html:7
 msgid "Address"
 msgstr "Morada"
@@ -746,7 +865,12 @@ msgid "Developed with ❤️ by"
 msgstr "Desenvolvido com ❤️ por"
 
 #: frontoffice/templates/components/navbar.html:18
-#: frontoffice/templates/components/navbar.html:81
+#: frontoffice/templates/components/navbar.html:82
+msgid "Upcoming Litters"
+msgstr "Próximas Ninhadas"
+
+#: frontoffice/templates/components/navbar.html:19
+#: frontoffice/templates/components/navbar.html:83
 msgid "About Us"
 msgstr "Sobre Nós"
 
@@ -760,7 +884,7 @@ msgstr "Nome"
 
 #: frontoffice/templates/contact_us.html:58
 msgid "Your Phone"
-msgstr "O Seu Nome"
+msgstr "O Seu Contacto Telefónico"
 
 #: frontoffice/templates/contact_us.html:90
 msgid "Message"
@@ -786,6 +910,18 @@ msgstr "Ver Mapa Maior"
 msgid "Gallery"
 msgstr "Galeria"
 
+#: frontoffice/templates/dog_detail/dog_gallery.html:37
+msgid "No media available in the gallery."
+msgstr "Sem galeria."
+
+#: frontoffice/templates/dog_detail/dog_gallery.html:50
+msgid "Close modal"
+msgstr "Fechar modal"
+
+#: frontoffice/templates/dog_detail/dog_gallery.html:59
+msgid "Your browser does not support the video tag."
+msgstr "O seu navegador não suporta a etiqueta de vídeo."
+
 #: frontoffice/templates/dog_detail/index.html:32
 msgid "About"
 msgstr "Sobre"
@@ -802,40 +938,13 @@ msgstr "Certificado em"
 msgid "Details"
 msgstr "Detalhes"
 
-#: frontoffice/templates/dog_detail/index.html:85
-#: frontoffice/templates/our_dogs/dogs_cards.html:19
-#: frontoffice/templates/our_dogs/index.html:53
-msgid "Male"
-msgstr "Macho"
-
-#: frontoffice/templates/dog_detail/index.html:88
-#: frontoffice/templates/our_dogs/dogs_cards.html:22
-#: frontoffice/templates/our_dogs/index.html:54
-msgid "Female"
-msgstr "Fêmea"
-
-#: frontoffice/templates/dog_detail/index.html:91
-#: frontoffice/templates/our_dogs/dogs_cards.html:25
-msgid "Unknown"
-msgstr "Desconhecido"
-
-#: frontoffice/templates/dog_detail/index.html:108
-#: frontoffice/templates/our_dogs/dogs_cards.html:39
-msgid "Trained"
-msgstr "Treinado"
-
-#: frontoffice/templates/dog_detail/index.html:129
-#: frontoffice/templates/our_dogs/dogs_cards.html:66
-msgid "Call for Pricing"
-msgstr "Contacte-nos para Preço"
-
 #: frontoffice/templates/dog_detail/index.html:138
 msgid "Call Us"
 msgstr "Ligue-nos"
 
 #: frontoffice/templates/dog_detail/index.html:150
-msgid "Back to Our Dogs"
-msgstr "Voltar aos Nossos Cães"
+msgid "Go Back"
+msgstr "Voltar atrás"
 
 #: frontoffice/templates/home/_card_breed.html:15
 msgid "Learn More"
@@ -891,81 +1000,32 @@ msgstr ""
 "treino, nutrição e cuidados para garantir que os nossos cães encontrem os "
 "melhores lares."
 
-#: frontoffice/templates/our_dogs/dogs_cards.html:47
-msgid "Certified"
-msgstr "Certificado"
-
-#: frontoffice/templates/our_dogs/dogs_cards.html:74
-msgid "View Details"
-msgstr "Ver Detalhes"
-
-#: frontoffice/templates/our_dogs/index.html:10
-msgid "Looking for a companion?"
-msgstr "À procura de um companheiro?"
-
-#: frontoffice/templates/our_dogs/index.html:16
-msgid "Breed"
-msgstr "Raça"
-
-#: frontoffice/templates/our_dogs/index.html:24
-msgid "All Breeds"
-msgstr "Todas as Raças"
-
-#: frontoffice/templates/our_dogs/index.html:44
-msgid "Gender"
-msgstr "Género"
-
-#: frontoffice/templates/our_dogs/index.html:52
-msgid "All Genders"
-msgstr "Todos os Géneros"
-
-#: frontoffice/templates/our_dogs/index.html:71
-msgid "Age"
-msgstr "Idade"
-
-#: frontoffice/templates/our_dogs/index.html:79
-msgid "All Ages"
-msgstr "Todas as Idades"
-
-#: frontoffice/templates/our_dogs/index.html:80
-msgid "Puppies (up to 6 months)"
-msgstr "Cachorros (até 6 meses)"
-
-#: frontoffice/templates/our_dogs/index.html:81
-msgid "Juniors (6-12 months)"
-msgstr "Júniores (6-12 meses)"
-
-#: frontoffice/templates/our_dogs/index.html:82
-msgid "Adults (over 12 months)"
-msgstr "Adultos (mais de 12 meses)"
-
-#: frontoffice/templates/our_dogs/index.html:122
-msgid "Has Training"
-msgstr "Tem Treino"
-
-#: frontoffice/templates/our_dogs/index.html:152
-msgid "Has Certifications"
-msgstr "Tem Certificações"
-
-#: frontoffice/templates/our_dogs/index.html:161
-msgid "Find your fur"
-msgstr "Encontre o seu companheiro"
-
-#: frontoffice/templates/our_dogs/index.html:183
-msgid "Load More"
-msgstr "Carregar Mais"
-
-#: frontoffice/views.py:63
+#: frontoffice/views.py:64
 msgid "Please fill out all fields."
 msgstr "Por favor, preencha todos os campos."
 
-#: frontoffice/views.py:68
+#: frontoffice/views.py:69
 msgid "Thank you! We will get back to you soon."
 msgstr "Obrigado! Entraremos em contacto consigo brevemente."
 
-#: frontoffice/views.py:71
+#: frontoffice/views.py:72
 msgid "Ups... Try again later."
 msgstr "Ups... Tente novamente mais tarde."
+
+#~ msgid "Explore Our Dogs"
+#~ msgstr "Os Nossos Cães"
+
+#~ msgid "content type"
+#~ msgstr "tipo de conteúdo"
+
+#~ msgid "animal file"
+#~ msgstr "ficheiro do animal"
+
+#~ msgid "animal files"
+#~ msgstr "ficheiros do animal"
+
+#~ msgid "Back to Our Dogs"
+#~ msgstr "Voltar aos Nossos Cães"
 
 #~ msgid "Home"
 #~ msgstr "Início"

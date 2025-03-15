@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'modeltranslation',
     'django_recaptcha',
 
+    'attachments',
     'accounts',
     'breeding',
     'frontoffice',

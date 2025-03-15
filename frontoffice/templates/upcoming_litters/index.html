@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="pt-24">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Filter Section -->
+        <div class="mb-8 p-6 bg-gradient-to-br from-stone-50 to-stone-100 dark:from-stone-800 dark:to-stone-900 rounded-xl shadow-lg border border-stone-200 dark:border-stone-700">
+            <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-white mb-6"> 🐾 {% translate "Find Your Future Furry Family" %}</h2>
+            <form id="filters-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
+                <!-- Breed Filter -->
+                <div class="relative">
+                    <label for="breed" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2 flex items-center space-x-2">
+                        {% include "icons/paw_print.html" %}
+                        <span>{% translate "Breed" %}</span>
+                    </label>
+                    <div class="mt-1 relative">
+                        <select
+                            id="breed"
+                            name="breed"
+                            class="w-full appearance-none rounded-lg bg-white dark:bg-stone-900 py-3 pl-4 pr-10 text-sm text-stone-900 dark:text-stone-100 outline-none ring-1 ring-stone-300 dark:ring-stone-700 focus:ring-2 focus:ring-stone-500 transition duration-300"
+                        >
+                            <option value="">{% translate "All Breeds" %}</option>
+                            {% for breed in breeds %}
+                            <option value="{{ breed.id }}" {% if filters.breed == breed.id|stringformat:"s" %}selected{% endif %}>{{ breed.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-stone-500 dark:text-stone-400">
+                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="sm:col-span-2 lg:col-span-4 mt-8">
+                    <button
+                        type="submit"
+                        class="w-full bg-gradient-to-r from-stone-700 to-stone-800 dark:from-stone-800 dark:to-stone-900 text-white px-6 py-3 rounded-lg hover:from-stone-800 hover:to-stone-900 dark:hover:from-stone-900 dark:hover:to-stone-950 transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
+                    >
+                        {% include "icons/magnifying_glass.html" %}
+                        <span class="font-medium">{% translate "Find Litters" %}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Litters Grid -->
+        <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% if litters %}
+            {% include 'upcoming_litters/partials/cards.html' with litters=litters %}
+            {% else %}
+            <!-- No Litters Message -->
+            <div class="col-span-full text-center py-12">
+                <div class="max-w-md mx-auto">
+                    <div class="text-6xl mb-4">🐾</div>
+                    <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
+                        {% translate "No Litters Available" %}
+                    </h3>
+                    <p class="text-stone-600 dark:text-stone-400">
+                        {% translate "We currently don't have any litters available. Please check back later or contact us for more information." %}
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Load More -->
+        {% if litters and pagination.has_more %}
+        {% include "components/paginated_loader.html" with pagination=pagination url_name='upcoming_litters' target="grid" %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

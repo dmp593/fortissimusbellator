@@ -1,22 +1,27 @@
 from modeltranslation.translator import register, TranslationOptions
-from .models import AnimalKind, Breed, Animal, Certification
+from . import models
 
 
-@register(AnimalKind)
+@register(models.AnimalKind)
 class AnimalKindTranslationOptions(TranslationOptions):
     fields = ('name',)
 
 
-@register(Breed)
+@register(models.Breed)
 class AnimalBreedTranslationOptions(TranslationOptions):
     fields = ('name', 'description',)
 
 
-@register(Animal)
+@register(models.Certification)
+class CertificationTranslationOptions(TranslationOptions):
+    fields = ('description',)
+
+
+@register(models.Animal)
 class AnimalTranslationOptions(TranslationOptions):
     fields = ('description',)
 
 
-@register(Certification)
-class CertificationTranslationOptions(TranslationOptions):
-    fields = ('description',)
+@register(models.Litter)
+class LitterTranslationOptions(TranslationOptions): 
+    fields = ('description', )

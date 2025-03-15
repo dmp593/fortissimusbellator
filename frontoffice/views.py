@@ -3,14 +3,16 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from django.utils.translation import gettext_lazy as _
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.core.mail import EmailMessage
+from django.core.paginator import Paginator
 from django.conf import settings
 from django.contrib import messages
 from django.template.loader import render_to_string
 
-from breeding.models import Animal, AnimalFile, Breed
+from breeding.models import Animal, Breed, Litter
 
+from attachments.models import Attachment
 from .models import FrequentlyAskedQuestion
 from .forms import ContactForm
 
@@ -22,7 +24,7 @@ def home(request):
 
 
 def about_us(request):
-    gallery = AnimalFile.objects.filter(content_type__startswith='image').order_by('?')[:20]
+    gallery = Attachment.objects.filter(mime_type__startswith='image').order_by('?')[:20]
     return render(request, 'about_us.html', { 'gallery': gallery })
 
 
@@ -73,19 +75,17 @@ def contact_us(request):
     return redirect('contact_us')
 
 
-def dogs_queryset():
-    return Animal.objects.filter(active=True, for_sale=True, sold_at__isnull=True)
-
-
-def our_dogs(request):
+def get_breeds():
     # Fetch breeds for the filter dropdown
     parent_breeds = Breed.objects.filter(parent__isnull=False).values_list('parent', flat=True)
-    breeds = Breed.objects.exclude(id__in=parent_breeds)
+    return Breed.objects.exclude(id__in=parent_breeds)
 
-    # Fetch dogs with optional filters
-    dogs = dogs_queryset()
 
-    # Get filter values from the request
+def buy_a_dog(request):
+    breeds = get_breeds()
+    dogs = Animal.dogs_for_sale.all()
+
+    # Filters
     breed_filter = request.GET.get('breed')
     gender_filter = request.GET.get('gender')
     age_filter = request.GET.get('age')
@@ -119,25 +119,22 @@ def our_dogs(request):
     # Pagination
     page = int(request.GET.get('page', 1))
     per_page = int(request.GET.get('per_page', 12))
-    offset = (page - 1) * per_page
 
-    # Get the paginated dogs
-    total_dogs = dogs.count()
-    paginated_dogs = dogs[offset:offset + per_page]
+    if per_page <= 0:
+        per_page = 1
 
-    # Calculate total pages
-    total_pages = (total_dogs + per_page - 1) // per_page
+    paginator = Paginator(dogs, per_page)
+    paginated_dogs = paginator.get_page(page)
 
     context = {
         'breeds': breeds,
         'dogs': paginated_dogs,
         'pagination': {
-            'has_more': page < total_pages,  # Show "Load More" if there are more pages
-            'current_page': page,
-            'next_page': page + 1,
-            'total_pages': total_pages,
+            'has_more': paginated_dogs.has_next(),  # Show "Load More" if there are more pages
+            'next_page': paginated_dogs.next_page_number() if paginated_dogs.has_next() else None,
+            'total_pages': paginator.num_pages,
         },
-        'filter_values': {
+        'filters': {
             'breed': breed_filter,
             'gender': gender_filter,
             'age': age_filter,
@@ -147,17 +144,65 @@ def our_dogs(request):
     }
 
     if request.headers.get('X-Load-More'):
-        return render(request, 'our_dogs/dogs_cards.html', context)
+        return render(request, 'buy_a_dog/partials/cards.html', context)
 
-    return render(request, 'our_dogs/index.html', context)
+    return render(request, 'buy_a_dog/index.html', context)
 
 
 def dog_detail(request, dog_id):
     try:
-        dog = dogs_queryset().get(pk=dog_id)
+        dog = Animal.dogs_for_sale.get(pk=dog_id)
         return render(request, 'dog_detail/index.html', {'dog': dog})
     except Animal.DoesNotExist:
-        return redirect('our_dogs')
+        return redirect('buy_a_dog')
+
+
+def upcoming_litters(request):
+    breeds = get_breeds()
+    litters = Litter.litters_for_sale.all()
+
+    # Filters
+    breed_filter = request.GET.get('breed')
+
+    if breed_filter:
+        litters = litters.filter(breed_id=breed_filter)
+
+    # Pagination
+    page = int(request.GET.get('page', 1))
+    per_page = int(request.GET.get('per_page', 12))
+
+    if per_page <= 0:
+        per_page = 1
+
+    paginator = Paginator(litters, per_page)
+    paginated_litters = paginator.get_page(page)
+
+    # Check if it's an HTMX request (Load More button clicked)
+    if request.headers.get('X-Load-More'):
+        return render(request, 'upcoming_litters/partials/cards.html', {'litters': paginated_litters})
+
+    context = {
+        'breeds': breeds,
+        'litters': paginated_litters,
+        'pagination': {
+            'has_more': paginated_litters.has_next(),  # Show "Load More" if there are more pages
+            'next_page': paginated_litters.next_page_number() if paginated_litters.has_next() else None,
+            'total_pages': paginator.num_pages,
+        },
+        'filters': {
+            'breed': breed_filter,
+        },
+    }
+
+    return render(request, 'upcoming_litters/index.html', context)
+
+
+def litter_detail(request, litter_id):
+    try:
+        litter = Litter.litters_for_sale.get(pk=litter_id)
+        return render(request, 'upcoming_litters/detail.html', {'litter': litter})
+    except Litter.DoesNotExist:
+        return redirect('upcoming_litters')
 
 
 def faqs(request):

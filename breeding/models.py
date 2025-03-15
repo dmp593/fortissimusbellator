@@ -1,17 +1,15 @@
 import mimetypes
 import pathlib
-import cv2
 
-from io import BytesIO
 from uuid import uuid4
 
-from django.core.files.base import ContentFile
+from django.db import models
 from django.core.validators import MinValueValidator
 from django.contrib.auth import get_user_model
-from django.db import models
+from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext_lazy as _
-from PIL import Image
 
+from attachments.models import Attachment
 from . import managers
 
 
@@ -22,29 +20,6 @@ GENDER_CHOICES = (
 )
 
 User = get_user_model()
-
-
-def animal_file_upload_to(instance: 'AnimalFile', filename: str) -> str:
-    instance.filename = filename
-
-    extension = mimetypes.guess_extension(filename)
-    if not extension:
-        extension = pathlib.Path(filename).suffix
-
-    content_type, _ = mimetypes.guess_type(filename)
-    if content_type:
-        instance.content_type = content_type
-
-    return f"animals/{uuid4().hex}{extension}"
-
-
-def animal_file_thumbnail_upload_to(instance: 'AnimalFile', filename: str) -> str:
-    extension = mimetypes.guess_extension(filename)
-
-    if not extension:
-        extension = pathlib.Path(filename).suffix
-
-    return f"animals/thumbnails/{uuid4().hex}{extension}"
 
 
 def breed_cover_upload_to(instance: 'Breed', filename: str) -> str:
@@ -257,7 +232,8 @@ class Animal(models.Model):
         null=True,
         blank=True,
         verbose_name=_('father'),
-        related_name='father_children',
+        related_name='children_father',
+        related_query_name='child_father',
     )
 
     mother = models.ForeignKey(
@@ -266,7 +242,8 @@ class Animal(models.Model):
         null=True,
         blank=True,
         verbose_name=_('mother'),
-        related_name='mother_children',
+        related_name='children_mother',
+        related_query_name='child_mother',
     )
 
     certifications = models.ManyToManyField(
@@ -345,55 +322,87 @@ class Animal(models.Model):
         return self.price_in_euros - self.discount_in_euros
 
     @property
+    def files(self):
+        ct = ContentType.objects.get_for_model(self)
+        return Attachment.objects.filter(content_type=ct, object_id=self.pk)
+
+    @property
     def cover(self):
-        return self.files.filter(content_type__startswith='image/').order_by('order').first()
+        return self.files.filter(mime_type__startswith='image/').order_by('order').first()
+
+    objects = models.Manager()
+
+    dogs_for_sale = managers.Manager(
+        for_sale=True, active=True, sold_at__isnull=True
+    )
 
     class Meta:
+        verbose_name = _('animal')
+        verbose_name_plural = _('animals')
         ordering = ['order',]
 
     def __str__(self):
         return f"{self.name}"
 
 
-class AnimalFile(models.Model):
-    animal = models.ForeignKey(
-        to=Animal,
-        on_delete=models.CASCADE,
-        null=False,
-        verbose_name=_('animal'),
-        related_name='files',
-        related_query_name='file'
+class Litter(models.Model):
+    breed = models.ForeignKey(
+        Breed,
+        on_delete=models.PROTECT,
+        verbose_name=_('breed'),
+        related_name='litters',
+        related_query_name='litter',
     )
 
-    file = models.FileField(
-        upload_to=animal_file_upload_to,
-        null=False,
-        verbose_name=_('file'),
+    name = models.CharField(
+        max_length=150,
+        verbose_name=_('name'),
     )
 
-    thumbnail = models.ImageField(
-        upload_to=animal_file_thumbnail_upload_to,
-        null=True,
-        blank=True,
-        verbose_name=_('thumbnail'),
-    )
-
-    description = models.CharField(
-        max_length=255,
+    description = models.TextField(
         blank=True,
         verbose_name=_('description'),
     )
 
-    filename = models.CharField(
-        max_length=255,
-        editable=False,
-        verbose_name=_('filename'),
+    father = models.ForeignKey(
+        Animal, on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name=_('father'),
+        related_name='litter_father',
+        related_query_name='litter_father',
     )
 
-    content_type = models.CharField(
-        max_length=50,
-        editable=False,
-        verbose_name=_('content type'),
+    mother = models.ForeignKey(
+        Animal, on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        verbose_name=_('mother'),
+        related_name='litter_mother',
+        related_query_name='litter_mother',
+    )
+
+    expected_birth_date = models.DateField(
+        verbose_name=_('expected birth date'),
+        null=True,
+        blank=True
+    )
+
+    expected_delivery_date = models.DateField(
+        verbose_name=_('expected delivery date'),
+        null=True,
+        blank=True
+    )
+
+    expected_babies = models.PositiveIntegerField(
+        verbose_name=_('expected number of babies'),
+        null=True,
+        blank=True,
+    )
+
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_('active')
     )
 
     order = models.IntegerField(
@@ -401,38 +410,22 @@ class AnimalFile(models.Model):
         verbose_name=_('order'),
     )
 
+    @property
+    def files(self):
+        ct = ContentType.objects.get_for_model(self)
+        return Attachment.objects.filter(content_type=ct, object_id=self.pk)
+
+    @property
+    def cover(self):
+        return self.files.filter(mime_type__startswith='image/').order_by('order').first()
+
+    objects = models.Manager()
+    litters_for_sale = managers.Manager(active=True)
+
     class Meta:
-        verbose_name = _('animal file')
-        verbose_name_plural = _('animal files')
+        verbose_name = _('litter')
+        verbose_name_plural = _('litters')
         ordering = ['order',]
 
-    def save(self, *args, **kwargs):
-        # Save the file first to get the path
-        super().save(*args, **kwargs)
-
-        # Generate thumbnail for videos if not provided
-        if self.content_type and self.content_type.startswith('video') and not self.thumbnail:
-            try:
-                # Open the video file
-                video = cv2.VideoCapture(self.file.path)
-                success, frame = video.read()  # Read the first frame
-                video.release()
-
-                if success:
-                    # Convert the frame from BGR (OpenCV) to RGB (PIL)
-                    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                    img = Image.fromarray(frame_rgb)
-
-                    # Save the frame as a thumbnail
-                    thumb_io = BytesIO()
-                    img.save(thumb_io, format='JPEG')
-                    thumb_file = ContentFile(thumb_io.getvalue(), name=f"{uuid4().hex}.jpg")
-
-                    # Save the thumbnail
-                    self.thumbnail.save(thumb_file.name, thumb_file, save=False)
-                    super().save(*args, **kwargs)  # Save again to store the thumbnail
-            except Exception as e:
-                print(f"Error generating thumbnail: {e}")
-
     def __str__(self):
-        return f"{self.filename}"
+        return f"{self.name}"

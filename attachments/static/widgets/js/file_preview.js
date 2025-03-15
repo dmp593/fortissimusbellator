@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 type: 'hidden',
                 name: tmpFileInputName
             });
-            $fileInput.closest('.file-preview-container .clearable-file-input').append($tmpFileInput);
+            $fileInput.closest('.file-preview-container').append($tmpFileInput);
         }
 
         $tmpFileInput.val(file_url);

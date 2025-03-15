@@ -2,22 +2,21 @@
 {% load static %}
 {% load string_utils %}
 
-<!-- Gallery Section -->
 <div class="mt-12">
     <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
         {% translate "Gallery" %}
     </h2>
-    {% if dog.files.exists %}
+    {% if object.files.exists %}
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {% for file in dog.files.all %}
-        <div class="modal-open relative group cursor-pointer transform transition-transform duration-300 hover:scale-105" data-file-url="{{ file.file.url }}" data-file-type="{% if file.content_type|startswith:'image' %}image{% else %}'video'{% endif %}">
-            {% if file.content_type|startswith:'image' %}
-            <img src="{{ file.file.url }}" alt="{{ dog.name }}" class="w-full h-48 object-cover rounded-lg shadow-lg" loading="lazy">
+        {% for file in object.files.all %}
+        <div class="modal-open relative group cursor-pointer transform transition-transform duration-300 hover:scale-105" data-file-url="{{ file.file.url }}" data-file-type="{% if file.mime_type|startswith:'image' %}image{% else %}'video'{% endif %}">
+            {% if file.mime_type|startswith:'image' %}
+            <img src="{{ file.file.url }}" alt="{{ object.name }}" class="w-full h-48 object-cover rounded-lg shadow-lg" loading="lazy">
             {% else %}
             <div class="w-full h-48 bg-stone-200 dark:bg-stone-700 rounded-lg shadow-lg flex items-center justify-center relative hover:opacity-80 transition-opacity duration-300">
                 {% if file.thumbnail %}
                 <div class="relative w-full h-48">
-                    <img src="{{ file.thumbnail.url }}" alt="{{ dog.name }}" class="w-full h-48 object-cover rounded-lg" loading="lazy">
+                    <img src="{{ file.thumbnail.url }}" alt="{{ object.name }}" class="w-full h-48 object-cover rounded-lg" loading="lazy">
                     <div class="absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg">
                         {% include "icons/video_camera.html" %}
                     </div>
@@ -33,7 +32,7 @@
         {% endfor %}
     </div>
     {% else %}
-    <p class="text-center text-stone-500 dark:text-stone-400">
+    <p class="text-left text-stone-500 dark:text-stone-400">
         {% translate "No media available in the gallery." %}
     </p>
     {% endif %}
@@ -62,4 +61,6 @@
     </div>
 </div>
 
-<script src="{% static 'js/pages/dog_detail/dog_gallery.js' %}"></script>
+{% block scripts %}
+<script src="{% static 'js/components/gallery.js' %}"></script>
+{% endblock %}

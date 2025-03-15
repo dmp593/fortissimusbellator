@@ -1,0 +1,64 @@
+{% load static %}
+{% load i18n %}
+
+{% for litter in litters %}
+<div class="bg-white dark:bg-stone-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 flex flex-col">
+    <!-- Litter Image -->
+    {% if litter.cover %}
+    <img src="{{ litter.cover.file.url }}" alt="{{ litter.name }}" class="w-full h-64 object-cover" loading="lazy">
+    {% else %}
+    <div class="w-full h-64 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+        <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+    </div>
+    {% endif %}
+
+    <!-- Litter Details -->
+    <div class="p-6 flex flex-col flex-grow">
+        <h3 class="text-xl font-serif font-bold text-stone-900 dark:text-white">{{ litter.name }}</h3>
+        <p class="text-sm text-stone-600 dark:text-stone-300 mt-2">{{ litter.breed.name }}</p>
+
+        <!-- Expected Birth Date -->
+        <div class="mt-4 flex items-center space-x-2">
+            {% include "icons/cake.html" %}
+            <span class="text-sm text-stone-700 dark:text-stone-300">
+                {% if litter.expected_birth_date %}
+                {{ litter.expected_birth_date|date:"M d, Y" }}
+                {% else %}
+                {% translate "Expected Birth Date yet to be determined" %}
+                {% endif %}
+            </span>
+        </div>
+
+        <!-- Expected Delivery Date -->
+        <div class="mt-4 flex items-center space-x-2">
+            {% include "icons/truck.html" %}
+            <span class="text-sm text-stone-700 dark:text-stone-300">
+                {% if litter.expected_delivery_date %}
+                {{ litter.expected_delivery_date|date:"M d, Y" }}
+                {% else %}
+                {% translate "Expected Delivery Date yet to be determined" %}
+                {% endif %}
+            </span>
+        </div>
+
+        <!-- Expected Number of Babies -->
+        <div class="mt-4 flex items-center space-x-2">
+            {% include "icons/pacifier.html" %}
+            <span class="text-sm text-stone-700 dark:text-stone-300">
+                {% if litter.expected_babies %}
+                {{ litter.expected_babies }} {% translate "babies" %}
+                {% else %}
+                {% translate "Expected Number of Babies yet to be determined" %}
+                {% endif %}
+            </span>
+        </div>
+
+        <!-- Details Button -->
+        <div class="mt-auto pt-6">
+            <a href="{% url 'litter_detail' litter.id %}" class="w-full bg-stone-700 text-white px-4 py-2 rounded-lg hover:bg-stone-600 transition duration-300 block text-center">
+                {% translate "View Details" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endfor %}

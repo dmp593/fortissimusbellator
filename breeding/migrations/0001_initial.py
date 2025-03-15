@@ -60,8 +60,8 @@ class Migration(migrations.Migration):
             name='AnimalFile',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.FileField(upload_to=breeding.models.animal_file_upload_to, verbose_name='file')),
-                ('thumbnail', models.ImageField(blank=True, null=True, upload_to=breeding.models.animal_file_thumbnail_upload_to, verbose_name='thumbnail')),
+                ('file', models.FileField(upload_to='animals', verbose_name='file')),
+                ('thumbnail', models.ImageField(blank=True, null=True, upload_to='animals/thumbnails', verbose_name='thumbnail')),
                 ('description', models.CharField(blank=True, max_length=255, verbose_name='description')),
                 ('filename', models.CharField(editable=False, max_length=255, verbose_name='filename')),
                 ('content_type', models.CharField(editable=False, max_length=50, verbose_name='content type')),

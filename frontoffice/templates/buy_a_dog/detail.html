@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="pt-16">
+    <div class="container mx-auto px-4 py-16">
+        <!-- Dog Name and Breed -->
+        <div class="text-center mb-12">
+            <h1 class="font-serif text-4xl font-bold text-stone-900 dark:text-white">
+                {{ dog.name }}
+            </h1>
+            <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
+                {{ dog.breed.name }}
+            </p>
+        </div>
+    
+        <div class="mb-12">
+            {% if dog.cover %}
+                <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="aspect-[4/5] sm:aspect-[3/4] md:aspect-square lg:aspect-video w-full h-full object-cover rounded-lg shadow-lg" loading="lazy">
+            {% endif %}
+        </div>
+    
+        <!-- Dog Details Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Left Column: Description and Certifications -->
+            <div class="order-1">
+                <!-- Description -->
+                <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg mb-6">
+                    <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
+                        {% translate "About" %} {{ dog.name }}
+                    </h2>
+                    <p class="font-sans text-stone-600 dark:text-stone-300 whitespace-pre-line">
+                        {{ dog.description }}
+                    </p>
+                </div>
+    
+                <!-- Certifications -->
+                {% if dog.certifications.exists %}
+                <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg">
+                    <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
+                        {% translate "Certifications" %}
+                    </h2>
+                    <div class="space-y-4">
+                        {% for cert in dog.animal_certifications.all %}
+                        <div class="bg-stone-50 dark:bg-stone-700 p-4 rounded-lg shadow-sm">
+                            <!-- Certification Header -->
+                            <div class="cert-header flex justify-between items-center cursor-pointer">
+                                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">
+                                    {{ cert.certification.code }}
+                                </h3>
+                                <span class="text-stone-600 dark:text-stone-300 transform transition-transform duration-300">▼</span>
+                            </div>
+                            <!-- Certification Content (Hidden by Default) -->
+                            <div class="cert-content mt-2 hidden">
+                                <p class="font-sans text-stone-600 dark:text-stone-300 text-justify">
+                                    {{ cert.certification.description }}
+                                </p>
+                                {% if cert.date %}
+                                <p class="font-sans text-sm text-stone-500 dark:text-stone-400 mt-2">
+                                    {% translate "Certified on" %} {{ cert.date|date:"M d, Y" }}
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+    
+            <!-- Right Column: Details and Call Us Button -->
+            <div class="order-2">
+                <!-- Details Card -->
+                <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg mb-6">
+                    <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
+                        {% translate "Details" %}
+                    </h2>
+                    <div class="space-y-4">
+                        <!-- Gender -->
+                        <div class="flex items-center space-x-2">
+                            {% if dog.gender == 'M' %}
+                            {% include "icons/genders/male.html" %}
+                            <span class="font-sans text-stone-600 dark:text-stone-300">{% translate "Male" %}</span>
+                            {% elif dog.gender == 'F' %}
+                            {% include "icons/genders/female.html" %}
+                            <span class="font-sans text-stone-600 dark:text-stone-300">{% translate "Female" %}</span>
+                            {% else %}
+                            {% include "icons/genders/ambiguous.html" %}
+                            <span class="font-sans text-stone-600 dark:text-stone-300">{% translate "Unknown" %}</span>
+                            {% endif %}
+                        </div>
+    
+                        <!-- Birthdate -->
+                        <div class="flex items-center space-x-2">
+                            {% include "icons/cake.html" %}
+                            <span class="font-sans text-stone-600 dark:text-stone-300">
+                                {{ dog.birth_date|date:"M d, Y" }}
+                            </span>
+                        </div>
+    
+                        <!-- Training -->
+                        {% if dog.has_training %}
+                        <div class="flex items-center space-x-2">
+                            {% include "icons/dog_training.html" %}
+                            <span class="font-sans text-stone-600 dark:text-stone-300">
+                                {% translate "Trained" %}
+                            </span>
+                        </div>
+                        {% endif %}
+    
+                        <!-- Price -->
+                        {% if dog.price_in_euros %}
+                        <div class="flex items-center space-x-2">
+                            {% include "icons/currency_euro.html" %}
+                            <span class="font-sans text-stone-600 dark:text-stone-300">
+                                {% if dog.discount_in_euros %}
+                                <span class="line-through text-stone-500 dark:text-stone-400">{{ dog.price_in_euros }}€</span>
+                                <span class="text-yellow-800 dark:text-yellow-400">{{ dog.current_price_in_euros }}€</span>
+                                {% else %}
+                                {{ dog.price_in_euros }}€
+                                {% endif %}
+                            </span>
+                        </div>
+                        {% else %}
+                        <div class="flex items-center space-x-2 text-yellow-800 dark:text-yellow-400">
+                            {% include "icons/currency_euro.html" %}
+                            <span>{% translate "Call for Pricing" %}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+    
+                <!-- Call Us Button -->
+                <a href="{% url 'contact_us' %}" class="w-full bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300 flex items-center justify-center space-x-2 mb-6">
+                    {% include "icons/phone.html" %}
+                    <span>{% translate "Call Us" %}</span>
+                </a>
+            </div>
+        </div>
+    
+        <!-- Gallery Section -->
+        {% include "components/gallery.html" with object=dog %}
+    
+        <!-- Back to url 'buy_a_dog' -->
+        <div class="text-center mt-12">
+            <a href="{% url 'buy_a_dog' %}" class="inline-flex items-center bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300">
+                {% include "icons/arrow_left.html" %}
+                <span class="ml-2">{% translate "Go Back" %}</span>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/pages/dog_detail/index.js' %}"></script>
+{% endblock %}
