@@ -290,10 +290,6 @@ msgstr "Adquirir um Cão"
 msgid "Quick Actions"
 msgstr "Ações Rápidas"
 
-#: accounts/templates/welcome.html:38
-msgid "Admin Panel"
-msgstr "Painel de Administração"
-
 #: accounts/templates/welcome.html:41
 msgid "Manage the platform and keep everything running smoothly."
 msgstr "Faça a gestão da plataforma e mantenha tudo a funcionar perfeitamente."
@@ -981,6 +977,7 @@ msgstr "Próximas Ninhadas"
 msgid "About Us"
 msgstr "Sobre Nós"
 
+#: accounts/templates/welcome.html:38
 #: frontoffice/templates/components/navbar.html:80
 msgid "Admin Panel"
 msgstr "Painel de Administração"
