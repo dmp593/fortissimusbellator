@@ -1,110 +1,131 @@
 {% load static %}
 {% load i18n %}
 
-<nav class="fixed w-full top-0 z-[1001] transition-colors duration-300 {% if request.path == '/' %} bg-transparent text-white {% else %} bg-white dark:bg-stone-800 shadow-md text-stone-800 dark:text-white {% endif %}" id="navbar" aria-label="navbar">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<nav class="fixed w-full top-0 z-[1000] transition-colors duration-300 bg-gradient-to-r from-white to-stone-100 dark:from-stone-800 dark:to-stone-900 shadow-lg text-stone-800 dark:text-white" id="navbar">
+    <div class="mx-auto px-2 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <!-- Logo and Brand Name -->
-            <a href="{% url 'home' %}" aria-label="link to home page">
-                <div class="flex items-center flex-shrink-0">
-                    {% include "components/logo.html" with className="dark:text-yellow-400 h-16" width="64" height="64" %}
-                    <span class="hidden xl:flex ml-2 font-bold font-metamorphous text-sm">Fortissimus Bellator</span>
-                </div>
-            </a>
-
-            <!-- Desktop Menu -->
-            <div class="hidden lg:flex space-x-6 items-center">
-                <a href="{% url 'buy_a_dog' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "Buy a Dog" %}</a>
-                <a href="{% url 'upcoming_litters' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "Upcoming Litters" %}</a>
-                <a href="{% url 'about_us' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "About Us" %}</a>
-                <a href="{% url 'faqs' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "FAQs" %}</a>
-                <a href="{% url 'contact_us' %}" class="hover:text-stone-700 dark:hover:text-stone-400 text-sm transition">{% trans "Contact Us" %}</a>
+            <div class="flex-shrink-0">
+                <a href="{% url 'home' %}" class="flex items-center hover:scale-105 transition-transform duration-300">
+                    {% include "icons/fortissimus_bellator.html" with id="logo" class="size-16 dark:text-yellow-400" %}
+                    <span class="hidden md:block ml-2 text-lg font-bold font-metamorphous bg-gradient-to-r from-stone-800 to-stone-600 dark:from-yellow-400 dark:to-yellow-600 bg-clip-text text-transparent">Fortissimus Bellator</span>
+                </a>
             </div>
 
-            <!-- Right Side: Contact, Language, Theme, and Mobile Menu Button -->
-            <div class="flex items-center justify-center space-x-2 sm:space-x-4">
-                <!-- Telephones -->
+            <!-- Desktop Menu -->
+            <div class="hidden xl:flex space-x-3 items-center">
+                <!-- Our Dogs with Submenu -->
+                <div class="relative group">
+                    <button id="our-dogs-button" class="flex items-center text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">
+                        {% trans "Our Dogs" %}
+                        <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <!-- Submenu for Breeds -->
+                    <div id="our-dogs-submenu" class="z-[1001] text-xs absolute shadow-lg rounded-lg mt-2 py-2 w-64 left-0 bg-white dark:bg-stone-800 transition-all duration-300 origin-top transform scale-y-0 group-hover:scale-y-100">
+                        {% for breed in breeds %}
+                            <a href="{% url 'our_dogs' breed.pk %}" class="block px-4 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
+                                {{ breed.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Other Menu Items -->
+                <a href="{% url 'buy_a_dog' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "Buy a Dog" %}</a>
+                <a href="{% url 'upcoming_litters' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "Upcoming Litters" %}</a>
+                <a href="{% url 'about_us' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "About Us" %}</a>
+                <a href="{% url 'faqs' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "FAQs" %}</a>
+                <a href="{% url 'contact_us' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "Contact Us" %}</a>
+            </div>
+
+            <!-- Right Side: Contacts, Language, Theme, and Mobile Menu -->
+            <div class="flex items-center space-x-3">
+                <!-- Phone Contacts -->
                 <div class="flex flex-col space-y-1">
-                    <a href="tel:+351924454382" class="font-b612-mono font-extrabold text-sm whitespace-nowrap">924 454 382</a>
-                    <a href="tel:+351916749407" class="font-b612-mono font-extrabold text-sm whitespace-nowrap">916 749 407</a>
+                    <a href="tel:+351924454382" class="text-xs font-b612-mono hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">924454382</a>
+                    <a href="tel:+351916749407" class="text-xs font-b612-mono hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">916749407</a>
                 </div>
 
                 <!-- Language Toggle -->
-                <button id="language-toggle" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition flex-shrink-0">
+                <button id="language-toggle" class="p-1 sm:p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
                     {% if request.LANGUAGE_CODE == 'en' %}
-                    <img id="language-icon" src="{% static 'flags/pt.png' %}" alt="Language pt-pt" class="w-6 h-6" loading="lazy">
+                        <img src="{% static 'flags/pt.png' %}" alt="Portuguese" class="w-6 h-6">
                     {% else %}
-                    <img id="language-icon" src="{% static 'flags/uk.png' %}" alt="Language en-uk" class="w-6 h-6" loading="lazy">
+                        <img src="{% static 'flags/uk.png' %}" alt="English" class="w-6 h-6">
                     {% endif %}
                 </button>
 
                 <!-- Theme Toggle -->
-                <button id="theme-toggle" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition" aria-label="light/dark theme toggle">
-                    <svg id="theme-icon" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path id="sun-icon" class="{% if theme == 'light' %}hidden{% endif %}" stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-                        <path id="moon-icon" class="{% if theme == 'dark' %}hidden{% endif %}" stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-                    </svg>
+                <button id="theme-toggle" class="p-1 sm:p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                    {% if theme == 'light' %}
+                        {% include "icons/sun.html" with id="sun-icon" class="hidden" %}
+                        {% include "icons/moon.html" with id="moon-icon" class="size-6" %}
+                    {% else %}
+                        {% include "icons/sun.html" with id="sun-icon" class="size-6" %}
+                        {% include "icons/moon.html" with id="moon-icon" class="hidden" %}
+                    {% endif %}
                 </button>
 
-                <!-- Login/Logout Icon -->
+                <!-- User Authentication -->
                 {% if user.is_authenticated %}
-                <form action="{% url 'accounts:logout' %}" method="post" class="inline">
-                    {% csrf_token %}
-                    <button type="submit" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition" aria-label="logout">
-                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
-                        </svg>
-                    </button>
-                </form>
+                    <div class="relative group">
+                        <button id="user-menu-button" class="p-1 sm:p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                            {% include "icons/user.html" %}
+                        </button>
+                        <!-- User Submenu -->
+                        <div id="user-submenu" class="text-xs z-[1001] absolute scale-y-0 shadow-lg rounded-lg mt-2 py-2 w-24 right-0 bg-white dark:bg-stone-800 transition-all duration-300 origin-top transform group-hover:scale-y-100">
+                            {% if user.is_staff %}
+                            <a href="{% url 'admin:index' %}" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Admin Panel" %}</a>
+                            {% endif %}
+                            <form action="{% url 'accounts:logout' %}" method="post" class="inline">
+                                {% csrf_token %}
+                                <button type="submit" class="cursor-pointer block w-full text-left px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Logout" %}</button>
+                            </form>
+                        </div>
+                    </div>
                 {% else %}
-                <a href="{% url 'accounts:login' %}" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition" aria-label="login">
-                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
-                    </svg>
-                </a>
+                    <a href="{% url 'accounts:login' %}" class="p-1 sm:p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                        </svg>
+                    </a>
                 {% endif %}
 
                 <!-- Mobile Menu Button -->
-                <div class="lg:hidden flex items-center">
-                    <button id="mobile-menu-button" class="p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition" aria-label="mobile menu toggle">
-                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="lg:hidden hidden">
-            <div class="pt-2 pb-3 space-y-1">
-                <a href="{% url 'buy_a_dog' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Buy a Dog" %}</a>
-                <a href="{% url 'upcoming_litters' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Upcoming Litters" %}</a>
-                <a href="{% url 'about_us' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "About Us" %}</a>
-                <a href="{% url 'faqs' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "FAQs" %}</a>
-                <a href="{% url 'contact_us' %}" class="block px-3 py-2 hover:text-stone-700 dark:hover:text-stone-400 transition">{% trans "Contact Us" %}</a>
+                <button id="mobile-menu-button" class="xl:hidden p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="xl:hidden hidden bg-gradient-to-r from-white to-stone-100 dark:from-stone-800 dark:to-stone-900 shadow-lg">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <div class="relative text-xs">
+                <button id="mobile-our-dogs-button" class="w-full text-left px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
+                    {% trans "Our Dogs" %}
+                </button>
+                <!-- Mobile Submenu for Breeds -->
+                <div id="mobile-our-dogs-submenu" class="pl-4 transition-all duration-300 origin-top transform hidden scale-y-0">
+                    {% for breed in breeds %}
+                        <a href="{% url 'our_dogs' breed.pk %}" class="block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
+                            {{ breed.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <a href="{% url 'buy_a_dog' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Buy a Dog" %}</a>
+            <a href="{% url 'upcoming_litters' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Upcoming Litters" %}</a>
+            <a href="{% url 'about_us' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "About Us" %}</a>
+            <a href="{% url 'faqs' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "FAQs" %}</a>
+            <a href="{% url 'contact_us' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Contact Us" %}</a>
+        </div>
+    </div>
 </nav>
-
-{% if request.path == '/' %}
-<script>
-    const navbar = document.getElementById("navbar");
-
-    function applyNavbarColors() {
-        if (window.scrollY > 50) {
-            navbar.classList.remove("bg-transparent", "text-white");
-            navbar.classList.add("bg-white", "dark:bg-stone-800", "shadow-md", "text-stone-800", "dark:text-white");
-        } else {
-            navbar.classList.remove("bg-white", "dark:bg-stone-800", "shadow-md", "text-stone-800", "dark:text-white");
-            navbar.classList.add("bg-transparent", "text-white");
-        }
-    }
-    
-    applyNavbarColors();
-    window.addEventListener("scroll", applyNavbarColors);
-</script>
-{% endif %}
 
 <script src="{% static 'js/components/navbar.js' %}"></script>

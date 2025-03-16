@@ -90,12 +90,18 @@ class Breed(models.Model):
         related_query_name='child',
     )
 
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_('active'),
+    )
+
     order = models.IntegerField(
         default=999,
         verbose_name=_('order'),
     )
 
     objects = managers.BreedManager()
+    specific = managers.SpecificBreedManager()
 
     class Meta:
         unique_together = ['kind', 'name']
@@ -288,7 +294,8 @@ class Animal(models.Model):
         null=True,
         blank=True,
         verbose_name=_('sold to'),
-        related_name='dogs',
+        related_name='animals',
+        related_query_name='animal'
     )
 
     active = models.BooleanField(
@@ -299,6 +306,11 @@ class Animal(models.Model):
     has_training = models.BooleanField(
         default=False,
         verbose_name=_('has training'),
+    )
+
+    for_breeding = models.BooleanField(
+        default=False,
+        verbose_name=_('for breeding'),
     )
 
     for_sale = models.BooleanField(
@@ -331,9 +343,17 @@ class Animal(models.Model):
         return self.files.filter(mime_type__startswith='image/').order_by('order').first()
 
     objects = models.Manager()
+    
+    animals_active = managers.Manager(
+        active=True
+    )
 
-    dogs_for_sale = managers.Manager(
-        for_sale=True, active=True, sold_at__isnull=True
+    animals_for_breeding = managers.Manager(
+        active=True, for_breeding=True
+    )
+
+    animals_for_sale = managers.Manager(
+        active=True, for_sale=True, sold_at__isnull=True
     )
 
     class Meta:

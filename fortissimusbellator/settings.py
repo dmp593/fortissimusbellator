@@ -128,6 +128,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 # light/dark theme context processor
+                'frontoffice.context_processors.breeds',
                 'frontoffice.context_processors.theme_context',
             ],
         },

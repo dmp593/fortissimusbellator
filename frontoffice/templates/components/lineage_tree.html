@@ -1,0 +1,137 @@
+{% load i18n %}
+
+<div class="grid grid-cols-4 gap-4 justify-items-center">
+    <!-- Current animal (Centered, Colspan 4) -->
+    <div class="col-span-4 flex flex-col items-center">
+        <a>
+            <img src="{{ animal.cover.file.url }}" alt="{{ animal.name }}" class="w-24 h-24 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+        </a>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {{ animal.name }}
+        </p>
+    </div>
+
+    {% if animal.father or animal.mother %}
+    <!-- Parents (Centered, Colspan 2 Each) -->
+    <div class="col-span-2 flex flex-col items-center">
+        <!-- Father -->
+        {% if animal.father %}
+        <a>
+            <img src="{{ animal.father.cover.file.url }}" alt="{{ animal.father.name }}" class="w-20 h-20 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+        </a>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {{ animal.father.name }} ({% translate "Father" %})
+        </p>
+        {% else %}
+         <div class="w-16 h-16 rounded-full bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+            {% include "icons/dog.html" with class="text-stone-500 dark:text-stone-400" %}
+        </div>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {% translate "Unknown" %}
+        </p>
+        {% endif %}
+    </div>
+
+    <div class="col-span-2 flex flex-col items-center">
+        <!-- Mother -->
+        {% if animal.mother %}
+        <a>
+            <img src="{{ animal.mother.cover.file.url }}" alt="{{ animal.mother.name }}" class="w-20 h-20 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+        </a>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {{ animal.mother.name }} ({% translate "Mother" %})
+        </p>
+        {% else %}
+         <div class="w-16 h-16 rounded-full bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+            {% include "icons/dog.html" with class="text-stone-500 dark:text-stone-400" %}
+        </div>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {% translate "Unknown" %}
+        </p>
+        {% endif %}
+    </div>
+
+    {% if animal.father.fater or animal.father.mother or animal.mother.father or animal.mother.mother %}
+    <!-- Grandparents (Centered, Colspan 1 Each) -->
+    {% if animal.father.father or animal.father.mother %}
+    <div class="col-span-1 flex flex-col items-center">
+        <!-- Grandfather (Father's Side) -->
+        {% if animal.father and animal.father.father %}
+        <a>
+            <img src="{{ animal.father.father.cover.file.url }}" alt="{{ animal.father.father.name }}" class="w-16 h-16 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+        </a>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {{ animal.father.father.name }} ({% translate "Grandfather" %})
+        </p>
+        {% else %}
+        <div class="w-16 h-16 rounded-full bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+            {% include "icons/dog.html" with class="text-stone-500 dark:text-stone-400" %}
+        </div>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {% translate "Unknown" %}
+        </p>
+        {% endif %}
+    </div>
+
+    <div class="col-span-1 flex flex-col items-center">
+        <!-- Grandmother (Father's Side) -->
+        {% if animal.father and animal.father.mother %}
+        <a>
+            <img src="{{ animal.father.mother.cover.file.url }}" alt="{{ animal.father.mother.name }}" class="w-16 h-16 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+        </a>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {{ animal.father.mother.name }} ({% translate "Grandmother" %})
+        </p>
+        {% else %}
+        <div class="w-16 h-16 rounded-full bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+            {% include "icons/dog.html" with class="text-stone-500 dark:text-stone-400" %}
+        </div>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {% translate "Unknown" %}
+        </p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if animal.mother.father or animal.mother.mother %}
+    <div class="col-span-1 flex flex-col items-center">
+        <!-- Grandfather (Mother's Side) -->
+        {% if animal.mother and animal.mother.father %}
+        <a>
+            <img src="{{ animal.mother.father.cover.file.url }}" alt="{{ animal.mother.father.name }}" class="w-16 h-16 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+        </a>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {{ animal.mother.father.name }} ({% translate "Grandfather" %})
+        </p>
+        {% else %}
+        <div class="w-16 h-16 rounded-full bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+            {% include "icons/dog.html" with class="text-stone-500 dark:text-stone-400" %}
+        </div>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {% translate "Unknown" %}
+        </p>
+        {% endif %}
+    </div>
+
+    <div class="col-span-1 flex flex-col items-center">
+        <!-- Grandmother (Mother's Side) -->
+        {% if animal.mother and animal.mother.mother %}
+        <a>
+            <img src="{{ animal.mother.mother.cover.file.url }}" alt="{{ animal.mother.mother.name }}" class="w-16 h-16 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
+        </a>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {{ animal.mother.mother.name }} ({% translate "Grandmother" %})
+        </p>
+        {% else %}
+        <div class="w-16 h-16 rounded-full bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+            {% include "icons/dog.html" with class="text-stone-500 dark:text-stone-400" %}
+        </div>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-center">
+            {% translate "Unknown" %}
+        </p>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+</div>

@@ -50,40 +50,34 @@
                     </h2>
                     <div class="space-y-4">
                         <!-- Expected Birth Date -->
+                        {% if litter.expected_birth_date %}
                         <div class="flex items-center space-x-2">
                             {% include "icons/cake.html" %}
                             <span class="font-sans text-stone-600 dark:text-stone-300">
-                                {% if litter.expected_birth_date %}
                                 {{ litter.expected_birth_date|date:"M d, Y" }}
-                                {% else %}
-                                {% translate "Expected Birth Date yet to be determined" %}
-                                {% endif %}
                             </span>
                         </div>
+                        {% endif %}
 
                         <!-- Expected Delivery Date -->
+                        {% if litter.expected_delivery_date %}
                         <div class="flex items-center space-x-2">
                             {% include "icons/truck.html" %}
                             <span class="font-sans text-stone-600 dark:text-stone-300">
-                                {% if litter.expected_delivery_date %}
                                 {{ litter.expected_delivery_date|date:"M d, Y" }}
-                                {% else %}
-                                {% translate "Expected Delivery Date yet to be determined" %}
-                                {% endif %}
                             </span>
                         </div>
+                        {% endif %}
 
                         <!-- Expected Number of Babies -->
+                        {% if litter.expected_babies %}
                         <div class="flex items-center space-x-2">
                             {% include "icons/users.html" %}
                             <span class="font-sans text-stone-600 dark:text-stone-300">
-                                {% if litter.expected_babies %}
                                 {% blocktranslate count babies=litter.expected_babies|default:0 %}1 baby{% plural %}{{ babies }} babies{% endblocktranslate %}
-                                {% else %}
-                                {% translate "Expected Number of Babies yet to be determined" %}
-                                {% endif %}
                             </span>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -95,8 +89,23 @@
             </div>
         </div>
 
+        <!-- Lineage Tree Section -->
+        {% if litter.father or litter.mother %}
+        <div class="mt-24">
+            <h2 class="font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12 text-left">
+                {% translate "Lineage" %}
+            </h2>
+            {% include "components/lineage_tree.html" with animal=litter %}
+        </div>
+        {% endif %}
+
         <!-- Gallery Section -->
-        {% include "components/gallery.html" with object=litter %}
+        <div class="mt-24">
+            <h2 class="font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12 text-left">
+                {% translate "Gallery" %}
+            </h2>
+            {% include "components/gallery.html" with object=litter %}
+        </div>
 
         <!-- Back to Litters -->
         <div class="text-center mt-12">

@@ -18,11 +18,19 @@ class AnimalKindManager(Manager):
 
 
 class BreedManager(Manager):
+
     def get_by_natural_key(self, name: str, parent: str | None = None, kind: str | None = None) -> 'Breed':        
         if not kind:
             return self.get(name=name)
 
         return self.get(name=name, parent__name=parent, kind__name=kind)
+
+
+class SpecificBreedManager(BreedManager):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        parent_breeds = queryset.filter(parent__isnull=False).values_list('parent', flat=True)
+        return queryset.exclude(id__in=parent_breeds)
 
 
 class CertificationManager(Manager):

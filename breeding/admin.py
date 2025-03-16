@@ -102,9 +102,10 @@ class LitterAdmin(TranslationAdmin):
     ]
 
     list_display = (
-        'breed',
         'name',
-        'description',
+        'breed',
+        'expected_birth_date',
+        'expected_babies',
         'active',
     )
 

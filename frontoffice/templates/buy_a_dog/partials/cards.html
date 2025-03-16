@@ -3,7 +3,13 @@
 {% for dog in dogs %}
 <div class="bg-white dark:bg-stone-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 flex flex-col">
     <!-- Dog Image -->
+    {% if dog.cover %}
     <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-64 object-cover" loading="lazy">
+    {% else %}
+    <div class="w-full h-64 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+        <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+    </div>
+    {% endif %}
 
     <!-- Dog Details -->
     <div class="p-6 flex flex-col flex-grow">
@@ -15,13 +21,13 @@
             <!-- Gender Icon -->
             <div class="flex items-center space-x-2">
                 {% if dog.gender == 'M' %}
-                {% include "icons/genders/male.html" %}
+                {% include "icons/genders/male.html" with class="size-6" %}
                 <span class="text-sm text-stone-700 dark:text-stone-300">{% translate "Male" %}</span>
                 {% elif dog.gender == 'F' %}
-                {% include "icons/genders/female.html" %}
+                {% include "icons/genders/female.html" with class="size-6" %}
                 <span class="text-sm text-stone-700 dark:text-stone-300">{% translate "Female" %}</span>
                 {% else %}
-                {% include "icons/genders/ambiguous.html" %}
+                {% include "icons/genders/ambiguous.html" with class="size-6" %}
                 <span class="text-sm text-stone-700 dark:text-stone-300">{% translate "Unknown" %}</span>
                 {% endif %}
             </div>

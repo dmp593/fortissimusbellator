@@ -3,9 +3,11 @@
 {% load string_utils %}
 
 <div class="mt-12">
+    {% if title|default:true %}
     <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
         {% translate "Gallery" %}
     </h2>
+    {% endif %}
     {% if object.files.exists %}
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {% for file in object.files.all %}

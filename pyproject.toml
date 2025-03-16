@@ -9,7 +9,7 @@ readme = "README.md"
 requires-python = ">=3.13,<4"
 dependencies = [
     "pillow (>=11.1.0,<12.0.0)",
-    "django (>=5.1.6,<6.0.0)",
+    "django (>=5.1.7,<6.0.0)",
     "django-modeltranslation (>=0.19.12,<0.20.0)",
     "django-environ (>=0.12.0,<0.13.0)",
     "whitenoise (>=6.9.0,<7.0.0)",

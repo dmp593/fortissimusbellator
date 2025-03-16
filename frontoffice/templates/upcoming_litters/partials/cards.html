@@ -18,40 +18,34 @@
         <p class="text-sm text-stone-600 dark:text-stone-300 mt-2">{{ litter.breed.name }}</p>
 
         <!-- Expected Birth Date -->
+        {% if litter.expected_birth_date %}
         <div class="mt-4 flex items-center space-x-2">
             {% include "icons/cake.html" %}
             <span class="text-sm text-stone-700 dark:text-stone-300">
-                {% if litter.expected_birth_date %}
                 {{ litter.expected_birth_date|date:"M d, Y" }}
-                {% else %}
-                {% translate "Expected Birth Date yet to be determined" %}
-                {% endif %}
             </span>
         </div>
+        {% endif %}
 
         <!-- Expected Delivery Date -->
+        {% if litter.expected_delivery_date %}
         <div class="mt-4 flex items-center space-x-2">
             {% include "icons/truck.html" %}
             <span class="text-sm text-stone-700 dark:text-stone-300">
-                {% if litter.expected_delivery_date %}
                 {{ litter.expected_delivery_date|date:"M d, Y" }}
-                {% else %}
-                {% translate "Expected Delivery Date yet to be determined" %}
-                {% endif %}
             </span>
         </div>
+        {% endif %}
 
         <!-- Expected Number of Babies -->
+        {% if litter.expected_babies %}
         <div class="mt-4 flex items-center space-x-2">
             {% include "icons/pacifier.html" %}
             <span class="text-sm text-stone-700 dark:text-stone-300">
-                {% if litter.expected_babies %}
-                {{ litter.expected_babies }} {% translate "babies" %}
-                {% else %}
-                {% translate "Expected Number of Babies yet to be determined" %}
-                {% endif %}
+                {% blocktranslate count babies=litter.expected_babies|default:0 %}1 baby{% plural %}{{ babies }} babies{% endblocktranslate %}
             </span>
         </div>
+        {% endif %}
 
         <!-- Details Button -->
         <div class="mt-auto pt-6">
