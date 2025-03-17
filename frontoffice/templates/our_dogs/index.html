@@ -193,11 +193,12 @@
 
     async function copyDogUrl(sectionId) {
         try {
-            await navigator.clipboard.writeText(`${window.location.href}#${sectionId}`);
+            await navigator.clipboard.writeText(
+                `${window.location.origin}${window.location.pathname}#${sectionId}`
+            );
             showToast('{% trans "Link copied to clipboard!" %}');
         } catch(error) {
             showToast('{% trans "Failed to copy link." %}');
-            console.error('Error copying the page:', error);
         }
     }
 
@@ -210,12 +211,11 @@
         try {
             await navigator.share({
                 title: document.title,
-                url: `${window.location.href}#${sectionId}`
+                url: `${window.location.origin}${window.location.pathname}#${sectionId}`
             });
-            showToast('{% trans "Page shared successfully!" %}');
+            showToast('{% trans "Page shared!" %}');
         } catch (error) {
-            showToast('{% trans "Failed to share page." %}');
-            console.error('Error sharing the page:', error);
+            showToast('{% trans "Page was not shared." %}');
         }
     }
 

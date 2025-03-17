@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-16 23:00+0000\n"
+"POT-Creation-Date: 2025-03-17 16:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -289,6 +289,11 @@ msgstr "Adquirir um Cão"
 #: accounts/templates/welcome.html:30
 msgid "Quick Actions"
 msgstr "Ações Rápidas"
+
+#: accounts/templates/welcome.html:38
+#: frontoffice/templates/components/navbar.html:80
+msgid "Admin Panel"
+msgstr "Painel de Administração"
 
 #: accounts/templates/welcome.html:41
 msgid "Manage the platform and keep everything running smoothly."
@@ -757,12 +762,12 @@ msgid "About"
 msgstr "Sobre"
 
 #: frontoffice/templates/buy_a_dog/detail.html:48
-#: frontoffice/templates/our_dogs/index.html:91
+#: frontoffice/templates/our_dogs/index.html:118
 msgid "Certifications"
 msgstr "Certificações"
 
 #: frontoffice/templates/buy_a_dog/detail.html:67
-#: frontoffice/templates/our_dogs/index.html:110
+#: frontoffice/templates/our_dogs/index.html:137
 msgid "Certified on"
 msgstr "Certificado em"
 
@@ -774,30 +779,33 @@ msgstr "Detalhes"
 #: frontoffice/templates/buy_a_dog/detail.html:90
 #: frontoffice/templates/buy_a_dog/index.html:50
 #: frontoffice/templates/buy_a_dog/partials/cards.html:25
+#: frontoffice/templates/our_dogs/index.html:54
 msgid "Male"
 msgstr "Macho"
 
 #: frontoffice/templates/buy_a_dog/detail.html:93
 #: frontoffice/templates/buy_a_dog/index.html:51
 #: frontoffice/templates/buy_a_dog/partials/cards.html:28
+#: frontoffice/templates/our_dogs/index.html:57
 msgid "Female"
 msgstr "Fêmea"
 
 #: frontoffice/templates/buy_a_dog/detail.html:96
 #: frontoffice/templates/buy_a_dog/index.html:52
 #: frontoffice/templates/buy_a_dog/partials/cards.html:31
-#: frontoffice/templates/components/lineage_tree.html:30
-#: frontoffice/templates/components/lineage_tree.html:49
-#: frontoffice/templates/components/lineage_tree.html:71
-#: frontoffice/templates/components/lineage_tree.html:90
-#: frontoffice/templates/components/lineage_tree.html:111
-#: frontoffice/templates/components/lineage_tree.html:130
+#: frontoffice/templates/components/lineage_tree.html:42
+#: frontoffice/templates/components/lineage_tree.html:67
+#: frontoffice/templates/components/lineage_tree.html:95
+#: frontoffice/templates/components/lineage_tree.html:120
+#: frontoffice/templates/components/lineage_tree.html:147
+#: frontoffice/templates/components/lineage_tree.html:172
+#: frontoffice/templates/our_dogs/index.html:60
 msgid "Unknown"
 msgstr "Desconhecido"
 
 #: frontoffice/templates/buy_a_dog/detail.html:113
 #: frontoffice/templates/buy_a_dog/partials/cards.html:45
-#: frontoffice/templates/our_dogs/index.html:59
+#: frontoffice/templates/our_dogs/index.html:75
 msgid "Trained"
 msgstr "Treinado"
 
@@ -812,14 +820,14 @@ msgid "Call Us"
 msgstr "Ligue-nos"
 
 #: frontoffice/templates/buy_a_dog/detail.html:152
-#: frontoffice/templates/our_dogs/index.html:124
+#: frontoffice/templates/our_dogs/index.html:151
 #: frontoffice/templates/upcoming_litters/detail.html:96
 msgid "Lineage"
 msgstr "Linhagem"
 
 #: frontoffice/templates/buy_a_dog/detail.html:161
 #: frontoffice/templates/components/gallery.html:8
-#: frontoffice/templates/our_dogs/index.html:133
+#: frontoffice/templates/our_dogs/index.html:160
 #: frontoffice/templates/upcoming_litters/detail.html:105
 msgid "Gallery"
 msgstr "Galeria"
@@ -944,21 +952,21 @@ msgstr "Fechar modal"
 msgid "Your browser does not support the video tag."
 msgstr "O seu navegador não suporta a etiqueta de vídeo."
 
-#: frontoffice/templates/components/lineage_tree.html:23
+#: frontoffice/templates/components/lineage_tree.html:35
 msgid "Father"
 msgstr "pai"
 
-#: frontoffice/templates/components/lineage_tree.html:42
+#: frontoffice/templates/components/lineage_tree.html:60
 msgid "Mother"
 msgstr "mãe"
 
-#: frontoffice/templates/components/lineage_tree.html:64
-#: frontoffice/templates/components/lineage_tree.html:104
+#: frontoffice/templates/components/lineage_tree.html:88
+#: frontoffice/templates/components/lineage_tree.html:140
 msgid "Grandfather"
 msgstr "Avô"
 
-#: frontoffice/templates/components/lineage_tree.html:83
-#: frontoffice/templates/components/lineage_tree.html:123
+#: frontoffice/templates/components/lineage_tree.html:113
+#: frontoffice/templates/components/lineage_tree.html:165
 msgid "Grandmother"
 msgstr "Avó"
 
@@ -976,11 +984,6 @@ msgstr "Próximas Ninhadas"
 #: frontoffice/templates/components/navbar.html:124
 msgid "About Us"
 msgstr "Sobre Nós"
-
-#: accounts/templates/welcome.html:38
-#: frontoffice/templates/components/navbar.html:80
-msgid "Admin Panel"
-msgstr "Painel de Administração"
 
 #: frontoffice/templates/components/navbar.html:84
 msgid "Logout"
@@ -1073,23 +1076,37 @@ msgid ""
 "nutrition, and care to ensure our dogs find the best homes."
 msgstr ""
 "Ter um cão é um compromisso para a vida. Orientamos os futuros donos sobre "
-"treino, nutrição e cuidados para garantir que os nossos cães encontrem os melhores lares."
+"treino, nutrição e cuidados para garantir que os nossos cães encontrem os "
+"melhores lares."
 
-#: frontoffice/templates/our_dogs/index.html:11
+#: frontoffice/templates/our_dogs/index.html:21
 msgid "Our Proud Breeding Dogs"
 msgstr "Os Nossos Cães de Criação"
 
-#: frontoffice/templates/our_dogs/index.html:14
+#: frontoffice/templates/our_dogs/index.html:24
 msgid ""
 "Meet the stars of our breeding program. Each dog is a cherished member of "
 "our family, and we’re proud to share their stories with you."
 msgstr ""
-"Conheça as estrelas do nosso programa de criação. Cada cão é um membro querido da "
-"nossa família, e estamos orgulhosos de partilhar as suas histórias consigo."
+"Conheça as estrelas do nosso programa de criação. Cada cão é um membro "
+"querido da nossa família, e estamos orgulhosos de partilhar as suas "
+"histórias consigo."
 
-#: frontoffice/templates/our_dogs/index.html:79
-msgid "Description"
-msgstr "Descrição"
+#: frontoffice/templates/our_dogs/index.html:199
+msgid "Link copied to clipboard!"
+msgstr "Link copiado!"
+
+#: frontoffice/templates/our_dogs/index.html:201
+msgid "Failed to copy link."
+msgstr "Falha ao copiar o link."
+
+#: frontoffice/templates/our_dogs/index.html:217
+msgid "Page shared!"
+msgstr "Pagina partilhada!"
+
+#: frontoffice/templates/our_dogs/index.html:219
+msgid "Page was not shared."
+msgstr "Página não foi partilhada."
 
 #: frontoffice/templates/upcoming_litters/detail.html:77
 #: frontoffice/templates/upcoming_litters/partials/cards.html:45
@@ -1130,3 +1147,6 @@ msgstr "Obrigado! Entraremos em contacto consigo brevemente."
 #: frontoffice/views.py:206
 msgid "Ups... Try again later."
 msgstr "Ups... Tente novamente mais tarde."
+
+#~ msgid "Description"
+#~ msgstr "Descrição"
