@@ -90,8 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
             userSubmenu?.classList.remove('scale-y-100');
         }
         if (mobileOurDogsButton && !mobileOurDogsButton.contains(e.target)) {
-            mobileOurDogsSubmenu?.classList.add('scale-y-0');
-            mobileOurDogsSubmenu?.classList.remove('scale-y-100');
+            mobileOurDogsSubmenu.classList.add('scale-y-0');
+            mobileOurDogsSubmenu.classList.remove('scale-y-100');
+
+            setTimeout(() => {
+                mobileOurDogsSubmenu.classList.add('hidden');
+            }, 300); // Match the duration of the CSS transition
         }
     });
 });

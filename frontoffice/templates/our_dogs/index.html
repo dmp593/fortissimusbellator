@@ -16,78 +16,80 @@
         </div>
 
         <!-- Dogs Sections -->
-        <div class="space-y-24">
+        <div class="space-y-12">
             {% for dog in dogs %}
-            <section id="dog-{{ dog.pk }}" class="bg-gradient-to-br from-stone-50 to-stone-100 dark:from-stone-800 dark:to-stone-900 rounded-xl shadow-2xl border border-stone-200 dark:border-stone-700 overflow-hidden my-16">
-                <!-- Full-Width Cover Image (Toggleable) -->
-                <div class="w-full h-[32rem] relative cursor-pointer" onclick="toggleSection('dog-{{ dog.pk }}-content', 'dog-{{ dog.pk }}-toggle')">
-                    <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-stone-900 via-stone-900/50 to-transparent"></div>
-                    <!-- Section Header (Name + Gender + Birthdate + Training Info) -->
-                    <div class="absolute bottom-0 left-0 right-0 p-12">
-                        <div class="flex flex-col space-y-4">
-                            <!-- Name and Gender -->
-                            <div class="flex items-center space-x-4">
-                                <h2 class="font-serif text-5xl font-bold text-white">
-                                    {{ dog.name }}
-                                </h2>
-                                <!-- Gender Symbol -->
-                                <div class="flex items-center">
-                                    {% if dog.gender == 'M' %}
-                                    {% include "icons/genders/male.html" with class="size-6 text-white" %}
-                                    {% elif dog.gender == 'F' %}
-                                    {% include "icons/genders/female.html" with class="size-6 text-white" %}
-                                    {% else %}
-                                    {% include "icons/genders/ambiguous.html" with class="size-6 text-white" %}
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <!-- Birthdate and Training Info -->
-                            <div class="flex items-center space-x-6">
-                                <!-- Birthdate -->
-                                <div class="flex items-center space-x-2">
-                                    {% include "icons/cake.html" with class="size-6 text-white" %}
-                                    <span class="font-sans text-white">
-                                        {{ dog.birth_date|date:"M d, Y" }}
-                                    </span>
-                                </div>
-                                <!-- Training Info -->
-                                {% if dog.has_training %}
-                                <div class="flex items-center space-x-2">
-                                    {% include "icons/dog_training.html" with class="size-6 text-white" %}
-                                    <span class="font-sans text-white">
-                                        {% translate "Trained" %}
-                                    </span>
-                                </div>
+            <section id="dog-{{ dog.pk }}" class="bg-gradient-to-br from-stone-50 to-stone-100 dark:from-stone-800 dark:to-stone-900 rounded-xl shadow-2xl border border-stone-200 dark:border-stone-700 overflow-hidden">
+                <!-- Dog Card -->
+                <div class="relative flex flex-col lg:flex-row">
+                    <!-- Image Section -->
+                    <div class="lg:w-1/2 relative">
+                        <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-[80vh] lg:h-full drop-shadow-[3px_0_15px_rgba(0,0,0,0.25)] object-cover">
+                    </div>
+
+                    <!-- Info Section -->
+                    <div class="lg:w-1/2 p-8">
+                        <!-- Name and Gender -->
+                        <div class="flex items-center space-x-4 mb-4">
+                            <h2 class="font-serif text-4xl font-bold text-stone-900 dark:text-white mb-4">
+                                {{ dog.name }}
+                            </h2>
+                            <!-- Gender Symbol -->
+                            <div class="flex items-center">
+                                {% if dog.gender == 'M' %}
+                                {% include "icons/genders/male.html" with class="size-6 text-stone-900 dark:text-white" %}
+                                {% elif dog.gender == 'F' %}
+                                {% include "icons/genders/female.html" with class="size-6 text-stone-900 dark:text-white" %}
+                                {% else %}
+                                {% include "icons/genders/ambiguous.html" with class="size-6 text-stone-900 dark:text-white" %}
                                 {% endif %}
                             </div>
                         </div>
+
+                        <!-- Birthdate and Training Info -->
+                        <div class="flex flex-col space-y-2 mb-4">
+                            <!-- Birthdate -->
+                            <div class="flex items-center space-x-2">
+                                {% include "icons/cake.html" with class="size-6 text-stone-600 dark:text-stone-300" %}
+                                <span class="font-sans text-stone-600 dark:text-stone-300">
+                                    {{ dog.birth_date|date:"M d, Y" }}
+                                </span>
+                            </div>
+                            <!-- Training Info -->
+                            {% if dog.has_training %}
+                            <div class="flex items-center space-x-2">
+                                {% include "icons/dog_training.html" with class="size-6 text-stone-600 dark:text-stone-300" %}
+                                <span class="font-sans text-stone-600 dark:text-stone-300">
+                                    {% translate "Trained" %}
+                                </span>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        {% if dog.description %}
+                        <!-- Description -->
+                        <p class="font-sans text-stone-600 dark:text-stone-300 text-lg whitespace-pre-line">
+                            {{ dog.description }}
+                        </p>
+                        {% endif %}
                     </div>
+
                     <!-- Toggle Indicator -->
-                    <div id="dog-{{ dog.id }}-toggle" class="absolute bottom-4 right-4 rounded-full transform transition-transform duration-300">
-                        <span class="text-white text-2xl">▼</span>
+                    <div id="dog-{{ dog.id }}-toggle" class="absolute right-1 bottom-1 rounded-full p-2 cursor-pointer transform transition-transform duration-300 hover:scale-110" onclick="toggleSection('dog-{{ dog.id }}-content', 'dog-{{ dog.id }}-toggle')">
+                        <span class="dark:text-white text-2xl">▼</span>
                     </div>
                 </div>
 
                 <!-- Dog Details (Collapsible, Hidden by Default) -->
                 <div id="dog-{{ dog.id }}-content" class="overflow-hidden transition-all duration-500 ease-in-out max-h-0">
-                    <div class="p-12">
-                        {% if dog.description %}
-                        <!-- Description -->
-                        <div class="mb-12">
-                            <h3 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-6">
-                                {% translate "Description" %}
-                            </h3>
-                            <p class="font-sans text-stone-600 dark:text-stone-300 text-lg whitespace-pre-line">
-                                {{ dog.description }}
-                            </p>
-                        </div>
-                        {% endif %}
+                    
+                    <!-- Divider -->
+                    <hr class="h-[0.3] border-t-0 bg-stone-800/20 dark:bg-white/20" />
 
+                    <div class="p-8">
                         <!-- Certifications -->
                         {% if dog.certifications.exists %}
-                        <div class="mb-12">
-                            <h3 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-6">
+                        <div class="mb-8">
+                            <h3 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-4">
                                 {% translate "Certifications" %}
                             </h3>
                             <div class="space-y-4">
@@ -119,8 +121,8 @@
 
                         <!-- Lineage -->
                         {% if dog.father or dog.mother %}
-                        <div class="mb-12">
-                            <h3 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-6">
+                        <div class="mb-8">
+                            <h3 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-4">
                                 {% translate "Lineage" %}
                             </h3>
                             {% include 'components/lineage_tree.html' with animal=dog %}
@@ -129,7 +131,7 @@
 
                         <!-- Gallery -->
                         <div>
-                            <h3 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-6">
+                            <h3 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-4">
                                 {% translate "Gallery" %}
                             </h3>
                             {% include 'components/gallery.html' with title=false object=dog %}
