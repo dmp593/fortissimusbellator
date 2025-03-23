@@ -3,148 +3,146 @@
 {% load i18n %}
 
 {% block content %}
-<div class="mt-16">
-    <!-- Hero Section -->
-    <section class="bg-stone-100 dark:bg-stone-800 py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="font-serif text-4xl font-bold text-stone-900 dark:text-white">
-                {% translate "Welcome, " %}{{ user.username }}!
-            </h1>
-            <p class="text-lg font-sans text-stone-600 dark:text-stone-300 mt-4">
-                {% translate "We're thrilled to have you here. Let's make a difference together!" %}
-            </p>
-            <div class="mt-8">
-                <a href="{% url 'buy_a_dog' %}" 
-                class="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition duration-300 font-sans shadow-lg inline-flex items-center space-x-2">
-                    {% include "icons/paw.html" %}
-                    <span>{% translate "Buy a Dog" %}</span>
-                </a>
-            </div>
+<!-- Hero Section -->
+<section class="bg-stone-100 dark:bg-stone-800 py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="font-serif text-4xl font-bold text-stone-900 dark:text-white">
+            {% translate "Welcome, " %}{{ user.username }}!
+        </h1>
+        <p class="text-lg font-sans text-stone-600 dark:text-stone-300 mt-4">
+            {% translate "We're thrilled to have you here. Let's make a difference together!" %}
+        </p>
+        <div class="mt-8">
+            <a href="{% url 'buy_a_dog' %}" 
+            class="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition duration-300 font-sans shadow-lg inline-flex items-center space-x-2">
+                {% include "icons/paw.html" %}
+                <span>{% translate "Buy a Dog" %}</span>
+            </a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Quick Actions Section -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="font-serif text-3xl font-bold text-center text-stone-900 dark:text-white mb-8">
-                {% translate "Quick Actions" %}
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Admin Panel or FAQs Page -->
-                {% if user.is_staff %}
-                <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center hover:shadow-xl transition duration-300">
-                    {% include "icons/admin_panel.html" %}
-                    <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white mt-4">
-                        {% translate "Admin Panel" %}
-                    </h3>
-                    <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
-                        {% translate "Manage the platform and keep everything running smoothly." %}
-                    </p>
-                    <a href="{% url 'admin:index' %}" 
-                    class="mt-4 inline-block bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-600 transition duration-300 font-sans">
-                        {% translate "Go to Admin Panel" %}
-                    </a>
-                </div>
-                {% else %}
-                <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center hover:shadow-xl transition duration-300">
-                    {% include "icons/info.html" %}
-                    <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white mt-4">
-                        {% translate "FAQs" %}
-                    </h3>
-                    <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
-                        {% translate "Find answers to common questions about dog training, adoption, and care." %}
-                    </p>
-                    <a href="{% url 'faqs' %}" 
-                    class="mt-4 inline-block bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-600 transition duration-300 font-sans">
-                        {% translate "View FAQs" %}
-                    </a>
-                </div>
-                {% endif %}
-
-
-                <!-- Explore Dogs -->
-                <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center hover:shadow-xl transition duration-300">
-                    {% include "icons/dog.html" %}
-                    <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white mt-4">
-                        {% translate "Buy a Dog" %}
-                    </h3>
-                    <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
-                        {% translate "Discover our exceptional dogs and their unique qualities." %}
-                    </p>
-                    <a href="{% url 'buy_a_dog' %}" 
-                    class="mt-4 inline-block bg-yellow-600 text-white px-6 py-2 rounded-lg hover:bg-yellow-700 transition duration-300 font-sans">
-                        {% translate "Explore Now" %}
-                    </a>
-                </div>
-
-                <!-- Contact Us -->
-                <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center hover:shadow-xl transition duration-300">
-                    {% include "icons/contact.html" %}
-                    <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white mt-4">
-                        {% translate "Contact Us" %}
-                    </h3>
-                    <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
-                        {% translate "Have questions? Reach out to us for assistance." %}
-                    </p>
-                    <a href="{% url 'contact_us' %}" 
-                    class="mt-4 inline-block bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-600 transition duration-300 font-sans">
-                        {% translate "Get in Touch" %}
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Motivational Section -->
-    <section class="bg-yellow-100 dark:bg-yellow-700 py-16">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-y-8">
-            <!-- Motivational Text -->
-            <div class="md:w-[50%] text-center md:text-left">
-                <h2 class="font-serif text-xl md:text-[2rem] font-bold leading-tight text-yellow-darkest dark:text-white mb-[1.5rem]">{% translate "Every Dog Deserves a Chance to Shine!" %}</h2>
-                <p class="font-sans text-stone-700 dark:text-stone-300 text-lg leading-relaxed">
-                    {% translate "At Fortissimus Bellator, we believe in the unique potential of every dog. Whether it's through training, care, or companionship, we're here to make a difference in their lives—and yours." %}
+<!-- Quick Actions Section -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="font-serif text-3xl font-bold text-center text-stone-900 dark:text-white mb-8">
+            {% translate "Quick Actions" %}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Admin Panel or FAQs Page -->
+            {% if user.is_staff %}
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center hover:shadow-xl transition duration-300">
+                {% include "icons/admin_panel.html" %}
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white mt-4">
+                    {% translate "Admin Panel" %}
+                </h3>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
+                    {% translate "Manage the platform and keep everything running smoothly." %}
                 </p>
-                <div class="mt-6">
-                    <a href="{% url 'about_us' %}" 
-                    class="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition duration-300 font-sans shadow-lg inline-flex items-center space-x-2">
-                        {% include "icons/info.html" %}
-                        <span>{% translate "Learn More About Us" %}</span>
-                    </a>
-                </div>
+                <a href="{% url 'admin:index' %}" 
+                class="mt-4 inline-block bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-600 transition duration-300 font-sans">
+                    {% translate "Go to Admin Panel" %}
+                </a>
             </div>
-
-            <!-- Motivational Image -->
-            <div class="md:w-[50%] flex justify-center">
-                <img src="{% static 'imgs/funny-dog.jpg' %}" 
-                    alt="{% translate 'Happy Dog' %}" 
-                    class="rounded-lg shadow-lg w-full max-w-md object-cover"
-                    loading="lazy">
+            {% else %}
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center hover:shadow-xl transition duration-300">
+                {% include "icons/info.html" %}
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white mt-4">
+                    {% translate "FAQs" %}
+                </h3>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
+                    {% translate "Find answers to common questions about dog training, adoption, and care." %}
+                </p>
+                <a href="{% url 'faqs' %}" 
+                class="mt-4 inline-block bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-600 transition duration-300 font-sans">
+                    {% translate "View FAQs" %}
+                </a>
             </div>
-        </div>
-    </section>
+            {% endif %}
 
-    <!-- Footer CTA Section -->
-    <section class="bg-stone-100 dark:bg-stone-800 py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-white">
-                {% translate "Ready to Make a Difference?" %}
-            </h2>
-            <p class="font-sans text-stone-600 dark:text-stone-300 mt-4 max-w-xl mx-auto leading-relaxed">
-                {% translate "Join us in our mission to breed and train exceptional dogs. Explore, connect, and be part of the journey." %}
-            </p>
-            <div class="mt-8 flex flex-wrap justify-center gap-4">
+
+            <!-- Explore Dogs -->
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center hover:shadow-xl transition duration-300">
+                {% include "icons/dog.html" %}
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white mt-4">
+                    {% translate "Buy a Dog" %}
+                </h3>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
+                    {% translate "Discover our exceptional dogs and their unique qualities." %}
+                </p>
                 <a href="{% url 'buy_a_dog' %}" 
-                class="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition duration-300 font-sans shadow-lg inline-flex items-center space-x-2">
-                    {% include "icons/paw.html" %}
-                    <span>{% translate "Buy a Dog" %}</span>
+                class="mt-4 inline-block bg-yellow-600 text-white px-6 py-2 rounded-lg hover:bg-yellow-700 transition duration-300 font-sans">
+                    {% translate "Explore Now" %}
                 </a>
+            </div>
+
+            <!-- Contact Us -->
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg text-center hover:shadow-xl transition duration-300">
+                {% include "icons/contact.html" %}
+                <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white mt-4">
+                    {% translate "Contact Us" %}
+                </h3>
+                <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
+                    {% translate "Have questions? Reach out to us for assistance." %}
+                </p>
                 <a href="{% url 'contact_us' %}" 
-                class="bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300 font-sans shadow-lg inline-flex items-center space-x-2">
-                    {% include "icons/contact.html" %}
-                    <span>{% translate "Contact Us" %}</span>
+                class="mt-4 inline-block bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-600 transition duration-300 font-sans">
+                    {% translate "Get in Touch" %}
                 </a>
             </div>
         </div>
-    </section>
-</div>
+    </div>
+</section>
+
+<!-- Motivational Section -->
+<section class="bg-yellow-100 dark:bg-yellow-700 py-16">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-y-8">
+        <!-- Motivational Text -->
+        <div class="md:w-[50%] text-center md:text-left">
+            <h2 class="font-serif text-xl md:text-[2rem] font-bold leading-tight text-yellow-darkest dark:text-white mb-[1.5rem]">{% translate "Every Dog Deserves a Chance to Shine!" %}</h2>
+            <p class="font-sans text-stone-700 dark:text-stone-300 text-lg leading-relaxed">
+                {% translate "At Fortissimus Bellator, we believe in the unique potential of every dog. Whether it's through training, care, or companionship, we're here to make a difference in their lives—and yours." %}
+            </p>
+            <div class="mt-6">
+                <a href="{% url 'about_us' %}" 
+                class="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition duration-300 font-sans shadow-lg inline-flex items-center space-x-2">
+                    {% include "icons/info.html" %}
+                    <span>{% translate "Learn More About Us" %}</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Motivational Image -->
+        <div class="md:w-[50%] flex justify-center">
+            <img src="{% static 'imgs/funny-dog.jpg' %}" 
+                alt="{% translate 'Happy Dog' %}" 
+                class="rounded-lg shadow-lg w-full max-w-md object-cover"
+                loading="lazy">
+        </div>
+    </div>
+</section>
+
+<!-- Footer CTA Section -->
+<section class="bg-stone-100 dark:bg-stone-800 py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-white">
+            {% translate "Ready to Make a Difference?" %}
+        </h2>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-4 max-w-xl mx-auto leading-relaxed">
+            {% translate "Join us in our mission to breed and train exceptional dogs. Explore, connect, and be part of the journey." %}
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+            <a href="{% url 'buy_a_dog' %}" 
+            class="bg-yellow-600 text-white px-6 py-3 rounded-lg hover:bg-yellow-700 transition duration-300 font-sans shadow-lg inline-flex items-center space-x-2">
+                {% include "icons/paw.html" %}
+                <span>{% translate "Buy a Dog" %}</span>
+            </a>
+            <a href="{% url 'contact_us' %}" 
+            class="bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300 font-sans shadow-lg inline-flex items-center space-x-2">
+                {% include "icons/contact.html" %}
+                <span>{% translate "Contact Us" %}</span>
+            </a>
+        </div>
+    </div>
+</section>
 {% endblock %}

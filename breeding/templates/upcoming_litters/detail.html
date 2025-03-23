@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-16">
+    <!-- Litter Name and Breed -->
+    <div class="text-center mb-12">
+        <h1 class="font-serif text-4xl font-bold text-stone-900 dark:text-white">
+            {{ litter.name }}
+        </h1>
+        <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
+            {{ litter.breed.name }}
+        </p>
+    </div>
+
+    <!-- Litter Image -->
+    <div class="mb-12">
+        {% if litter.cover %}
+        <img src="{{ litter.cover.file.url }}" alt="{{ litter.name }}" class="aspect-[4/5] sm:aspect-[3/4] md:aspect-square lg:aspect-video w-full h-full object-cover rounded-lg shadow-lg" loading="lazy">
+        {% else %}
+        <div class="w-full h-64 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+            <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Litter Details Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Left Column: Description -->
+        <div class="order-1">
+            <!-- Description -->
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg mb-6">
+                <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
+                    {% translate "About" %} {{ litter.name }}
+                </h2>
+                <p class="font-sans text-stone-600 dark:text-stone-300 whitespace-pre-line">
+                    {{ litter.description }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Column: Details -->
+        <div class="order-2">
+            <!-- Details Card -->
+            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg mb-6">
+                <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
+                    {% translate "Details" %}
+                </h2>
+                <div class="space-y-4">
+                    <!-- Expected Birth Date -->
+                    {% if litter.expected_birth_date %}
+                    <div class="flex items-center space-x-2">
+                        {% include "icons/cake.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300">
+                            {{ litter.expected_birth_date|date:"M d, Y" }}
+                        </span>
+                    </div>
+                    {% endif %}
+
+                    <!-- Expected Delivery Date -->
+                    {% if litter.expected_delivery_date %}
+                    <div class="flex items-center space-x-2">
+                        {% include "icons/truck.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300">
+                            {{ litter.expected_delivery_date|date:"M d, Y" }}
+                        </span>
+                    </div>
+                    {% endif %}
+
+                    <!-- Expected Number of Babies -->
+                    {% if litter.expected_babies %}
+                    <div class="flex items-center space-x-2">
+                        {% include "icons/users.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300">
+                            {% blocktranslate count babies=litter.expected_babies|default:0 %}1 baby{% plural %}{{ babies }} babies{% endblocktranslate %}
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Call Us Button -->
+            <a href="{% url 'contact_us' %}" class="w-full bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300 flex items-center justify-center space-x-2 mb-6">
+                {% include "icons/phone.html" %}
+                <span>{% translate "Call Us" %}</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Lineage Tree Section -->
+    {% if litter.father or litter.mother %}
+    <div class="mt-24">
+        <h2 class="font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12 text-left">
+            {% translate "Lineage" %}
+        </h2>
+        {% include "components/lineage_tree.html" with animal=litter %}
+    </div>
+    {% endif %}
+
+    <!-- Gallery Section -->
+    <div class="mt-24">
+        <h2 class="font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12 text-left">
+            {% translate "Gallery" %}
+        </h2>
+        {% include "components/gallery.html" with object=litter %}
+    </div>
+
+    <!-- Back to Litters -->
+    <div class="text-center mt-12">
+        <a href="{% url 'upcoming_litters' %}" class="inline-flex items-center bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300">
+            {% include "icons/arrow_left.html" %}
+            <span class="ml-2">{% translate "Go Back" %}</span>
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -127,8 +127,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                # light/dark theme context processor
-                'frontoffice.context_processors.breeds',
+                'breeding.context_processors.breeds',
                 'frontoffice.context_processors.theme_context',
             ],
         },
@@ -146,9 +145,9 @@ DATABASES = {
 }
 
 
-LOGIN_URL = 'accounts:login'
-LOGOUT_URL = 'accounts:logout'
-LOGIN_REDIRECT_URL = 'accounts:welcome'  # Redirect after login
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'welcome'  # Redirect after login
 LOGOUT_REDIRECT_URL = 'home'    # Redirect after logout
 
 

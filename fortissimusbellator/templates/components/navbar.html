@@ -79,14 +79,14 @@
                             {% if user.is_staff %}
                             <a href="{% url 'admin:index' %}" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Admin Panel" %}</a>
                             {% endif %}
-                            <form action="{% url 'accounts:logout' %}" method="post" class="inline">
+                            <form action="{% url 'logout' %}" method="post" class="inline">
                                 {% csrf_token %}
                                 <button type="submit" class="cursor-pointer block w-full text-left px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Logout" %}</button>
                             </form>
                         </div>
                     </div>
                 {% else %}
-                    <a href="{% url 'accounts:login' %}" class="p-1 sm:p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                    <a href="{% url 'login' %}" class="p-1 sm:p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                         </svg>

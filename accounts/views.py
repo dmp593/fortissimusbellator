@@ -2,6 +2,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, get_user_model
 from django.contrib.auth import views as auth_views
@@ -33,8 +34,8 @@ class LogoutView(auth_views.LogoutView):
 
 class PasswordResetView(auth_views.PasswordResetView):
     template_name = 'password/password_reset_form.html'
-    email_template_name = 'password/password_reset_email.html'
-    success_url = reverse_lazy('accounts:password_reset_done')
+    html_email_template_name = 'password/password_reset_email.html'
+    success_url = reverse_lazy('password_reset_done')
 
 
 class PasswordResetDoneView(auth_views.PasswordResetDoneView):
@@ -43,7 +44,7 @@ class PasswordResetDoneView(auth_views.PasswordResetDoneView):
 
 class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
     template_name = 'password/password_reset_confirm.html'
-    success_url = reverse_lazy('accounts:password_reset_complete')
+    success_url = reverse_lazy('password_reset_complete')
 
 
 class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
@@ -64,21 +65,31 @@ def register(request):
 
             # Send activation email
             current_site = get_current_site(request)
+
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+
             message = render_to_string('email_activate_account.html', {
                 'user': user,
                 'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': default_token_generator.make_token(user),
+                'uid': uid,
+                'token': token,
             })
 
             send_mail(
                 subject=_('Activate your account'),
-                message=message,
+                message=request.get_host() + reverse(
+                    "activate",
+                    kwargs={
+                        'uidb64': uid, 'token': token
+                    }
+                ),
+                html_message=message,
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[user.email]
             )
             
-            return redirect('accounts:email_confirmation_sent')
+            return redirect('email_confirmation_sent')
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
@@ -91,19 +102,30 @@ def resend_activation_email(request):
             user = User.objects.get(email=email, is_active=False)
             # Resend the activation email
             current_site = get_current_site(request)
+
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+
             message = render_to_string('email_activate_account.html', {
                 'user': user,
                 'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': default_token_generator.make_token(user),
+                'uid': uid,
+                'token': token,
             })
+
             send_mail(
                 subject=_('Activate your account'),
-                message=message,
+                message=request.get_host() + reverse(
+                    "activate",
+                    kwargs={
+                        'uidb64': uid, 'token': token
+                    }
+                ),
+                html_message=message,
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[user.email]
             )
-            return redirect('accounts:email_confirmation_sent')
+            return redirect('email_confirmation_sent')
         except User.DoesNotExist:
             return render(request, 'resend_activation_email.html', {'error': 'No inactive user found with this email.'})
     return render(request, 'resend_activation_email.html')
@@ -120,7 +142,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user)
-        return redirect('accounts:welcome')
+        return redirect('welcome')
     else:
         return HttpResponse('Activation link is invalid!')
 

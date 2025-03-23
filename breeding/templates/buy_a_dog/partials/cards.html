@@ -1,15 +1,28 @@
 {% load i18n %}
 
 {% for dog in dogs %}
-<div class="bg-white dark:bg-stone-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 flex flex-col">
+<div class="relative bg-white dark:bg-stone-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 flex flex-col">
     <!-- Dog Image -->
-    {% if dog.cover %}
-    <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-64 object-cover" loading="lazy">
-    {% else %}
-    <div class="w-full h-64 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
-        <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+    <div class="relative">
+        {% if dog.cover %}
+        <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-64 object-cover" loading="lazy">
+        {% else %}
+        <div class="w-full h-64 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+            <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+        </div>
+        {% endif %}
+
+        <!-- Badges -->
+        {% if dog.sold_at %}
+        <div class="absolute top-2 right-2 bg-red-700 dark:bg-red-400 text-white text-xs font-bold px-3 py-1 rounded-lg shadow-lg">
+            {% translate "Sold" %}
+        </div>
+        {% elif dog.discount_in_euros %}
+        <div class="absolute top-2 right-2 bg-yellow-800 dark:bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-lg shadow-lg">
+            {% translate "On Sale" %}
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
 
     <!-- Dog Details -->
     <div class="p-6 flex flex-col flex-grow">
@@ -56,9 +69,13 @@
         </div>
 
         <div class="mt-auto">
-            <!-- Price -->
+            <!-- Price / Sold Message -->
             <div class="mt-4">
-                {% if dog.price_in_euros %}
+                {% if dog.sold_at %}
+                <p class="text-lg font-bold text-red-800 italic dark:text-red-400">
+                    {% translate "Sold" %}
+                </p>
+                {% elif dog.price_in_euros %}
                 <p class="text-lg font-bold text-stone-700 dark:text-stone-300">
                     {% if dog.discount_in_euros %}
                     <span class="line-through text-stone-700 dark:text-stone-300">{{ dog.price_in_euros }}€</span>

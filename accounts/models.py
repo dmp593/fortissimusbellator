@@ -11,6 +11,7 @@ class Profile(models.Model):
         related_query_name='profile',
         verbose_name=_('user')
     )
+
     phone = models.CharField(
         max_length=15,
         verbose_name=_('phone number')

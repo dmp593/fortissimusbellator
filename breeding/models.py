@@ -352,9 +352,7 @@ class Animal(models.Model):
         active=True, for_breeding=True
     )
 
-    animals_for_sale = managers.Manager(
-        active=True, for_sale=True, sold_at__isnull=True
-    )
+    animals_for_sale = managers.AnimalsForSaleManager()
 
     class Meta:
         verbose_name = _('animal')

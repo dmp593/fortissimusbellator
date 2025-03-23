@@ -12,6 +12,19 @@ class Manager(models.Manager):
         return super().get_queryset().filter(**self.filters)
 
 
+class AnimalsForSaleManager(Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            active=True, for_sale=True
+        ).order_by(
+            models.Case(
+                models.When(sold_at__isnull=True, then=models.Value(0)),
+                default=models.Value(1)
+            ),
+            'order'
+        )
+
+
 class AnimalKindManager(Manager):
     def get_by_natural_key(self, name: str) -> 'AnimalKind':
         return self.get(name=name)
