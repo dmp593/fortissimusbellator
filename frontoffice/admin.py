@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import FrequentlyAskedQuestion
+from modeltranslation.admin import TranslationAdmin
+from .translation import FrequentlyAskedQuestion
 
 
-admin.site.register(FrequentlyAskedQuestion)
+@admin.register(FrequentlyAskedQuestion)
+class FrequentlyAskedQuestionAdmin(TranslationAdmin):
+    ...
