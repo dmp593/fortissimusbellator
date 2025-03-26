@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('answer', models.TextField(verbose_name='answer')),
                 ('answer_en', models.TextField(null=True, verbose_name='answer')),
                 ('answer_pt', models.TextField(null=True, verbose_name='answer')),
-                ('image', models.ImageField(null=True, upload_to=frontoffice.models.faq_image_upload_to, verbose_name='image')),
+                ('image', models.ImageField(null=True, blank=True, upload_to=frontoffice.models.faq_image_upload_to, verbose_name='image')),
                 ('active', models.BooleanField(default=True, verbose_name='active')),
                 ('order', models.IntegerField(default=999, verbose_name='order')),
             ],

@@ -33,6 +33,7 @@ class FrequentlyAskedQuestion(models.Model):
     image = models.ImageField(
         upload_to=faq_image_upload_to,
         null=True,
+        blank=True,
         verbose_name=_('image'),
     )
 
