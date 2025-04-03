@@ -84,6 +84,9 @@
                             {% if user.is_staff %}
                             <a href="{% url 'admin:index' %}" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Admin Panel" %}</a>
                             {% endif %}
+
+                            <a href="#" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "My Dogs" %}</a>
+
                             <form action="{% url 'logout' %}" method="post" class="inline">
                                 {% csrf_token %}
                                 <button type="submit" class="cursor-pointer block w-full text-left px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Logout" %}</button>

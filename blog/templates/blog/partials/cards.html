@@ -6,7 +6,7 @@
     <div class="relative p-8 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')] dark:bg-stone-900/50">
         <!-- Post Cover Image -->
         {% if post.cover %}
-        <div class="mb-8 rounded-lg overflow-hidden shadow-md">
+        <div class="mb-8 h-123 rounded-lg overflow-hidden shadow-md">
             <img src="{{ post.cover.url }}" alt="{{ post.title }}" class="w-full aspect-square object-cover" loading="lazy">
         </div>
         {% endif %}
@@ -18,7 +18,7 @@
 
         <!-- Post Categories -->
         {% if post.categories.exists %}
-        <div class="flex flex-wrap gap-2 mb-6">
+        <div class="flex flex-wrap justify-center gap-2 mb-6">
             {% for category in post.categories.all %}
             <span class="px-3 py-1 bg-stone-100 dark:bg-stone-700 text-stone-700 dark:text-stone-200 text-xs rounded-full">
                 {{ category.name }}
@@ -28,7 +28,7 @@
         {% endif %}
 
         <!-- Post Metadata -->
-        <div class="flex items-center space-x-4 mb-6 text-sm text-stone-500 dark:text-stone-400">
+        <div class="flex items-center justify-center space-x-4 mb-6 text-sm text-stone-500 dark:text-stone-400">
             <span>{{ post.published_at|date:"M d, Y" }}</span>
             <span>•</span>
             <span>{% translate "By" %} {{ post.author.get_full_name }}</span>
