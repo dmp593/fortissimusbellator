@@ -1,0 +1,32 @@
+<div class="rounded-lg p-4 my-6 space-y-3"> <!-- bg-stone-100 dark:bg-stone-800/30 -->
+    {% for item in data.items %}
+    <div class="flex items-start group">
+        <div class="flex items-center h-5 mt-0.5">
+            <input type="checkbox" 
+                   {% if item.checked %}checked{% endif %}
+                   class="h-4 w-4 rounded border-2 border-stone-300 dark:border-stone-600 bg-white dark:bg-stone-800 checked:bg-stone-600 dark:checked:bg-stone-400 focus:ring-0 focus:ring-offset-0 cursor-default"
+                   disabled>
+        </div>
+        <div class="ml-3 text-sm leading-5">
+            <label class="text-stone-700 dark:text-stone-300 {% if item.checked %}opacity-75 line-through{% endif %}">
+                {{ item.text|safe }}
+            </label>
+            {% if item.subitems %}
+            <div class="ml-4 mt-2 space-y-2">
+                {% for subitem in item.subitems %}
+                <div class="flex items-center">
+                    <input type="checkbox" 
+                           {% if subitem.checked %}checked{% endif %}
+                           class="h-3.5 w-3.5 rounded border-2 border-stone-300 dark:border-stone-600 bg-white dark:bg-stone-800 checked:bg-stone-600 dark:checked:bg-stone-400"
+                           disabled>
+                    <span class="ml-2 text-xs text-stone-600 dark:text-stone-400 {% if subitem.checked %}line-through{% endif %}">
+                        {{ subitem.text }}
+                    </span>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
 from attachments.admin import AttachmentStackedInline
+from tags.admin import TagAdminStackedInline
 
 from . import forms
 from .translation import models
@@ -72,7 +73,8 @@ class AnimalAdmin(TranslationAdmin):
 
     inlines = [
         AttachmentStackedInline,
-        AnimalCertificationStackedInline
+        AnimalCertificationStackedInline,
+        TagAdminStackedInline,
     ]
 
     list_display = (
@@ -98,7 +100,8 @@ class LitterAdmin(TranslationAdmin):
     Litter configuration for Animal, including attachments.
     """
     inlines = [
-        AttachmentStackedInline
+        AttachmentStackedInline,
+        TagAdminStackedInline
     ]
 
     list_display = (

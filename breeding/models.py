@@ -7,9 +7,11 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.translation import gettext_lazy as _
 
 from attachments.models import Attachment
+from tags.models import Tag
 from . import managers
 
 
@@ -323,6 +325,16 @@ class Animal(models.Model):
         verbose_name=_('order'),
     )
 
+    files = GenericRelation(
+        Attachment,
+        verbose_name=_('files'),
+    )
+
+    tags = GenericRelation(
+        Tag,
+        verbose_name=_('tags')
+    )
+
     @property
     def current_price_in_euros(self):
         if not self.for_sale:
@@ -332,11 +344,6 @@ class Animal(models.Model):
             return self.price_in_euros
 
         return self.price_in_euros - self.discount_in_euros
-
-    @property
-    def files(self):
-        ct = ContentType.objects.get_for_model(self)
-        return Attachment.objects.filter(content_type=ct, object_id=self.pk)
 
     @property
     def cover(self):
@@ -428,10 +435,15 @@ class Litter(models.Model):
         verbose_name=_('order'),
     )
 
-    @property
-    def files(self):
-        ct = ContentType.objects.get_for_model(self)
-        return Attachment.objects.filter(content_type=ct, object_id=self.pk)
+    files = GenericRelation(
+        Attachment,
+        verbose_name=_('files'),
+    )
+
+    tags = GenericRelation(
+        Tag,
+        verbose_name=_('tags')
+    )
 
     @property
     def cover(self):

@@ -1,20 +1,20 @@
 {% load static %}
 {% load i18n %}
 
-<nav class="fixed w-full top-0 z-[1000] transition-colors duration-300 bg-gradient-to-r from-white to-stone-100 dark:from-stone-800 dark:to-stone-900 shadow-lg text-stone-800 dark:text-white" id="navbar">
+<nav class="fixed w-full top-0 z-[1001] transition-colors duration-300 bg-gradient-to-r from-white to-stone-100 dark:from-stone-800 dark:to-stone-900 shadow-lg text-stone-800 dark:text-white" id="navbar">
     <div class="mx-auto px-2 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <!-- Logo and Brand Name -->
             <div class="flex-shrink-0">
                 <a href="{% url 'home' %}" class="flex items-center hover:scale-105 transition-transform duration-300">
-                    {% include "icons/fortissimus_bellator.html" with id="logo" class="size-16 dark:text-yellow-400" %}
+                    {% include "icons/fortissimus_bellator.html" with id="logo" class="size-12 sm:size-16 dark:text-yellow-400" %}
                     <span class="hidden md:block ml-2 text-lg font-bold font-metamorphous bg-gradient-to-r from-stone-800 to-stone-600 dark:from-yellow-400 dark:to-yellow-600 bg-clip-text text-transparent">Fortissimus Bellator</span>
                 </a>
             </div>
 
             <!-- Desktop Menu -->
             <div class="hidden xl:flex space-x-3 items-center">
-                <!-- Our Dogs with Submenu -->
+                <!-- Our Dogs By Breed -->
                 <div class="relative group">
                     <button id="our-dogs-button" class="flex items-center text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">
                         {% trans "Our Dogs" %}
@@ -22,8 +22,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
+
                     <!-- Submenu for Breeds -->
-                    <div id="our-dogs-submenu" class="z-[1001] text-xs absolute shadow-lg rounded-lg mt-2 py-2 w-64 left-0 bg-white dark:bg-stone-800 transition-all duration-300 origin-top transform scale-y-0 group-hover:scale-y-100">
+                    <div id="our-dogs-submenu" class="z-[1002] text-xs absolute shadow-lg rounded-lg mt-2 py-2 w-64 left-0 bg-white dark:bg-stone-800 transition-all duration-300 origin-top transform scale-y-0 group-hover:scale-y-100">
+                        <a href="{% url 'our_dogs' %}" class="block italic px-4 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
+                            {% trans "All dogs" %}
+                        </a>
                         {% for breed in breeds %}
                             <a href="{% url 'our_dogs' breed.pk %}" class="block px-4 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
                                 {{ breed.name }}
@@ -35,6 +39,7 @@
                 <!-- Other Menu Items -->
                 <a href="{% url 'buy_a_dog' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "Buy a Dog" %}</a>
                 <a href="{% url 'upcoming_litters' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "Upcoming Litters" %}</a>
+                <a href="{% url 'blog:posts' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "Journal" %}</a>
                 <a href="{% url 'about_us' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "About Us" %}</a>
                 <a href="{% url 'faqs' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "FAQs" %}</a>
                 <a href="{% url 'contact_us' %}" class="text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">{% trans "Contact Us" %}</a>
@@ -43,13 +48,13 @@
             <!-- Right Side: Contacts, Language, Theme, and Mobile Menu -->
             <div class="flex items-center space-x-3">
                 <!-- Phone Contacts -->
-                <div class="flex flex-col space-y-1">
+                <div class="flex flex-col space-y-1 py-1 px-0 sm:px-1">
                     <a href="tel:+351924454382" class="text-xs font-b612-mono hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">924454382</a>
                     <a href="tel:+351916749407" class="text-xs font-b612-mono hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">916749407</a>
                 </div>
 
                 <!-- Language Toggle -->
-                <button id="language-toggle" class="p-1 sm:p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                <button id="language-toggle" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
                     {% if request.LANGUAGE_CODE == 'en' %}
                         <img src="{% static 'flags/pt.png' %}" alt="Portuguese" class="w-6 h-6">
                     {% else %}
@@ -58,7 +63,7 @@
                 </button>
 
                 <!-- Theme Toggle -->
-                <button id="theme-toggle" class="p-1 sm:p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                <button id="theme-toggle" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
                     {% if theme == 'light' %}
                         {% include "icons/sun.html" with id="sun-icon" class="hidden" %}
                         {% include "icons/moon.html" with id="moon-icon" class="size-6" %}
@@ -71,11 +76,11 @@
                 <!-- User Authentication -->
                 {% if user.is_authenticated %}
                     <div class="relative group">
-                        <button id="user-menu-button" class="p-1 sm:p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                        <button id="user-menu-button" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
                             {% include "icons/user.html" %}
                         </button>
                         <!-- User Submenu -->
-                        <div id="user-submenu" class="text-xs z-[1001] absolute scale-y-0 shadow-lg rounded-lg mt-2 py-2 w-50 right-0 bg-white dark:bg-stone-800 transition-all duration-300 origin-top transform group-hover:scale-y-100">
+                        <div id="user-submenu" class="text-xs z-[1002] absolute scale-y-0 shadow-lg rounded-lg mt-2 py-2 w-50 right-0 bg-white dark:bg-stone-800 transition-all duration-300 origin-top transform group-hover:scale-y-100">
                             {% if user.is_staff %}
                             <a href="{% url 'admin:index' %}" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Admin Panel" %}</a>
                             {% endif %}
@@ -86,7 +91,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <a href="{% url 'login' %}" class="p-1 sm:p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                    <a href="{% url 'login' %}" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                         </svg>
@@ -106,12 +111,17 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="xl:hidden hidden bg-gradient-to-r from-white to-stone-100 dark:from-stone-800 dark:to-stone-900 shadow-lg">
         <div class="px-2 pt-2 pb-3 space-y-1">
+
+            <!-- Dogs filtered by Breeds -->
             <div class="relative text-xs">
                 <button id="mobile-our-dogs-button" class="w-full text-left px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
                     {% trans "Our Dogs" %}
                 </button>
                 <!-- Mobile Submenu for Breeds -->
                 <div id="mobile-our-dogs-submenu" class="pl-4 transition-all duration-300 origin-top transform hidden scale-y-0">
+                    <a href="{% url 'our_dogs' %}" class="block italic px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
+                        {% trans "All dogs" %}
+                    </a>
                     {% for breed in breeds %}
                         <a href="{% url 'our_dogs' breed.pk %}" class="block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
                             {{ breed.name }}
@@ -119,8 +129,10 @@
                     {% endfor %}
                 </div>
             </div>
+
             <a href="{% url 'buy_a_dog' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Buy a Dog" %}</a>
             <a href="{% url 'upcoming_litters' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Upcoming Litters" %}</a>
+            <a href="{% url 'blog:posts' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Journal" %}</a>
             <a href="{% url 'about_us' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "About Us" %}</a>
             <a href="{% url 'faqs' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "FAQs" %}</a>
             <a href="{% url 'contact_us' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Contact Us" %}</a>

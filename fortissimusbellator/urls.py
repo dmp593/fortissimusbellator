@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('frontoffice.urls')),
     path('', include('breeding.urls')),
     path('', include('accounts.urls')),
+    path('blog/', include('blog.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
     path('upload/', FileUploadView.as_view(), name='upload'),

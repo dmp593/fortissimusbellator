@@ -1,0 +1,31 @@
+<button id="scroll-top"
+    class="fixed bottom-5 right-5 md:bottom-6 md:right-6 lg:bottom-8 lg:right-8 p-3 md:p-4 bg-stone-700 dark:bg-stone-500 text-white rounded-full shadow-lg
+            opacity-0 invisible transition-all duration-300 hover:bg-stone-900 dark:hover:bg-white dark:hover:text-black
+            z-[1003]">
+    <svg class="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+    </svg>
+</button>
+
+{% block 'scripts' %}
+<script>
+    const scrollTopButton = document.getElementById('scroll-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            scrollTopButton.classList.remove('opacity-0', 'invisible');
+            scrollTopButton.classList.add('opacity-100', 'visible');
+        } else {
+            scrollTopButton.classList.remove('opacity-100', 'visible');
+            scrollTopButton.classList.add('opacity-0', 'invisible');
+        }
+    });
+
+    scrollTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+{% endblock %}

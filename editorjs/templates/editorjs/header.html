@@ -1,0 +1,13 @@
+{% if data.level == 1 %}
+    <h1 class="my-6 text-4xl font-bold">{{ data.text|safe }}</h1>
+    {% elif data.level == 2 %}
+    <h2 class="my-6 text-3xl font-bold">{{ data.text|safe }}</h2>
+    {% elif data.level == 3 %}
+    <h3 class="my-6 text-2xl font-bold">{{ data.text|safe }}</h3>
+    {% elif data.level == 4 %}
+    <h4 class="my-6 text-xl font-bold">{{ data.text|safe }}</h4>
+    {% elif data.level == 5 %}
+    <h5 class="my-6 text-lg font-bold">{{ data.text|safe }}</h5>
+    {% else %}
+    <h6 class="my-6 text-base font-bold">{{ data.text|safe }}</h6>
+    {% endif %}

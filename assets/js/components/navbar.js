@@ -33,8 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Desktop Submenu Toggle
     const ourDogsButton = document.getElementById('our-dogs-button');
     const ourDogsSubmenu = document.getElementById('our-dogs-submenu');
-    const userMenuButton = document.getElementById('user-menu-button');
-    const userSubmenu = document.getElementById('user-submenu');
 
     if (ourDogsButton && ourDogsSubmenu) {
         ourDogsButton.addEventListener('click', function (e) {
@@ -46,6 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
             arrow.classList.toggle('rotate-180');
         });
     }
+
+    const userMenuButton = document.getElementById('user-menu-button');
+    const userSubmenu = document.getElementById('user-submenu');
 
     if (userMenuButton && userSubmenu) {
         userMenuButton.addEventListener('click', function (e) {
@@ -85,10 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
             ourDogsSubmenu?.classList.remove('scale-y-100');
             ourDogsButton.querySelector('svg')?.classList.remove('rotate-180'); // Reset arrow rotation
         }
+
         if (userMenuButton && !userMenuButton.contains(e.target)) {
             userSubmenu?.classList.add('scale-y-0');
             userSubmenu?.classList.remove('scale-y-100');
         }
+        
         if (mobileOurDogsButton && !mobileOurDogsButton.contains(e.target)) {
             mobileOurDogsSubmenu.classList.add('scale-y-0');
             mobileOurDogsSubmenu.classList.remove('scale-y-100');

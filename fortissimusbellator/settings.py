@@ -91,11 +91,15 @@ INSTALLED_APPS = [
     # 3rd party apps
     'modeltranslation',
     'django_recaptcha',
+    'colorfield',
 
+    'editorjs',
     'attachments',
+    'tags',
     'accounts',
     'breeding',
     'frontoffice',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -235,3 +239,91 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_SITE_KEY')
 RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_SECRET_KEY')
+
+
+EDITORJS_DEFAULT_PLUGINS = [
+    '@editorjs/paragraph',
+    '@editorjs/header',
+    '@editorjs/list',
+    '@editorjs/checklist',
+    '@editorjs/quote',
+    '@editorjs/raw',
+    '@editorjs/embed',
+    '@editorjs/delimiter',
+    '@editorjs/warning',
+    '@editorjs/marker',
+    '@editorjs/table',
+    'simple-image-editorjs'  # a fork from @editorjs/simple-image
+]
+
+
+EDITORJS_DEFAULT_CONFIG = {
+    "tools": {
+        'Paragraph': {
+            'class': 'Paragraph',
+            'preserveBlank': True
+        },
+        'Header': {
+            'class': 'Header',
+            'inlineToolbar': True,
+            'config': {
+                'levels': [1, 2, 3, 4, 5, 6],
+                'defaultLevel': 1,
+            }
+        },
+        'Checklist': {
+            'class': 'Checklist',
+            'inlineToolbar': True
+        },
+        'EditorjsList': {
+            'class': 'EditorjsList',
+            'inlineToolbar': True,
+            'config': {
+                'defaultStyle': 'unordered',
+                'maxLevel': 3
+            },
+        },
+        'Quote': {
+            'class': 'Quote',
+            'inlineToolbar': True
+        },
+        'RawTool': {
+            'class': 'RawTool',
+            'inlineToolbar': True
+        },
+        'Embed': {
+            'class': 'Embed',
+            'inlineToolbar': True,
+            'config': {
+                'services': {
+                    'facebook': True,
+                    'instagram': True,
+                    'youtube': True,
+                    'vimeo': True,
+                    'imgur': True,
+                    'pinterest': True
+                }
+            }
+        },
+        'Delimiter': {
+            'class': 'Delimiter',
+            'inlineToolbar': True
+        },
+        'Warning': {
+            'class': 'Warning',
+            'inlineToolbar': True
+        },
+        'Marker': {
+            'class': 'Marker',
+            'inlineToolbar': True
+        },
+        'Table': {
+            'class': 'Table',
+            'inlineToolbar': True
+        },
+        'SimpleImage': {
+            'class': 'SimpleImage',
+            'inlineToolbar': True
+        }
+    }
+}

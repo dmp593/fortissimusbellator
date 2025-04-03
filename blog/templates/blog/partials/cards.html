@@ -1,0 +1,46 @@
+{% load i18n %}
+
+{% for post in posts %}
+<article class="bg-white dark:bg-stone-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl">
+    <!-- Paper-like background effect -->
+    <div class="relative p-8 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')] dark:bg-stone-900/50">
+        <!-- Post Cover Image -->
+        {% if post.cover %}
+        <div class="mb-8 rounded-lg overflow-hidden shadow-md">
+            <img src="{{ post.cover.url }}" alt="{{ post.title }}" class="w-full aspect-square object-cover" loading="lazy">
+        </div>
+        {% endif %}
+
+        <!-- Post Title -->
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-stone-900 dark:text-white mb-6">
+            {{ post.title }}
+        </h2>
+
+        <!-- Post Categories -->
+        {% if post.categories.exists %}
+        <div class="flex flex-wrap gap-2 mb-6">
+            {% for category in post.categories.all %}
+            <span class="px-3 py-1 bg-stone-100 dark:bg-stone-700 text-stone-700 dark:text-stone-200 text-xs rounded-full">
+                {{ category.name }}
+            </span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Post Metadata -->
+        <div class="flex items-center space-x-4 mb-6 text-sm text-stone-500 dark:text-stone-400">
+            <span>{{ post.published_at|date:"M d, Y" }}</span>
+            <span>•</span>
+            <span>{% translate "By" %} {{ post.author.get_full_name }}</span>
+        </div>
+
+        <!-- Read Button -->
+        <a href="{% url 'blog:post_detail' post.pk %}" class="flex items-center justify-end bg-gradient-to-r from-stone-700 to-stone-800 dark:from-stone-800 dark:to-stone-900 text-white dark:hover:text-white font-medium group bg-yellow-500 rounded-lg px-6 py-3">
+            <span class="font-bold">{% translate "Read" %}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </a>
+    </div>
+</article>
+{% endfor %}

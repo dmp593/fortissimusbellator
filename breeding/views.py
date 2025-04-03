@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 
+from fortissimusbellator.parsers import to_int
 from breeding.models import Animal, Litter
 
 
@@ -53,8 +54,8 @@ def buy_a_dog(request):
         dogs = dogs.filter(certifications__isnull=False)
 
     # Pagination
-    page = int(request.GET.get('page', 1))
-    per_page = int(request.GET.get('per_page', 12))
+    page = to_int(request.GET.get('page'), or_default=1)
+    per_page = to_int(request.GET.get('per_page'), or_default=12)
 
     if per_page <= 0:
         per_page = 1
@@ -102,8 +103,8 @@ def upcoming_litters(request):
         litters = litters.filter(breed_id=breed_filter)
 
     # Pagination
-    page = int(request.GET.get('page', 1))
-    per_page = int(request.GET.get('per_page', 12))
+    page = to_int(request.GET.get('page'), or_default=1)
+    per_page = to_int(request.GET.get('per_page'), or_default=12)
 
     if per_page <= 0:
         per_page = 1

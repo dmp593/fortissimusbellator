@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="pt-24">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Page Header -->
+        <div class="mb-12 text-center">
+            
+            <h1 class="font-serif text-4xl md:text-5xl font-bold text-stone-900 dark:text-white mb-4">
+                {% translate "Our Journal" %}
+            </h1>
+            <p class="font-sans text-lg text-stone-600 dark:text-stone-300 max-w-2xl mx-auto">
+                {% translate "Stories, tips, and insights from our kennel and the world of dogs." %}
+            </p>
+        </div>
+
+        <!-- Blog Posts Grid -->
+        <div class="max-w-4xl mx-auto">
+            <div id="posts-grid" class="space-y-12">
+                {% if posts %}
+                {% include "blog/partials/cards.html" with posts=posts %}
+                {% else %}
+                <div class="col-span-full text-center py-12">
+                    <div class="max-w-md mx-auto">
+                        <div class="text-6xl mb-4">📝</div>
+                        <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
+                            {% translate "No Posts Yet" %}
+                        </h3>
+                        <p class="text-stone-600 dark:text-stone-400">
+                            {% translate "We haven't published any blog posts yet. Check back soon for updates!" %}
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+        <!-- Load More -->
+        {% include "components/paginated_loader.html" with pagination=pagination url_name='blog:posts' target="posts-grid" %}
+        </div>
+    </div>
+</div>
+{% endblock %}

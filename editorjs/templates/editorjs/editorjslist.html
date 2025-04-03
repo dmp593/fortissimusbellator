@@ -1,0 +1,27 @@
+<div class="my-6">
+    {% if data.style == "ordered" %}
+    <ol class="list-decimal pl-6 my-6 space-y-2 dark:text-stone-300">
+        {% else %}
+        <ul class="list-disc pl-6 my-6 space-y-2 dark:text-stone-300">
+            {% endif %}
+
+            {% for item in data.items %}
+            <li class="relative pl-3 {% if not forloop.last %}mb-2{% endif %}">
+                {{ item.content|safe }}
+
+                {# Nested list support (if present in data) #}
+                {% if item.items %}
+                <div class="ml-6 mt-2">
+                    {% include "editorjs/editorjslist.html" with data=item %}
+                </div>
+                {% endif %}
+            </li>
+            {% endfor %}
+
+            {% if data.style == "ordered" %}
+    </ol>
+    {% else %}
+    </ul>
+    {% endif %}
+
+</div>
