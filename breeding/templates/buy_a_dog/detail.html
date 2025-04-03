@@ -183,9 +183,9 @@
         {% include "components/gallery.html" with object=dog %}
     </div>
 
-    <!-- Back to 'buy_a_dog' -->
+    <!-- Back to 'breeding:buy_a_dog' -->
     <div class="text-center mt-24">
-        <a href="{% url 'buy_a_dog' %}" class="inline-flex items-center bg-stone-700 text-white px-8 py-4 rounded-xl hover:bg-stone-600 transition duration-300">
+        <a href="{% url 'breeding:buy_a_dog' %}" class="inline-flex items-center bg-stone-700 text-white px-8 py-4 rounded-xl hover:bg-stone-600 transition duration-300">
             {% include "icons/arrow_left.html" with width=24 height=24 %}
             <span class="ml-3 text-lg">{% translate "Go Back" %}</span>
         </a>
