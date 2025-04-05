@@ -1,3 +1,5 @@
+import requests
+
 from django.views.generic.base import View
 from django.http import JsonResponse
 from django.core.files.base import ContentFile
@@ -75,3 +77,54 @@ class FileUploadView(ChunkedUploadView):
 
         with default_storage.open(file_chunk_name, 'ab') as f:
             f.write(file_chunk.read())
+
+
+class EditorJsImageUploadByFileView(View):
+    def post(self, request, *args, **kwargs):
+        file = request.FILES.get('image')
+        file_name = request.POST.get('filename', file.name)
+
+        if not file:
+            return JsonResponse({'success': 0})
+
+        default_storage.save(
+            f"uploads/blog/{file_name}",
+            ContentFile(file.read())
+        )
+
+        return JsonResponse({
+            'success': 1,
+            'file': {
+                'url': default_storage.url(f"uploads/blog/{file_name}")
+            }
+        })
+
+
+class EditorJsImageUploadByUrlView(View):
+    def post(self, request, *args, **kwargs):
+        url = request.POST.get('url')
+
+        if not url:
+            return JsonResponse({'success': 0})
+
+        response = requests.get(url, timeout=15)
+
+        if not response.ok:
+            return JsonResponse({'success': 0})
+
+        file_name = response.headers.get('Content-Disposition', '').split('filename=')[-1].strip('"')
+
+        if not file_name:
+            file_name = url.split('/')[-1]
+
+        default_storage.save(
+            f"uploads/blog/{file_name}",
+            ContentFile(response.content)
+        )
+
+        return JsonResponse({
+            'success': 1,
+            'file': {
+                'url': default_storage.url(f"uploads/blog/{file_name}")
+            }
+        })

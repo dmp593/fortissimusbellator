@@ -12,13 +12,16 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.utils.translation import gettext_lazy as _
 from django.template.loader import render_to_string
+from django.contrib import messages
+from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from django.urls import reverse_lazy
 
 
 from .models import Profile
-from .forms import UserCreationForm
+from .forms import UserCreationForm, UserProfileForm
 
 
 User = get_user_model()
@@ -54,14 +57,14 @@ class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
+        # 
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False  # User is inactive until email confirmation
             user.save()
 
             # Create a Profile instance for the user
-            phone = request.POST.get('phone')
-            Profile.objects.create(user=user, phone=phone)
+            Profile.objects.create(user=user, phone=form.phone)
 
             # Send activation email
             current_site = get_current_site(request)
@@ -155,3 +158,22 @@ def email_confirmation_sent(request):
 def welcome(request):
     return render(request, 'welcome.html')
 
+
+class UserProfileView(LoginRequiredMixin, UpdateView):
+    model = Profile
+    form_class = UserProfileForm
+    success_url = reverse_lazy('profile')
+
+    def get_object(self):
+        try:
+            return self.request.user.profile
+        except Profile.DoesNotExist:
+            return Profile.objects.create(user=self.request.user)
+
+    def form_valid(self, form):
+        messages.success(self.request, _('Profile saved.'))
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, _('Error saving profile.'))
+        return super().form_invalid(form)

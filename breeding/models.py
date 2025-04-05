@@ -6,7 +6,6 @@ from uuid import uuid4
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.contrib.auth import get_user_model
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.translation import gettext_lazy as _
 
@@ -233,6 +232,17 @@ class Animal(models.Model):
         max_length=1,
         default='?',
         verbose_name=_('gender')
+    )
+
+    hair_type = models.CharField(
+        max_length=30,
+        blank=True,
+        choices=(
+            ('short', _('short')),
+            ('medium', _('medium')),
+            ('long', _('long')),
+        ),
+        verbose_name=_('hair type'),
     )
 
     father = models.ForeignKey(

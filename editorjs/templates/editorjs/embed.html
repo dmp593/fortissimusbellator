@@ -1,94 +1,16 @@
 {# templates/editorjs/embed.html #}
-<div class="my-6">
-    {% if data.service == "youtube" or data.service == "vimeo" %}
-        <iframe src="{{ data.embed }}" 
-                class="aspect-video w-full rounded-lg shadow-xl"
+<div class="my-6 flex items-center justify-center">
+{% if data.service == "youtube" or data.service == "vimeo" or data.service == "twitch-video" %}
+        <iframe src="{{ data.embed }}" width="{{ data.width }}" height="{{ data.height }}"
+                class="mx-auto aspect-video w-2/3 h-fit border-none rounded-lg shadow-xl"
                 title="{{ data.service|title }} Video"
                 allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                loading="lazy"
                 allowfullscreen></iframe>
-
-    {% elif data.service == "instagram" %}
-        <div class="mx-auto" style="max-width: 540px">
-            <iframe src="{{ data.embed }}" 
-                    class="w-full"
-                    title="Instagram Post"
-                    scrolling="no"
-                    allowtransparency="true">
-            </iframe>
-        </div>
-
-    {% elif data.service == "facebook" %}
-        <div class="max-w-[500px] mx-auto h-[700px]">
-            <iframe src="{{ data.embed }}" 
-                    class="w-full h-full border-none rounded-lg"
-                    title="Facebook Post"
-                    scrolling="no"></iframe>
-        </div>
-
-    {% elif data.service == "twitter" %}
-        <div class="max-w-[550px] mx-auto h-[650px]">
-            <iframe src="{{ data.embed }}" 
-                    class="w-full h-full bg-transparent"
-                    title="X (Twitter) Post"
-                    scrolling="no"></iframe>
-        </div>
-
-    {% elif data.service == "codepen" %}
-        <div class="h-[500px]">
-            <iframe src="{{ data.embed }}"
-                    class="w-full h-full rounded-lg shadow-xl"
-                    title="CodePen Embed"
-                    loading="lazy"
-                    scrolling="no"></iframe>
-        </div>
-
-    {% elif data.service == "pinterest" %}
-        <div class="max-w-[345px] mx-auto h-[800px]">
-            <iframe src="{{ data.embed }}"
-                    class="w-full h-full border-none"
-                    title="Pinterest Embed"
-                    scrolling="no"></iframe>
-        </div>
-
-    {% elif data.service == "miro" %}
-        <div class="aspect-w-16 aspect-h-9">
-            <iframe src="{{ data.embed }}"
-                    class="w-full h-full border-0"
-                    title="Miro Board"
-                    allowfullscreen></iframe>
-        </div>
-
-    {% elif data.service == "github" %}
-        <div class="h-[400px]">
-            <iframe src="{{ data.embed}}"
-                    class="w-full h-full bg-transparent"
-                    title="GitHub Gist"
-                    scrolling="no"></iframe>
-        </div>
-
-    {% elif data.service == "twitch-video" %}
-        <div class="aspect-w-16 aspect-h-9">
-            <iframe src="{{ data.embed }}"
-                    class="w-full h-full rounded-lg"
-                    title="Twitch Video"
-                    allowfullscreen></iframe>
-        </div>
-
-    {% elif data.service == "twitch-channel" %}
-        <div class="aspect-w-16 aspect-h-9">
-            <iframe src="{{ data.embed }}"
-                    class="w-full h-full rounded-lg"
-                    title="Twitch Channel"
-                    scrolling="no"></iframe>
-        </div>
-
-    {% else %}
-        {# Generic Embed Fallback #}
-        <div class="aspect-w-16 aspect-h-9">
-            <iframe src="{{ data.embed }}"
-                    class="w-full h-full rounded-lg border-none"
-                    title="Embedded Content"
-                    loading="lazy"></iframe>
-        </div>
-    {% endif %}
+{% else %}
+        <iframe src="{{ data.embed }}" width="{{ data.width }}" height="{{ data.height }}"
+                class="mx-auto w-2/3 h-150 border-none rounded-lg shadow-xl"
+                title="{{ data.service|title }} Post"
+                allowfullscreen></iframe>
+{% endif %}
 </div>

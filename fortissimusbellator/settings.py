@@ -91,6 +91,7 @@ INSTALLED_APPS = [
     # 3rd party apps
     'modeltranslation',
     'django_recaptcha',
+    'django_countries',
     'colorfield',
 
     'editorjs',
@@ -179,7 +180,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGES = [
     ("en", _("English")),
-    ("pt", _("Portuguese"))
+    ("pt", _("Portuguese")),
 ]
 
 LOCALE_PATHS = [
@@ -248,12 +249,12 @@ EDITORJS_DEFAULT_PLUGINS = [
     '@editorjs/checklist',
     '@editorjs/quote',
     '@editorjs/raw',
+    '@editorjs/image',
     '@editorjs/embed',
     '@editorjs/delimiter',
     '@editorjs/warning',
     '@editorjs/marker',
     '@editorjs/table',
-    'simple-image-editorjs'  # a fork from @editorjs/simple-image
 ]
 
 
@@ -291,6 +292,19 @@ EDITORJS_DEFAULT_CONFIG = {
             'class': 'RawTool',
             'inlineToolbar': True
         },
+        'ImageTool': {
+            'class': 'ImageTool',
+            'inlineToolbar': True,
+            'config': {
+                'additionalRequestHeaders': {
+                    "X-CSRFTOKEN": '',
+                },
+                'endpoints': {
+                    'byFile': '/editorjs/image/upload/file/',
+                    'byUrl': '/editorjs/image/upload/url/',
+                }
+            }
+        },
         'Embed': {
             'class': 'Embed',
             'inlineToolbar': True,
@@ -321,9 +335,5 @@ EDITORJS_DEFAULT_CONFIG = {
             'class': 'Table',
             'inlineToolbar': True
         },
-        'SimpleImage': {
-            'class': 'SimpleImage',
-            'inlineToolbar': True
-        }
     }
 }

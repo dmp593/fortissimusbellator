@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import FileUploadView
+from .views import FileUploadView, EditorJsImageUploadByFileView, EditorJsImageUploadByUrlView
 
 urlpatterns = [
     path('', include('frontoffice.urls')),
@@ -29,4 +29,14 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
     path('upload/', FileUploadView.as_view(), name='upload'),
+    path(
+        'editorjs/image/upload/file/',
+        EditorJsImageUploadByFileView.as_view(),
+        name='editorjs_image_upload_by_file'
+    ),
+    path(
+        'editorjs/image/upload/url/',
+        EditorJsImageUploadByUrlView.as_view(),
+        name='editorjs_image_upload_by_url'
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

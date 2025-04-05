@@ -51,6 +51,24 @@
                 <span class="text-sm text-stone-700 dark:text-stone-300">{{ dog.birth_date|date:"M d, Y" }}</span>
             </div>
 
+            <!-- Hair Type Icon -->
+            {% if dog.hair_type %}
+            <div class="flex items-center space-x-4">
+                {% include "icons/hair_root.html" %}
+                <span class="text-sm text-stone-700 dark:text-stone-300">
+                    {% if dog.hair_type == 'short' %}
+                        {% translate "Short Hair" %}
+                    {% elif dog.hair_type == 'medium' %}
+                        {% translate "Medium Hair" %}
+                    {% elif dog.hair_type == 'long' %}
+                        {% translate "Long Hair" %}
+                    {% else %}
+                        {{ dog.hair_type }}
+                    {% endif %}
+                </span>
+            </div>
+            {% endif %}
+
             <!-- Training Icon -->
             {% if dog.has_training %}
             <div class="flex items-center space-x-2">
@@ -93,7 +111,7 @@
 
             <!-- Details Button -->
             <div class="pt-6">
-                <a href="{% url 'dog_detail' dog.pk %}" class="w-full bg-stone-700 text-white px-4 py-2 rounded-lg hover:bg-stone-600 transition duration-300 block text-center">
+                <a href="{% url 'breeding:dog_detail' dog.pk %}" class="w-full bg-stone-700 text-white px-4 py-2 rounded-lg hover:bg-stone-600 transition duration-300 block text-center">
                     {% translate "View Details" %}
                 </a>
             </div>

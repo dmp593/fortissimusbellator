@@ -3,6 +3,7 @@ from dateutil.relativedelta import relativedelta
 
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
 from fortissimusbellator.parsers import to_int
@@ -138,3 +139,20 @@ def litter_detail(request, litter_id: int):
     except Litter.DoesNotExist:
         return redirect('upcoming_litters')
 
+
+@login_required
+def pre_reserve_dog(request, dog_id: int):
+    try:
+        dog = Animal.animals_for_sale.get(pk=dog_id)
+        return render(request, 'buy_a_dog/pre_reserve.html', {'dog': dog })
+    except Animal.DoesNotExist:
+        return redirect('buy_a_dog')
+
+
+@login_required
+def pre_reserve_litter(request, litter_id: int):
+    try:
+        litter = Litter.litters_for_sale.get(pk=litter_id)
+        return render(request, 'upcoming_litters/pre_reserve.html', {'litter': litter })
+    except Litter.DoesNotExist:
+        return redirect('upcoming_litters')

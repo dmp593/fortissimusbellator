@@ -16,6 +16,12 @@ urlpatterns = [
     ),
 
     path(
+        'profile/',
+        views.UserProfileView.as_view(),
+        name='profile'
+    ),
+
+    path(
         'activate/<uidb64>/<token>/',
         views.activate,
         name='activate'

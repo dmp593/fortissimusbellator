@@ -1,0 +1,6 @@
+<div class="my-6 flex items-center justify-center">
+    <img
+        class="mx-auto {% if not data.stretched %}w-2/3{% endif %} {% if data.withBorder %}border-7 border-double{% else %}border-none{% endif %} {% if data.withBackground %}border-solid border-t-33 border-s-99 border-b-33 border-e-99 outline-3 outline-offset-4 border-stone-700/25 dark:border-stone-500/25{% endif %} rounded-lg shadow-xl"
+        src="{{ data.file.url }}" alt="{{ data.caption }}"
+        loading="lazy" />
+</div>

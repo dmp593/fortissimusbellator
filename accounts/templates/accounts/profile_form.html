@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mx-auto px-4 py-16">
+    <h1 class="text-center font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12">{% trans "Manage your Profile" %}</h1>
+
+    <div class="max-w-4xl mx-auto bg-white dark:bg-stone-800 rounded-lg shadow-lg p-8">
+        <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            <!-- Display non-field errors (e.g., form-wide errors) -->
+            {% if form.non_field_errors %}
+            <div class="text-red-600 dark:text-red-400 text-sm mb-4">
+                {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- Profile Picture Field -->
+            <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <!-- Profile Picture Preview with hover effects -->
+                <div class="shrink-0 relative group">
+                    {% if user.profile.profile_picture %}
+                    <img class="h-24 w-24 object-cover rounded-full border-2 border-stone-300 dark:border-stone-600 group-hover:border-stone-400 dark:group-hover:border-stone-400 transition-all duration-300 transform group-hover:scale-105" 
+                         src="{{ user.profile.profile_picture.url }}"
+                         alt="Current profile picture" />
+                    {% else %}
+                    <div class="h-24 w-24 rounded-full bg-stone-200 dark:bg-stone-700 flex items-center justify-center text-stone-500 dark:text-stone-400 text-sm border-2 border-stone-300 dark:border-stone-600 group-hover:border-stone-400 dark:group-hover:border-stone-400 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Clear button (only shown if there's a profile picture) -->
+                    {% if user.profile.profile_picture %}
+                    <button type="button" onclick="clearProfilePicture()"
+                        class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition duration-200 shadow-md"
+                        title="{% trans 'Remove profile picture' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    {% endif %}
+                </div>
+
+                <!-- Upload Field with improved styling -->
+                <div class="flex-1 w-full">
+                    <label class="block">
+                        <span class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                            {% trans "Profile Picture" %}
+                        </span>
+                        <div class="flex items-center space-x-2">
+                            <input type="file" name="profile_picture" id="profile_picture_input" accept="image/*" class="hidden" />
+                            <label for="profile_picture_input" class="cursor-pointer">
+                                <div class="px-4 py-2 border border-stone-300 dark:border-stone-600 rounded-lg bg-stone-50 dark:bg-stone-700 hover:bg-stone-100 dark:hover:bg-stone-600 transition duration-200 text-center">
+                                    <span class="text-sm font-medium text-stone-700 dark:text-stone-200">
+                                        {% if user.profile.profile_picture %}
+                                        {% trans "Change picture" %}
+                                        {% else %}
+                                        {% trans "Upload picture" %}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </label>
+                            <!-- Hidden checkbox for clearing the picture -->
+                            <input type="checkbox" name="profile_picture-clear" id="profile_picture-clear_id" class="hidden">
+                        </div>
+                        <p class="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                        {% trans "JPG, GIF or PNG. Max size of 2MB" %}
+                        </p>
+                    </label>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- First Name Field -->
+                <div>
+                    <label for="id_first_name"
+                        class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                        {% translate "First Name" %}
+                    </label>
+                    <div class="relative">
+                        <input type="text" name="first_name" id="id_first_name"
+                            class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                            placeholder="{% translate 'Enter your first name' %}" value="{{ form.first_name.value|default:user.first_name }}" required>
+                        <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                    </div>
+                    <!-- Display errors for first_name field -->
+                    {% if form.first_name.errors %}
+                    <div class="text-red-600 dark:text-red-400 text-sm mt-2">
+                        {% for error in form.first_name.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Last Name Field -->
+                <div>
+                    <label for="id_last_name" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                        {% translate "Last Name" %}
+                    </label>
+                    <div class="relative">
+                        <input type="text" name="last_name" id="id_last_name"
+                            class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                            placeholder="{% translate 'Enter your last name' %}" value="{{ form.last_name.value|default:user.last_name }}" required>
+                        <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                    </div>
+                    <!-- Display errors for last_name field -->
+                    {% if form.last_name.errors %}
+                    <div class="text-red-600 dark:text-red-400 text-sm mt-2">
+                        {% for error in form.last_name.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Birthdate Field -->
+            <div>
+                <label for="id_birthdate" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    {% translate "Birthdate" %}
+                </label>
+                <div class="relative">
+                    <input type="date" name="birthdate" id="id_birthdate"
+                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        placeholder="{% translate 'Enter your birthdate' %}" value="{{ form.birthdate.value|default:user.profile.birthdate|date:'Y-m-d' }}">
+                    {% include "icons/cake.html" with class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400" %}
+                </div>
+                <!-- Display errors for phone field -->
+                {% if form.birthdate.errors %}
+                <div class="text-red-600 dark:text-red-400 text-sm mt-2">
+                    {% for error in form.birthdate.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Fiscal Number Field -->
+            <div>
+                <label for="id_fiscal_number" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    {% translate "Fiscal Number" %}
+                </label>
+                <div class="relative">
+                    <input name="fiscal_number" id="id_fiscal_number"
+                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        placeholder="{% translate 'Enter your Fiscal Number' %}" value="{{ form.fiscal_number.value|default_if_none:'' }}">
+                    {% include "icons/identification.html" with class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400" %}
+                </div>
+                <!-- Display errors for phone field -->
+                {% if form.fiscal_number.errors %}
+                <div class="text-red-600 dark:text-red-400 text-sm mt-2">
+                    {% for error in form.fiscal_number.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Email Field -->
+            <div>
+                <label for="id_email" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    {% translate "Email" %}
+                </label>
+                <div class="relative">
+                    <input type="email" name="email" id="id_email"
+                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        placeholder="{% translate 'Enter your email' %}" value="{{ form.email.value|default:user.email }}" required>
+                    <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                </div>
+                <!-- Display errors for email field -->
+                {% if form.email.errors %}
+                <div class="text-red-600 dark:text-red-400 text-sm mt-2">
+                    {% for error in form.email.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Phone Field -->
+            <div>
+                <label for="id_phone" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    {% translate "Phone" %}
+                </label>
+                <div class="relative">
+                    <input type="text" name="phone" id="id_phone"
+                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        placeholder="{% translate 'Enter your phone number' %}" value="{{ form.phone.value|default:user.profile.phone }}" required>
+                    <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                    </svg>
+                </div>
+                <!-- Display errors for phone field -->
+                {% if form.phone.errors %}
+                <div class="text-red-600 dark:text-red-400 text-sm mt-2">
+                    {% for error in form.phone.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Username Field -->
+            <div>
+                <label for="id_username" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    {% translate "Username" %}
+                </label>
+                <div class="relative">
+                    <input type="text" name="username" id="id_username"
+                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        placeholder="{% translate 'Enter your username' %}" value="{{ form.username.value|default:user.username }}" required>
+                    <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                    </svg>
+                </div>
+                <!-- Display errors for username field -->
+                {% if form.username.errors %}
+                <div class="text-red-600 dark:text-red-400 text-sm mt-2">
+                    {% for error in form.username.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"
+                class="w-full bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300 font-sans shadow-lg flex items-center justify-center space-x-2">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM4 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 10.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                </svg>
+                <span>{% translate "Update Profile" %}</span>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function clearProfilePicture() {
+        // Check the clear checkbox
+        document.getElementById('profile_picture-clear_id').checked = true;
+        
+        // Clear the file input
+        document.getElementById('profile_picture_input').value = '';
+        
+        // Replace the image preview with the default avatar
+        const previewContainer = document.querySelector('.shrink-0.relative.group');
+        previewContainer.innerHTML = `
+            <div class="h-24 w-24 rounded-full bg-stone-200 dark:bg-stone-700 flex items-center justify-center text-stone-500 dark:text-stone-400 text-sm border-2 border-stone-300 dark:border-stone-600 group-hover:border-stone-400 dark:group-hover:border-stone-400 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+            </div>
+        `;
+    }
+    
+    // Update preview when new image is selected
+    document.getElementById('profile_picture_input').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const previewContainer = document.querySelector('.shrink-0.relative.group');
+                previewContainer.innerHTML = `
+                    <img class="h-24 w-24 object-cover rounded-full border-2 border-stone-300 dark:border-stone-600 group-hover:border-stone-400 dark:group-hover:border-stone-400 transition-all duration-300 transform group-hover:scale-105" 
+                         src="${event.target.result}"
+                         alt="Preview of selected image" />
+                    <button type="button" onclick="clearProfilePicture()"
+                        class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition duration-200 shadow-md"
+                        title="{% trans 'Remove profile picture' %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                `;
+                // Uncheck the clear checkbox when a new image is selected
+                document.getElementById('profile_picture-clear_id').checked = false;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+{% endblock %}

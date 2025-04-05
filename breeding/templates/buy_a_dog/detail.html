@@ -115,6 +115,24 @@
                         </span>
                     </div>
 
+                    <!-- Hair Type -->
+                    {% if dog.hair_type %}
+                    <div class="flex items-center space-x-4">
+                        {% include "icons/hair_root.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300 text-lg">
+                            {% if dog.hair_type == 'short' %}
+                                {% translate "Short Hair" %}
+                            {% elif dog.hair_type == 'medium' %}
+                                {% translate "Medium Hair" %}
+                            {% elif dog.hair_type == 'long' %}
+                                {% translate "Long Hair" %}
+                            {% else %}
+                                {{ dog.hair_type }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    {% endif %}
+
                     <!-- Training -->
                     {% if dog.has_training %}
                     <div class="flex items-center space-x-4">
@@ -155,6 +173,15 @@
                 </div>
             </div>
 
+            <div class="flex flex-col md:flex-row jusfity-center items-center gap-2 md:gap-3 lg:gap-4">
+            <!-- Pre-reserve Button -->
+            {% if not dog.sold_at %}
+            <a href="{% url 'breeding:pre_reserve_dog' dog.pk %}" class="hidden w-full bg-yellow-700 text-white px-8 py-4 rounded-xl hover:bg-yellow-600 transition duration-300 flex items-center justify-center space-x-3">
+                {% include "icons/currency_euro.html" with width=24 height=24 %}
+                <span class="text-lg">{% translate "Pre-Reserve" %}</span>
+            </a>
+            {% endif %}
+
             <!-- Call Us Button -->
             {% if not dog.sold_at %}
             <a href="{% url 'contact_us' %}" class="w-full bg-stone-700 text-white px-8 py-4 rounded-xl hover:bg-stone-600 transition duration-300 flex items-center justify-center space-x-3">
@@ -162,6 +189,7 @@
                 <span class="text-lg">{% translate "Call Us" %}</span>
             </a>
             {% endif %}
+            </div>
         </div>
     </div>
 
