@@ -1,0 +1,15 @@
+.editor-js {
+    border: 1px solid #e8e8e8;
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+.codex-editor ul, .codex-editor ol {
+    margin-left: 0rem !important; /* Adjust based on what looks good */
+    padding-left: 0rem !important; /* Keep indentation if needed */
+}
+
+.codex-editor .cdx-list__item-children {
+    margin-left: 0.3rem !important; /* Adjust based on what looks good */
+    padding-left: 0.3rem !important; /* Keep indentation if needed */
+}
