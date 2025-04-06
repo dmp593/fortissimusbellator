@@ -828,7 +828,7 @@ msgstr "ficheiros"
 
 #: breeding/models.py:376
 msgid "animals"
-msgstr "animals"
+msgstr "animais"
 
 #: breeding/models.py:421
 msgid "expected birth date"
