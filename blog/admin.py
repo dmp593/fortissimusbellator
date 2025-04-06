@@ -6,7 +6,6 @@ from . import forms
 from .translation import models
 
 
-
 @admin.register(models.Category)
 class CategoryAdmin(TranslationAdmin):
     ...
@@ -18,7 +17,6 @@ class PostAdmin(TranslationAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        print(form.base_fields)
         form.base_fields['author'].initial = request.user
         return form
 

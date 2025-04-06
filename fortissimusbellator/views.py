@@ -1,5 +1,8 @@
 import requests
+import mimetypes
+import pathlib
 
+from uuid import uuid4
 from django.views.generic.base import View
 from django.http import JsonResponse
 from django.core.files.base import ContentFile
@@ -82,20 +85,32 @@ class FileUploadView(ChunkedUploadView):
 class EditorJsImageUploadByFileView(View):
     def post(self, request, *args, **kwargs):
         file = request.FILES.get('image')
-        file_name = request.POST.get('filename', file.name)
 
         if not file:
             return JsonResponse({'success': 0})
 
-        default_storage.save(
-            f"uploads/blog/{file_name}",
-            ContentFile(file.read())
-        )
+        filename = request.POST.get('filename', file.name)
+
+        if not filename:
+            return JsonResponse({'success': 0})
+
+        extension = mimetypes.guess_extension(filename)
+
+        if not extension:
+            extension = pathlib.Path(filename).suffix
+
+        filename = f"{uuid4().hex}{extension}"
+        filepath = f"uploads/blog/{filename}"
+
+        if not file:
+            return JsonResponse({'success': 0})
+
+        default_storage.save(filepath, ContentFile(file.read()))
 
         return JsonResponse({
             'success': 1,
             'file': {
-                'url': default_storage.url(f"uploads/blog/{file_name}")
+                'url': default_storage.url(filepath)
             }
         })
 
@@ -112,19 +127,24 @@ class EditorJsImageUploadByUrlView(View):
         if not response.ok:
             return JsonResponse({'success': 0})
 
-        file_name = response.headers.get('Content-Disposition', '').split('filename=')[-1].strip('"')
+        filename = response.headers.get('Content-Disposition', '').split('filename=')[-1].strip('"')
 
-        if not file_name:
-            file_name = url.split('/')[-1]
+        if not filename:
+            filename = url.split('/')[-1]
 
-        default_storage.save(
-            f"uploads/blog/{file_name}",
-            ContentFile(response.content)
-        )
+        extension = mimetypes.guess_extension(filename)
+
+        if not extension:
+            extension = pathlib.Path(filename).suffix
+
+        filename = f"{uuid4().hex}{extension}"
+        filepath = f"uploads/blog/{filename}"
+
+        default_storage.save(filepath, ContentFile(response.content))
 
         return JsonResponse({
             'success': 1,
             'file': {
-                'url': default_storage.url(f"uploads/blog/{file_name}")
+                'url': default_storage.url(filepath)
             }
         })
