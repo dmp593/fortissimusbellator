@@ -22,6 +22,12 @@ urlpatterns = [
     ),
 
     path(
+        'change-password/',
+        views.ChangePasswordView.as_view(),
+        name='change_password'
+    ),
+
+    path(
         'activate/<uidb64>/<token>/',
         views.activate,
         name='activate'

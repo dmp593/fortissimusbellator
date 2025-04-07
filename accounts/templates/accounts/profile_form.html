@@ -8,7 +8,7 @@
 <div class="container mx-auto px-4 py-16">
     <h1 class="text-center font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12">{% trans "Manage your Profile" %}</h1>
 
-    <div class="max-w-4xl mx-auto bg-white dark:bg-stone-800 rounded-lg shadow-lg p-8">
+    <div class="max-w-4xl mx-auto bg-gradient-to-br from-stone-50 to-stone-100 dark:from-stone-800 dark:to-stone-900 rounded-xl shadow-lg border border-stone-200 dark:border-stone-700 p-8">
         <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
             <!-- Display non-field errors (e.g., form-wide errors) -->
@@ -254,7 +254,7 @@
 
             <!-- Submit Button -->
             <button type="submit"
-                class="w-full bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300 font-sans shadow-lg flex items-center justify-center space-x-2">
+                class="w-full bg-gradient-to-r from-stone-700 to-stone-800 dark:from-stone-800 dark:to-stone-900 text-white px-6 py-3 rounded-lg hover:from-stone-800 hover:to-stone-900 dark:hover:from-stone-900 dark:hover:to-stone-950 transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"

@@ -6,7 +6,9 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, get_user_model
 from django.contrib.auth import views as auth_views
+from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.password_validation import password_validators_help_texts
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -57,7 +59,6 @@ class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        # 
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False  # User is inactive until email confirmation
@@ -176,4 +177,27 @@ class UserProfileView(LoginRequiredMixin, UpdateView):
 
     def form_invalid(self, form):
         messages.error(self.request, _('Error saving profile.'))
+        return super().form_invalid(form)
+
+
+class ChangePasswordView(auth_views.PasswordChangeView):
+    model = User
+    template_name = 'accounts/password_change_form.html'
+    success_url = reverse_lazy('change_password')
+    form_class = auth_forms.PasswordChangeForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['password_validators_help_texts'] = password_validators_help_texts()
+        return context
+
+    def get_object(self):
+        return self.request.user
+
+    def form_valid(self, form):
+        messages.success(self.request, _('Password changed successfully.'))
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, _('Error changing password.'))
         return super().form_invalid(form)
