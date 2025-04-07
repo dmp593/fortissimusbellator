@@ -26,6 +26,7 @@ def buy_a_dog(request):
     # Filters
     breed_filter = request.GET.get('breed')
     gender_filter = request.GET.get('gender')
+    hair_type_filter = request.GET.get('hair_type')
     age_filter = request.GET.get('age')
     has_training = request.GET.get('has_training')
     has_certifications = request.GET.get('has_certifications')
@@ -35,6 +36,9 @@ def buy_a_dog(request):
 
     if gender_filter:
         dogs = dogs.filter(gender=gender_filter)
+
+    if hair_type_filter:
+        dogs = dogs.filter(hair_type=hair_type_filter)
 
     if age_filter:
         today = datetime.today()
@@ -74,6 +78,7 @@ def buy_a_dog(request):
         'filters': {
             'breed': breed_filter,
             'gender': gender_filter,
+            'hair_type': hair_type_filter,
             'age': age_filter,
             'has_training': has_training,
             'has_certifications': has_certifications,

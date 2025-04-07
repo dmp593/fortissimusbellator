@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-05 18:47+0000\n"
+"POT-Creation-Date: 2025-04-07 10:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -700,7 +700,9 @@ msgstr "Sem Publicações"
 
 #: blog/templates/blog/index.html:30
 msgid "We haven't published any blog posts yet. Check back soon for updates!"
-msgstr "Ainda não publicámos nenhuma publicação no blog. Volte em breve para atualizações!"
+msgstr ""
+"Ainda não publicámos nenhuma publicação no blog. Volte em breve para "
+"atualizações!"
 
 #: blog/templates/blog/partials/cards.html:39
 msgid "Read"
@@ -890,21 +892,21 @@ msgid "Details"
 msgstr "Detalhes"
 
 #: breeding/templates/buy_a_dog/detail.html:100
-#: breeding/templates/buy_a_dog/index.html:49
+#: breeding/templates/buy_a_dog/index.html:74
 #: breeding/templates/buy_a_dog/partials/cards.html:38
 #: breeding/templates/our_dogs/index.html:43
 msgid "Male"
 msgstr "Macho"
 
 #: breeding/templates/buy_a_dog/detail.html:103
-#: breeding/templates/buy_a_dog/index.html:50
+#: breeding/templates/buy_a_dog/index.html:75
 #: breeding/templates/buy_a_dog/partials/cards.html:41
 #: breeding/templates/our_dogs/index.html:46
 msgid "Female"
 msgstr "Fêmea"
 
 #: breeding/templates/buy_a_dog/detail.html:106
-#: breeding/templates/buy_a_dog/index.html:51
+#: breeding/templates/buy_a_dog/index.html:76
 #: breeding/templates/buy_a_dog/partials/cards.html:44
 #: breeding/templates/components/lineage_tree.html:42
 #: breeding/templates/components/lineage_tree.html:67
@@ -917,16 +919,19 @@ msgid "Unknown"
 msgstr "Desconhecido"
 
 #: breeding/templates/buy_a_dog/detail.html:124
+#: breeding/templates/buy_a_dog/index.html:99
 #: breeding/templates/buy_a_dog/partials/cards.html:60
 msgid "Short Hair"
 msgstr "Pêlo Curto"
 
 #: breeding/templates/buy_a_dog/detail.html:126
+#: breeding/templates/buy_a_dog/index.html:100
 #: breeding/templates/buy_a_dog/partials/cards.html:62
 msgid "Medium Hair"
 msgstr "Pêlo Médio"
 
 #: breeding/templates/buy_a_dog/detail.html:128
+#: breeding/templates/buy_a_dog/index.html:101
 #: breeding/templates/buy_a_dog/partials/cards.html:64
 msgid "Long Hair"
 msgstr "Pêlo Comprido"
@@ -979,50 +984,58 @@ msgid "All Breeds"
 msgstr "Todas as Raças"
 
 #: breeding/templates/buy_a_dog/index.html:40
-msgid "Gender"
-msgstr "Género"
-
-#: breeding/templates/buy_a_dog/index.html:48
-msgid "All Genders"
-msgstr "Todos os Géneros"
-
-#: breeding/templates/buy_a_dog/index.html:65
 msgid "Age"
 msgstr "Idade"
 
-#: breeding/templates/buy_a_dog/index.html:73
+#: breeding/templates/buy_a_dog/index.html:48
 msgid "All Ages"
 msgstr "Todas as Idades"
 
-#: breeding/templates/buy_a_dog/index.html:74
+#: breeding/templates/buy_a_dog/index.html:49
 msgid "Puppies (up to 6 months)"
 msgstr "Cachorros (até 6 meses)"
 
-#: breeding/templates/buy_a_dog/index.html:75
+#: breeding/templates/buy_a_dog/index.html:50
 msgid "Juniors (6-12 months)"
 msgstr "Júniores (6-12 meses)"
 
-#: breeding/templates/buy_a_dog/index.html:76
+#: breeding/templates/buy_a_dog/index.html:51
 msgid "Adults (over 12 months)"
 msgstr "Adultos (mais de 12 meses)"
 
-#: breeding/templates/buy_a_dog/index.html:114
+#: breeding/templates/buy_a_dog/index.html:65
+msgid "Gender"
+msgstr "Género"
+
+#: breeding/templates/buy_a_dog/index.html:73
+msgid "All Genders"
+msgstr "Todos os Géneros"
+
+#: breeding/templates/buy_a_dog/index.html:90
+msgid "Hair Type"
+msgstr "Tipo de Pêlo"
+
+#: breeding/templates/buy_a_dog/index.html:98
+msgid "All Hair Types"
+msgstr "Todos os Tipos de Pêlo"
+
+#: breeding/templates/buy_a_dog/index.html:139
 msgid "Has Training"
 msgstr "Tem Treino"
 
-#: breeding/templates/buy_a_dog/index.html:144
+#: breeding/templates/buy_a_dog/index.html:169
 msgid "Has Certifications"
 msgstr "Tem Certificações"
 
-#: breeding/templates/buy_a_dog/index.html:156
+#: breeding/templates/buy_a_dog/index.html:181
 msgid "Find Your Fur"
 msgstr "Encontre o seu cão-panheiro"
 
-#: breeding/templates/buy_a_dog/index.html:171
+#: breeding/templates/buy_a_dog/index.html:196
 msgid "No Dogs Available"
 msgstr "Sem Cães Disponíveis"
 
-#: breeding/templates/buy_a_dog/index.html:174
+#: breeding/templates/buy_a_dog/index.html:199
 msgid ""
 "We currently don't have any dogs available. Please check back later or "
 "contact us for more information."
@@ -1158,11 +1171,11 @@ msgstr "Material e Acessórios"
 msgid "School and Training"
 msgstr "Escola e Treino"
 
-#: fortissimusbellator/templates/components/footer.html:53
+#: fortissimusbellator/templates/components/footer.html:55
 msgid "All rights reserved"
 msgstr "Todos os direitos reservados"
 
-#: fortissimusbellator/templates/components/footer.html:54
+#: fortissimusbellator/templates/components/footer.html:56
 msgid "Developed with ❤️ by"
 msgstr "Desenvolvido com ❤️ por"
 
