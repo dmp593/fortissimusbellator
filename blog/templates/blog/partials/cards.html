@@ -6,7 +6,7 @@
     <div class="relative p-8 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')] dark:bg-stone-900/50">
         <!-- Post Cover Image -->
         {% if post.cover %}
-        <div class="mb-8 h-123 rounded-lg overflow-hidden shadow-md">
+        <div class="mb-8 w-full max-h-133 rounded-lg overflow-hidden">
             <img src="{{ post.cover.url }}" alt="{{ post.title }}" class="w-full aspect-square object-cover" loading="lazy">
         </div>
         {% endif %}
