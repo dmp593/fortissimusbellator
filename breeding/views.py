@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
 from fortissimusbellator.parsers import to_int
-from breeding.models import Animal, Litter
+from breeding.models import Animal, Breed, Litter
 
 
 def our_dogs(request, breed_id: int | None = None):
@@ -70,6 +70,7 @@ def buy_a_dog(request):
 
     context = {
         'dogs': paginated_dogs,
+        'breeds': Breed.objects_specific.all(),  # overriding. see: context_processors.py
         'pagination': {
             'has_more': paginated_dogs.has_next(),  # Show "Load More" if there are more pages
             'next_page': paginated_dogs.next_page_number() if paginated_dogs.has_next() else None,

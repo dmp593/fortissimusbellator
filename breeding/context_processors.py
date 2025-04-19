@@ -3,5 +3,5 @@ from breeding.models import Breed
 
 def breeds(request):
     return {
-        'breeds': Breed.specific.all()
+        'breeds': Breed.objects_specific_featured.all()
     }

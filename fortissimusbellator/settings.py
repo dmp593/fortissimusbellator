@@ -81,6 +81,10 @@ XS_SHARING_ALLOWED_METHODS = ['HEAD', 'GET', 'OPTIONS',]
 # Application definition
 
 INSTALLED_APPS = [
+    # 3rd party apps that need to be before Django apps
+    'modeltranslation',
+
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -89,7 +93,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party apps
-    'modeltranslation',
     'django_recaptcha',
     'django_countries',
     'colorfield',

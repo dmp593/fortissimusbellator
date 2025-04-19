@@ -91,6 +91,12 @@ class Breed(models.Model):
         related_query_name='child',
     )
 
+    featured = models.BooleanField(
+        default=True,
+        verbose_name=_('featured'),
+        help_text=_('Only featured breeds appear outside filters, such as on the homepage and navigation')
+    )
+
     active = models.BooleanField(
         default=True,
         verbose_name=_('active'),
@@ -102,7 +108,8 @@ class Breed(models.Model):
     )
 
     objects = managers.BreedManager()
-    specific = managers.SpecificBreedManager()
+    objects_specific = managers.SpecificBreedManager(active=True)
+    objects_specific_featured = managers.SpecificBreedManager(featured=True, active=True)
 
     class Meta:
         unique_together = ['kind', 'name']
