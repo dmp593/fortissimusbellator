@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-07 10:17+0000\n"
+"POT-Creation-Date: 2025-04-19 10:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,6 +111,41 @@ msgstr "Morada"
 #: accounts/models.py:126
 msgid "Addresses"
 msgstr "Moradas"
+
+#: accounts/templates/accounts/password_change_form.html:9
+#: accounts/templates/accounts/password_change_form.html:112
+#: accounts/templates/password/password_reset_confirm.html:63
+#: fortissimusbellator/templates/components/navbar.html:91
+msgid "Change Password"
+msgstr "Alterar Palavra-passe"
+
+#: accounts/templates/accounts/password_change_form.html:26
+msgid "Current Password"
+msgstr "Password Atual"
+
+#: accounts/templates/accounts/password_change_form.html:31
+msgid "Enter your current password"
+msgstr "Introduza a sua palavra-passe atual"
+
+#: accounts/templates/accounts/password_change_form.html:51
+#: accounts/templates/password/password_reset_confirm.html:20
+msgid "New Password"
+msgstr "Nova Palavra-passe"
+
+#: accounts/templates/accounts/password_change_form.html:56
+#: accounts/templates/password/password_reset_confirm.html:25
+msgid "Enter your new password"
+msgstr "Introduza a sua nova palavra-passe"
+
+#: accounts/templates/accounts/password_change_form.html:82
+#: accounts/templates/password/password_reset_confirm.html:35
+msgid "Confirm New Password"
+msgstr "Confirme a nova palavra-passe"
+
+#: accounts/templates/accounts/password_change_form.html:87
+#: accounts/templates/password/password_reset_confirm.html:40
+msgid "Confirm your new password"
+msgstr "Confirme a sua nova palavra-passe"
 
 #: accounts/templates/accounts/profile_form.html:9
 msgid "Manage your Profile"
@@ -322,26 +357,6 @@ msgstr "Entrar"
 msgid "Set New Password"
 msgstr "Definir Nova Palavra-passe"
 
-#: accounts/templates/password/password_reset_confirm.html:20
-msgid "New Password"
-msgstr "Nova Palavra-passe"
-
-#: accounts/templates/password/password_reset_confirm.html:25
-msgid "Enter your new password"
-msgstr "Introduza a sua nova palavra-passe"
-
-#: accounts/templates/password/password_reset_confirm.html:35
-msgid "Confirm New Password"
-msgstr "Confirme a nova palavra-passe"
-
-#: accounts/templates/password/password_reset_confirm.html:40
-msgid "Confirm your new password"
-msgstr "Confirme a sua nova palavra-passe"
-
-#: accounts/templates/password/password_reset_confirm.html:63
-msgid "Change Password"
-msgstr "Alterar Palavra-passe"
-
 #: accounts/templates/password/password_reset_done.html:9
 msgid "Password Reset Sent"
 msgstr "Redefinição de palavra-passe enviada"
@@ -436,7 +451,7 @@ msgstr ""
 #: accounts/templates/welcome.html:19 accounts/templates/welcome.html:68
 #: accounts/templates/welcome.html:138
 #: fortissimusbellator/templates/components/navbar.html:40
-#: fortissimusbellator/templates/components/navbar.html:138
+#: fortissimusbellator/templates/components/navbar.html:139
 msgid "Buy a Dog"
 msgstr "Adquirir um Cão"
 
@@ -459,7 +474,7 @@ msgstr "Aceder ao Painel Administrativo"
 
 #: accounts/templates/welcome.html:51
 #: fortissimusbellator/templates/components/navbar.html:44
-#: fortissimusbellator/templates/components/navbar.html:142
+#: fortissimusbellator/templates/components/navbar.html:143
 msgid "FAQs"
 msgstr "Perguntas Frequentes"
 
@@ -484,7 +499,7 @@ msgstr "Explorar Agora"
 
 #: accounts/templates/welcome.html:83 accounts/templates/welcome.html:143
 #: fortissimusbellator/templates/components/navbar.html:45
-#: fortissimusbellator/templates/components/navbar.html:143
+#: fortissimusbellator/templates/components/navbar.html:144
 #: frontoffice/templates/contact_us.html:13
 msgid "Contact Us"
 msgstr "Contacte-nos"
@@ -531,17 +546,25 @@ msgstr ""
 "Junte-se a nós na nossa missão de criar e treinar cães excecionais. Explore, "
 "conecte-se e faça parte da jornada."
 
-#: accounts/views.py:83 accounts/views.py:120
+#: accounts/views.py:84 accounts/views.py:121
 msgid "Activate your account"
 msgstr "Ativar a sua conta"
 
-#: accounts/views.py:174
+#: accounts/views.py:175
 msgid "Profile saved."
 msgstr "Perfil guardado."
 
-#: accounts/views.py:178
+#: accounts/views.py:179
 msgid "Error saving profile."
 msgstr "Erro ao guardar perfil."
+
+#: accounts/views.py:198
+msgid "Password changed successfully."
+msgstr "Palavra-passe alterada com sucesso."
+
+#: accounts/views.py:202
+msgid "Error changing password."
+msgstr "Erro ao alterar palavra-passe"
 
 #: attachments/models.py:47
 msgid "file"
@@ -551,8 +574,8 @@ msgstr "ficheiro"
 msgid "thumbnail"
 msgstr "miniatura"
 
-#: attachments/models.py:75 breeding/models.py:81 breeding/models.py:134
-#: breeding/models.py:223 breeding/models.py:399
+#: attachments/models.py:75 breeding/models.py:81 breeding/models.py:141
+#: breeding/models.py:230 breeding/models.py:406
 msgid "description"
 msgstr "descrição"
 
@@ -565,8 +588,8 @@ msgid "MIME type"
 msgstr "tipo de MIME"
 
 #: attachments/models.py:94 blog/models.py:84 blog/models.py:162
-#: breeding/models.py:44 breeding/models.py:101 breeding/models.py:156
-#: breeding/models.py:195 breeding/models.py:335 breeding/models.py:445
+#: breeding/models.py:44 breeding/models.py:107 breeding/models.py:163
+#: breeding/models.py:202 breeding/models.py:342 breeding/models.py:452
 #: frontoffice/models.py:47
 msgid "order"
 msgstr "ordem"
@@ -588,17 +611,17 @@ msgid "liked at"
 msgstr "gostado a"
 
 #: blog/models.py:66 breeding/models.py:39 breeding/models.py:69
-#: breeding/models.py:129 breeding/models.py:218 breeding/models.py:394
+#: breeding/models.py:136 breeding/models.py:225 breeding/models.py:401
 msgid "name"
 msgstr "nome"
 
 #: blog/models.py:74 blog/models.py:200 breeding/models.py:89
-#: breeding/models.py:142
+#: breeding/models.py:149
 msgid "parent"
 msgstr "parente"
 
-#: blog/models.py:79 blog/models.py:157 breeding/models.py:96
-#: breeding/models.py:315 breeding/models.py:440 frontoffice/models.py:42
+#: blog/models.py:79 blog/models.py:157 breeding/models.py:102
+#: breeding/models.py:322 breeding/models.py:447 frontoffice/models.py:42
 msgid "active"
 msgstr "ativo"
 
@@ -626,7 +649,7 @@ msgstr "capa"
 msgid "content"
 msgstr "conteúdo"
 
-#: blog/models.py:141 breeding/models.py:345 breeding/models.py:455
+#: blog/models.py:141 breeding/models.py:352 breeding/models.py:462
 #: tags/models.py:58
 msgid "tags"
 msgstr "etiquetas"
@@ -659,28 +682,28 @@ msgstr "comentado a"
 msgid "comments"
 msgstr "comentários"
 
-#: blog/templates/blog/detail.html:40
+#: blog/templates/blog/detail.html:41
 #: blog/templates/blog/partials/cards.html:34
 msgid "By"
 msgstr "Por"
 
-#: blog/templates/blog/detail.html:74
+#: blog/templates/blog/detail.html:75
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: blog/templates/blog/detail.html:87
+#: blog/templates/blog/detail.html:88
 msgid "Share this post"
 msgstr "Partilha esta publicação"
 
-#: blog/templates/blog/detail.html:137
+#: blog/templates/blog/detail.html:138
 msgid "You might also like"
 msgstr "Poderá também gostar de"
 
-#: blog/templates/blog/detail.html:146
+#: blog/templates/blog/detail.html:147
 msgid "No Image"
 msgstr "Sem Imagem"
 
-#: blog/templates/blog/detail.html:164
+#: blog/templates/blog/detail.html:165
 #: breeding/templates/buy_a_dog/detail.html:218
 #: breeding/templates/upcoming_litters/detail.html:113
 msgid "Go Back"
@@ -728,127 +751,139 @@ msgstr "tipos de animais"
 msgid "kind"
 msgstr "tipo"
 
-#: breeding/models.py:109 breeding/models.py:211 breeding/models.py:387
+#: breeding/models.py:96
+msgid "featured"
+msgstr "em destaque"
+
+#: breeding/models.py:97
+msgid ""
+"Only featured breeds appear outside filters, such as on the homepage and "
+"navigation"
+msgstr
+"Apenas as raças em destaque aparecem fora dos filtros, como na página inicial e "
+"navegação"
+
+#: breeding/models.py:116 breeding/models.py:218 breeding/models.py:394
 msgid "breed"
 msgstr "raça"
 
-#: breeding/models.py:110 breeding/models.py:151
+#: breeding/models.py:117 breeding/models.py:158
 msgid "breeds"
 msgstr "raças"
 
-#: breeding/models.py:124
+#: breeding/models.py:131
 msgid "code"
 msgstr "código"
 
-#: breeding/models.py:162 breeding/models.py:182
+#: breeding/models.py:169 breeding/models.py:189
 msgid "certification"
 msgstr "certificação"
 
-#: breeding/models.py:163 breeding/models.py:272
+#: breeding/models.py:170 breeding/models.py:279
 msgid "certifications"
 msgstr "certificações"
 
-#: breeding/models.py:174 breeding/models.py:375
+#: breeding/models.py:181 breeding/models.py:382
 msgid "animal"
 msgstr "animal"
 
-#: breeding/models.py:190
+#: breeding/models.py:197
 msgid "date"
 msgstr "data"
 
-#: breeding/models.py:199
+#: breeding/models.py:206
 msgid "animal certification"
 msgstr "certificação do animal"
 
-#: breeding/models.py:200
+#: breeding/models.py:207
 msgid "animal certifications"
 msgstr "certificações do animal"
 
-#: breeding/models.py:227
+#: breeding/models.py:234
 msgid "birth date"
 msgstr "data de nascimento"
 
-#: breeding/models.py:234
+#: breeding/models.py:241
 msgid "gender"
 msgstr "género"
 
-#: breeding/models.py:241
+#: breeding/models.py:248
 msgid "short"
 msgstr "curto"
 
-#: breeding/models.py:242
+#: breeding/models.py:249
 msgid "medium"
 msgstr "médio"
 
-#: breeding/models.py:243
+#: breeding/models.py:250
 msgid "long"
 msgstr "longo"
 
-#: breeding/models.py:245
+#: breeding/models.py:252
 msgid "hair type"
 msgstr "tipo de pêlo"
 
-#: breeding/models.py:252 breeding/models.py:406
+#: breeding/models.py:259 breeding/models.py:413
 msgid "father"
 msgstr "pai"
 
-#: breeding/models.py:262 breeding/models.py:415
+#: breeding/models.py:269 breeding/models.py:422
 msgid "mother"
 msgstr "mãe"
 
-#: breeding/models.py:283
+#: breeding/models.py:290
 msgid "price in euros"
 msgstr "preço (€)"
 
-#: breeding/models.py:294
+#: breeding/models.py:301
 msgid "discount in euros"
 msgstr "desconto (€)"
 
-#: breeding/models.py:300
+#: breeding/models.py:307
 msgid "sold at"
 msgstr "vendido em"
 
-#: breeding/models.py:308
+#: breeding/models.py:315
 msgid "sold to"
 msgstr "vendido para"
 
-#: breeding/models.py:320
+#: breeding/models.py:327
 msgid "has training"
 msgstr "tem treino"
 
-#: breeding/models.py:325
+#: breeding/models.py:332
 msgid "for breeding"
 msgstr "para criação"
 
-#: breeding/models.py:330
+#: breeding/models.py:337
 msgid "for sale"
 msgstr "para venda"
 
-#: breeding/models.py:340 breeding/models.py:450
+#: breeding/models.py:347 breeding/models.py:457
 msgid "files"
 msgstr "ficheiros"
 
-#: breeding/models.py:376
+#: breeding/models.py:383
 msgid "animals"
 msgstr "animais"
 
-#: breeding/models.py:421
+#: breeding/models.py:428
 msgid "expected birth date"
 msgstr "data de nascimento prevista"
 
-#: breeding/models.py:427
+#: breeding/models.py:434
 msgid "expected delivery date"
 msgstr "data de entrega prevista"
 
-#: breeding/models.py:433
+#: breeding/models.py:440
 msgid "expected number of babies"
 msgstr "numero expectável de bebés"
 
-#: breeding/models.py:466
+#: breeding/models.py:473
 msgid "litter"
 msgstr "ninhada"
 
-#: breeding/models.py:467
+#: breeding/models.py:474
 msgid "litters"
 msgstr "ninhadas"
 
@@ -1143,15 +1178,15 @@ msgstr ""
 "Atualmente não temos ninhadas disponíveis. Volte a verificar mais tarde ou "
 "contacte-nos para mais informações."
 
-#: fortissimusbellator/settings.py:182
+#: fortissimusbellator/settings.py:185
 msgid "English"
 msgstr "Inglês"
 
-#: fortissimusbellator/settings.py:183
+#: fortissimusbellator/settings.py:186
 msgid "Portuguese"
 msgstr "Português"
 
-#: fortissimusbellator/templates/base.html:64
+#: fortissimusbellator/templates/base.html:118
 msgid "Dog Breeder in Portugal"
 msgstr "Criador de Cães em Portugal"
 
@@ -1180,27 +1215,27 @@ msgid "Developed with ❤️ by"
 msgstr "Desenvolvido com ❤️ por"
 
 #: fortissimusbellator/templates/components/navbar.html:20
-#: fortissimusbellator/templates/components/navbar.html:123
+#: fortissimusbellator/templates/components/navbar.html:124
 msgid "Our Dogs"
 msgstr "Os Nossos Cães"
 
 #: fortissimusbellator/templates/components/navbar.html:29
-#: fortissimusbellator/templates/components/navbar.html:128
+#: fortissimusbellator/templates/components/navbar.html:129
 msgid "All dogs"
 msgstr "Todos os Cães"
 
 #: fortissimusbellator/templates/components/navbar.html:41
-#: fortissimusbellator/templates/components/navbar.html:139
+#: fortissimusbellator/templates/components/navbar.html:140
 msgid "Upcoming Litters"
 msgstr "Próximas Ninhadas"
 
 #: fortissimusbellator/templates/components/navbar.html:42
-#: fortissimusbellator/templates/components/navbar.html:140
+#: fortissimusbellator/templates/components/navbar.html:141
 msgid "Journal"
 msgstr "Jornal"
 
 #: fortissimusbellator/templates/components/navbar.html:43
-#: fortissimusbellator/templates/components/navbar.html:141
+#: fortissimusbellator/templates/components/navbar.html:142
 msgid "About Us"
 msgstr "Sobre Nós"
 
@@ -1208,7 +1243,7 @@ msgstr "Sobre Nós"
 msgid "My Dogs"
 msgstr "Os meus Cães"
 
-#: fortissimusbellator/templates/components/navbar.html:94
+#: fortissimusbellator/templates/components/navbar.html:95
 msgid "Logout"
 msgstr "Sair"
 
