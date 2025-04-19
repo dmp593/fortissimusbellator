@@ -16,11 +16,12 @@
                 
                 <!-- Post Cover Image -->
                 {% if post.cover %}
-                <div class="my-8 mx-4 md:mx-0 h-123 rounded-lg overflow-hidden shadow-md">
-                    <img src="{{ post.cover.url }}" alt="{{ post.title }}" class="aspect-square object-cover" loading="lazy">
+                <div class="relative my-8 mx-4 md:mx-0 max-h-[32rem] overflow-hidden">
+                  <img src="{{ post.cover.url }}" alt="{{ post.title }}" loading="lazy"
+                    class="relative mx-auto h-full max-h-[32rem] rounded-xl w-auto object-contain z-10">
                 </div>
                 {% endif %}
-
+                
                 <!-- Post Metadata -->
                 <div class="my-8 mx-4 md:mx-0 text-center">
                     <!-- Post Categories -->
