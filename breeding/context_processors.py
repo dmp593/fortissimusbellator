@@ -1,7 +1,7 @@
 from breeding.models import Breed
 
 
-def breeds(request):
+def featured_breeds(request):
     return {
-        'breeds': Breed.objects_specific_featured.all()
+        'featured_breeds': Breed.objects_specific_featured.all()
     }

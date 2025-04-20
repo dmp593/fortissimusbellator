@@ -28,7 +28,7 @@
                         <a href="{% url 'breeding:our_dogs' %}" class="block italic px-4 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
                             {% trans "All dogs" %}
                         </a>
-                        {% for breed in breeds %}
+                        {% for breed in featured_breeds %}
                             <a href="{% url 'breeding:our_dogs' breed.pk %}" class="block px-4 py-2 text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
                                 {{ breed.name }}
                             </a>
@@ -128,7 +128,7 @@
                     <a href="{% url 'breeding:our_dogs' %}" class="block italic px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
                         {% trans "All dogs" %}
                     </a>
-                    {% for breed in breeds %}
+                    {% for breed in featured_breeds %}
                         <a href="{% url 'breeding:our_dogs' breed.pk %}" class="block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
                             {{ breed.name }}
                         </a>
