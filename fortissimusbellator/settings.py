@@ -135,7 +135,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
-                'breeding.context_processors.breeds',
+                'breeding.context_processors.featured_breeds',
                 'frontoffice.context_processors.theme_context',
             ],
         },
