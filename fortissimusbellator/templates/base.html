@@ -150,7 +150,7 @@
       (function(){
         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
         s1.async=true;
-        s1.src='https://embed.tawk.to/68122a48a321df190d7b013d/1iq3fabao';
+        s1.src='https://embed.tawk.to/68122a48a321df190d7b013d/{% if request.LANGUAGE_CODE == "pt" %}1iq3fabao{% else %}1iq3supco{% endif %}';
         s1.charset='UTF-8';
         s1.setAttribute('crossorigin','*');
         s0.parentNode.insertBefore(s1,s0);
