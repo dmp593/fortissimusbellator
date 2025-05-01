@@ -5,9 +5,9 @@
     <!-- Dog Image -->
     <div class="relative">
         {% if dog.cover %}
-        <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-72 object-cover" loading="lazy">
+        <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-76 object-cover" loading="lazy">
         {% else %}
-        <div class="w-full h-72 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+        <div class="w-full h-76 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
             <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
         </div>
         {% endif %}
