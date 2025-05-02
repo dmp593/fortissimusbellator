@@ -19,24 +19,24 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import gettext_lazy as _
+
 from .views import FileUploadView, EditorJsImageUploadByFileView, EditorJsImageUploadByUrlView
 
 urlpatterns = [
+    # path('i18n/', include('django.conf.urls.i18n')),
+    path('upload/', FileUploadView.as_view(), name='upload'),
+    path('editorjs/image/upload/file/', EditorJsImageUploadByFileView.as_view(), name='editorjs_image_upload_by_file'),
+    path('editorjs/image/upload/url/', EditorJsImageUploadByUrlView.as_view(), name='editorjs_image_upload_by_url'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += i18n_patterns(
     path('', include('frontoffice.urls')),
     path('', include('breeding.urls')),
     path('', include('accounts.urls')),
     path('blog/', include('blog.urls')),
-    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
-    path('upload/', FileUploadView.as_view(), name='upload'),
-    path(
-        'editorjs/image/upload/file/',
-        EditorJsImageUploadByFileView.as_view(),
-        name='editorjs_image_upload_by_file'
-    ),
-    path(
-        'editorjs/image/upload/url/',
-        EditorJsImageUploadByUrlView.as_view(),
-        name='editorjs_image_upload_by_url'
-    ),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    prefix_default_language=True
+)

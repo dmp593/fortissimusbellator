@@ -3,6 +3,9 @@
 {% load i18n %}
 {% load editorjs %}
 
+
+{% block title %}{% trans "Journal" %} | {{ post.title }}{% endblock %}
+
 {% block content %}
 <div class="pt-24">
     <div class="container mx-auto px-4 py-8">
