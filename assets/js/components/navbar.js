@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentLang = document.documentElement.lang;
         const newLang = currentLang === 'en' ? 'pt' : 'en';
     
+        document.cookie = `django_language=${newLang}; path=/; max-age=31536000`;
+
         const pathParts = window.location.pathname.split('/');
         if (['en', 'pt'].includes(pathParts[1])) {
             pathParts[1] = newLang;
