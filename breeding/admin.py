@@ -81,14 +81,21 @@ class AnimalAdmin(TranslationAdmin):
         'name',
         'breed',
         'current_price_in_euros',
-        'for_sale',
+        'has_training',
         'active',
+        'order',
     )
 
     list_filter = (
         'breed',
         'for_sale',
         'active',
+    )
+
+    list_editable = (
+        'has_training',
+        'active',
+        'order',
     )
 
     ordering = ('order',)

@@ -65,7 +65,7 @@ def register(request):
             user.save()
 
             # Create a Profile instance for the user
-            Profile.objects.create(user=user, phone=form.phone)
+            Profile.objects.create(user=user, phone=form.cleaned_data.get('phone'))
 
             # Send activation email
             current_site = get_current_site(request)
