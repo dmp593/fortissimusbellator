@@ -47,7 +47,7 @@
                 {% translate "Each of our breeds is carefully selected and raised with dedication to ensure they become well-balanced companions in loving homes." %}
             </p>
             <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {% for breed in breeds %}
+                {% for breed in featured_breeds %}
                     {% include "home/_card_breed.html" with breed=breed %}
                 {% endfor %}
             </div>
