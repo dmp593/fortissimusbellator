@@ -23,10 +23,6 @@ class AttachmentForm(forms.ModelForm):
         model = models.Attachment
         fields = ('file', 'thumbnail', 'description', 'order',)
 
-    def clean(self):
-        print("CALLING CLEAN METHOD")
-        super().clean()
-
     def save(self, commit=True):
         tmp_file = self.cleaned_data.get('tmp_file')
 
