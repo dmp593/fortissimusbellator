@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-05 20:56+0000\n"
+"POT-Creation-Date: 2025-07-03 15:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1477,7 +1477,12 @@ msgstr "Visite-nos nas nossas instalações em Leiria, Portugal."
 msgid "View Larger Map"
 msgstr "Ver Mapa Maior"
 
-#: frontoffice/templates/home/_card_breed.html:15
+#: frontoffice/templates/home/_card_breed.html:16
+#, python-format
+msgid "Learn more about the breed %(breed_name)s"
+msgstr "Saiba mais sobre a raça %(breed_name)s"
+
+#: frontoffice/templates/home/_card_breed.html:17
 msgid "Learn More"
 msgstr "Saiba Mais"
 

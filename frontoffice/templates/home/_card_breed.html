@@ -11,7 +11,9 @@
         <p class="font-sans text-stone-700 dark:text-stone-300 mt-4 leading-relaxed">
             {{ breed.description }}
         </p>
-        <a href="{% url 'breeding:buy_a_dog' %}?breed={{ breed.pk }}" class="mt-6 inline-block bg-stone-700 text-white px-6 py-3 rounded-full hover:bg-stone-600 transition duration-300 font-sans shadow-lg">
+        <a href="{% url 'breeding:buy_a_dog' %}?breed={{ breed.pk }}"
+           class="mt-6 inline-block bg-stone-700 text-white px-6 py-3 rounded-full hover:bg-stone-600 transition duration-300 font-sans shadow-lg"
+           aria-label="{% blocktrans with breed_name=breed.name %}Learn more about the breed {{ breed_name }}{% endblocktrans %}">
             {% translate "Learn More" %}
         </a>
     </div>
