@@ -49,6 +49,8 @@ env = environ.Env(
 
     RECAPTCHA_SITE_KEY=(str, ''),
     RECAPTCHA_SECRET_KEY=(str, ''),
+
+    DEEPL_AUTH_KEY=(str, '')
 )
 
 
@@ -340,3 +342,6 @@ EDITORJS_DEFAULT_CONFIG = {
         },
     }
 }
+
+
+DEEPL_AUTH_KEY = env('DEEPL_AUTH_KEY')
