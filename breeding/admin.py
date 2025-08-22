@@ -3,6 +3,8 @@ from modeltranslation.admin import TranslationAdmin
 from attachments.admin import AttachmentStackedInline
 from tags.admin import TagAdminStackedInline
 
+from fortissimusbellator import translator
+
 from . import forms
 from .translation import models
 
@@ -99,6 +101,18 @@ class AnimalAdmin(TranslationAdmin):
     )
 
     ordering = ('order',)
+
+    def save_model(self, request, obj, form, change):
+        description_pt = form.cleaned_data.get('description_pt')
+        description_en = form.cleaned_data.get('description_en')
+
+        if not description_pt and description_en:
+            obj.description_pt = translator.trans(description_en, "en", "pt")
+
+        if not description_en and description_pt:
+            obj.description_en = translator.trans(description_pt, "pt", "en")
+
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(models.Litter)
