@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-03 15:07+0000\n"
+"POT-Creation-Date: 2025-08-25 10:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -212,7 +212,7 @@ msgstr "Insira o seu NIF"
 #: accounts/templates/password/password_reset_form.html:15
 #: accounts/templates/register.html:89
 #: accounts/templates/resend_activation_email.html:15
-#: frontoffice/templates/contact_us.html:73
+#: frontoffice/templates/contact_us.html:74
 msgid "Email"
 msgstr "E-mail"
 
@@ -1211,11 +1211,11 @@ msgstr "Site Administrativo de Fortissimus Bellator"
 msgid "Fortissimus Bellator Administration"
 msgstr "Administração de Fortissimus Bellator"
 
-#: fortissimusbellator/settings.py:185
+#: fortissimusbellator/settings.py:187
 msgid "English"
 msgstr "Inglês"
 
-#: fortissimusbellator/settings.py:186
+#: fortissimusbellator/settings.py:188
 msgid "Portuguese"
 msgstr "Português"
 
@@ -1271,11 +1271,11 @@ msgid "Your Name"
 msgstr "O Seu Nome"
 
 #: frontoffice/forms.py:20 frontoffice/forms.py:28
-#: frontoffice/templates/contact_us.html:77
+#: frontoffice/templates/contact_us.html:78
 msgid "Your Email"
 msgstr "O Seu E-mail"
 
-#: frontoffice/forms.py:36 frontoffice/templates/contact_us.html:95
+#: frontoffice/forms.py:36 frontoffice/templates/contact_us.html:96
 msgid "Your Message"
 msgstr "A Sua Mensagem"
 
@@ -1457,23 +1457,27 @@ msgstr "Nome"
 msgid "Your Phone"
 msgstr "O Seu Contacto Telefónico"
 
-#: frontoffice/templates/contact_us.html:91
+#: frontoffice/templates/contact_us.html:60
+msgid "Please include your country code. Example for Portugal: (+351) 912 345 678"
+msgstr "Por favor, inclua o indicativo do país. Exemplo para Portugal: (+351) 912 345 678"
+
+#: frontoffice/templates/contact_us.html:92
 msgid "Message"
 msgstr "Mensagem"
 
-#: frontoffice/templates/contact_us.html:119
+#: frontoffice/templates/contact_us.html:120
 msgid "Send Message"
 msgstr "Enviar Mensagem"
 
-#: frontoffice/templates/contact_us.html:127
+#: frontoffice/templates/contact_us.html:128
 msgid "Our Location"
 msgstr "A Nossa Localização"
 
-#: frontoffice/templates/contact_us.html:130
+#: frontoffice/templates/contact_us.html:131
 msgid "Visit us at our facility in Leiria, Portugal."
 msgstr "Visite-nos nas nossas instalações em Leiria, Portugal."
 
-#: frontoffice/templates/contact_us.html:137
+#: frontoffice/templates/contact_us.html:138
 msgid "View Larger Map"
 msgstr "Ver Mapa Maior"
 
