@@ -19,6 +19,8 @@
 
     {% if animal.father or animal.mother %}
     <!-- Parents (Centered, Colspan 2 Each) -->
+    
+    <!-- Parent -->
     <div class="col-span-2 flex flex-col items-center">
         <!-- Father -->
         {% if animal.father %}
@@ -44,6 +46,7 @@
         {% endif %}
     </div>
 
+    <!-- Mother -->
     <div class="col-span-2 flex flex-col items-center">
         <!-- Mother -->
         {% if animal.mother %}
@@ -69,13 +72,11 @@
         {% endif %}
     </div>
 
-    {% if animal.father.fater or animal.father.mother or animal.mother.father or animal.mother.mother %}
-    <!-- Grandparents (Centered, Colspan 1 Each) -->
-    {% if animal.father.father or animal.father.mother %}
+    <!-- Grandparents (Always render 4 slots in order: father's father, father's mother, mother's father, mother's mother) -->
     <div class="col-span-1 flex flex-col items-center">
         <!-- Grandfather (Father's Side) -->
         {% if animal.father and animal.father.father %}
-            {% if animal.father and animal.father.father.cover %}
+            {% if animal.father.father.cover %}
             <a>
                 <img src="{{ animal.father.father.cover.file.url }}" alt="{{ animal.father.father.name }}" class="w-16 h-16 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
             </a>
@@ -100,7 +101,7 @@
     <div class="col-span-1 flex flex-col items-center">
         <!-- Grandmother (Father's Side) -->
         {% if animal.father and animal.father.mother %}
-            {% if animal.father and animal.father.mother.cover %}
+            {% if animal.father.mother.cover %}
             <a>
                 <img src="{{ animal.father.mother.cover.file.url }}" alt="{{ animal.father.mother.name }}" class="w-16 h-16 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
             </a>
@@ -121,13 +122,11 @@
         </p>
         {% endif %}
     </div>
-    {% endif %}
 
-    {% if animal.mother.father or animal.mother.mother %}
     <div class="col-span-1 flex flex-col items-center">
         <!-- Grandfather (Mother's Side) -->
         {% if animal.mother and animal.mother.father %}
-            {% if animal.mother and animal.mother.father.cover %}
+            {% if animal.mother.father.cover %}
             <a>
                 <img src="{{ animal.mother.father.cover.file.url }}" alt="{{ animal.mother.father.name }}" class="w-16 h-16 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
             </a>
@@ -152,7 +151,7 @@
     <div class="col-span-1 flex flex-col items-center">
         <!-- Grandmother (Mother's Side) -->
         {% if animal.mother and animal.mother.mother %}
-            {% if animal.mother and animal.mother.mother.cover %}
+            {% if animal.mother.mother.cover %}
             <a>
                 <img src="{{ animal.mother.mother.cover.file.url }}" alt="{{ animal.mother.mother.name }}" class="w-16 h-16 object-cover rounded-full shadow-lg transform transition-transform duration-300 hover:scale-105">
             </a>
@@ -173,7 +172,4 @@
         </p>
         {% endif %}
     </div>
-    {% endif %}
-    {% endif %}
-    {% endif %}
 </div>
