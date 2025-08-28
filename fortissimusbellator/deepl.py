@@ -1,3 +1,5 @@
+import logging
+
 from django.conf import settings
 from django.utils.translation import get_language
 
@@ -19,5 +21,6 @@ def trans(
         )
 
         return text_result.text
-    except:  # pylint: disable=bare-except
+    except Exception as e:  # pylint: disable=bare-except
+        logging.error("DeepL translation error: %s", e)
         return None

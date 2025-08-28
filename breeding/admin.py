@@ -89,7 +89,7 @@ class DeeplTranslationAdmin(TranslationAdmin):
                 setattr(obj, field_pt, translation_pt)
 
             if not field_en_value and field_pt_value:
-                translation_en = deepl.trans(field_pt_value, "pt-pt", "en")
+                translation_en = deepl.trans(field_pt_value, "pt", "en-us")
                 setattr(obj, field_en, translation_en)
 
         super().save_model(request, obj, form, change)
