@@ -66,12 +66,45 @@ class CertificationAdmin(TranslationAdmin):
     ordering = ('order',)
 
 
+class DeeplTranslationAdmin(TranslationAdmin):
+    def save_model(self, request, obj, form, change):
+        deepl_translation_fields = getattr(
+            self, 'deepl_translation_fields', []
+        )
+
+        cleaned_data = form.cleaned_data
+
+        for field in deepl_translation_fields:
+            field_pt = f"{field}_pt"
+            field_en = f"{field}_en"
+
+            if field_pt not in cleaned_data or field_en not in cleaned_data:
+                continue
+
+            field_pt_value = cleaned_data.get(field_pt)
+            field_en_value = cleaned_data.get(field_en)
+
+            if not field_pt_value and field_en_value:
+                translation_pt = deepl.trans(field_en_value, "en", "pt-pt")
+                setattr(obj, field_pt, translation_pt)
+
+            if not field_en_value and field_pt_value:
+                translation_en = deepl.trans(field_pt_value, "pt-pt", "en")
+                setattr(obj, field_en, translation_en)
+
+        super().save_model(request, obj, form, change)
+
+
 @admin.register(models.Animal)
-class AnimalAdmin(TranslationAdmin):
+class AnimalAdmin(DeeplTranslationAdmin):
     """
     Admin configuration for Animal, including attachments and certifications.
     """
     form = forms.AnimalForm
+
+    deepl_translation_fields = [
+        'description'
+    ]
 
     inlines = [
         AttachmentStackedInline,
@@ -102,27 +135,19 @@ class AnimalAdmin(TranslationAdmin):
 
     ordering = ('order',)
 
-    def save_model(self, request, obj, form, change):
-        description_pt = form.cleaned_data.get('description_pt')
-        description_en = form.cleaned_data.get('description_en')
-
-        if not description_pt and description_en:
-            obj.description_pt = deepl.trans(description_en, "en", "pt-pt")
-
-        if not description_en and description_pt:
-            obj.description_en = deepl.trans(description_pt, "pt-pt", "en")
-
-        super().save_model(request, obj, form, change)
-
 
 @admin.register(models.Litter)
-class LitterAdmin(TranslationAdmin):
+class LitterAdmin(DeeplTranslationAdmin):
     """
     Litter configuration for Animal, including attachments.
     """
     inlines = [
         AttachmentStackedInline,
         TagAdminStackedInline
+    ]
+
+    deepl_translation_fields = [
+        'description',
     ]
 
     list_display = (
