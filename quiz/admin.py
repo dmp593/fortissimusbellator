@@ -16,7 +16,7 @@ class AnswerWeightAdmin(admin.StackedInline):
     model = AnswerWeight
     extra = 1
     fields = ('breed', 'weight')
-    ordering = ('weight', 'breed__name',)
+    ordering = ('-weight', 'breed__name',)
 
 
 @admin.register(Answer)
