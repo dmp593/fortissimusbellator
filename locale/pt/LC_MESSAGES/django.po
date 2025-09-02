@@ -1585,12 +1585,12 @@ msgid "Next"
 msgstr "Próximo"
 
 #: quiz/templates/quiz/quiz.html:52
-msgid "See My Match"
-msgstr "Ver o Meu Match"
+msgid "See my breed match"
+msgstr "Ver a minha correspondência de raça"
 
 #: quiz/templates/quiz/result.html:8
-msgid "Your best match is"
-msgstr "A sua melhor correspondência é"
+msgid "Your best breed match is"
+msgstr "A sua melhor correspondência de raça é"
 
 #: quiz/templates/quiz/result.html:25
 msgid "Retake Quiz"
