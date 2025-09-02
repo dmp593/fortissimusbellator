@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-02 22:40+0000\n"
+"POT-Creation-Date: 2025-09-02 22:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1602,8 +1602,8 @@ msgid "Answer Weights"
 msgstr "Pesos das Respostas"
 
 #: quiz/templates/quiz/quiz.html:10
-msgid "Puppy Finder"
-msgstr "Encontrar Cachorro"
+msgid "Uncover Your Perfect Breed"
+msgstr "Descubra a Sua Raça Perfeita"
 
 #: quiz/templates/quiz/quiz.html:44
 msgid "Previous"
@@ -1641,8 +1641,8 @@ msgstr "cor para o tema escuro"
 msgid "content_type"
 msgstr "tipo de conteúdo"
 
-#~ msgid "Find Your Perfect Puppy"
-#~ msgstr "Encontre o seu Cão-panheiro perfeito"
+#~ msgid "Puppy Finder"
+#~ msgstr "Encontrar Cachorro"
 
 #~ msgid "Description"
 #~ msgstr "Descrição"
