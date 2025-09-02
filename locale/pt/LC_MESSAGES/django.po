@@ -1602,8 +1602,8 @@ msgid "Answer Weights"
 msgstr "Pesos das Respostas"
 
 #: quiz/templates/quiz/quiz.html:10
-msgid "Uncover Your Perfect Breed"
-msgstr "Descubra a Sua Raça Perfeita"
+msgid "Uncover the Perfect Breed"
+msgstr "Descubra a Raça Perfeita"
 
 #: quiz/templates/quiz/quiz.html:44
 msgid "Previous"
