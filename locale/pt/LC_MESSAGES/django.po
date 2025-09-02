@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-02 22:10+0000\n"
+"POT-Creation-Date: 2025-09-02 22:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1020,7 +1020,6 @@ msgid "Gallery"
 msgstr "Galeria"
 
 #: breeding/templates/buy_a_dog/index.html:11
-#: fortissimusbellator/templates/components/quiz_cta.html:5
 msgid "Find Your Perfect Companion"
 msgstr "Encontre o seu Cão-panheiro perfeito"
 
@@ -1270,6 +1269,10 @@ msgstr "Os meus Cães"
 #: fortissimusbellator/templates/components/navbar.html:95
 msgid "Logout"
 msgstr "Sair"
+
+#: fortissimusbellator/templates/components/quiz_cta.html:5
+msgid "Wondering which breed is right for you?"
+msgstr "Dúvidas sobre qual a raça certa para si?"
 
 #: fortissimusbellator/templates/components/quiz_cta.html:6
 msgid "Take our quick quiz to discover the ideal breed for your lifestyle."
