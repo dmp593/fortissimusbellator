@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-25 10:07+0000\n"
+"POT-Creation-Date: 2025-09-02 15:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -453,6 +453,7 @@ msgstr ""
 #: breeding/templates/buy_a_dog/index.html:5
 #: fortissimusbellator/templates/components/navbar.html:40
 #: fortissimusbellator/templates/components/navbar.html:139
+#: quiz/templates/quiz/result.html:16
 msgid "Buy a Dog"
 msgstr "Adquirir um Cão"
 
@@ -593,7 +594,7 @@ msgstr "tipo de MIME"
 #: attachments/models.py:94 blog/models.py:84 blog/models.py:162
 #: breeding/models.py:44 breeding/models.py:107 breeding/models.py:163
 #: breeding/models.py:202 breeding/models.py:342 breeding/models.py:452
-#: frontoffice/models.py:47
+#: frontoffice/models.py:47 quiz/models.py:16 quiz/models.py:49
 msgid "order"
 msgstr "ordem"
 
@@ -777,10 +778,11 @@ msgstr ""
 "inicial e navegação"
 
 #: breeding/models.py:116 breeding/models.py:218 breeding/models.py:394
+#: quiz/models.py:69
 msgid "breed"
 msgstr "raça"
 
-#: breeding/models.py:117 breeding/models.py:158
+#: breeding/models.py:117 breeding/models.py:158 quiz/models.py:44
 msgid "breeds"
 msgstr "raças"
 
@@ -956,12 +958,12 @@ msgstr "Fêmea"
 #: breeding/templates/buy_a_dog/detail.html:108
 #: breeding/templates/buy_a_dog/index.html:78
 #: breeding/templates/buy_a_dog/partials/cards.html:44
-#: breeding/templates/components/lineage_tree.html:42
-#: breeding/templates/components/lineage_tree.html:67
-#: breeding/templates/components/lineage_tree.html:95
-#: breeding/templates/components/lineage_tree.html:120
-#: breeding/templates/components/lineage_tree.html:147
-#: breeding/templates/components/lineage_tree.html:172
+#: breeding/templates/components/lineage_tree.html:44
+#: breeding/templates/components/lineage_tree.html:70
+#: breeding/templates/components/lineage_tree.html:96
+#: breeding/templates/components/lineage_tree.html:121
+#: breeding/templates/components/lineage_tree.html:146
+#: breeding/templates/components/lineage_tree.html:171
 #: breeding/templates/our_dogs/index.html:51
 msgid "Unknown"
 msgstr "Desconhecido"
@@ -1018,6 +1020,7 @@ msgid "Gallery"
 msgstr "Galeria"
 
 #: breeding/templates/buy_a_dog/index.html:11
+#: fortissimusbellator/templates/components/quiz_cta.html:5
 msgid "Find Your Perfect Companion"
 msgstr "Encontre o seu Cão-panheiro perfeito"
 
@@ -1079,11 +1082,11 @@ msgstr "Tem Certificações"
 msgid "Find Your Fur"
 msgstr "Encontre o seu cão-panheiro"
 
-#: breeding/templates/buy_a_dog/index.html:198
+#: breeding/templates/buy_a_dog/index.html:203
 msgid "No Dogs Available"
 msgstr "Sem Cães Disponíveis"
 
-#: breeding/templates/buy_a_dog/index.html:201
+#: breeding/templates/buy_a_dog/index.html:206
 msgid ""
 "We currently don't have any dogs available. Please check back later or "
 "contact us for more information."
@@ -1112,21 +1115,21 @@ msgstr "Fechar modal"
 msgid "Your browser does not support the video tag."
 msgstr "O seu navegador não suporta a etiqueta de vídeo."
 
-#: breeding/templates/components/lineage_tree.html:35
+#: breeding/templates/components/lineage_tree.html:37
 msgid "Father"
 msgstr "pai"
 
-#: breeding/templates/components/lineage_tree.html:60
+#: breeding/templates/components/lineage_tree.html:63
 msgid "Mother"
 msgstr "mãe"
 
-#: breeding/templates/components/lineage_tree.html:88
-#: breeding/templates/components/lineage_tree.html:140
+#: breeding/templates/components/lineage_tree.html:89
+#: breeding/templates/components/lineage_tree.html:139
 msgid "Grandfather"
 msgstr "Avô"
 
-#: breeding/templates/components/lineage_tree.html:113
-#: breeding/templates/components/lineage_tree.html:165
+#: breeding/templates/components/lineage_tree.html:114
+#: breeding/templates/components/lineage_tree.html:164
 msgid "Grandmother"
 msgstr "Avó"
 
@@ -1137,6 +1140,7 @@ msgstr "Carregar Mais"
 #: breeding/templates/our_dogs/index.html:5
 #: fortissimusbellator/templates/components/navbar.html:20
 #: fortissimusbellator/templates/components/navbar.html:124
+#: quiz/templates/quiz/result.html:22
 msgid "Our Dogs"
 msgstr "Os Nossos Cães"
 
@@ -1180,6 +1184,7 @@ msgstr[1] "%(babies)s bebés"
 #: breeding/templates/upcoming_litters/index.html:5
 #: fortissimusbellator/templates/components/navbar.html:41
 #: fortissimusbellator/templates/components/navbar.html:140
+#: quiz/templates/quiz/result.html:19
 msgid "Upcoming Litters"
 msgstr "Próximas Ninhadas"
 
@@ -1191,11 +1196,11 @@ msgstr "Encontre a sua Futura Família Patuda"
 msgid "Find Litters"
 msgstr "Encontre Ninhadas"
 
-#: breeding/templates/upcoming_litters/index.html:61
+#: breeding/templates/upcoming_litters/index.html:66
 msgid "No Litters Available"
 msgstr "Sem Ninhadas"
 
-#: breeding/templates/upcoming_litters/index.html:64
+#: breeding/templates/upcoming_litters/index.html:69
 msgid ""
 "We currently don't have any litters available. Please check back later or "
 "contact us for more information."
@@ -1211,11 +1216,11 @@ msgstr "Site Administrativo de Fortissimus Bellator"
 msgid "Fortissimus Bellator Administration"
 msgstr "Administração de Fortissimus Bellator"
 
-#: fortissimusbellator/settings.py:187
+#: fortissimusbellator/settings.py:188
 msgid "English"
 msgstr "Inglês"
 
-#: fortissimusbellator/settings.py:188
+#: fortissimusbellator/settings.py:189
 msgid "Portuguese"
 msgstr "Português"
 
@@ -1266,6 +1271,14 @@ msgstr "Os meus Cães"
 msgid "Logout"
 msgstr "Sair"
 
+#: fortissimusbellator/templates/components/quiz_cta.html:6
+msgid "Take our quick quiz to discover the ideal breed for your lifestyle."
+msgstr "Responda ao nosso rápido questionário para descobrir a raça ideal para o seu estilo de vida."
+
+#: fortissimusbellator/templates/components/quiz_cta.html:9
+msgid "Start Quiz"
+msgstr "Iniciar Questionário"
+
 #: frontoffice/forms.py:12 frontoffice/templates/contact_us.html:41
 msgid "Your Name"
 msgstr "O Seu Nome"
@@ -1279,11 +1292,11 @@ msgstr "O Seu E-mail"
 msgid "Your Message"
 msgstr "A Sua Mensagem"
 
-#: frontoffice/models.py:24
+#: frontoffice/models.py:24 quiz/models.py:11 quiz/models.py:32
 msgid "question"
 msgstr "pergunta"
 
-#: frontoffice/models.py:30
+#: frontoffice/models.py:30 quiz/models.py:37 quiz/models.py:63
 msgid "answer"
 msgstr "resposta"
 
@@ -1458,8 +1471,11 @@ msgid "Your Phone"
 msgstr "O Seu Contacto Telefónico"
 
 #: frontoffice/templates/contact_us.html:60
-msgid "Please include your country code. Example for Portugal: (+351) 912 345 678"
-msgstr "Por favor, inclua o indicativo do país. Exemplo para Portugal: (+351) 912 345 678"
+msgid ""
+"Please include your country code. Example for Portugal: (+351) 912 345 678"
+msgstr ""
+"Por favor, inclua o indicativo do país. Exemplo para Portugal: (+351) 912 "
+"345 678"
 
 #: frontoffice/templates/contact_us.html:92
 msgid "Message"
@@ -1552,6 +1568,34 @@ msgstr "Obrigado! Entraremos em contacto consigo brevemente."
 msgid "Ups... Try again later."
 msgstr "Ups... Tente novamente mais tarde."
 
+#: quiz/models.py:74
+msgid "weight"
+msgstr "peso"
+
+#: quiz/templates/quiz/quiz.html:10
+msgid "Puppy Finder"
+msgstr "Encontrar Cachorro"
+
+#: quiz/templates/quiz/quiz.html:44
+msgid "Previous"
+msgstr "Anterior"
+
+#: quiz/templates/quiz/quiz.html:49
+msgid "Next"
+msgstr "Próximo"
+
+#: quiz/templates/quiz/quiz.html:52
+msgid "See My Match"
+msgstr "Ver o Meu Match"
+
+#: quiz/templates/quiz/result.html:8
+msgid "Your best match is"
+msgstr "A sua melhor correspondência é"
+
+#: quiz/templates/quiz/result.html:25
+msgid "Retake Quiz"
+msgstr "Refazer Questionário"
+
 #: tags/models.py:14 tags/models.py:57
 msgid "tag"
 msgstr "etiqueta"
@@ -1567,6 +1611,9 @@ msgstr "cor para o tema escuro"
 #: tags/models.py:35
 msgid "content_type"
 msgstr "tipo de conteúdo"
+
+#~ msgid "Find Your Perfect Puppy"
+#~ msgstr "Encontre o seu Cão-panheiro perfeito"
 
 #~ msgid "Description"
 #~ msgstr "Descrição"

@@ -107,7 +107,7 @@ def upcoming_litters(request):
     breed_filter = request.GET.get('breed')
 
     if breed_filter:
-        litters = litters.filter(breed_id=breed_filter)
+        litters = litters.filter(breed=breed_filter)
 
     # Pagination
     page = to_int(request.GET.get('page'), or_default=1)
@@ -125,6 +125,7 @@ def upcoming_litters(request):
 
     context = {
         'litters': paginated_litters,
+        'breeds': Breed.objects_specific.all(),  # overriding. see: context_processors.py
         'pagination': {
             'has_more': paginated_litters.has_next(),  # Show "Load More" if there are more pages
             'next_page': paginated_litters.next_page_number() if paginated_litters.has_next() else None,

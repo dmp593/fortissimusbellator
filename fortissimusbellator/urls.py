@@ -36,6 +36,7 @@ urlpatterns += i18n_patterns(
     path('', include('frontoffice.urls')),
     path('', include('breeding.urls')),
     path('', include('accounts.urls')),
+    path('quiz/', include('quiz.urls')),
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
 

@@ -1,0 +1,1293 @@
+[
+  {
+    "model": "quiz.question",
+    "pk": 9,
+    "fields": {
+      "text_en": "What is your main goal for having the dog?",
+      "text_pt": "Qual é o seu principal objetivo ao ter o cão?",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 24,
+    "fields": {
+      "question": 9,
+      "text_en": "Companion / family pet",
+      "text_pt": "Companheiro / animal de família",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 25,
+    "fields": {
+      "question": 9,
+      "text_en": "Protection / guard",
+      "text_pt": "Proteção / guarda",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 26,
+    "fields": {
+      "question": 9,
+      "text_en": "Sport / work",
+      "text_pt": "Desporto / trabalho",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 59,
+    "fields": {
+      "answer": 24,
+      "breed": 1,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 60,
+    "fields": {
+      "answer": 24,
+      "breed": 3,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 61,
+    "fields": {
+      "answer": 25,
+      "breed": 4,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 62,
+    "fields": {
+      "answer": 25,
+      "breed": 6,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 63,
+    "fields": {
+      "answer": 26,
+      "breed": 2,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 64,
+    "fields": {
+      "answer": 26,
+      "breed": 4,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 1,
+    "fields": {
+      "text_en": "Do you live in an apartment, a small house without a yard, or a house with a garden/outdoor space?",
+      "text_pt": "Vive num apartamento, numa casa pequena sem quintal ou numa casa com jardim/espaço exterior?",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 1,
+    "fields": {
+      "question": 1,
+      "text_en": "Apartment",
+      "text_pt": "Apartamento",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 2,
+    "fields": {
+      "question": 1,
+      "text_en": "Small house without yard",
+      "text_pt": "Casa pequena sem quintal",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 3,
+    "fields": {
+      "question": 1,
+      "text_en": "House with garden/outdoor space",
+      "text_pt": "Casa com jardim/espaço exterior",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 1,
+    "fields": {
+      "answer": 1,
+      "breed": 5,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 2,
+    "fields": {
+      "answer": 1,
+      "breed": 6,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 3,
+    "fields": {
+      "answer": 1,
+      "breed": 7,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 4,
+    "fields": {
+      "answer": 2,
+      "breed": 1,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 5,
+    "fields": {
+      "answer": 2,
+      "breed": 2,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 6,
+    "fields": {
+      "answer": 2,
+      "breed": 3,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 7,
+    "fields": {
+      "answer": 2,
+      "breed": 5,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 8,
+    "fields": {
+      "answer": 3,
+      "breed": 1,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 9,
+    "fields": {
+      "answer": 3,
+      "breed": 2,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 10,
+    "fields": {
+      "answer": 3,
+      "breed": 3,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 11,
+    "fields": {
+      "answer": 3,
+      "breed": 4,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 12,
+    "fields": {
+      "answer": 3,
+      "breed": 7,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 2,
+    "fields": {
+      "text_en": "How much daily exercise can you provide?",
+      "text_pt": "Quanto exercício diário pode oferecer?",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 4,
+    "fields": {
+      "question": 2,
+      "text_en": "30 min walk",
+      "text_pt": "Caminhada de 30 min",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 5,
+    "fields": {
+      "question": 2,
+      "text_en": "1–2h including play",
+      "text_pt": "1–2h incluindo brincadeiras",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 6,
+    "fields": {
+      "question": 2,
+      "text_en": "2h+ intense activities",
+      "text_pt": "2h+ atividades intensas",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 13,
+    "fields": {
+      "answer": 4,
+      "breed": 5,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 14,
+    "fields": {
+      "answer": 4,
+      "breed": 6,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 15,
+    "fields": {
+      "answer": 5,
+      "breed": 1,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 16,
+    "fields": {
+      "answer": 5,
+      "breed": 2,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 17,
+    "fields": {
+      "answer": 5,
+      "breed": 3,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 18,
+    "fields": {
+      "answer": 5,
+      "breed": 7,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 19,
+    "fields": {
+      "answer": 6,
+      "breed": 2,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 20,
+    "fields": {
+      "answer": 6,
+      "breed": 4,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 3,
+    "fields": {
+      "text_en": "What’s your level of experience?",
+      "text_pt": "Qual é o seu nível de experiência?",
+      "order": 4
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 7,
+    "fields": {
+      "question": 3,
+      "text_en": "None, first-time owner",
+      "text_pt": "Nenhuma, primeira vez como dono",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 8,
+    "fields": {
+      "question": 3,
+      "text_en": "Some experience or had dogs before",
+      "text_pt": "Alguma experiência ou tive cães antes",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 9,
+    "fields": {
+      "question": 3,
+      "text_en": "Experienced with working breeds",
+      "text_pt": "Experiente com raças de trabalho",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 21,
+    "fields": {
+      "answer": 7,
+      "breed": 5,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 22,
+    "fields": {
+      "answer": 7,
+      "breed": 6,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 23,
+    "fields": {
+      "answer": 8,
+      "breed": 1,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 24,
+    "fields": {
+      "answer": 8,
+      "breed": 3,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 25,
+    "fields": {
+      "answer": 8,
+      "breed": 7,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 26,
+    "fields": {
+      "answer": 9,
+      "breed": 2,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 27,
+    "fields": {
+      "answer": 9,
+      "breed": 4,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 4,
+    "fields": {
+      "text_en": "Are you willing to attend professional training lessons?",
+      "text_pt": "Está disposto a frequentar aulas de treino profissional?",
+      "order": 5
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 10,
+    "fields": {
+      "question": 4,
+      "text_en": "Yes, regularly",
+      "text_pt": "Sim, regularmente",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 11,
+    "fields": {
+      "question": 4,
+      "text_en": "Maybe occasionally",
+      "text_pt": "Talvez ocasionalmente",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 12,
+    "fields": {
+      "question": 4,
+      "text_en": "No, I prefer minimal training",
+      "text_pt": "Não, prefiro treinamento mínimo",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 28,
+    "fields": {
+      "answer": 10,
+      "breed": 2,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 29,
+    "fields": {
+      "answer": 10,
+      "breed": 4,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 30,
+    "fields": {
+      "answer": 11,
+      "breed": 1,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 31,
+    "fields": {
+      "answer": 11,
+      "breed": 3,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 32,
+    "fields": {
+      "answer": 11,
+      "breed": 7,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 33,
+    "fields": {
+      "answer": 12,
+      "breed": 5,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 34,
+    "fields": {
+      "answer": 12,
+      "breed": 6,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 5,
+    "fields": {
+      "text_en": "How much grooming are you willing to do weekly?",
+      "text_pt": "Quanto tempo pode dedicar por semana à escovagem?",
+      "order": 6
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 13,
+    "fields": {
+      "question": 5,
+      "text_en": "Minimal (quick brushing)",
+      "text_pt": "Mínimo (escovagem rápida)",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 14,
+    "fields": {
+      "question": 5,
+      "text_en": "Some grooming (1-2 sessions)",
+      "text_pt": "Alguma escovagem (1-2 vezes)",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 15,
+    "fields": {
+      "question": 5,
+      "text_en": "I enjoy grooming (3+ times weekly)",
+      "text_pt": "Eu gosto de escovar (3+ vezes por semana)",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 35,
+    "fields": {
+      "answer": 13,
+      "breed": 4,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 36,
+    "fields": {
+      "answer": 14,
+      "breed": 1,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 37,
+    "fields": {
+      "answer": 14,
+      "breed": 2,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 38,
+    "fields": {
+      "answer": 14,
+      "breed": 3,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 39,
+    "fields": {
+      "answer": 15,
+      "breed": 5,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 40,
+    "fields": {
+      "answer": 15,
+      "breed": 6,
+      "weight": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 41,
+    "fields": {
+      "answer": 15,
+      "breed": 7,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 6,
+    "fields": {
+      "text_en": "How many hours a day are you typically away from home?",
+      "text_pt": "Quantas horas por dia costuma estar fora de casa?",
+      "order": 7
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 16,
+    "fields": {
+      "question": 6,
+      "text_en": "Rarely (0–2 hours)",
+      "text_pt": "Raramente (0–2 horas)",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 17,
+    "fields": {
+      "question": 6,
+      "text_en": "4–6 hours",
+      "text_pt": "4–6 horas",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 18,
+    "fields": {
+      "question": 6,
+      "text_en": "8+ hours",
+      "text_pt": "8+ horas",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 42,
+    "fields": {
+      "answer": 16,
+      "breed": 2,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 43,
+    "fields": {
+      "answer": 16,
+      "breed": 4,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 44,
+    "fields": {
+      "answer": 17,
+      "breed": 1,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 45,
+    "fields": {
+      "answer": 17,
+      "breed": 3,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 46,
+    "fields": {
+      "answer": 18,
+      "breed": 5,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 47,
+    "fields": {
+      "answer": 18,
+      "breed": 6,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 7,
+    "fields": {
+      "text_en": "How tolerant are you of dog hair (shedding) in your home?",
+      "text_pt": "Qual a sua tolerância ao pelo do cão (queda) em casa?",
+      "order": 8
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 19,
+    "fields": {
+      "question": 7,
+      "text_en": "Low tolerance",
+      "text_pt": "Baixa tolerância",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 20,
+    "fields": {
+      "question": 7,
+      "text_en": "Medium tolerance",
+      "text_pt": "Tolerância média",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 21,
+    "fields": {
+      "question": 7,
+      "text_en": "High tolerance",
+      "text_pt": "Alta tolerância",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 48,
+    "fields": {
+      "answer": 19,
+      "breed": 1,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 49,
+    "fields": {
+      "answer": 20,
+      "breed": 2,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 50,
+    "fields": {
+      "answer": 20,
+      "breed": 3,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 51,
+    "fields": {
+      "answer": 21,
+      "breed": 4,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 52,
+    "fields": {
+      "answer": 21,
+      "breed": 6,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 8,
+    "fields": {
+      "text_en": "What size do you prefer?",
+      "text_pt": "Que tamanho prefere?",
+      "order": 9
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 22,
+    "fields": {
+      "question": 8,
+      "text_en": "Medium (20–30 kg)",
+      "text_pt": "Médio (20–30 kg)",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 23,
+    "fields": {
+      "question": 8,
+      "text_en": "Large (30 kg+)",
+      "text_pt": "Grande (30 kg+)",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 53,
+    "fields": {
+      "answer": 22,
+      "breed": 1,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 54,
+    "fields": {
+      "answer": 22,
+      "breed": 3,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 55,
+    "fields": {
+      "answer": 22,
+      "breed": 5,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 56,
+    "fields": {
+      "answer": 23,
+      "breed": 2,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 57,
+    "fields": {
+      "answer": 23,
+      "breed": 4,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 58,
+    "fields": {
+      "answer": 23,
+      "breed": 6,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 10,
+    "fields": {
+      "text_en": "Do you have children or plan to have kids soon?",
+      "text_pt": "Tem filhos ou planeia ter em breve?",
+      "order": 10
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 27,
+    "fields": {
+      "question": 10,
+      "text_en": "Yes",
+      "text_pt": "Sim",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 28,
+    "fields": {
+      "question": 10,
+      "text_en": "No",
+      "text_pt": "Não",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 65,
+    "fields": {
+      "answer": 27,
+      "breed": 1,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 66,
+    "fields": {
+      "answer": 27,
+      "breed": 3,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 67,
+    "fields": {
+      "answer": 28,
+      "breed": 4,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 11,
+    "fields": {
+      "text_en": "Do you already have other pets at home?",
+      "text_pt": "Já tem outros animais em casa?",
+      "order": 11
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 29,
+    "fields": {
+      "question": 11,
+      "text_en": "No other pets",
+      "text_pt": "Sem outros animais",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 30,
+    "fields": {
+      "question": 11,
+      "text_en": "Yes - cats/small pets",
+      "text_pt": "Sim - gatos/animais pequenos",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 31,
+    "fields": {
+      "question": 11,
+      "text_en": "Yes - other dogs",
+      "text_pt": "Sim - outros cães",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 68,
+    "fields": {
+      "answer": 30,
+      "breed": 1,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 69,
+    "fields": {
+      "answer": 31,
+      "breed": 2,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 12,
+    "fields": {
+      "text_en": "How tolerant are you of barking and vocal dogs?",
+      "text_pt": "Qual a sua tolerância a latidos e cães vocais?",
+      "order": 12
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 32,
+    "fields": {
+      "question": 12,
+      "text_en": "Low",
+      "text_pt": "Baixa",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 33,
+    "fields": {
+      "question": 12,
+      "text_en": "Medium",
+      "text_pt": "Média",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 34,
+    "fields": {
+      "question": 12,
+      "text_en": "High tolerance",
+      "text_pt": "Alta",
+      "order": 3
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 70,
+    "fields": {
+      "answer": 32,
+      "breed": 1,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 71,
+    "fields": {
+      "answer": 33,
+      "breed": 3,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 72,
+    "fields": {
+      "answer": 34,
+      "breed": 4,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 13,
+    "fields": {
+      "text_en": "Are you comfortable with a higher monthly cost (food, vet, insurance, training)?",
+      "text_pt": "Sente-se confortável com um custo mensal mais elevado (ração, veterinário, seguro, treino)?",
+      "order": 13
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 35,
+    "fields": {
+      "question": 13,
+      "text_en": "Prefer moderate cost",
+      "text_pt": "Prefiro custo moderado",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 36,
+    "fields": {
+      "question": 13,
+      "text_en": "Comfortable with high cost",
+      "text_pt": "Confortável com custo elevado",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 73,
+    "fields": {
+      "answer": 35,
+      "breed": 1,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 74,
+    "fields": {
+      "answer": 35,
+      "breed": 3,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 75,
+    "fields": {
+      "answer": 36,
+      "breed": 4,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 76,
+    "fields": {
+      "answer": 36,
+      "breed": 6,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 14,
+    "fields": {
+      "text_en": "What temperament do you prefer?",
+      "text_pt": "Que temperamento prefere?",
+      "order": 14
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 37,
+    "fields": {
+      "question": 14,
+      "text_en": "Calmer, more balanced",
+      "text_pt": "Mais calmo e equilibrado",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 38,
+    "fields": {
+      "question": 14,
+      "text_en": "Highly driven / intense",
+      "text_pt": "Muito enérgico/intenso",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 77,
+    "fields": {
+      "answer": 37,
+      "breed": 1,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 78,
+    "fields": {
+      "answer": 37,
+      "breed": 3,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 79,
+    "fields": {
+      "answer": 38,
+      "breed": 2,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 80,
+    "fields": {
+      "answer": 38,
+      "breed": 4,
+      "weight": 2
+    }
+  },
+  {
+    "model": "quiz.question",
+    "pk": 15,
+    "fields": {
+      "text_en": "Do you travel often or need flexibility with dog care?",
+      "text_pt": "Viaja com frequência ou precisa de flexibilidade nos cuidados?",
+      "order": 15
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 39,
+    "fields": {
+      "question": 15,
+      "text_en": "Yes, travel often / need flexibility",
+      "text_pt": "Sim, viajo com frequência / preciso de flexibilidade",
+      "order": 1
+    }
+  },
+  {
+    "model": "quiz.answer",
+    "pk": 40,
+    "fields": {
+      "question": 15,
+      "text_en": "No, stable routine",
+      "text_pt": "Não, rotina estável",
+      "order": 2
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 81,
+    "fields": {
+      "answer": 39,
+      "breed": 5,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 82,
+    "fields": {
+      "answer": 39,
+      "breed": 7,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 83,
+    "fields": {
+      "answer": 40,
+      "breed": 2,
+      "weight": 1
+    }
+  },
+  {
+    "model": "quiz.answerweight",
+    "pk": 84,
+    "fields": {
+      "answer": 40,
+      "breed": 4,
+      "weight": 1
+    }
+  }
+]

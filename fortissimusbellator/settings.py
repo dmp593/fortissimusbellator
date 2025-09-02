@@ -106,6 +106,7 @@ INSTALLED_APPS = [
     'breeding',
     'frontoffice',
     'blog',
+    'quiz',
 ]
 
 MIDDLEWARE = [
