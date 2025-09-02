@@ -17,6 +17,8 @@ class Question(models.Model):
     )
 
     class Meta:
+        verbose_name = _('Question')
+        verbose_name_plural = _('Questions')
         ordering = ["order"]
 
     def __str__(self):
@@ -50,6 +52,8 @@ class Answer(models.Model):
     )
 
     class Meta:
+        verbose_name = _('Answer')
+        verbose_name_plural = _('Answers')
         ordering = ["order"]
 
     def __str__(self):
@@ -76,6 +80,8 @@ class AnswerWeight(models.Model):
 
     class Meta:
         unique_together = ("answer", "breed")  # one weight per breed per answer
+        verbose_name = _('Answer Weight')
+        verbose_name_plural = _('Answer Weights')
 
     def __str__(self):
         return self.answer.text

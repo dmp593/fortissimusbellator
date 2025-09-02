@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-02 15:48+0000\n"
+"POT-Creation-Date: 2025-09-02 22:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -594,7 +594,7 @@ msgstr "tipo de MIME"
 #: attachments/models.py:94 blog/models.py:84 blog/models.py:162
 #: breeding/models.py:44 breeding/models.py:107 breeding/models.py:163
 #: breeding/models.py:202 breeding/models.py:342 breeding/models.py:452
-#: frontoffice/models.py:47 quiz/models.py:16 quiz/models.py:49
+#: frontoffice/models.py:47 quiz/models.py:16 quiz/models.py:51
 msgid "order"
 msgstr "ordem"
 
@@ -778,11 +778,11 @@ msgstr ""
 "inicial e navegação"
 
 #: breeding/models.py:116 breeding/models.py:218 breeding/models.py:394
-#: quiz/models.py:69
+#: quiz/models.py:73
 msgid "breed"
 msgstr "raça"
 
-#: breeding/models.py:117 breeding/models.py:158 quiz/models.py:44
+#: breeding/models.py:117 breeding/models.py:158 quiz/models.py:46
 msgid "breeds"
 msgstr "raças"
 
@@ -1273,7 +1273,9 @@ msgstr "Sair"
 
 #: fortissimusbellator/templates/components/quiz_cta.html:6
 msgid "Take our quick quiz to discover the ideal breed for your lifestyle."
-msgstr "Responda ao nosso rápido questionário para descobrir a raça ideal para o seu estilo de vida."
+msgstr ""
+"Responda ao nosso rápido questionário para descobrir a raça ideal para o seu "
+"estilo de vida."
 
 #: fortissimusbellator/templates/components/quiz_cta.html:9
 msgid "Start Quiz"
@@ -1292,11 +1294,11 @@ msgstr "O Seu E-mail"
 msgid "Your Message"
 msgstr "A Sua Mensagem"
 
-#: frontoffice/models.py:24 quiz/models.py:11 quiz/models.py:32
+#: frontoffice/models.py:24 quiz/models.py:11 quiz/models.py:34
 msgid "question"
 msgstr "pergunta"
 
-#: frontoffice/models.py:30 quiz/models.py:37 quiz/models.py:63
+#: frontoffice/models.py:30 quiz/models.py:39 quiz/models.py:67
 msgid "answer"
 msgstr "resposta"
 
@@ -1568,9 +1570,33 @@ msgstr "Obrigado! Entraremos em contacto consigo brevemente."
 msgid "Ups... Try again later."
 msgstr "Ups... Tente novamente mais tarde."
 
-#: quiz/models.py:74
+#: quiz/models.py:20
+msgid "Question"
+msgstr "Pergunta"
+
+#: quiz/models.py:21
+msgid "Questions"
+msgstr "Perguntas"
+
+#: quiz/models.py:55
+msgid "Answer"
+msgstr "Resposta"
+
+#: quiz/models.py:56
+msgid "Answers"
+msgstr "Respostas"
+
+#: quiz/models.py:78
 msgid "weight"
 msgstr "peso"
+
+#: quiz/models.py:83
+msgid "Answer Weight"
+msgstr "Peso da Resposta"
+
+#: quiz/models.py:84
+msgid "Answer Weights"
+msgstr "Pesos das Respostas"
 
 #: quiz/templates/quiz/quiz.html:10
 msgid "Puppy Finder"
