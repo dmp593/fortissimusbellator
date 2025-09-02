@@ -1585,8 +1585,8 @@ msgid "Next"
 msgstr "Próximo"
 
 #: quiz/templates/quiz/quiz.html:52
-msgid "See my breed match"
-msgstr "Ver a minha correspondência de raça"
+msgid "Get Result"
+msgstr "Obter Resultado"
 
 #: quiz/templates/quiz/result.html:8
 msgid "Your best breed match is"
