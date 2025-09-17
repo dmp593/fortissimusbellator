@@ -35,6 +35,7 @@ class ContentSecurityPolicyMiddleware:
         style_src = SELF_SRC + [
             "'unsafe-inline'",
             'https://fonts.googleapis.com',
+            'https://embed.tawk.to',
         ]
 
         # Fonts: Google Fonts host
