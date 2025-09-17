@@ -18,8 +18,10 @@ class ContentSecurityPolicyMiddleware:
         # and common CDNs / embeds (tawk, jsdelivr)
         script_src = self_src + [
             "'unsafe-inline'",
+            "'unsafe-eval'",  # Needed in production (mod_pagespeed)
             'https://cdn.jsdelivr.net',
             'https://embed.tawk.to',
+            'https://va.tawk.to',
             'https://tawk.to',
         ]
 
@@ -38,6 +40,7 @@ class ContentSecurityPolicyMiddleware:
             'https://www.facebook.com',
             'https://www.instagram.com',
             'https://cdn.jsdelivr.net',
+            '*.openstreetmap.org',
         ]
 
         # Connections (XHR, WebSocket): allow same-origin and tawk endpoints
