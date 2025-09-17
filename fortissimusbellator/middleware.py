@@ -1,4 +1,13 @@
+"""Middlewares for fortissimusbellator project."""
+
+
+SELF_SRC = ["'self'"]
+NONE_SRC = ["'none'"]
+
+
 class ContentSecurityPolicyMiddleware:
+    """Middleware to set Content Security Policy headers."""
+
     def __init__(self, get_response):
         self.get_response = get_response
         # One-time configuration and initialization.
@@ -9,14 +18,11 @@ class ContentSecurityPolicyMiddleware:
 
         response = self.get_response(request)
 
-        # Build a Content-Security-Policy header based on external hosts used
-        # in our templates. Adjust these lists if you add/remove third-party
-        # embeds or CDNs.
-        self_src = ["'self'"]
+        default_src = SELF_SRC
 
         # Script sources: local scripts, inline for small injected snippets,
         # and common CDNs / embeds (tawk, jsdelivr)
-        script_src = self_src + [
+        script_src = SELF_SRC + [
             "'unsafe-inline'",
             "'unsafe-eval'",  # Needed in production (mod_pagespeed)
             'https://cdn.jsdelivr.net',
@@ -26,16 +32,16 @@ class ContentSecurityPolicyMiddleware:
         ]
 
         # Styles: allow Google Fonts and inline styles used by some components
-        style_src = self_src + [
+        style_src = SELF_SRC + [
             "'unsafe-inline'",
             'https://fonts.googleapis.com',
         ]
 
         # Fonts: Google Fonts host
-        font_src = self_src + ['https://fonts.gstatic.com']
+        font_src = SELF_SRC + ['https://fonts.gstatic.com']
 
         # Images: self and data URIs; allow social thumbnails and CDN images
-        img_src = self_src + [
+        img_src = SELF_SRC + [
             'data:',
             'https://www.facebook.com',
             'https://www.instagram.com',
@@ -44,27 +50,33 @@ class ContentSecurityPolicyMiddleware:
         ]
 
         # Connections (XHR, WebSocket): allow same-origin and tawk endpoints
-        connect_src = self_src + [
+        connect_src = SELF_SRC + [
+            '*.tawk.to',
+            'wss://*.tawk.to',
+        ]
+
+        # Frames: none by default (prevents embedding)
+        frame_src = SELF_SRC + [
+            '*.google.com',
             '*.tawk.to',
         ]
 
         # Frames: none by default (prevents embedding)
-        frame_src = self_src + [
-            '*.google.com',
-        ]
+        frame_ancestors_src = NONE_SRC
 
         # Other directives
-        media_src = self_src
-        object_src = ["'none'"]
+        media_src = SELF_SRC
+        object_src = NONE_SRC
 
         policy_parts = [
-            f"default-src {' '.join(self_src)}",
+            f"default-src {' '.join(default_src)}",
             f"script-src {' '.join(script_src)}",
             f"style-src {' '.join(style_src)}",
             f"font-src {' '.join(font_src)}",
             f"img-src {' '.join(img_src)}",
             f"connect-src {' '.join(connect_src)}",
-            f"frame-ancestors {' '.join(frame_src)}",
+            f"frame-src {' '.join(frame_src)}",
+            f"frame-ancestors {' '.join(frame_ancestors_src)}",
             f"media-src {' '.join(media_src)}",
             f"object-src {' '.join(object_src)}",
         ]
