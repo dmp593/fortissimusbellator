@@ -22,16 +22,12 @@ class ContentSecurityPolicyMiddleware:
 
         default_src = SELF_SRC
 
-        # Script sources: must use nonce,
-        # except for admin which needs unsafe-inline
-        if request.path.startswith("/admin/"):
-            script_src = SELF_SRC + ["'unsafe-inline'"]
-        else:
-            script_src = SELF_SRC + [f"'nonce-{request.csp_nonce}'"]
-
-        # local scripts, inline for small injected snippets,
+        # Script sources: local scripts, inline for small injected snippets,
         # and common CDNs / embeds (tawk, jsdelivr)
-        script_src += [
+        script_src = SELF_SRC + [
+            "'unsafe-inline'",  # django admin uses inline scripts
+            "'unsafe-eval'",  # Needed in production (mod_pagespeed)
+            f"'nonce-{request.csp_nonce}'",  # For inline scripts with nonce
             'https://cdn.jsdelivr.net',
             '*.google.com',
             '*.gstatic.com',
