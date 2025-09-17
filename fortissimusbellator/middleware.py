@@ -27,7 +27,7 @@ class ContentSecurityPolicyMiddleware:
         script_src = SELF_SRC + [
             "'unsafe-inline'",  # django admin uses inline scripts
             "'unsafe-eval'",  # Needed in production (mod_pagespeed)
-            f"'nonce-{request.csp_nonce}'",  # For inline scripts with nonce
+            # f"'nonce-{request.csp_nonce}'",  # For inline scripts with nonce
             'https://cdn.jsdelivr.net',
             '*.google.com',
             '*.gstatic.com',
