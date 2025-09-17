@@ -67,13 +67,17 @@ class ContentSecurityPolicyMiddleware:
         frame_src = SELF_SRC + [
             '*.google.com',
             '*.tawk.to',
+            'https://www.instagram.com'
         ]
 
         # Frames: none by default (prevents embedding)
         frame_ancestors_src = NONE_SRC
 
         # Other directives
-        media_src = SELF_SRC
+        media_src = SELF_SRC + [
+            'https://embed.tawk.to'
+        ]
+
         object_src = NONE_SRC
 
         policy_parts = [
