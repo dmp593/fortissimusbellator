@@ -19,11 +19,10 @@ class ContentSecurityPolicyMiddleware:
         script_src = self_src + [
             "'unsafe-inline'",
             "'unsafe-eval'",  # Needed in production (mod_pagespeed)
-            'https://www.google.com',
-            'https://www.gstatic.com',
             'https://cdn.jsdelivr.net',
-            'https://embed.tawk.to',
-            'https://tawk.to',
+            '*.google.com',
+            '*.gstatic.com',
+            '*.tawk.to',
         ]
 
         # Styles: allow Google Fonts and inline styles used by some components
@@ -46,13 +45,13 @@ class ContentSecurityPolicyMiddleware:
 
         # Connections (XHR, WebSocket): allow same-origin and tawk endpoints
         connect_src = self_src + [
-            'https://embed.tawk.to',
-            'https://va.tawk.to',
-            'https://tawk.to',
+            '*.tawk.to',
         ]
 
         # Frames: none by default (prevents embedding)
-        frame_src = ["'none'"]
+        frame_src = self_src + [
+            '*.google.com',
+        ]
 
         # Other directives
         media_src = self_src
