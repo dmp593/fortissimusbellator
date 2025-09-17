@@ -225,6 +225,22 @@ files = [
 django = ">=4.2"
 
 [[package]]
+name = "django-permissions-policy"
+version = "4.27.0"
+description = "Set the Permissions-Policy HTTP header on your Django app."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "django_permissions_policy-4.27.0-py3-none-any.whl", hash = "sha256:2e2462f097f6ab1c6074a5c18870a5eb2e7f0622a21ecada848feddac1218817"},
+    {file = "django_permissions_policy-4.27.0.tar.gz", hash = "sha256:c524aa01196d524dbbad74dbd6dedfe4af48a49aa5c8cf8dd3af148f70240903"},
+]
+
+[package.dependencies]
+asgiref = ">=3.6"
+django = ">=4.2"
+
+[[package]]
 name = "django-recaptcha"
 version = "4.1.0"
 description = "Django recaptcha form field/widget app."
@@ -611,4 +627,4 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.13,<4"
-content-hash = "60ea3be9a9f40d4176c4e7320532145de25470575ef32e4d84413e2d2167a3fd"
+content-hash = "c292b12d5368634d413474d39df8fff9777990051eaa386394d4064da48834ee"
