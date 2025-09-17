@@ -19,6 +19,7 @@ class ContentSecurityPolicyMiddleware:
         script_src = self_src + [
             "'unsafe-inline'",
             "'unsafe-eval'",  # Needed in production (mod_pagespeed)
+            'https://www.google.com',
             'https://cdn.jsdelivr.net',
             'https://embed.tawk.to',
             'https://va.tawk.to',
