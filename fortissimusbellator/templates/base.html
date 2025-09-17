@@ -18,7 +18,7 @@
   <link rel="alternate" hreflang="en" href="https://fortissimusbellator.pt/en/" />
 
   {# Dynamic structured data (unchanged) #}
-  <script type="application/ld+json">
+  <script nonce="{{ request.csp_nonce }}" type="application/ld+json">
       {% if LANGUAGE_CODE == "pt" %}
       {
         "@context": "https://schema.org",
@@ -147,12 +147,12 @@
     {% include "components/whatsapp.html" %}
     
     <!-- Scripts -->
-    <script src="{% static 'js/components/navbar.js' %}"></script>
-    <script src="{% static 'js/components/messages.js' %}"></script>
-    <script src="{% static 'js/components/scroll-top.js' %}"></script>
+    <script nonce="{{ request.csp_nonce }}" src="{% static 'js/components/navbar.js' %}"></script>
+    <script nonce="{{ request.csp_nonce }}" src="{% static 'js/components/messages.js' %}"></script>
+    <script nonce="{{ request.csp_nonce }}" src="{% static 'js/components/scroll-top.js' %}"></script>
 
     <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
+    <script nonce="{{ request.csp_nonce }}" type="text/javascript">
       var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
       (function(){
         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];

@@ -268,7 +268,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script>
+<script nonce="{{ request.csp_nonce }}">
     function clearProfilePicture() {
         // Check the clear checkbox
         document.getElementById('profile_picture-clear_id').checked = true;

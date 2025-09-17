@@ -224,5 +224,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'js/pages/dog_detail/index.js' %}"></script>
+<script nonce="{{ request.csp_nonce }}" src="{% static 'js/pages/dog_detail/index.js' %}"></script>
 {% endblock %}

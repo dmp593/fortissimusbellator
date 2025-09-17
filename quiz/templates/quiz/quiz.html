@@ -61,7 +61,7 @@
 
 {% block scripts %}
 {{ block.super }}
-<script>
+<script nonce="{{ request.csp_nonce }}">
   (function() {
     const steps = Array.from(document.querySelectorAll('.quiz-step'));
     const prevBtn = document.getElementById('prev');
@@ -123,7 +123,7 @@
     updateUI();
   })();
 </script>
-<script>
+<script nonce="{{ request.csp_nonce }}">
   // Style Django RadioSelect as selectable cards
   (function() {
     const groups = document.querySelectorAll('.quiz-group');

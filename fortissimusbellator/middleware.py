@@ -1,4 +1,5 @@
 """Middlewares for fortissimusbellator project."""
+import secrets
 
 
 SELF_SRC = ["'self'"]
@@ -16,15 +17,21 @@ class ContentSecurityPolicyMiddleware:
         # Code to be executed for each request before
         # the view (and later middleware) are called.
 
+        request.csp_nonce = secrets.token_urlsafe(16)
         response = self.get_response(request)
 
         default_src = SELF_SRC
 
-        # Script sources: local scripts, inline for small injected snippets,
+        # Script sources: must use nonce,
+        # except for admin which needs unsafe-inline
+        if request.path.startswith("/admin/"):
+            script_src = SELF_SRC + ["'unsafe-inline'"]
+        else:
+            script_src = SELF_SRC + [f"'nonce-{request.csp_nonce}'"]
+
+        # local scripts, inline for small injected snippets,
         # and common CDNs / embeds (tawk, jsdelivr)
-        script_src = SELF_SRC + [
-            "'unsafe-inline'",
-            "'unsafe-eval'",  # Needed in production (mod_pagespeed)
+        script_src += [
             'https://cdn.jsdelivr.net',
             '*.google.com',
             '*.gstatic.com',

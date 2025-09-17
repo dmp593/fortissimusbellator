@@ -143,6 +143,6 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'leaflet/leaflet.js' %}"></script>
-<script src="{% static 'js/pages/contact_us.js' %}"></script>
+<script nonce="{{ request.csp_nonce }}" src="{% static 'leaflet/leaflet.js' %}"></script>
+<script nonce="{{ request.csp_nonce }}" src="{% static 'js/pages/contact_us.js' %}"></script>
 {% endblock %}

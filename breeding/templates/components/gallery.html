@@ -64,5 +64,5 @@
 </div>
 
 {% block scripts %}
-<script src="{% static 'js/components/gallery.js' %}"></script>
+<script nonce="{{ request.csp_nonce }}" src="{% static 'js/components/gallery.js' %}"></script>
 {% endblock %}

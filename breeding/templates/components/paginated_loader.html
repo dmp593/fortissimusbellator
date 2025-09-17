@@ -20,5 +20,5 @@
 {% endif %}
 
 {% block scripts %}
-<script src="{% static 'js/components/paginated_loader.js' %}"></script>
+<script nonce="{{ request.csp_nonce }}" src="{% static 'js/components/paginated_loader.js' %}"></script>
 {% endblock %}
