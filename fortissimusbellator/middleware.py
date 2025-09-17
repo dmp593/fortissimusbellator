@@ -50,6 +50,7 @@ class ContentSecurityPolicyMiddleware:
             'https://www.facebook.com',
             'https://www.instagram.com',
             'https://cdn.jsdelivr.net',
+            'https://embed.tawk.to',
             '*.openstreetmap.org',
         ]
 
