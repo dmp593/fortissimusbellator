@@ -20,9 +20,9 @@ class ContentSecurityPolicyMiddleware:
             "'unsafe-inline'",
             "'unsafe-eval'",  # Needed in production (mod_pagespeed)
             'https://www.google.com',
+            'https://www.gstatic.com',
             'https://cdn.jsdelivr.net',
             'https://embed.tawk.to',
-            'https://va.tawk.to',
             'https://tawk.to',
         ]
 
@@ -47,6 +47,7 @@ class ContentSecurityPolicyMiddleware:
         # Connections (XHR, WebSocket): allow same-origin and tawk endpoints
         connect_src = self_src + [
             'https://embed.tawk.to',
+            'https://va.tawk.to',
             'https://tawk.to',
         ]
 
