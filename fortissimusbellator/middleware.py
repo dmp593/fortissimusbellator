@@ -39,7 +39,10 @@ class ContentSecurityPolicyMiddleware:
         ]
 
         # Fonts: Google Fonts host
-        font_src = SELF_SRC + ['https://fonts.gstatic.com']
+        font_src = SELF_SRC + [
+            'https://fonts.gstatic.com',
+            'https://embed.tawk.to',
+        ]
 
         # Images: self and data URIs; allow social thumbnails and CDN images
         img_src = SELF_SRC + [
