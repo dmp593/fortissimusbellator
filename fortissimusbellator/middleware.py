@@ -54,6 +54,7 @@ class ContentSecurityPolicyMiddleware:
             'https://www.instagram.com',
             'https://cdn.jsdelivr.net',
             'https://embed.tawk.to',
+            'https://tawk.link',
             '*.openstreetmap.org',
         ]
 
