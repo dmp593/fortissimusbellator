@@ -198,7 +198,7 @@ LOCALE_PATHS = [
     BASE_DIR / 'locale'
 ]
 
-LANGUAGE_CODE = 'pt'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 

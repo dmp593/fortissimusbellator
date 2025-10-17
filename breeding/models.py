@@ -15,10 +15,18 @@ from . import managers
 
 
 GENDER_CHOICES = (
-    ('M', 'Male'),
-    ('F', 'Female'),
-    ('?', 'Unknown')
+    ('M', _('Male')),
+    ('F', _('Female')),
+    ('?', _('Unknown'))
 )
+
+HAIR_TYPE_CHOICES = (
+    ('short', _('Short')),
+    ('medium', _('Medium')),
+    ('long', _('Long')),
+    ('?', _('Unknown')),
+)
+
 
 User = get_user_model()
 
@@ -244,11 +252,7 @@ class Animal(models.Model):
     hair_type = models.CharField(
         max_length=30,
         blank=True,
-        choices=(
-            ('short', _('short')),
-            ('medium', _('medium')),
-            ('long', _('long')),
-        ),
+        choices=HAIR_TYPE_CHOICES,
         verbose_name=_('hair type'),
     )
 
@@ -269,6 +273,16 @@ class Animal(models.Model):
         verbose_name=_('mother'),
         related_name='children_mother',
         related_query_name='child_mother',
+    )
+
+    litter = models.ForeignKey(
+        "breeding.Litter",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_('litter'),
+        related_name='animals',
+        related_query_name='animal',
     )
 
     certifications = models.ManyToManyField(
@@ -367,7 +381,7 @@ class Animal(models.Model):
         return self.files.filter(mime_type__startswith='image/').order_by('order').first()
 
     objects = models.Manager()
-    
+
     animals_active = managers.Manager(
         active=True
     )
@@ -430,16 +444,39 @@ class Litter(models.Model):
         blank=True
     )
 
-    expected_delivery_date = models.DateField(
-        verbose_name=_('expected delivery date'),
+    expected_ready_date = models.DateField(
+        verbose_name=_('expected ready date'),
         null=True,
-        blank=True
+        blank=True,
+        help_text=_('Expected date when babies will be ready for new homes')
     )
 
     expected_babies = models.PositiveIntegerField(
-        verbose_name=_('expected number of babies'),
+        verbose_name=_('expected babies'),
         null=True,
         blank=True,
+        help_text=_('Expected number of babies in this litter')
+    )
+
+    birth_date = models.DateField(
+        verbose_name=_('birth date'),
+        null=True,
+        blank=True,
+        help_text=_('Actual date when the litter was born')
+    )
+
+    ready_date = models.DateField(
+        verbose_name=_('ready date'),
+        null=True,
+        blank=True,
+        help_text=_('Actual date when babies were ready for new homes')
+    )
+
+    babies = models.PositiveIntegerField(
+        verbose_name=_('babies'),
+        null=True,
+        blank=True,
+        help_text=_('Actual number of babies born')
     )
 
     active = models.BooleanField(

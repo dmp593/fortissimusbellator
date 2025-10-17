@@ -10,7 +10,6 @@ class Tag(models.Model):
     tag = models.CharField(
         max_length=100,
         null=False,
-        unique=True,
         verbose_name=_('tag')
     )
 
