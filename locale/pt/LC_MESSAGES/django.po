@@ -743,22 +743,22 @@ msgstr "Ler"
 
 #: breeding/admin.py:19
 msgid "Create animals from selected litters"
-msgstr ""
+msgstr "Criar animais a partir das ninhadas selecionadas"
 
 #: breeding/admin.py:28
 #, python-format
 msgid "Litter \"%(litter_name)s\" has no babies to create."
-msgstr ""
+msgstr "A ninhada \"%(litter_name)s\" não tem bebés para criar."
 
 #: breeding/admin.py:42
 #, python-brace-format
 msgid "Offspring {offspring_number} from litter {litter_name}"
-msgstr ""
+msgstr "Descendência {offspring_number} da ninhada {litter_name}"
 
 #: breeding/admin.py:102
 #, python-format
 msgid "Created %(babies_count)d babies for litter \"%(litter_name)s\"."
-msgstr ""
+msgstr "Criados %(babies_count)d bebés para a ninhada \"%(litter_name)s\"."
 
 #: breeding/apps.py:8
 msgid "breeding"
