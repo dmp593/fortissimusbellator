@@ -951,11 +951,11 @@ msgstr "Todos os bebés colocados"
 
 #: breeding/models.py:448
 msgid "expected birth date"
-msgstr "data de nascimento prevista"
+msgstr "data de nascimento expectável"
 
 #: breeding/models.py:454
 msgid "expected ready date"
-msgstr "data de entrega prevista"
+msgstr "data de entrega expectável"
 
 #: breeding/models.py:457
 msgid "Expected date when babies will be ready for new homes"
@@ -1732,7 +1732,7 @@ msgstr "tipo de conteúdo"
 #~ msgstr "longo"
 
 #~ msgid "expected delivery date"
-#~ msgstr "data de entrega prevista"
+#~ msgstr "data de entrega expectável"
 
 #~ msgid "Puppy Finder"
 #~ msgstr "Encontrar Cachorro"
