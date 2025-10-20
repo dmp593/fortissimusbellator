@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-20 10:47+0000\n"
+"POT-Creation-Date: 2025-10-20 16:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -715,7 +715,7 @@ msgstr "Sem Imagem"
 
 #: blog/templates/blog/detail.html:168
 #: breeding/templates/buy_a_dog/detail.html:220
-#: breeding/templates/upcoming_litters/detail.html:142
+#: breeding/templates/upcoming_litters/detail.html:143
 msgid "Go Back"
 msgstr "Voltar atrás"
 
@@ -933,11 +933,9 @@ msgstr "ficheiros"
 msgid "animals"
 msgstr "animais"
 
-#: breeding/models.py:406 breeding/templates/upcoming_litters/detail.html:71
-#: breeding/templates/upcoming_litters/detail.html:81
-#: breeding/templates/upcoming_litters/detail.html:105
-msgid "Expected"
-msgstr "Expectável"
+#: breeding/models.py:406
+msgid "Expecting"
+msgstr "A aguardar"
 
 #: breeding/models.py:407
 msgid "Born"
@@ -1076,20 +1074,20 @@ msgid "Pre-Reserve"
 msgstr "Pré-Reservar"
 
 #: breeding/templates/buy_a_dog/detail.html:191
-#: breeding/templates/upcoming_litters/detail.html:115
+#: breeding/templates/upcoming_litters/detail.html:116
 msgid "Call Us"
 msgstr "Ligue-nos"
 
 #: breeding/templates/buy_a_dog/detail.html:202
 #: breeding/templates/our_dogs/index.html:142
-#: breeding/templates/upcoming_litters/detail.html:124
+#: breeding/templates/upcoming_litters/detail.html:125
 msgid "Lineage"
 msgstr "Linhagem"
 
 #: breeding/templates/buy_a_dog/detail.html:211
 #: breeding/templates/components/gallery.html:8
 #: breeding/templates/our_dogs/index.html:151
-#: breeding/templates/upcoming_litters/detail.html:133
+#: breeding/templates/upcoming_litters/detail.html:134
 msgid "Gallery"
 msgstr "Galeria"
 
@@ -1172,7 +1170,7 @@ msgid "Certified"
 msgstr "Certificado"
 
 #: breeding/templates/buy_a_dog/partials/cards.html:115
-#: breeding/templates/upcoming_litters/partials/cards.html:53
+#: breeding/templates/upcoming_litters/partials/cards.html:75
 msgid "View Details"
 msgstr "Ver Detalhes"
 
@@ -1250,9 +1248,19 @@ msgstr "Página não foi partilhada."
 msgid "Status"
 msgstr "Estado"
 
+#: breeding/templates/upcoming_litters/detail.html:71
+#: breeding/templates/upcoming_litters/detail.html:81
+#: breeding/templates/upcoming_litters/detail.html:106
+#: breeding/templates/upcoming_litters/partials/cards.html:32
+#: breeding/templates/upcoming_litters/partials/cards.html:50
+#: breeding/templates/upcoming_litters/partials/cards.html:67
+msgid "Expected"
+msgstr "Expectável"
+
 #: breeding/templates/upcoming_litters/detail.html:98
 #: breeding/templates/upcoming_litters/detail.html:105
-#: breeding/templates/upcoming_litters/partials/cards.html:45
+#: breeding/templates/upcoming_litters/partials/cards.html:60
+#: breeding/templates/upcoming_litters/partials/cards.html:67
 #, python-format
 msgid "1 baby"
 msgid_plural "%(babies)s babies"

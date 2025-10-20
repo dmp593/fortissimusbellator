@@ -52,7 +52,7 @@
                     <div class="flex items-center space-x-2">
                         {% include "icons/info.html" %}
                         <span class="font-sans text-stone-600 dark:text-stone-300 capitalize">
-                            {% translate "Status" %}: {{ litter.status|title }}
+                            {% translate "Status" %}: {{ litter.get_status_display }}
                         </span>
                     </div>
 

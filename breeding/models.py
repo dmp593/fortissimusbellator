@@ -403,7 +403,7 @@ class Animal(models.Model):
 
 class Litter(models.Model):
     class LitterStatus(models.TextChoices):
-        EXPECTING = 'expecting', _('Expected')
+        EXPECTING = 'expecting', _('Expecting')
         BORN = 'born', _('Born')
         READY = 'ready', _('Ready for new homes')
         COMPLETED = 'completed', _('All babies placed')
