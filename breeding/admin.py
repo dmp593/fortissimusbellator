@@ -18,13 +18,22 @@ from .translation import models
 
 @admin.action(description=_("Create animals from selected litters"))
 def create_animals_from_litter(modeladmin, request, queryset):
-    total_animals_created = 0
-
     for litter in queryset:
-        animals_for_this_litter = 0
-        expected_count = litter.babies or litter.expected_babies or 0
+        litter_babies = litter.babies or litter.expected_babies or 0
 
-        for i in range(expected_count):
+        if litter_babies <= 0:
+            messages.warning(
+                request,
+                _(
+                    'Litter "%(litter_name)s" has no babies to create.'
+                ) % {
+                    'litter_name': litter.name
+                }
+            )
+
+            continue
+
+        for i in range(litter_babies):
             # Create each animal individually to get the ID
             animal = models.Animal.objects.create(
                 breed=litter.breed,
@@ -32,8 +41,8 @@ def create_animals_from_litter(modeladmin, request, queryset):
                 name=_(
                     "Offspring {offspring_number} from litter {litter_name}"
                 ).format(
-                    litter_name=litter.name,
-                    offspring_number=i + 1
+                    offspring_number=i + 1,
+                    litter_name=litter.name
                 ),
 
                 description_en=litter.description_en,
@@ -86,28 +95,15 @@ def create_animals_from_litter(modeladmin, request, queryset):
                     object_id=animal.id,
                 )
 
-            animals_for_this_litter += 1
-            total_animals_created += 1
-
-    # Provide user feedback
-    if total_animals_created > 0:
+        # Provide user feedback
         messages.success(
             request,
             _(
-                "Successfully created {total_animals_created} animals"
-                " from {queryset_count} litter(s).",
-            ).format(
-                total_animals_created=total_animals_created,
-                queryset_count=queryset.count()
-            )
-        )
-    else:
-        messages.warning(
-            request,
-            _(
-                "No animals were created. Check that litters have 'babies'"
-                " or 'expected_babies' values."
-            )
+                'Created %(babies_count)d babies for litter "%(litter_name)s".'
+            ) % {
+                'babies_count': litter_babies,
+                'litter_name': litter.name
+            }
         )
 
 
@@ -243,7 +239,11 @@ class LitterAdmin(DeeplTranslationAdmin):
     """
     Litter configuration for Animal, including attachments.
     """
-    actions = [create_animals_from_litter]
+    form = forms.LitterAdminForm
+
+    actions = [
+        create_animals_from_litter
+    ]
 
     inlines = [
         AttachmentStackedInline,
@@ -257,19 +257,27 @@ class LitterAdmin(DeeplTranslationAdmin):
     list_display = (
         'name',
         'breed',
+
         'expected_birth_date',
+        'birth_date',
+
+        'expected_ready_date',
+        'ready_date',
+
         'expected_babies',
+        'babies',
+
+        'status',
         'active',
     )
 
     list_filter = (
         'breed',
+        'status',
         'active',
     )
 
     list_editable = (
-        'expected_birth_date',
-        'expected_babies',
         'active',
     )
 

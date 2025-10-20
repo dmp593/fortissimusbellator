@@ -1,0 +1,38 @@
+[
+    {
+        "model": "breeding.animal",
+        "pk": 1,
+        "fields": {
+            "name": "Bella",
+            "breed": ["German Shepherd (Show Line)"],
+            "description": "A beautiful show line German Shepherd.",
+            "description_en": "A beautiful show line German Shepherd.",
+            "description_pt": "Um belo Pastor Alemão de linha de exposição.",
+            "birth_date": "2022-05-14",
+            "gender": "F",
+            "hair_type": "long",
+            "certifications": [1],
+            "price_in_euros": 1500,
+            "discount_in_euros": 200,
+            "order": 1
+        }
+    },
+    {
+        "model": "breeding.animal",
+        "pk": 2,
+        "fields": {
+            "name": "Max",
+            "breed": ["German Shepherd (Working Line)"],
+            "description": "A highly trained German Shepherd.",
+            "description_en": "A highly trained German Shepherd.",
+            "description_pt": "Um Pastor Alemão altamente treinado.",
+            "birth_date": "2021-11-30",
+            "gender": "M",
+            "hair_type": "short",
+            "certifications": [1],
+            "price_in_euros": 1730,
+            "discount_in_euros": 110,
+            "order": 2
+        }
+    }
+]

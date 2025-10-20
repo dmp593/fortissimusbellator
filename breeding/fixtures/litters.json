@@ -1,0 +1,18 @@
+[
+    {
+        "model": "breeding.litter",
+        "pk": 1,
+        "fields": {
+            "name": "German Shepherd Spring 2024 Litter",
+            "breed": ["German Shepherd (Show Line)"],
+            "description_en": "A healthy litter of German Shepherd puppies.",
+            "description_pt": "Uma camada saudável de filhotes de Pastor Alemão.",
+            "expected_birth_date": "2024-04-15",
+            "expected_ready_date": "2024-06-10",
+            "expected_babies": 5,
+            "status": "expecting",
+            "mother": ["Bella"],
+            "father": ["Max"]
+        }
+    }
+]

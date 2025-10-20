@@ -2,7 +2,12 @@ from django.db import models
 from fortissimusbellator.managers import Manager
 
 
-class AnimalsForSaleManager(Manager):
+class GetByNameManager(Manager):
+    def get_by_natural_key(self, name: str):
+        return self.get(name=name)
+
+
+class AnimalsForSaleManager(GetByNameManager):
     def get_queryset(self):
         return super().get_queryset().filter(
             active=True, for_sale=True
@@ -21,8 +26,9 @@ class AnimalKindManager(Manager):
 
 
 class BreedManager(Manager):
-
-    def get_by_natural_key(self, name: str, parent: str | None = None, kind: str | None = None) -> 'Breed':        
+    def get_by_natural_key(
+        self, name: str, parent: str | None = None, kind: str | None = None
+    ) -> 'Breed':
         if not kind:
             return self.get(name=name)
 

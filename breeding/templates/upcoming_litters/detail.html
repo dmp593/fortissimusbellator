@@ -48,32 +48,61 @@
                     {% translate "Details" %}
                 </h2>
                 <div class="space-y-4">
-                    <!-- Expected Birth Date -->
-                    {% if litter.expected_birth_date %}
+                    <!-- Current Status of the Litter -->
+                    <div class="flex items-center space-x-2">
+                        {% include "icons/info.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300 capitalize">
+                            {% translate "Status" %}: {{ litter.status|title }}
+                        </span>
+                    </div>
+
+                    <!-- (Expected) Birth Date -->
+                    {% if litter.birth_date %}
                     <div class="flex items-center space-x-2">
                         {% include "icons/cake.html" %}
                         <span class="font-sans text-stone-600 dark:text-stone-300">
-                            {{ litter.expected_birth_date|date:"M d, Y" }}
+                            {{ litter.birth_date|date:"M d, Y" }}
+                        </span>
+                    </div>
+                    {% elif litter.expected_birth_date %}
+                    <div class="flex items-center space-x-2">
+                        {% include "icons/cake.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300">
+                            {{ litter.expected_birth_date|date:"M d, Y" }}  ({% translate "Expected" %})
                         </span>
                     </div>
                     {% endif %}
 
-                    <!-- Expected Delivery Date -->
-                    {% if litter.expected_delivery_date %}
+                    <!-- (Expected) Ready Date -->
+                    {% if litter.expected_ready_date %}
                     <div class="flex items-center space-x-2">
                         {% include "icons/truck.html" %}
                         <span class="font-sans text-stone-600 dark:text-stone-300">
-                            {{ litter.expected_delivery_date|date:"M d, Y" }}
+                            {{ litter.expected_ready_date|date:"M d, Y" }} ({% translate "Expected" %})
+                        </span>
+                    </div>
+                    {% elif litter.ready_date %}
+                    <div class="flex items-center space-x-2">
+                        {% include "icons/truck.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300">
+                            {{ litter.ready_date }}
                         </span>
                     </div>
                     {% endif %}
 
-                    <!-- Expected Number of Babies -->
-                    {% if litter.expected_babies %}
+                    <!-- (Expected) Babies -->
+                    {% if litter.babies %}
                     <div class="flex items-center space-x-2">
                         {% include "icons/users.html" %}
                         <span class="font-sans text-stone-600 dark:text-stone-300">
-                            {% blocktranslate count babies=litter.expected_babies|default:0 %}1 baby{% plural %}{{ babies }} babies{% endblocktranslate %}
+                            {% blocktranslate count babies=litter.babies|default:0 %}1 baby{% plural %}{{ babies }} babies{% endblocktranslate %}
+                        </span>
+                    </div>
+                    {% elif litter.expected_babies %}
+                    <div class="flex items-center space-x-2">
+                        {% include "icons/users.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300">
+                            {% blocktranslate count babies=litter.expected_babies|default:0 %}1 baby{% plural %}{{ babies }} babies{% endblocktranslate %} ({% translate "Expected" %})
                         </span>
                     </div>
                     {% endif %}

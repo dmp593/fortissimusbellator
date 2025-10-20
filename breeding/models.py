@@ -128,7 +128,7 @@ class Breed(models.Model):
     def __str__(self):
         if self.parent and self.parent.name not in self.name:
             return f"{self.parent.name} ({self.name})"
-        
+
         return f"{self.name}"
 
 
@@ -380,13 +380,13 @@ class Animal(models.Model):
     def cover(self):
         return self.files.filter(mime_type__startswith='image/').order_by('order').first()
 
-    objects = models.Manager()
+    objects = managers.GetByNameManager()
 
-    animals_active = managers.Manager(
+    animals_active = managers.GetByNameManager(
         active=True
     )
 
-    animals_for_breeding = managers.Manager(
+    animals_for_breeding = managers.GetByNameManager(
         active=True, for_breeding=True
     )
 
@@ -402,6 +402,12 @@ class Animal(models.Model):
 
 
 class Litter(models.Model):
+    class LitterStatus(models.TextChoices):
+        EXPECTING = 'expecting', _('Expected')
+        BORN = 'born', _('Born')
+        READY = 'ready', _('Ready for new homes')
+        COMPLETED = 'completed', _('All babies placed')
+
     breed = models.ForeignKey(
         Breed,
         on_delete=models.PROTECT,
@@ -479,6 +485,14 @@ class Litter(models.Model):
         help_text=_('Actual number of babies born')
     )
 
+    status = models.CharField(
+        max_length=20,
+        choices=LitterStatus,
+        default=LitterStatus.EXPECTING,
+        verbose_name=_('status'),
+        help_text=_('Current stage of the litter lifecycle')
+    )
+
     active = models.BooleanField(
         default=True,
         verbose_name=_('active')
@@ -503,8 +517,8 @@ class Litter(models.Model):
     def cover(self):
         return self.files.filter(mime_type__startswith='image/').order_by('order').first()
 
-    objects = models.Manager()
-    litters_for_sale = managers.Manager(active=True)
+    objects = managers.GetByNameManager()
+    litters_for_sale = managers.GetByNameManager(active=True)
 
     class Meta:
         verbose_name = _('litter')
