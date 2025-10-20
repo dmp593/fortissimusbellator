@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-02 22:44+0000\n"
+"POT-Creation-Date: 2025-10-20 10:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -578,8 +578,8 @@ msgstr "ficheiro"
 msgid "thumbnail"
 msgstr "miniatura"
 
-#: attachments/models.py:75 breeding/models.py:81 breeding/models.py:141
-#: breeding/models.py:230 breeding/models.py:406
+#: attachments/models.py:75 breeding/models.py:89 breeding/models.py:149
+#: breeding/models.py:238 breeding/models.py:426
 msgid "description"
 msgstr "descrição"
 
@@ -592,8 +592,8 @@ msgid "MIME type"
 msgstr "tipo de MIME"
 
 #: attachments/models.py:94 blog/models.py:84 blog/models.py:162
-#: breeding/models.py:44 breeding/models.py:107 breeding/models.py:163
-#: breeding/models.py:202 breeding/models.py:342 breeding/models.py:452
+#: breeding/models.py:52 breeding/models.py:115 breeding/models.py:171
+#: breeding/models.py:210 breeding/models.py:356 breeding/models.py:503
 #: frontoffice/models.py:47 quiz/models.py:16 quiz/models.py:51
 msgid "order"
 msgstr "ordem"
@@ -614,18 +614,18 @@ msgstr "gostado por"
 msgid "liked at"
 msgstr "gostado a"
 
-#: blog/models.py:66 breeding/models.py:39 breeding/models.py:69
-#: breeding/models.py:136 breeding/models.py:225 breeding/models.py:401
+#: blog/models.py:66 breeding/models.py:47 breeding/models.py:77
+#: breeding/models.py:144 breeding/models.py:233 breeding/models.py:421
 msgid "name"
 msgstr "nome"
 
-#: blog/models.py:74 blog/models.py:200 breeding/models.py:89
-#: breeding/models.py:149
+#: blog/models.py:74 blog/models.py:200 breeding/models.py:97
+#: breeding/models.py:157
 msgid "parent"
 msgstr "parente"
 
-#: blog/models.py:79 blog/models.py:157 breeding/models.py:102
-#: breeding/models.py:322 breeding/models.py:447 frontoffice/models.py:42
+#: blog/models.py:79 blog/models.py:157 breeding/models.py:110
+#: breeding/models.py:336 breeding/models.py:498 frontoffice/models.py:42
 msgid "active"
 msgstr "ativo"
 
@@ -645,7 +645,7 @@ msgstr "autor"
 msgid "title"
 msgstr "título"
 
-#: blog/models.py:123 breeding/models.py:76
+#: blog/models.py:123 breeding/models.py:84
 msgid "cover"
 msgstr "capa"
 
@@ -653,8 +653,8 @@ msgstr "capa"
 msgid "content"
 msgstr "conteúdo"
 
-#: blog/models.py:141 breeding/models.py:352 breeding/models.py:462
-#: tags/models.py:58
+#: blog/models.py:141 breeding/models.py:366 breeding/models.py:513
+#: tags/models.py:57
 msgid "tags"
 msgstr "etiquetas"
 
@@ -715,7 +715,7 @@ msgstr "Sem Imagem"
 
 #: blog/templates/blog/detail.html:168
 #: breeding/templates/buy_a_dog/detail.html:220
-#: breeding/templates/upcoming_litters/detail.html:113
+#: breeding/templates/upcoming_litters/detail.html:142
 msgid "Go Back"
 msgstr "Voltar atrás"
 
@@ -741,6 +741,25 @@ msgstr ""
 msgid "Read"
 msgstr "Ler"
 
+#: breeding/admin.py:19
+msgid "Create animals from selected litters"
+msgstr ""
+
+#: breeding/admin.py:28
+#, python-format
+msgid "Litter \"%(litter_name)s\" has no babies to create."
+msgstr ""
+
+#: breeding/admin.py:42
+#, python-brace-format
+msgid "Offspring {offspring_number} from litter {litter_name}"
+msgstr ""
+
+#: breeding/admin.py:102
+#, python-format
+msgid "Created %(babies_count)d babies for litter \"%(litter_name)s\"."
+msgstr ""
+
 #: breeding/apps.py:8
 msgid "breeding"
 msgstr "criação"
@@ -753,23 +772,63 @@ msgstr "Preço (€)"
 msgid "Discount (€)"
 msgstr "Desconto (€)"
 
-#: breeding/models.py:50
+#: breeding/models.py:18 breeding/templates/buy_a_dog/detail.html:102
+#: breeding/templates/buy_a_dog/index.html:76
+#: breeding/templates/buy_a_dog/partials/cards.html:38
+#: breeding/templates/our_dogs/index.html:45
+msgid "Male"
+msgstr "Macho"
+
+#: breeding/models.py:19 breeding/templates/buy_a_dog/detail.html:105
+#: breeding/templates/buy_a_dog/index.html:77
+#: breeding/templates/buy_a_dog/partials/cards.html:41
+#: breeding/templates/our_dogs/index.html:48
+msgid "Female"
+msgstr "Fêmea"
+
+#: breeding/models.py:20 breeding/models.py:27
+#: breeding/templates/buy_a_dog/detail.html:108
+#: breeding/templates/buy_a_dog/index.html:78
+#: breeding/templates/buy_a_dog/partials/cards.html:44
+#: breeding/templates/components/lineage_tree.html:44
+#: breeding/templates/components/lineage_tree.html:70
+#: breeding/templates/components/lineage_tree.html:96
+#: breeding/templates/components/lineage_tree.html:121
+#: breeding/templates/components/lineage_tree.html:146
+#: breeding/templates/components/lineage_tree.html:171
+#: breeding/templates/our_dogs/index.html:51
+msgid "Unknown"
+msgstr "Desconhecido"
+
+#: breeding/models.py:24
+msgid "Short"
+msgstr "Curto"
+
+#: breeding/models.py:25
+msgid "Medium"
+msgstr "Médio"
+
+#: breeding/models.py:26
+msgid "Long"
+msgstr "Comprido"
+
+#: breeding/models.py:58
 msgid "animal kind"
 msgstr "tipo de animal"
 
-#: breeding/models.py:51
+#: breeding/models.py:59
 msgid "animals kinds"
 msgstr "tipos de animais"
 
-#: breeding/models.py:64
+#: breeding/models.py:72
 msgid "kind"
 msgstr "tipo"
 
-#: breeding/models.py:96
+#: breeding/models.py:104
 msgid "featured"
 msgstr "em destaque"
 
-#: breeding/models.py:97
+#: breeding/models.py:105
 msgid ""
 "Only featured breeds appear outside filters, such as on the homepage and "
 "navigation"
@@ -777,128 +836,170 @@ msgstr ""
 "Apenas as raças em destaque aparecem fora dos filtros, como na página "
 "inicial e navegação"
 
-#: breeding/models.py:116 breeding/models.py:218 breeding/models.py:394
+#: breeding/models.py:124 breeding/models.py:226 breeding/models.py:414
 #: quiz/models.py:73
 msgid "breed"
 msgstr "raça"
 
-#: breeding/models.py:117 breeding/models.py:158 quiz/models.py:46
+#: breeding/models.py:125 breeding/models.py:166 quiz/models.py:46
 msgid "breeds"
 msgstr "raças"
 
-#: breeding/models.py:131
+#: breeding/models.py:139
 msgid "code"
 msgstr "código"
 
-#: breeding/models.py:169 breeding/models.py:189
+#: breeding/models.py:177 breeding/models.py:197
 msgid "certification"
 msgstr "certificação"
 
-#: breeding/models.py:170 breeding/models.py:279
+#: breeding/models.py:178 breeding/models.py:293
 msgid "certifications"
 msgstr "certificações"
 
-#: breeding/models.py:181 breeding/models.py:382
+#: breeding/models.py:189 breeding/models.py:396
 msgid "animal"
 msgstr "animal"
 
-#: breeding/models.py:197
+#: breeding/models.py:205
 msgid "date"
 msgstr "data"
 
-#: breeding/models.py:206
+#: breeding/models.py:214
 msgid "animal certification"
 msgstr "certificação do animal"
 
-#: breeding/models.py:207
+#: breeding/models.py:215
 msgid "animal certifications"
 msgstr "certificações do animal"
 
-#: breeding/models.py:234
+#: breeding/models.py:242 breeding/models.py:468
 msgid "birth date"
 msgstr "data de nascimento"
 
-#: breeding/models.py:241
+#: breeding/models.py:249
 msgid "gender"
 msgstr "género"
 
-#: breeding/models.py:248
-msgid "short"
-msgstr "curto"
-
-#: breeding/models.py:249
-msgid "medium"
-msgstr "médio"
-
-#: breeding/models.py:250
-msgid "long"
-msgstr "longo"
-
-#: breeding/models.py:252
+#: breeding/models.py:256
 msgid "hair type"
 msgstr "tipo de pêlo"
 
-#: breeding/models.py:259 breeding/models.py:413
+#: breeding/models.py:263 breeding/models.py:433
 msgid "father"
 msgstr "pai"
 
-#: breeding/models.py:269 breeding/models.py:422
+#: breeding/models.py:273 breeding/models.py:442
 msgid "mother"
 msgstr "mãe"
 
-#: breeding/models.py:290
-msgid "price in euros"
-msgstr "preço (€)"
-
-#: breeding/models.py:301
-msgid "discount in euros"
-msgstr "desconto (€)"
-
-#: breeding/models.py:307
-msgid "sold at"
-msgstr "vendido em"
-
-#: breeding/models.py:315
-msgid "sold to"
-msgstr "vendido para"
-
-#: breeding/models.py:327
-msgid "has training"
-msgstr "tem treino"
-
-#: breeding/models.py:332
-msgid "for breeding"
-msgstr "para criação"
-
-#: breeding/models.py:337
-msgid "for sale"
-msgstr "para venda"
-
-#: breeding/models.py:347 breeding/models.py:457
-msgid "files"
-msgstr "ficheiros"
-
-#: breeding/models.py:383
-msgid "animals"
-msgstr "animais"
-
-#: breeding/models.py:428
-msgid "expected birth date"
-msgstr "data de nascimento prevista"
-
-#: breeding/models.py:434
-msgid "expected delivery date"
-msgstr "data de entrega prevista"
-
-#: breeding/models.py:440
-msgid "expected number of babies"
-msgstr "numero expectável de bebés"
-
-#: breeding/models.py:473
+#: breeding/models.py:283 breeding/models.py:524
 msgid "litter"
 msgstr "ninhada"
 
-#: breeding/models.py:474
+#: breeding/models.py:304
+msgid "price in euros"
+msgstr "preço (€)"
+
+#: breeding/models.py:315
+msgid "discount in euros"
+msgstr "desconto (€)"
+
+#: breeding/models.py:321
+msgid "sold at"
+msgstr "vendido em"
+
+#: breeding/models.py:329
+msgid "sold to"
+msgstr "vendido para"
+
+#: breeding/models.py:341
+msgid "has training"
+msgstr "tem treino"
+
+#: breeding/models.py:346
+msgid "for breeding"
+msgstr "para criação"
+
+#: breeding/models.py:351
+msgid "for sale"
+msgstr "para venda"
+
+#: breeding/models.py:361 breeding/models.py:508
+msgid "files"
+msgstr "ficheiros"
+
+#: breeding/models.py:397
+msgid "animals"
+msgstr "animais"
+
+#: breeding/models.py:406 breeding/templates/upcoming_litters/detail.html:71
+#: breeding/templates/upcoming_litters/detail.html:81
+#: breeding/templates/upcoming_litters/detail.html:105
+msgid "Expected"
+msgstr ""
+
+#: breeding/models.py:407
+msgid "Born"
+msgstr ""
+
+#: breeding/models.py:408
+msgid "Ready for new homes"
+msgstr ""
+
+#: breeding/models.py:409
+msgid "All babies placed"
+msgstr ""
+
+#: breeding/models.py:448
+msgid "expected birth date"
+msgstr "data de nascimento prevista"
+
+#: breeding/models.py:454
+msgid "expected ready date"
+msgstr "data de entrega prevista"
+
+#: breeding/models.py:457
+msgid "Expected date when babies will be ready for new homes"
+msgstr "Data expectável em que os bebés estarão prontos para novos lares"
+
+#: breeding/models.py:461
+msgid "expected babies"
+msgstr "número expectável de bebés"
+
+#: breeding/models.py:464
+msgid "Expected number of babies in this litter"
+msgstr "número expectável de bebés nesta ninhada"
+
+#: breeding/models.py:471
+msgid "Actual date when the litter was born"
+msgstr "Data em que a ninhada nasceu"
+
+#: breeding/models.py:475
+msgid "ready date"
+msgstr "data de entrega"
+
+#: breeding/models.py:478
+msgid "Actual date when babies were ready for new homes"
+msgstr "Data em que os bebés estavam prontos para novos lares"
+
+#: breeding/models.py:482
+msgid "babies"
+msgstr "bebés"
+
+#: breeding/models.py:485
+msgid "Actual number of babies born"
+msgstr "número de bebés nascidos"
+
+#: breeding/models.py:492
+msgid "status"
+msgstr "estado"
+
+#: breeding/models.py:493
+msgid "Current stage of the litter lifecycle"
+msgstr "Fase atual do ciclo de vida da ninhada"
+
+#: breeding/models.py:525
 msgid "litters"
 msgstr "ninhadas"
 
@@ -941,33 +1042,6 @@ msgstr "Certificado em"
 msgid "Details"
 msgstr "Detalhes"
 
-#: breeding/templates/buy_a_dog/detail.html:102
-#: breeding/templates/buy_a_dog/index.html:76
-#: breeding/templates/buy_a_dog/partials/cards.html:38
-#: breeding/templates/our_dogs/index.html:45
-msgid "Male"
-msgstr "Macho"
-
-#: breeding/templates/buy_a_dog/detail.html:105
-#: breeding/templates/buy_a_dog/index.html:77
-#: breeding/templates/buy_a_dog/partials/cards.html:41
-#: breeding/templates/our_dogs/index.html:48
-msgid "Female"
-msgstr "Fêmea"
-
-#: breeding/templates/buy_a_dog/detail.html:108
-#: breeding/templates/buy_a_dog/index.html:78
-#: breeding/templates/buy_a_dog/partials/cards.html:44
-#: breeding/templates/components/lineage_tree.html:44
-#: breeding/templates/components/lineage_tree.html:70
-#: breeding/templates/components/lineage_tree.html:96
-#: breeding/templates/components/lineage_tree.html:121
-#: breeding/templates/components/lineage_tree.html:146
-#: breeding/templates/components/lineage_tree.html:171
-#: breeding/templates/our_dogs/index.html:51
-msgid "Unknown"
-msgstr "Desconhecido"
-
 #: breeding/templates/buy_a_dog/detail.html:126
 #: breeding/templates/buy_a_dog/index.html:101
 #: breeding/templates/buy_a_dog/partials/cards.html:60
@@ -1002,20 +1076,20 @@ msgid "Pre-Reserve"
 msgstr "Pré-Reservar"
 
 #: breeding/templates/buy_a_dog/detail.html:191
-#: breeding/templates/upcoming_litters/detail.html:86
+#: breeding/templates/upcoming_litters/detail.html:115
 msgid "Call Us"
 msgstr "Ligue-nos"
 
 #: breeding/templates/buy_a_dog/detail.html:202
 #: breeding/templates/our_dogs/index.html:142
-#: breeding/templates/upcoming_litters/detail.html:95
+#: breeding/templates/upcoming_litters/detail.html:124
 msgid "Lineage"
 msgstr "Linhagem"
 
 #: breeding/templates/buy_a_dog/detail.html:211
 #: breeding/templates/components/gallery.html:8
 #: breeding/templates/our_dogs/index.html:151
-#: breeding/templates/upcoming_litters/detail.html:104
+#: breeding/templates/upcoming_litters/detail.html:133
 msgid "Gallery"
 msgstr "Galeria"
 
@@ -1172,7 +1246,12 @@ msgstr "Pagina partilhada!"
 msgid "Page was not shared."
 msgstr "Página não foi partilhada."
 
-#: breeding/templates/upcoming_litters/detail.html:76
+#: breeding/templates/upcoming_litters/detail.html:55
+msgid "Status"
+msgstr "Estado"
+
+#: breeding/templates/upcoming_litters/detail.html:98
+#: breeding/templates/upcoming_litters/detail.html:105
 #: breeding/templates/upcoming_litters/partials/cards.html:45
 #, python-format
 msgid "1 baby"
@@ -1215,11 +1294,11 @@ msgstr "Site Administrativo de Fortissimus Bellator"
 msgid "Fortissimus Bellator Administration"
 msgstr "Administração de Fortissimus Bellator"
 
-#: fortissimusbellator/settings.py:188
+#: fortissimusbellator/settings.py:193
 msgid "English"
 msgstr "Inglês"
 
-#: fortissimusbellator/settings.py:189
+#: fortissimusbellator/settings.py:194
 msgid "Portuguese"
 msgstr "Português"
 
@@ -1625,21 +1704,27 @@ msgstr "A sua melhor correspondência de raça é"
 msgid "Retake Quiz"
 msgstr "Refazer Questionário"
 
-#: tags/models.py:14 tags/models.py:57
+#: tags/models.py:13 tags/models.py:56
 msgid "tag"
 msgstr "etiqueta"
 
-#: tags/models.py:21
+#: tags/models.py:20
 msgid "light theme color"
 msgstr "cor para o tema claro"
 
-#: tags/models.py:28
+#: tags/models.py:27
 msgid "dark theme color"
 msgstr "cor para o tema escuro"
 
-#: tags/models.py:35
+#: tags/models.py:34
 msgid "content_type"
 msgstr "tipo de conteúdo"
+
+#~ msgid "long"
+#~ msgstr "longo"
+
+#~ msgid "expected delivery date"
+#~ msgstr "data de entrega prevista"
 
 #~ msgid "Puppy Finder"
 #~ msgstr "Encontrar Cachorro"
