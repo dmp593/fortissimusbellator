@@ -3,7 +3,16 @@ from fortissimusbellator.managers import Manager
 
 
 class GetByNameManager(Manager):
-    def get_by_natural_key(self, name: str):
+    def get_by_natural_key(self, name: str, father: str | None = None, mother: str | None = None):
+        if father and mother:
+            return self.get(name=name, father__name=father, mother__name=mother)
+
+        if father:
+            return self.get(name=name, father__name=father)
+
+        if mother:
+            return self.get(name=name, mother__name=mother)
+
         return self.get(name=name)
 
 
