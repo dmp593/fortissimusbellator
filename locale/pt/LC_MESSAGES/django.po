@@ -937,19 +937,19 @@ msgstr "animais"
 #: breeding/templates/upcoming_litters/detail.html:81
 #: breeding/templates/upcoming_litters/detail.html:105
 msgid "Expected"
-msgstr ""
+msgstr "Expectável"
 
 #: breeding/models.py:407
 msgid "Born"
-msgstr ""
+msgstr "Nascido"
 
 #: breeding/models.py:408
 msgid "Ready for new homes"
-msgstr ""
+msgstr "Pronto para novos lares"
 
 #: breeding/models.py:409
 msgid "All babies placed"
-msgstr ""
+msgstr "Todos os bebés colocados"
 
 #: breeding/models.py:448
 msgid "expected birth date"
