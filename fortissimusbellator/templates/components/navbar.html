@@ -63,7 +63,7 @@
                 </button>
 
                 <!-- Theme Toggle -->
-                <button id="theme-toggle" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                <button id="theme-toggle" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110" aria-label="{% trans "Toggle Light/Dark Theme" %}">
                     {% if theme == 'light' %}
                         {% include "icons/sun.html" with id="sun-icon" class="hidden" %}
                         {% include "icons/moon.html" with id="moon-icon" class="size-6" %}
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <a href="{% url 'login' %}" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                    <a href="{% url 'login' %}" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110" aria-label="{% trans "Login" %}">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                         </svg>
@@ -105,7 +105,7 @@
                 {% endif %}
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="xl:hidden p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                <button id="mobile-menu-button" class="xl:hidden p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110" aria-label="{% trans "Toggle Mobile Menu" %}">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
