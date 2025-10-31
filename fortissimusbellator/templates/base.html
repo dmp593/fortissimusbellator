@@ -12,9 +12,7 @@
   {% get_current_language as LANGUAGE_CODE %}
 
   {# Canonical & alternate hreflang links for multilingual SEO #}
-  <link rel="canonical" href="https://fortissimusbellator.pt/pt/" />
-  <link rel="alternate" hreflang="x-default" href="https://fortissimusbellator.pt/" />
-  <link rel="alternate" hreflang="pt" href="https://fortissimusbellator.pt/pt/" />
+  <link rel="canonical" hreflang="pt" href="https://fortissimusbellator.pt/pt/" />
   <link rel="alternate" hreflang="en" href="https://fortissimusbellator.pt/en/" />
 
   {# Dynamic structured data (unchanged) #}
@@ -105,12 +103,12 @@
   {# Language-specific meta tags #}
   {% if LANGUAGE_CODE == "pt" %}
       <meta name="description" content="Criadores profissionais de cães em Portugal. Especializados em Pastor Alemão, Pastor Belga Malinois e Spitz Alemão. Contacte-nos já!">
-      <meta name="keywords" content="criadores de cães, criadores cães portugal, pastor alemão, malinois, spitz alemão, criador de cães, cães de raça, cães em Leiria, cães em Portugal, criador de pastor alemão, criador de malinois, criador de spitz alemão">
+      <meta name="keywords" content="criadores de cães, criadores cães portugal, cães de raça, pastor alemão, pastor belga malinois, spitz alemão, criador de cães, cães em Leiria, cães em Portugal, criador de pastor alemão, criador de malinois, criador de spitz alemão">
       <meta property="og:title" content="Fortissimus Bellator | Criadores de Cães em Portugal">
       <meta property="og:description" content="Encontre criadores de cães profissionais em Portugal com raças premium. Contacte-nos hoje mesmo!">
   {% else %}
       <meta name="description" content="Professional premium dog breeders in Portugal. Criadores de cães especializados com raças de qualidade. Contact us today!">
-      <meta name="keywords" content="dog breeder, criadores cães portugal, portuguese dog breeders, cães de raça, malinois, german shepherd breeder, belgian malinois breeder, german spitz breeder, criadores de pastor alemão, criadores de malinois, criadores de pastores belgas malinois, criadores de spitz alemão">
+      <meta name="keywords" content="dog breeder, portugal dogs breeder, portuguese dog breeders, purebred dogs, malinois, german shepherd breeder, belgian malinois breeder, german spitz breeder">
       <meta property="og:title" content="Fortissimus Bellator | Dog Breeder in Portugal">
       <meta property="og:description" content="Find professional dog breeders in Portugal offering premium quality breeds. Contact us now!">
   {% endif %}

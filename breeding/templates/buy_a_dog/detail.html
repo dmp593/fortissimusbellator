@@ -145,6 +145,23 @@
                     </div>
                     {% endif %}
 
+                    <!-- Litter -->
+                    {% if dog.litter %}
+                    <div class="flex items-center space-x-4">
+                        {% include "icons/dog.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300 text-lg">
+                            {% trans "Litter" %}
+                            {% if dog.litter.active %}
+                                <a href="{% url 'breeding:litter_detail' dog.litter.pk %}" class="text-yellow-700 dark:text-yellow-400 hover:text-yellow-600 dark:hover:text-yellow-300 transition duration-300">
+                                    {{ dog.litter.name }}
+                                </a>
+                            {% else %}
+                                {{ dog.litter.name }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    {% endif %}
+
                     {% if dog.sold_at %}
                     <div class="flex items-center space-x-4">
                         <span class="font-sans text-yellow-800 italic dark:text-yellow-400 text-lg">

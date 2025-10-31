@@ -6,7 +6,7 @@
         <div class="flex justify-between h-16 items-center">
             <!-- Logo and Brand Name -->
             <div class="flex-shrink-0">
-                <a href="{% url 'home' %}" class="flex items-center hover:scale-105 transition-transform duration-300">
+                <a href="{% url 'home' %}" class="flex items-center hover:scale-105 transition-transform duration-300" aria-label="{% translate "Home Page" %}">
                     {% include "icons/fortissimus_bellator.html" with id="logo" class="size-12 sm:size-16 dark:text-yellow-400" %}
                     <span class="hidden md:block ml-2 text-lg font-bold font-metamorphous bg-gradient-to-r from-stone-800 to-stone-600 dark:from-yellow-400 dark:to-yellow-600 bg-clip-text text-transparent">Fortissimus Bellator</span>
                 </a>
@@ -90,7 +90,7 @@
                             <a href="{% url 'profile' %}" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Profile" %}</a>
                             <a href="{% url 'change_password' %}" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Change Password" %}</a>
                             
-                            <form action="{% url 'logout' %}" method="post" class="inline">
+                            <form action="{% url 'logout' %}" method="post" class="inline" aria-label="{% trans "Logout form" %}">
                                 {% csrf_token %}
                                 <button type="submit" class="cursor-pointer block w-full text-left px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Logout" %}</button>
                             </form>
