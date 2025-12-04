@@ -7,9 +7,14 @@
             "name": "German Shepherd",
             "name_en": "German Shepherd",
             "name_pt": "Pastor Alemão",
+            "name_es": "Pastor Alemán",
             "description": "The German Shepherd is a versatile and intelligent breed known for its loyalty and protective instincts. It excels in various roles, including police work, search and rescue, and service dog tasks.",
             "description_en": "The German Shepherd is a versatile and intelligent breed known for its loyalty and protective instincts. It excels in various roles, including police work, search and rescue, and service dog tasks.",
             "description_pt": "O Pastor Alemão é uma raça versátil e inteligente, conhecida por sua lealdade e instintos protetores. Ele destaca-se em várias funções, incluindo trabalho policial, busca e resgate e tarefas de cão de serviço.",
+            "description_es": "El Pastor Alemán es una raza versátil e inteligente, conocida por su lealtad e instintos protectores. Destaca en varios roles, incluyendo trabajo policial, búsqueda y rescate, y tareas de perro de servicio.",
+            "description_fr": "Le Berger Allemand est une race polyvalente et intelligente, connue pour sa loyauté et ses instincts protecteurs. Il excelle dans divers rôles, notamment le travail policier, la recherche et le sauvetage, et les tâches de chien d'assistance.",
+            "description_de": "Der Deutsche Schäferhund ist eine vielseitige und intelligente Rasse, die für ihre Loyalität und ihren Schutzinstinkt bekannt ist. Er zeichnet sich in verschiedenen Rollen aus, darunter Polizeiarbeit, Such- und Rettungsdienste sowie Aufgaben als Diensthund.",
+            "description_it": "Il Pastore Tedesco è una razza versatile e intelligente, nota per la sua lealtà e i suoi istinti protettivi. Eccelle in vari ruoli, tra cui il lavoro di polizia, la ricerca e il salvataggio e i compiti di cane da servizio.",
             "order": 1
         }
     },
@@ -21,10 +26,15 @@
             "name": "German Shepherd (Working Line)",
             "name_en": "German Shepherd (Working Line)",
             "name_pt": "Pastor Alemão (Linha de Trabalho)",
+            "name_es": "Pastor Alemán (Línea de Trabajo)",
             "parent": ["German Shepherd"],
             "description": "The Working Line German Shepherd is bred for its working abilities, including obedience, protection, and tracking. It is known for its high drive and stamina, making it ideal for police and military work.",
             "description_en": "The Working Line German Shepherd is bred for its working abilities, including obedience, protection, and tracking. It is known for its high drive and stamina, making it ideal for police and military work.",
             "description_pt": "O Pastor Alemão de Linha de Trabalho é criado por suas habilidades de trabalho, incluindo obediência, proteção e rastreamento. É conhecido por sua alta motivação e resistência, tornando-o ideal para trabalho policial e militar.",
+            "description_es": "El Pastor Alemán de Línea de Trabajo es criado por sus habilidades laborales, incluyendo obediencia, protección y rastreo. Es conocido por su alta motivación y resistencia, lo que lo hace ideal para el trabajo policial y militar.",
+            "description_fr": "Le Berger Allemand de Ligne de Travail est élevé pour ses capacités de travail, y compris l'obéissance, la protection et le pistage. Il est connu pour sa grande motivation et son endurance, ce qui le rend idéal pour le travail policier et militaire.",
+            "description_de": "Der Deutsche Schäferhund der Arbeitlinie wird für seine Arbeitsfähigkeiten gezüchtet, einschließlich Gehorsam, Schutz und Fährtenarbeit. Er ist bekannt für seinen hohen Antrieb und seine Ausdauer, was ihn ideal für Polizei- und Militärarbeit macht.",
+            "description_it": "Il Pastore Tedesco di Linea da Lavoro è allevato per le sue capacità lavorative, tra cui obbedienza, protezione e tracciamento. È noto per la sua alta motivazione e resistenza, rendendolo ideale per il lavoro di polizia e militare.",
             "order": 2
         }
     },
@@ -36,10 +46,15 @@
             "name": "German Shepherd (Show Line)",
             "name_en": "German Shepherd (Show Line)",
             "name_pt": "Pastor Alemão (Linha de Exposição)",
+            "name_es": "Pastor Alemán (Línea de Exposición)",
             "parent": ["German Shepherd"],
             "description": "The Show Line German Shepherd is bred for its appearance and conformation to breed standards. It is known for its beauty and elegance, making it popular in dog shows and competitions.",
             "description_en": "The Show Line German Shepherd is bred for its appearance and conformation to breed standards. It is known for its beauty and elegance, making it popular in dog shows and competitions.",
             "description_pt": "O Pastor Alemão de Linha de Exposição é criado por sua aparência e conformidade com os padrões da raça. É conhecido por sua beleza e elegância, tornando-o popular em exposições e competições caninas.",
+            "description_es": "El Pastor Alemán de Línea de Exposición es criado por su apariencia y conformidad con los estándares de la raza. Es conocido por su belleza y elegancia, lo que lo hace popular en exposiciones y competiciones caninas.",
+            "description_fr": "Le Berger Allemand de Ligne d'Exposition est élevé pour son apparence et sa conformité aux normes de la race. Il est connu pour sa beauté et son élégance, ce qui le rend populaire dans les expositions canines et les compétitions.",
+            "description_de": "Der Deutsche Schäferhund der Ausstellungslinie wird für sein Aussehen und seine Übereinstimmung mit den Rassestandards gezüchtet. Er ist bekannt für seine Schönheit und Eleganz, was ihn in Hundeshows und Wettbewerben beliebt macht.",
+            "description_it": "Il Pastore Tedesco di Linea da Esposizione è allevato per il suo aspetto e la conformità agli standard di razza. È noto per la sua bellezza ed eleganza, rendendolo popolare nelle esposizioni canine e nelle competizioni.",
             "order": 3
         }
     },
@@ -51,9 +66,11 @@
             "name": "Belgian Malinois",
             "name_en": "Belgian Malinois",
             "name_pt": "Pastor Belga (Malinois)",
+            "name_es": "Pastor Belga (Malinois)",
             "description": "The Belgian Malinois is a highly intelligent and agile working dog, often used in police and military operations. It is a variety of the Belgian Shepherd, known for its strong work ethic and sharp instincts.",
             "description_en": "The Belgian Malinois is a highly intelligent and agile working dog, often used in police and military operations. It is a variety of the Belgian Shepherd, known for its strong work ethic and sharp instincts.",
             "description_pt": "O Pastor Belga (Malinois) é um cão de trabalho altamente inteligente e ágil, frequentemente usado em operações policiais e militares. É uma variedade do Pastor Belga, conhecida pelo forte instinto de trabalho.",
+            "description_es": "El Pastor Belga (Malinois) es un perro de trabajo altamente inteligente y ágil, a menudo utilizado en operaciones policiales y militares. Es una variedad del Pastor Belga, conocido por su fuerte ética de trabajo e instintos agudos.",
             "order": 4
         }
     },
@@ -65,9 +82,11 @@
             "name": "German Spitz",
             "name_en": "German Spitz",
             "name_pt": "Spitz Alemão",
+            "name_es": "Spitz Alemán",
             "description": "The German Spitz is an energetic and intelligent breed with a thick double coat. Known for its lively personality and keen alertness, it makes an excellent companion and watchdog.",
             "description_en": "The German Spitz is an energetic and intelligent breed with a thick double coat. Known for its lively personality and keen alertness, it makes an excellent companion and watchdog.",
             "description_pt": "O Spitz Alemão é uma raça energética e inteligente, com um pelo duplo espesso. Conhecido por sua personalidade animada e alerta aguçado, é um excelente cão de companhia e guarda.",
+            "description_es": "El Spitz Alemán es una raza enérgica e inteligente, con un pelaje doble grueso. Conocido por su personalidad vivaz y alerta aguda, es un excelente compañero y perro guardián.",
             "order": 5
         }
     },
@@ -79,10 +98,13 @@
             "name": "Miniature German Spitz",
             "name_en": "Miniature German Spitz",
             "name_pt": "Spitz Alemão Miniatura",
+            "name_es": "Spitz Alemán Miniatura",
             "parent": ["German Spitz"],
             "description": "The Miniature German Spitz is a small and lively variant of the German Spitz. It is known for its fluffy coat, playful nature, and strong attachment to its owners.",
             "description_en": "The Miniature German Spitz is a small and lively variant of the German Spitz. It is known for its fluffy coat, playful nature, and strong attachment to its owners.",
             "description_pt": "O Spitz Alemão Miniatura é uma variante pequena e animada do Spitz Alemão. É conhecido por seu pelo fofo, natureza brincalhona e forte apego aos donos.",
+            "description_es": "El Spitz Alemán Miniatura es una variante pequeña y animada del Spitz Alemán. Es conocido por su pelaje esponjoso, naturaleza juguetona y fuerte apego a sus dueños.",
+            "description_fr": "Le Spitz Allemand Miniature est une variante petite et vive du Spitz Allemand. Il est connu pour son pelage duveteux, sa nature joueuse et son fort attachement à ses propriétaires.",
             "order": 6
         }
     },
@@ -94,10 +116,13 @@
             "name": "Giant German Spitz",
             "name_en": "Giant German Spitz",
             "name_pt": "Spitz Alemão Gigante",
+            "name_es": "Spitz Alemán Gigante",
             "parent": ["German Spitz"],
             "description": "The Giant German Spitz is the largest variant of the breed, known for its strong and robust build. It has a confident personality and makes an excellent guard dog while being affectionate with its family.",
             "description_en": "The Giant German Spitz is the largest variant of the breed, known for its strong and robust build. It has a confident personality and makes an excellent guard dog while being affectionate with its family.",
             "description_pt": "O Spitz Alemão Gigante é a maior variante da raça, conhecido por sua estrutura forte e robusta. Tem uma personalidade confiante e é um excelente cão de guarda, sendo ao mesmo tempo afetuoso com a família.",
+            "description_es": "El Spitz Alemán Gigante es la variante más grande de la raza, conocido por su estructura fuerte y robusta. Tiene una personalidad confiada y es un excelente perro guardián, siendo al mismo tiempo afectuoso con su familia.",
+            "description_fr": "Le Spitz Allemand Géant est la plus grande variante de la race, connu pour sa constitution forte et robuste. Il a une personnalité confiante et fait un excellent chien de garde tout en étant affectueux avec sa famille.",
             "order": 7
         }
     }

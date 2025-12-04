@@ -6,6 +6,10 @@
             "name": "Dog",
             "name_en": "Dog",
             "name_pt": "Cão",
+            "name_es": "Perro",
+            "name_fr": "Chien",
+            "name_de": "Hund",
+            "name_it": "Cane",
             "order": 1
         }
     }

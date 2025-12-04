@@ -175,13 +175,25 @@ class DeeplTranslationAdmin(TranslationAdmin):
         for field in deepl_translation_fields:
             field_pt = f"{field}_pt"
             field_en = f"{field}_en"
+            field_es = f"{field}_es"
+            field_fr = f"{field}_fr"
 
-            if field_pt not in cleaned_data or field_en not in cleaned_data:
+            if (
+                field_pt not in cleaned_data or
+                field_en not in cleaned_data or
+                field_es not in cleaned_data or
+                field_fr not in cleaned_data
+            ):
                 continue
 
             field_pt_value = cleaned_data.get(field_pt)
             field_en_value = cleaned_data.get(field_en)
+            field_es_value = cleaned_data.get(field_es)
+            field_fr_value = cleaned_data.get(field_fr)
 
+            # Translate missing fields
+
+            # either from EN to PT, or from PT to EN
             if not field_pt_value and field_en_value:
                 translation_pt = deepl.trans(field_en_value, "en", "pt-pt")
                 setattr(obj, field_pt, translation_pt)
@@ -189,6 +201,16 @@ class DeeplTranslationAdmin(TranslationAdmin):
             if not field_en_value and field_pt_value:
                 translation_en = deepl.trans(field_pt_value, "pt", "en-us")
                 setattr(obj, field_en, translation_en)
+
+            # the other languages are always from EN
+            if not field_es_value and field_en_value:
+                translation_es = deepl.trans(field_en_value, "en", "es")
+                setattr(obj, field_es, translation_es)
+
+            if not field_fr_value and field_en_value:
+                translation_fr = deepl.trans(field_en_value, "en", "fr")
+                setattr(obj, field_fr, translation_fr)
+
 
         super().save_model(request, obj, form, change)
 

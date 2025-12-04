@@ -5,8 +5,18 @@
         "fields": {
             "question_en": "What breeds of dogs do you sell?",
             "question_pt": "Que raças de cães vendem?",
+            "question_es": "¿Qué razas de perros venden?",
+            "question_fr": "Quelles races de chiens vendez-vous ?",
+            "question_de": "Welche Hunderassen verkaufen Sie?",
+            "question_it": "Quali razze di cani vendete?",
+
             "answer_en": "We specialize in selling high-quality breeds such as the German Shepherd, the Belgian Shepherd Malinois and the German Spitz.",
             "answer_pt": "Especializamo-nos na venda de raças de alta qualidade, como o Pastor Alemão, o Pastor Belga Malinois e o Spitz Alemão.",
+            "answer_es": "Nos especializamos en la venta de razas de alta calidad como el Pastor Alemán, el Pastor Belga Malinois y el Spitz Alemán.",
+            "answer_fr": "Nous sommes spécialisés dans la vente de races de haute qualité telles que le Berger Allemand, le Berger Belge Malinois et le Spitz Allemand.",
+            "answer_de": "Wir sind auf den Verkauf hochwertiger Rassen wie Deutscher Schäferhund, Belgischer Schäferhund Malinois und Deutscher Spitz spezialisiert.",
+            "answer_it": "Siamo specializzati nella vendita di razze di alta qualità come il Pastore Tedesco, il Pastore Belga Malinois e lo Spitz Tedesco.",
+
             "order": 1,
             "active": true
         }
@@ -17,8 +27,18 @@
         "fields": {
             "question_en": "Are your dogs vaccinated?",
             "question_pt": "Os vossos cães são vacinados?",
+            "question_es": "¿Están vacunados sus perros?",
+            "question_fr": "Vos chiens sont-ils vaccinés ?",
+            "question_de": "Sind Ihre Hunde geimpft?",
+            "question_it": "I vostri cani sono vaccinati?",
+
             "answer_en": "Yes, all our dogs are fully vaccinated and come with a health certificate from a licensed veterinarian.",
             "answer_pt": "Sim, todos os nossos cães são totalmente vacinados e vêm com um certificado de saúde emitido por um veterinário licenciado.",
+            "answer_es": "Sí, todos nuestros perros están completamente vacunados y vienen con un certificado de salud de un veterinario autorizado.",
+            "answer_fr": "Oui, tous nos chiens sont entièrement vaccinés et accompagnés d'un certificat de santé délivré par un vétérinaire agréé.",
+            "answer_de": "Ja, alle unsere Hunde sind vollständig geimpft und verfügen über ein Gesundheitszertifikat von einem zugelassenen Tierarzt.",
+            "answer_it": "Sì, tutti i nostri cani sono completamente vaccinati e sono accompagnati da un certificato di salute rilasciato da un veterinario autorizzato.",
+
             "order": 2,
             "active": true
         }
@@ -29,8 +49,18 @@
         "fields": {
             "question_en": "Can I visit your facility to see the dogs?",
             "question_pt": "Posso visitar as vossas instalações para ver os cães?",
+            "question_es": "¿Puedo visitar sus instalaciones para ver a los perros?",
+            "question_fr": "Puis-je visiter vos installations pour voir les chiens ?",
+            "question_de": "Kann ich Ihre Einrichtung besuchen, um die Hunde zu sehen?",
+            "question_it": "Posso visitare la vostra struttura per vedere i cani?",
+
             "answer_en": "Yes, we welcome visits! Please contact us to schedule an appointment.",
             "answer_pt": "Sim, recebemos visitas! Por favor, contacte-nos para marcar uma visita.",
+            "answer_es": "Sí, ¡damos la bienvenida a las visitas! Por favor, contáctenos para programar una cita.",
+            "answer_fr": "Oui, nous accueillons les visites ! Veuillez nous contacter pour prendre rendez-vous.",
+            "answer_de": "Ja, wir begrüßen Besuche! Bitte kontaktieren Sie uns, um einen Termin zu vereinbaren.",
+            "answer_it": "Sì, accogliamo le visite! Contattaci per fissare un appuntamento.",
+
             "order": 3,
             "active": true
         }
@@ -41,8 +71,18 @@
         "fields": {
             "question_en": "Do you provide pedigree certificates for your dogs?",
             "question_pt": "Fornecem certificados de pedigree para os vossos cães?",
+            "question_es": "¿Proporcionan certificados de pedigrí para sus perros?",
+            "question_fr": "Fournissez-vous des certificats de pedigree pour vos chiens ?",
+            "question_de": "Stellen Sie Stammbaumzertifikate für Ihre Hunde aus?",
+            "question_it": "Fornite certificati di pedigree per i vostri cani?",
+
             "answer_en": "Yes, all our dogs come with official pedigree certificates.",
             "answer_pt": "Sim, todos os nossos cães vêm com certificados de pedigree oficiais.",
+            "answer_es": "Sí, todos nuestros perros vienen con certificados de pedigrí oficiales.",
+            "answer_fr": "Oui, tous nos chiens sont accompagnés de certificats de pedigree officiels.",
+            "answer_de": "Ja, alle unsere Hunde werden mit offiziellen Stammbaumzertifikaten geliefert.",
+            "answer_it": "Sì, tutti i nostri cani sono accompagnati da certificati di pedigree ufficiali.",
+
             "order": 4,
             "active": true
         }
@@ -53,8 +93,18 @@
         "fields": {
             "question_en": "What is included in the price of a dog?",
             "question_pt": "O que está incluído no preço de um cão?",
+            "question_es": "¿Qué está incluido en el precio de un perro?",
+            "question_fr": "Qu'est-ce qui est inclus dans le prix d'un chien ?",
+            "question_de": "Was ist im Preis eines Hundes enthalten?",
+            "question_it": "Cosa è incluso nel prezzo di un cane?",
+
             "answer_en": "The price includes vaccinations, a health certificate, and a starter kit with food and care instructions.",
             "answer_pt": "O preço inclui vacinas, um certificado de saúde e um kit inicial com comida e instruções de cuidados.",
+            "answer_es": "El precio incluye vacunas, un certificado de salud y un kit de inicio con comida e instrucciones de cuidado.",
+            "answer_fr": "Le prix comprend les vaccinations, un certificat de santé et un kit de démarrage avec de la nourriture et des instructions de soins.",
+            "answer_de": "Der Preis beinhaltet Impfungen, ein Gesundheitszertifikat und ein Starter-Kit mit Futter und Pflegeanweisungen.",
+            "answer_it": "Il prezzo include vaccinazioni, un certificato di salute e un kit di avvio con cibo e istruzioni per la cura.",
+
             "order": 5,
             "active": true
         }
@@ -65,8 +115,18 @@
         "fields": {
             "question_en": "Can I reserve a puppy before it is ready to go home?",
             "question_pt": "Posso reservar um cachorro antes de ele estar pronto para ir para casa?",
+            "question_es": "¿Puedo reservar un cachorro antes de que esté listo para ir a casa?",
+            "question_fr": "Puis-je réserver un chiot avant qu'il ne soit prêt à rentrer à la maison ?",
+            "question_de": "Kann ich einen Welpen reservieren, bevor er bereit ist, nach Hause zu gehen?",
+            "question_it": "Posso prenotare un cucciolo prima che sia pronto per andare a casa?",
+
             "answer_en": "Yes, you can reserve a puppy with a deposit. Contact us for more details.",
             "answer_pt": "Sim, pode reservar um cachorro com um depósito. Contacte-nos para mais detalhes.",
+            "answer_es": "Sí, puede reservar un cachorro con un depósito. Contáctenos para más detalles.",
+            "answer_fr": "Oui, vous pouvez réserver un chiot avec un dépôt. Contactez-nous pour plus de détails.",
+            "answer_de": "Ja, Sie können einen Welpen mit einer Anzahlung reservieren. Kontaktieren Sie uns für weitere Details.",
+            "answer_it": "Sì, puoi prenotare un cucciolo con un deposito. Contattaci per maggiori dettagli.",
+
             "order": 6,
             "active": true
         }
@@ -77,8 +137,18 @@
         "fields": {
             "question_en": "Do you ship dogs internationally?",
             "question_pt": "Fazem envios de cães para o estrangeiro?",
+            "question_es": "¿Envían perros internacionalmente?",
+            "question_fr": "Expédiez-vous des chiens à l'international ?",
+            "question_de": "Versenden Sie Hunde international?",
+            "question_it": "Spedite cani a livello internazionale?",
+
             "answer_en": "Yes, we can arrange international shipping under specific conditions. Contact us for details.",
             "answer_pt": "Sim, podemos organizar envios internacionais sob condições específicas. Contacte-nos para mais informações.",
+            "answer_es": "Sí, podemos organizar envíos internacionales bajo condiciones específicas. Contáctenos para más detalles.",
+            "answer_fr": "Oui, nous pouvons organiser des expéditions internationales sous certaines conditions. Contactez-nous pour plus de détails.",
+            "answer_de": "Ja, wir können internationalen Versand unter bestimmten Bedingungen arrangieren. Kontaktieren Sie uns für Details.",
+            "answer_it": "Sì, possiamo organizzare spedizioni internazionali a determinate condizioni. Contattaci per i dettagli.",
+
             "order": 7,
             "active": true
         }
@@ -89,8 +159,18 @@
         "fields": {
             "question_en": "What should I prepare before bringing a dog home?",
             "question_pt": "O que devo preparar antes de levar um cão para casa?",
+            "question_es": "¿Qué debo preparar antes de llevar un perro a casa?",
+            "question_fr": "Que dois-je préparer avant d'amener un chien à la maison ?",
+            "question_de": "Was sollte ich vorbereiten, bevor ich einen Hund nach Hause bringe?",
+            "question_it": "Cosa dovrei preparare prima di portare un cane a casa?",
+
             "answer_en": "You should prepare a safe space, food, water bowls, toys, and a comfortable bed for your new dog.",
             "answer_pt": "Deve preparar um espaço seguro, comida, taças de água, brinquedos e uma cama confortável para o seu novo cão.",
+            "answer_es": "Debe preparar un espacio seguro, comida, tazones de agua, juguetes y una cama cómoda para su nuevo perro.",
+            "answer_fr": "Vous devez préparer un espace sûr, de la nourriture, des bols d'eau, des jouets et un lit confortable pour votre nouveau chien.",
+            "answer_de": "Sie sollten einen sicheren Platz, Futter, Wassernäpfe, Spielzeug und ein bequemes Bett für Ihren neuen Hund vorbereiten.",
+            "answer_it": "Dovresti preparare uno spazio sicuro, cibo, ciotole d'acqua, giocattoli e un letto confortevole per il tuo nuovo cane.",
+
             "order": 8,
             "active": true
         }
@@ -101,8 +181,18 @@
         "fields": {
             "question_en": "Do you offer a health guarantee for your dogs?",
             "question_pt": "Oferecem uma garantia de saúde para os vossos cães?",
+            "question_es": "¿Ofrecen una garantía de salud para sus perros?",
+            "question_fr": "Offrez-vous une garantie de santé pour vos chiens ?",
+            "question_de": "Bieten Sie eine Gesundheitsgarantie für Ihre Hunde an?",
+            "question_it": "Offrite una garanzia di salute per i vostri cani?",
+
             "answer_en": "Yes, we provide a health guarantee for all our dogs. Please contact us for the terms and conditions.",
             "answer_pt": "Sim, fornecemos uma garantia de saúde para todos os nossos cães. Contacte-nos para conhecer os termos e condições.",
+            "answer_es": "Sí, ofrecemos una garantía de salud para todos nuestros perros. Contáctenos para conocer los términos y condiciones.",
+            "answer_fr": "Oui, nous offrons une garantie de santé pour tous nos chiens. Veuillez nous contacter pour connaître les termes et conditions.",
+            "answer_de": "Ja, wir bieten eine Gesundheitsgarantie für alle unsere Hunde an. Bitte kontaktieren Sie uns für die Geschäftsbedingungen.",
+            "answer_it": "Sì, offriamo una garanzia di salute per tutti i nostri cani. Contattaci per i termini e le condizioni.",
+
             "order": 9,
             "active": true
         }
@@ -113,8 +203,18 @@
         "fields": {
             "question_en": "Can I return a dog if there are issues?",
             "question_pt": "Posso devolver um cão se houver problemas?",
+            "question_es": "¿Puedo devolver un perro si hay problemas?",
+            "question_fr": "Puis-je retourner un chien s'il y a des problèmes ?",
+            "question_de": "Kann ich einen Hund zurückgeben, wenn es Probleme gibt?",
+            "question_it": "Posso restituire un cane se ci sono problemi?",
+
             "answer_en": "We have a return policy in case of health issues. Please contact us within 14 days of purchase.",
             "answer_pt": "Temos uma política de devolução em caso de problemas de saúde. Por favor, contacte-nos no prazo de 14 dias após a compra.",
+            "answer_es": "Tenemos una política de devolución en caso de problemas de salud. Por favor, contáctenos dentro de los 14 días posteriores a la compra.",
+            "answer_fr": "Nous avons une politique de retour en cas de problèmes de santé. Veuillez nous contacter dans les 14 jours suivant l'achat.",
+            "answer_de": "Wir haben eine Rückgaberegelung im Falle von Gesundheitsproblemen. Bitte kontaktieren Sie uns innerhalb von 14 Tagen nach dem Kauf.",
+            "answer_it": "Abbiamo una politica di restituzione in caso di problemi di salute. Contattaci entro 14 giorni dall'acquisto.",
+
             "order": 10,
             "active": true
         }

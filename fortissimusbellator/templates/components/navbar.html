@@ -53,14 +53,56 @@
                     <a href="tel:+351916749407" class="text-xs font-b612-mono hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">916749407</a>
                 </div>
 
-                <!-- Language Toggle -->
-                <button id="language-toggle" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
-                    {% if request.LANGUAGE_CODE == 'en' %}
-                        <img src="{% static 'flags/pt.png' %}" alt="Portuguese" class="w-6 h-6">
-                    {% else %}
-                        <img src="{% static 'flags/uk.png' %}" alt="English" class="w-6 h-6">
-                    {% endif %}
-                </button>
+                <!-- Language Selector -->
+                {% with current_language=request.LANGUAGE_CODE|default:'en'|slice:":2" %}
+                <div class="relative">
+                    <button type="button" id="language-toggle" class="flex items-center space-x-1 py-1 px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300" aria-haspopup="true" aria-expanded="false" aria-controls="language-menu" aria-label="{% trans "Select language" %}">
+                        {% if current_language == 'pt' %}
+                            <img src="{% static 'flags/pt.png' %}" alt="{% trans "Portuguese" %}" class="w-6 h-6 rounded-sm">
+                        {% elif current_language == 'fr' %}
+                            <img src="{% static 'flags/fr.png' %}" alt="{% trans "French" %}" class="w-6 h-6 rounded-sm">
+                        {% elif current_language == 'es' %}
+                            <img src="{% static 'flags/es.png' %}" alt="{% trans "Spanish" %}" class="w-6 h-6 rounded-sm">
+                        {% elif current_language == 'de' %}
+                            <img src="{% static 'flags/de.png' %}" alt="{% trans "German" %}" class="w-6 h-6 rounded-sm">
+                        {% elif current_language == 'it' %}
+                            <img src="{% static 'flags/it.png' %}" alt="{% trans "Italian" %}" class="w-6 h-6 rounded-sm">
+                        {% else %}
+                        <img src="{% static 'flags/uk.png' %}" alt="{% trans "English" %}" class="w-6 h-6 rounded-sm">
+                        {% endif %}
+                        <span class="hidden sm:inline text-xs font-semibold uppercase">{{ current_language|default:'en'|upper }}</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="language-menu" class="z-[1002] absolute right-0 mt-2 w-44 bg-white dark:bg-stone-800 shadow-lg rounded-lg py-2 hidden transition-all duration-200 origin-top">
+                        <button type="button" class="flex items-center w-full px-4 py-2 text-left text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200 {% if current_language == 'en' %}font-semibold{% endif %}" data-language-option="en" aria-current="{% if current_language == 'en' %}true{% else %}false{% endif %}">
+                            <img src="{% static 'flags/uk.png' %}" alt="{% trans "English" %}" class="w-5 h-5 rounded-sm">
+                            <span class="ml-2">{% trans "English" %}</span>
+                        </button>
+                        <button type="button" class="flex items-center w-full px-4 py-2 text-left text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200 {% if current_language == 'pt' %}font-semibold{% endif %}" data-language-option="pt" aria-current="{% if current_language == 'pt' %}true{% else %}false{% endif %}">
+                            <img src="{% static 'flags/pt.png' %}" alt="{% trans "Portuguese" %}" class="w-5 h-5 rounded-sm">
+                            <span class="ml-2">{% trans "Portuguese" %}</span>
+                        </button>
+                        <button type="button" class="flex items-center w-full px-4 py-2 text-left text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200 {% if current_language == 'fr' %}font-semibold{% endif %}" data-language-option="fr" aria-current="{% if current_language == 'fr' %}true{% else %}false{% endif %}">
+                            <img src="{% static 'flags/fr.png' %}" alt="{% trans "French" %}" class="w-5 h-5 rounded-sm">
+                            <span class="ml-2">{% trans "French" %}</span>
+                        </button>
+                        <button type="button" class="flex items-center w-full px-4 py-2 text-left text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200 {% if current_language == 'es' %}font-semibold{% endif %}" data-language-option="es" aria-current="{% if current_language == 'es' %}true{% else %}false{% endif %}">
+                            <img src="{% static 'flags/es.png' %}" alt="{% trans "Spanish" %}" class="w-5 h-5 rounded-sm">
+                            <span class="ml-2">{% trans "Spanish" %}</span>
+                        </button>
+                        <button type="button" class="flex items-center w-full px-4 py-2 text-left text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200 {% if current_language == 'de' %}font-semibold{% endif %}" data-language-option="de" aria-current="{% if current_language == 'de' %}true{% else %}false{% endif %}">
+                            <img src="{% static 'flags/de.png' %}" alt="{% trans "German" %}" class="w-5 h-5 rounded-sm">
+                            <span class="ml-2">{% trans "German" %}</span>
+                        </button>
+                        <button type="button" class="flex items-center w-full px-4 py-2 text-left text-xs hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200 {% if current_language == 'it' %}font-semibold{% endif %}" data-language-option="it" aria-current="{% if current_language == 'it' %}true{% else %}false{% endif %}">
+                            <img src="{% static 'flags/it.png' %}" alt="{% trans "Italian" %}" class="w-5 h-5 rounded-sm">
+                            <span class="ml-2">{% trans "Italian" %}</span>
+                        </button>
+                    </div>
+                </div>
+                {% endwith %}
 
                 <!-- Theme Toggle -->
                 <button id="theme-toggle" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110" aria-label="{% trans "Toggle Light/Dark Theme" %}">

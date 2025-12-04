@@ -5,6 +5,10 @@
     "fields": {
       "text_en": "What is your main goal for having the dog?",
       "text_pt": "Qual é o seu principal objetivo ao ter o cão?",
+      "text_es": "¿Cuál es su objetivo principal al tener un perro?",
+      "text_fr": "Quel est votre objectif principal en ayant un chien ?",
+      "text_de": "Was ist Ihr Hauptziel beim Halten eines Hundes?",
+      "text_it": "Qual è il tuo obiettivo principale nell'avere un cane?",
       "order": 1
     }
   },
@@ -15,6 +19,10 @@
       "question": 9,
       "text_en": "Companion / family pet",
       "text_pt": "Companheiro / animal de família",
+      "text_es": "Compañero / mascota familiar",
+      "text_fr": "Compagnon / animal de compagnie",
+      "text_de": "Begleiter / Familienhaustier",
+      "text_it": "Compagno / animale domestico di famiglia",
       "order": 1
     }
   },
@@ -25,6 +33,10 @@
       "question": 9,
       "text_en": "Protection / guard",
       "text_pt": "Proteção / guarda",
+      "text_es": "Protección / guardia",
+      "text_fr": "Protection / garde",
+      "text_de": "Schutz / Wachhund",
+      "text_it": "Protezione / guardia",
       "order": 2
     }
   },
@@ -35,6 +47,10 @@
       "question": 9,
       "text_en": "Sport / work",
       "text_pt": "Desporto / trabalho",
+      "text_es": "Deporte / trabajo",
+      "text_fr": "Sport / travail",
+      "text_de": "Sport / Arbeit",
+      "text_it": "Sport / lavoro",
       "order": 3
     }
   },
@@ -98,6 +114,10 @@
     "fields": {
       "text_en": "Do you live in an apartment, a small house without a yard, or a house with a garden/outdoor space?",
       "text_pt": "Vive num apartamento, numa casa pequena sem quintal ou numa casa com jardim/espaço exterior?",
+      "text_es": "¿Vive en un apartamento, una casa pequeña sin patio o una casa con jardín/espacio exterior?",
+      "text_fr": "Vivez-vous dans un appartement, une petite maison sans jardin ou une maison avec jardin/espace extérieur ?",
+      "text_de": "Leben Sie in einer Wohnung, einem kleinen Haus ohne Garten oder einem Haus mit Garten/außenbereich?",
+      "text_it": "Vivi in un appartamento, in una piccola casa senza giardino o in una casa con giardino/spazio esterno?",
       "order": 2
     }
   },
@@ -108,6 +128,10 @@
       "question": 1,
       "text_en": "Apartment",
       "text_pt": "Apartamento",
+      "text_es": "Apartamento",
+      "text_fr": "Appartement",
+      "text_de": "Wohnung",
+      "text_it": "Appartamento",
       "order": 1
     }
   },
@@ -118,6 +142,10 @@
       "question": 1,
       "text_en": "Small house without yard",
       "text_pt": "Casa pequena sem quintal",
+      "text_es": "Casa pequeña sin patio",
+      "text_fr": "Petite maison sans jardin",
+      "text_de": "Kleines Haus ohne Garten",
+      "text_it": "Piccola casa senza giardino",
       "order": 2
     }
   },
@@ -128,6 +156,10 @@
       "question": 1,
       "text_en": "House with garden/outdoor space",
       "text_pt": "Casa com jardim/espaço exterior",
+      "text_es": "Casa con jardín/espacio exterior",
+      "text_fr": "Maison avec jardin/espace extérieur",
+      "text_de": "Haus mit Garten/außenbereich",
+      "text_it": "Casa con giardino/spazio esterno",
       "order": 3
     }
   },
@@ -245,6 +277,10 @@
     "fields": {
       "text_en": "How much daily exercise can you provide?",
       "text_pt": "Quanto exercício diário pode oferecer?",
+      "text_es": "¿Cuánto ejercicio diario puede proporcionar?",
+      "text_fr": "Combien d'exercice quotidien pouvez-vous fournir ?",
+      "text_de": "Wie viel tägliche Bewegung können Sie bieten?",
+      "text_it": "Quanto esercizio quotidiano puoi fornire?",
       "order": 3
     }
   },
@@ -255,6 +291,10 @@
       "question": 2,
       "text_en": "30 min walk",
       "text_pt": "Caminhada de 30 min",
+      "text_es": "Caminata de 30 min",
+      "text_fr": "Promenade de 30 min",
+      "text_de": "30-minütiger Spaziergang",
+      "text_it": "Passeggiata di 30 minuti",
       "order": 1
     }
   },
@@ -265,6 +305,10 @@
       "question": 2,
       "text_en": "1–2h including play",
       "text_pt": "1–2h incluindo brincadeiras",
+      "text_es": "1–2h incluyendo juegos",
+      "text_fr": "1–2h y compris les jeux",
+      "text_de": "1–2 Stunden einschließlich Spielen",
+      "text_it": "1–2h compresi i giochi",
       "order": 2
     }
   },
@@ -275,6 +319,10 @@
       "question": 2,
       "text_en": "2h+ intense activities",
       "text_pt": "2h+ atividades intensas",
+      "text_es": "2h+ actividades intensas",
+      "text_fr": "2h+ d'activités intenses",
+      "text_de": "2h+ intensive Aktivitäten",
+      "text_it": "2h+ di attività intense",
       "order": 3
     }
   },
@@ -356,6 +404,10 @@
     "fields": {
       "text_en": "What’s your level of experience?",
       "text_pt": "Qual é o seu nível de experiência?",
+      "text_es": "¿Cuál es su nivel de experiencia?",
+      "text_fr": "Quel est votre niveau d'expérience ?",
+      "text_de": "Wie ist Ihr Erfahrungsstand?",
+      "text_it": "Qual è il tuo livello di esperienza?",
       "order": 4
     }
   },
@@ -366,6 +418,10 @@
       "question": 3,
       "text_en": "None, first-time owner",
       "text_pt": "Nenhuma, primeira vez como dono",
+      "text_es": "Ninguna, primer propietario",
+      "text_fr": "Aucune, premier propriétaire",
+      "text_de": "Keine, Erstbesitzer",
+      "text_it": "Nessuna, primo proprietario",
       "order": 1
     }
   },
@@ -376,6 +432,10 @@
       "question": 3,
       "text_en": "Some experience or had dogs before",
       "text_pt": "Alguma experiência ou tive cães antes",
+      "text_es": "Algo de experiencia o he tenido perros antes",
+      "text_fr": "Une certaine expérience ou j'ai déjà eu des chiens",
+      "text_de": "Etwas Erfahrung oder hatte schon Hunde",
+      "text_it": "Un po' di esperienza o ho avuto cani prima",
       "order": 2
     }
   },
@@ -386,6 +446,10 @@
       "question": 3,
       "text_en": "Experienced with working breeds",
       "text_pt": "Experiente com raças de trabalho",
+      "text_es": "Experimentado con razas de trabajo",
+      "text_fr": "Expérimenté avec des races de travail",
+      "text_de": "Erfahren mit Arbeitshunderassen",
+      "text_it": "Esperto con razze da lavoro",
       "order": 3
     }
   },
@@ -458,6 +522,10 @@
     "fields": {
       "text_en": "Are you willing to attend professional training lessons?",
       "text_pt": "Está disposto a frequentar aulas de treino profissional?",
+      "text_es": "¿Está dispuesto a asistir a clases de entrenamiento profesional?",
+      "text_fr": "Êtes-vous prêt à assister à des cours de formation professionnelle ?",
+      "text_de": "Sind Sie bereit, professionelle Trainingsstunden zu besuchen?",
+      "text_it": "Sei disposto a frequentare lezioni di addestramento professionale?",
       "order": 5
     }
   },
@@ -468,6 +536,10 @@
       "question": 4,
       "text_en": "Yes, regularly",
       "text_pt": "Sim, regularmente",
+      "text_es": "Sí, regularmente",
+      "text_fr": "Oui, régulièrement",
+      "text_de": "Ja, regelmäßig",
+      "text_it": "Sì, regolarmente",
       "order": 1
     }
   },
@@ -478,6 +550,10 @@
       "question": 4,
       "text_en": "Maybe occasionally",
       "text_pt": "Talvez ocasionalmente",
+      "text_es": "Quizás ocasionalmente",
+      "text_fr": "Peut-être occasionnellement",
+      "text_de": "Vielleicht gelegentlich",
+      "text_it": "Forse occasionalmente",
       "order": 2
     }
   },
@@ -488,6 +564,10 @@
       "question": 4,
       "text_en": "No, I prefer minimal training",
       "text_pt": "Não, prefiro treinamento mínimo",
+      "text_es": "No, prefiero un entrenamiento mínimo",
+      "text_fr": "Non, je préfère une formation minimale",
+      "text_de": "Nein, ich bevorzuge minimales Training",
+      "text_it": "No, preferisco un addestramento minimo",
       "order": 3
     }
   },
@@ -560,6 +640,10 @@
     "fields": {
       "text_en": "How much grooming are you willing to do weekly?",
       "text_pt": "Quanto tempo pode dedicar por semana à escovagem?",
+      "text_es": "¿Cuánto tiempo está dispuesto a dedicar semanalmente al aseo?",
+      "text_fr": "Combien de temps êtes-vous prêt à consacrer chaque semaine au toilettage ?",
+      "text_de": "Wie viel Zeit sind Sie bereit, wöchentlich für die Pflege aufzuwenden?",
+      "text_it": "Quanto tempo sei disposto a dedicare settimanalmente alla toelettatura?",
       "order": 6
     }
   },
@@ -570,6 +654,10 @@
       "question": 5,
       "text_en": "Minimal (quick brushing)",
       "text_pt": "Mínimo (escovagem rápida)",
+      "text_es": "Mínimo (cepillado rápido)",
+      "text_fr": "Minimal (brossage rapide)",
+      "text_de": "Minimal (schnelles Bürsten)",
+      "text_it": "Minimo (spazzolatura veloce)",
       "order": 1
     }
   },
@@ -580,6 +668,10 @@
       "question": 5,
       "text_en": "Some grooming (1-2 sessions)",
       "text_pt": "Alguma escovagem (1-2 vezes)",
+      "text_es": "Algo de aseo (1-2 sesiones)",
+      "text_fr": "Un peu de toilettage (1-2 séances)",
+      "text_de": "Etwas Pflege (1-2 Sitzungen)",
+      "text_it": "Un po' di toelettatura (1-2 sessioni)",
       "order": 2
     }
   },
@@ -590,6 +682,10 @@
       "question": 5,
       "text_en": "I enjoy grooming (3+ times weekly)",
       "text_pt": "Eu gosto de escovar (3+ vezes por semana)",
+      "text_es": "Disfruto del aseo (3+ veces por semana)",
+      "text_fr": "J'aime le toilettage (3+ fois par semaine)",
+      "text_de": "Ich genieße die Pflege (3+ mal wöchentlich)",
+      "text_it": "Mi piace la toelettatura (3+ volte a settimana)",
       "order": 3
     }
   },
@@ -662,6 +758,10 @@
     "fields": {
       "text_en": "How many hours a day are you typically away from home?",
       "text_pt": "Quantas horas por dia costuma estar fora de casa?",
+      "text_es": "¿Cuántas horas al día suele estar fuera de casa?",
+      "text_fr": "Combien d'heures par jour êtes-vous généralement absent de chez vous ?",
+      "text_de": "Wie viele Stunden am Tag sind Sie typischerweise von zu Hause weg?",
+      "text_it": "Quante ore al giorno sei normalmente fuori casa?",
       "order": 7
     }
   },
@@ -672,6 +772,10 @@
       "question": 6,
       "text_en": "Rarely (0–2 hours)",
       "text_pt": "Raramente (0–2 horas)",
+      "text_es": "Raramente (0–2 horas)",
+      "text_fr": "Rarement (0–2 heures)",
+      "text_de": "Selten (0–2 Stunden)",
+      "text_it": "Raramente (0–2 ore)",
       "order": 1
     }
   },
@@ -682,6 +786,10 @@
       "question": 6,
       "text_en": "4–6 hours",
       "text_pt": "4–6 horas",
+      "text_es": "4–6 horas",
+      "text_fr": "4–6 heures",
+      "text_de": "4–6 Stunden",
+      "text_it": "4–6 ore",
       "order": 2
     }
   },
@@ -692,6 +800,10 @@
       "question": 6,
       "text_en": "8+ hours",
       "text_pt": "8+ horas",
+      "text_es": "8+ horas",
+      "text_fr": "8+ heures",
+      "text_de": "8+ Stunden",
+      "text_it": "8+ ore",
       "order": 3
     }
   },
@@ -755,6 +867,10 @@
     "fields": {
       "text_en": "How tolerant are you of dog hair (shedding) in your home?",
       "text_pt": "Qual a sua tolerância ao pelo do cão (queda) em casa?",
+      "text_es": "¿Qué tolerancia tiene al pelo de perro (caída) en su hogar?",
+      "text_fr": "Quelle est votre tolérance aux poils de chien (perte) dans votre maison ?",
+      "text_de": "Wie tolerant sind Sie gegenüber Hundehaaren (Haarausfall) in Ihrem Zuhause?",
+      "text_it": "Quanto sei tollerante ai peli di cane (perdita) nella tua casa?",
       "order": 8
     }
   },
@@ -765,6 +881,10 @@
       "question": 7,
       "text_en": "Low tolerance",
       "text_pt": "Baixa tolerância",
+      "text_es": "Baja tolerancia",
+      "text_fr": "Faible tolérance",
+      "text_de": "Niedrige Toleranz",
+      "text_it": "Bassa tolleranza",
       "order": 1
     }
   },
@@ -775,6 +895,10 @@
       "question": 7,
       "text_en": "Medium tolerance",
       "text_pt": "Tolerância média",
+      "text_es": "Tolerancia media",
+      "text_fr": "Tolérance moyenne",
+      "text_de": "Mittlere Toleranz",
+      "text_it": "Tolleranza media",
       "order": 2
     }
   },
@@ -785,6 +909,10 @@
       "question": 7,
       "text_en": "High tolerance",
       "text_pt": "Alta tolerância",
+      "text_es": "Alta tolerancia",
+      "text_fr": "Haute tolérance",
+      "text_de": "Hohe Toleranz",
+      "text_it": "Alta tolleranza",
       "order": 3
     }
   },
@@ -839,6 +967,10 @@
     "fields": {
       "text_en": "What size do you prefer?",
       "text_pt": "Que tamanho prefere?",
+      "text_es": "¿Qué tamaño prefiere?",
+      "text_fr": "Quelle taille préférez-vous ?",
+      "text_de": "Welche Größe bevorzugen Sie?",
+      "text_it": "Che dimensione preferisci?",
       "order": 9
     }
   },
@@ -849,6 +981,10 @@
       "question": 8,
       "text_en": "Medium (20–30 kg)",
       "text_pt": "Médio (20–30 kg)",
+      "text_es": "Mediano (20–30 kg)",
+      "text_fr": "Moyen (20–30 kg)",
+      "text_de": "Mittel (20–30 kg)",
+      "text_it": "Medio (20–30 kg)",
       "order": 1
     }
   },
@@ -859,6 +995,10 @@
       "question": 8,
       "text_en": "Large (30 kg+)",
       "text_pt": "Grande (30 kg+)",
+      "text_es": "Grande (30 kg+)",
+      "text_fr": "Grand (30 kg+)",
+      "text_de": "Groß (30 kg+)",
+      "text_it": "Grande (30 kg+)",
       "order": 2
     }
   },
@@ -922,6 +1062,10 @@
     "fields": {
       "text_en": "Do you have children or plan to have kids soon?",
       "text_pt": "Tem filhos ou planeia ter em breve?",
+      "text_es": "¿Tiene hijos o planea tenerlos pronto?",
+      "text_fr": "Avez-vous des enfants ou prévoyez-vous d'en avoir bientôt ?",
+      "text_de": "Haben Sie Kinder oder planen Sie bald welche zu bekommen?",
+      "text_it": "Hai figli o prevedi di averne presto?",
       "order": 10
     }
   },
@@ -932,6 +1076,10 @@
       "question": 10,
       "text_en": "Yes",
       "text_pt": "Sim",
+      "text_es": "Sí",
+      "text_fr": "Oui",
+      "text_de": "Ja",
+      "text_it": "Sì",
       "order": 1
     }
   },
@@ -942,6 +1090,10 @@
       "question": 10,
       "text_en": "No",
       "text_pt": "Não",
+      "text_es": "No",
+      "text_fr": "Non",
+      "text_de": "Nein",
+      "text_it": "No",
       "order": 2
     }
   },
@@ -978,6 +1130,10 @@
     "fields": {
       "text_en": "Do you already have other pets at home?",
       "text_pt": "Já tem outros animais em casa?",
+      "text_es": "¿Ya tiene otras mascotas en casa?",
+      "text_fr": "Avez-vous déjà d'autres animaux à la maison ?",
+      "text_de": "Haben Sie bereits andere Haustiere zu Hause?",
+      "text_it": "Hai già altri animali domestici a casa?",
       "order": 11
     }
   },
@@ -988,6 +1144,10 @@
       "question": 11,
       "text_en": "No other pets",
       "text_pt": "Sem outros animais",
+      "text_es": "Sin otras mascotas",
+      "text_fr": "Pas d'autres animaux",
+      "text_de": "Keine anderen Haustiere",
+      "text_it": "Nessun altro animale domestico",
       "order": 1
     }
   },
@@ -998,6 +1158,10 @@
       "question": 11,
       "text_en": "Yes - cats/small pets",
       "text_pt": "Sim - gatos/animais pequenos",
+      "text_es": "Sí - gatos/mascotas pequeñas",
+      "text_fr": "Oui - chats/petits animaux",
+      "text_de": "Ja - Katzen/kleine Haustiere",
+      "text_it": "Sì - gatti/piccoli animali",
       "order": 2
     }
   },
@@ -1008,6 +1172,10 @@
       "question": 11,
       "text_en": "Yes - other dogs",
       "text_pt": "Sim - outros cães",
+      "text_es": "Sí - otros perros",
+      "text_fr": "Oui - autres chiens",
+      "text_de": "Ja - andere Hunde",
+      "text_it": "Sì - altri cani",
       "order": 3
     }
   },
@@ -1035,6 +1203,10 @@
     "fields": {
       "text_en": "How tolerant are you of barking and vocal dogs?",
       "text_pt": "Qual a sua tolerância a latidos e cães vocais?",
+      "text_es": "¿Qué tolerancia tiene a los ladridos y perros vocales?",
+      "text_fr": "Quelle est votre tolérance aux aboiements et aux chiens vocaux ?",
+      "text_de": "Wie tolerant sind Sie gegenüber Bellen und vokalen Hunden?",
+      "text_it": "Quanto sei tollerante verso l'abbaiare e i cani vocali?",
       "order": 12
     }
   },
@@ -1045,6 +1217,10 @@
       "question": 12,
       "text_en": "Low",
       "text_pt": "Baixa",
+      "text_es": "Baja",
+      "text_fr": "Faible tolérance",
+      "text_de": "Niedrig",
+      "text_it": "Bassa",
       "order": 1
     }
   },
@@ -1055,6 +1231,10 @@
       "question": 12,
       "text_en": "Medium",
       "text_pt": "Média",
+      "text_es": "Media",
+      "text_fr": "Tolérance moyenne",
+      "text_de": "Mittel",
+      "text_it": "Media",
       "order": 2
     }
   },
@@ -1065,6 +1245,10 @@
       "question": 12,
       "text_en": "High tolerance",
       "text_pt": "Alta",
+      "text_es": "Alta",
+      "text_fr": "Haute tolérance",
+      "text_de": "Hoch",
+      "text_it": "Alta",
       "order": 3
     }
   },
@@ -1101,6 +1285,10 @@
     "fields": {
       "text_en": "Are you comfortable with a higher monthly cost (food, vet, insurance, training)?",
       "text_pt": "Sente-se confortável com um custo mensal mais elevado (ração, veterinário, seguro, treino)?",
+      "text_es": "¿Se siente cómodo con un costo mensual más alto (comida, veterinario, seguro, entrenamiento)?",
+      "text_fr": "Êtes-vous à l'aise avec un coût mensuel plus élevé (nourriture, vétérinaire, assurance, formation) ?",
+      "text_de": "Fühlen Sie sich mit höheren monatlichen Kosten (Essen, Tierarzt, Versicherung, Training) wohl?",
+      "text_it": "Ti senti a tuo agio con un costo mensile più elevato (cibo, veterinario, assicurazione, addestramento)?",
       "order": 13
     }
   },
@@ -1111,6 +1299,10 @@
       "question": 13,
       "text_en": "Prefer moderate cost",
       "text_pt": "Prefiro custo moderado",
+      "text_es": "Prefiero costo moderado",
+      "text_fr": "Je préfère un coût modéré",
+      "text_de": "Bevorzuge moderate Kosten",
+      "text_it": "Preferisco un costo moderato",
       "order": 1
     }
   },
@@ -1121,6 +1313,10 @@
       "question": 13,
       "text_en": "Comfortable with high cost",
       "text_pt": "Confortável com custo elevado",
+      "text_es": "Cómodo con costo alto",
+      "text_fr": "À l'aise avec un coût élevé",
+      "text_de": "Komfortabel mit hohen Kosten",
+      "text_it": "A tuo agio con costi elevati",
       "order": 2
     }
   },
@@ -1166,6 +1362,10 @@
     "fields": {
       "text_en": "What temperament do you prefer?",
       "text_pt": "Que temperamento prefere?",
+      "text_es": "¿Qué temperamento prefiere?",
+      "text_fr": "Quel tempérament préférez-vous ?",
+      "text_de": "Welchen Temperament bevorzugen Sie?",
+      "text_it": "Che temperamento preferisci?",
       "order": 14
     }
   },
@@ -1176,6 +1376,10 @@
       "question": 14,
       "text_en": "Calmer, more balanced",
       "text_pt": "Mais calmo e equilibrado",
+      "text_es": "Más tranquilo y equilibrado",
+      "text_fr": "Plus calme et équilibré",
+      "text_de": "Ruhiger, ausgeglichener",
+      "text_it": "Più calmo e equilibrato",
       "order": 1
     }
   },
@@ -1185,7 +1389,11 @@
     "fields": {
       "question": 14,
       "text_en": "Highly driven / intense",
-      "text_pt": "Muito enérgico/intenso",
+      "text_pt": "Muito enérgico / intenso",
+      "text_es": "Muy enérgico / intenso",
+      "text_fr": "Très motivé / intense",
+      "text_de": "Hoch motiviert / intensiv",
+      "text_it": "Molto energico / intenso",
       "order": 2
     }
   },
@@ -1231,6 +1439,10 @@
     "fields": {
       "text_en": "Do you travel often or need flexibility with dog care?",
       "text_pt": "Viaja com frequência ou precisa de flexibilidade nos cuidados?",
+      "text_es": "¿Viaja con frecuencia o necesita flexibilidad en el cuidado del perro?",
+      "text_fr": "Voyagez-vous souvent ou avez-vous besoin de flexibilité pour les soins aux chiens ?",
+      "text_de": "Reisen Sie oft oder benötigen Sie Flexibilität bei der Hundepflege?",
+      "text_it": "Viaggi spesso o hai bisogno di flessibilità nella cura del cane?",
       "order": 15
     }
   },
@@ -1241,6 +1453,10 @@
       "question": 15,
       "text_en": "Yes, travel often / need flexibility",
       "text_pt": "Sim, viajo com frequência / preciso de flexibilidade",
+      "text_es": "Sí, viajo con frecuencia / necesito flexibilidad",
+      "text_fr": "Oui, je voyage souvent / j'ai besoin de flexibilité",
+      "text_de": "Ja, ich reise oft / brauche Flexibilität",
+      "text_it": "Sì, viaggio spesso / ho bisogno di flessibilità",
       "order": 1
     }
   },
@@ -1251,6 +1467,10 @@
       "question": 15,
       "text_en": "No, stable routine",
       "text_pt": "Não, rotina estável",
+      "text_es": "No, rutina estable",
+      "text_fr": "Non, routine stable",
+      "text_de": "Nein, stabile Routine",
+      "text_it": "No, routine stabile",
       "order": 2
     }
   },

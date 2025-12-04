@@ -13,22 +13,55 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('moon-icon').classList.toggle('size-6');
     });
 
-    // Language Toggle
-    document.getElementById('language-toggle').addEventListener('click', function () {
-        const currentLang = document.documentElement.lang;
-        const newLang = currentLang === 'en' ? 'pt' : 'en';
-    
-        document.cookie = `django_language=${newLang}; path=/; max-age=31536000`;
+    // Language Menu Toggle & Selection
+    const supportedLanguages = ['en', 'pt', 'fr', 'es', 'de', 'it'];
+    const languageToggle = document.getElementById('language-toggle');
+    const languageMenu = document.getElementById('language-menu');
+    const languageOptions = document.querySelectorAll('[data-language-option]');
 
-        const pathParts = window.location.pathname.split('/');
-        if (['en', 'pt'].includes(pathParts[1])) {
-            pathParts[1] = newLang;
+    const setLanguageMenuVisibility = (show) => {
+        if (!languageMenu) return;
+        if (show) {
+            languageMenu.classList.remove('hidden');
+            languageToggle?.setAttribute('aria-expanded', 'true');
         } else {
-            pathParts.splice(1, 0, newLang);
+            languageMenu.classList.add('hidden');
+            languageToggle?.setAttribute('aria-expanded', 'false');
         }
-    
-        const newPath = pathParts.join('/') + window.location.search + window.location.hash;
-        window.location.href = newPath;
+    };
+
+    if (languageToggle && languageMenu) {
+        languageToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const shouldShow = languageMenu.classList.contains('hidden');
+            setLanguageMenuVisibility(shouldShow);
+        });
+    }
+
+    languageOptions.forEach((option) => {
+        option.addEventListener('click', function () {
+            const newLang = this.dataset.languageOption;
+            if (!newLang) return;
+
+            const currentLang = document.documentElement.lang?.slice(0, 2) || 'en';
+            if (currentLang === newLang) {
+                setLanguageMenuVisibility(false);
+                return;
+            }
+
+            setLanguageMenuVisibility(false);
+            document.cookie = `django_language=${newLang}; path=/; max-age=31536000`;
+
+            const pathParts = window.location.pathname.split('/');
+            if (supportedLanguages.includes(pathParts[1])) {
+                pathParts[1] = newLang;
+            } else {
+                pathParts.splice(1, 0, newLang);
+            }
+
+            const newPath = pathParts.join('/') + window.location.search + window.location.hash;
+            window.location.href = newPath;
+        });
     });
 
     // Mobile Menu Toggle
@@ -101,7 +134,11 @@ document.addEventListener('DOMContentLoaded', () => {
             userSubmenu?.classList.remove('scale-y-100');
         }
         
-        if (mobileOurDogsButton && !mobileOurDogsButton.contains(e.target)) {
+        if (languageMenu && languageToggle && !languageMenu.contains(e.target) && !languageToggle.contains(e.target)) {
+            setLanguageMenuVisibility(false);
+        }
+
+        if (mobileOurDogsButton && mobileOurDogsSubmenu && !mobileOurDogsButton.contains(e.target)) {
             mobileOurDogsSubmenu.classList.add('scale-y-0');
             mobileOurDogsSubmenu.classList.remove('scale-y-100');
 
