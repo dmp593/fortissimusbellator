@@ -10,7 +10,7 @@ from attachments.models import Attachment
 from tags.admin import TagAdminStackedInline
 from tags.models import Tag
 
-from fortissimusbellator import deepl
+from fortissimusbellator import translator
 
 from . import forms
 from .translation import models
@@ -177,12 +177,16 @@ class DeeplTranslationAdmin(TranslationAdmin):
             field_en = f"{field}_en"
             field_es = f"{field}_es"
             field_fr = f"{field}_fr"
+            field_de = f"{field}_de"
+            field_it = f"{field}_it"
 
             if (
                 field_pt not in cleaned_data or
                 field_en not in cleaned_data or
                 field_es not in cleaned_data or
-                field_fr not in cleaned_data
+                field_fr not in cleaned_data or
+                field_de not in cleaned_data or
+                field_it not in cleaned_data
             ):
                 continue
 
@@ -190,26 +194,66 @@ class DeeplTranslationAdmin(TranslationAdmin):
             field_en_value = cleaned_data.get(field_en)
             field_es_value = cleaned_data.get(field_es)
             field_fr_value = cleaned_data.get(field_fr)
+            field_de_value = cleaned_data.get(field_de)
+            field_it_value = cleaned_data.get(field_it)
 
             # Translate missing fields
 
             # either from EN to PT, or from PT to EN
             if not field_pt_value and field_en_value:
-                translation_pt = deepl.trans(field_en_value, "en", "pt-pt")
+                translation_pt = translator.translate(
+                    text=field_en_value,
+                    source_lang="en",
+                    target_lang="pt-pt",
+                    provider="deepl"  # deepl has better PT-PT support
+                )
                 setattr(obj, field_pt, translation_pt)
 
             if not field_en_value and field_pt_value:
-                translation_en = deepl.trans(field_pt_value, "pt", "en-us")
+                translation_en = translator.translate(
+                    text=field_pt_value,
+                    source_lang="pt",
+                    target_lang="en-us",
+                    provider="google"
+                )
                 setattr(obj, field_en, translation_en)
 
             # the other languages are always from EN
             if not field_es_value and field_en_value:
-                translation_es = deepl.trans(field_en_value, "en", "es")
+                translation_es = translator.translate(
+                    text=field_en_value,
+                    source_lang="en",
+                    target_lang="es",
+                    provider="google"
+                )
                 setattr(obj, field_es, translation_es)
 
             if not field_fr_value and field_en_value:
-                translation_fr = deepl.trans(field_en_value, "en", "fr")
+                translation_fr = translator.translate(
+                    text=field_en_value,
+                    source_lang="en",
+                    target_lang="fr",
+                    provider="google"
+                )
                 setattr(obj, field_fr, translation_fr)
+
+            if not field_de_value and field_en_value:
+                translation_de = translator.translate(
+                    text=field_en_value,
+                    source_lang="en",
+                    target_lang="de",
+                    provider="google"
+                )
+                setattr(obj, field_de, translation_de)
+
+            if not field_it_value and field_en_value:
+                translation_it = translator.translate(
+                    text=field_en_value,
+                    source_lang="en",
+                    target_lang="it",
+                    provider="google"
+                )
+                setattr(obj, field_it, translation_it)
 
 
         super().save_model(request, obj, form, change)

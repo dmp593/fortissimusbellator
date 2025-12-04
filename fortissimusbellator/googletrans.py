@@ -1,9 +1,8 @@
 import logging
 
-from django.conf import settings
 from django.utils.translation import get_language
 
-from deepl import DeepLClient
+from googletrans import Translator
 
 
 def trans(
@@ -12,9 +11,9 @@ def trans(
     target_lang: str | None = None
 ) -> str | None:
     try:
-        deepl_client = DeepLClient(settings.DEEPL_AUTH_KEY)
+        translator = Translator()
 
-        text_result = deepl_client.translate_text(
+        text_result = translator.translate(
             text=text,
             source_lang=source_lang,
             target_lang=target_lang or get_language()
@@ -22,5 +21,5 @@ def trans(
 
         return text_result.text
     except Exception as e:  # pylint: disable=bare-except
-        logging.error("DeepL translation error: %s", e)
+        logging.error("GoogleTrans translation error: %s", e)
         return None
