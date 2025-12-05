@@ -201,71 +201,69 @@ class FieldTranslatorAdmin(TranslationAdmin):
 
             # either from EN to PT, or from PT to EN
             if not field_pt_value and field_en_value:
-                translation_pt = translator.translate(
+                field_pt_value = translator.translate(
                     text=field_en_value,
                     source_lang="en",
                     target_lang="pt-pt",
                     provider="deepl"  # deepl has better PT-PT support
                 )
 
-                if not translation_pt:
+                if not field_pt_value:
                     # fallback to google if deepl fails
                     # probably due to tokens limits (free tier)
-                    translation_pt = translator.translate(
+                    field_pt_value = translator.translate(
                         text=field_en_value,
                         source_lang="en",
                         target_lang="pt",
                         provider="google"
                     )
-
-                setattr(obj, field_pt, translation_pt)
+                setattr(obj, field_pt, field_pt_value)
 
             if not field_en_value and field_pt_value:
-                translation_en = translator.translate(
+                field_en_value = translator.translate(
                     text=field_pt_value,
                     source_lang="pt",
-                    target_lang="en-us",
+                    target_lang="en",
                     provider="google"
                 )
-                setattr(obj, field_en, translation_en)
+                setattr(obj, field_en, field_en_value)
 
             # the other languages are always from EN
             if not field_es_value and field_en_value:
-                translation_es = translator.translate(
+                field_es_value = translator.translate(
                     text=field_en_value,
                     source_lang="en",
                     target_lang="es",
                     provider="google"
                 )
-                setattr(obj, field_es, translation_es)
+                setattr(obj, field_es, field_es_value)
 
             if not field_fr_value and field_en_value:
-                translation_fr = translator.translate(
+                field_fr_value = translator.translate(
                     text=field_en_value,
                     source_lang="en",
                     target_lang="fr",
                     provider="google"
                 )
-                setattr(obj, field_fr, translation_fr)
+                setattr(obj, field_fr, field_fr_value)
 
             if not field_de_value and field_en_value:
-                translation_de = translator.translate(
+                field_de_value = translator.translate(
                     text=field_en_value,
                     source_lang="en",
                     target_lang="de",
                     provider="google"
                 )
-                setattr(obj, field_de, translation_de)
+                setattr(obj, field_de, field_de_value)
 
             if not field_it_value and field_en_value:
-                translation_it = translator.translate(
+                field_it_value = translator.translate(
                     text=field_en_value,
                     source_lang="en",
                     target_lang="it",
                     provider="google"
                 )
-                setattr(obj, field_it, translation_it)
-
+                setattr(obj, field_it, field_it_value)
 
         super().save_model(request, obj, form, change)
 
