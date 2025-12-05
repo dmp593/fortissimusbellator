@@ -164,15 +164,15 @@ class CertificationAdmin(TranslationAdmin):
     ordering = ('order',)
 
 
-class DeeplTranslationAdmin(TranslationAdmin):
+class FieldTranslatorAdmin(TranslationAdmin):
     def save_model(self, request, obj, form, change):
-        deepl_translation_fields = getattr(
-            self, 'deepl_translation_fields', []
+        translation_fields = getattr(
+            self, 'translation_fields', []
         )
 
         cleaned_data = form.cleaned_data
 
-        for field in deepl_translation_fields:
+        for field in translation_fields:
             field_pt = f"{field}_pt"
             field_en = f"{field}_en"
             field_es = f"{field}_es"
@@ -207,6 +207,17 @@ class DeeplTranslationAdmin(TranslationAdmin):
                     target_lang="pt-pt",
                     provider="deepl"  # deepl has better PT-PT support
                 )
+
+                if not translation_pt:
+                    # fallback to google if deepl fails
+                    # probably due to tokens limits (free tier)
+                    translation_pt = translator.translate(
+                        text=field_en_value,
+                        source_lang="en",
+                        target_lang="pt",
+                        provider="google"
+                    )
+
                 setattr(obj, field_pt, translation_pt)
 
             if not field_en_value and field_pt_value:
@@ -260,13 +271,13 @@ class DeeplTranslationAdmin(TranslationAdmin):
 
 
 @admin.register(models.Animal)
-class AnimalAdmin(DeeplTranslationAdmin):
+class AnimalAdmin(FieldTranslatorAdmin):
     """
     Admin configuration for Animal, including attachments and certifications.
     """
     form = forms.AnimalForm
 
-    deepl_translation_fields = [
+    translation_fields = [
         'description'
     ]
 
@@ -301,7 +312,7 @@ class AnimalAdmin(DeeplTranslationAdmin):
 
 
 @admin.register(models.Litter)
-class LitterAdmin(DeeplTranslationAdmin):
+class LitterAdmin(FieldTranslatorAdmin):
     """
     Litter configuration for Animal, including attachments.
     """
@@ -316,7 +327,7 @@ class LitterAdmin(DeeplTranslationAdmin):
         TagAdminStackedInline
     ]
 
-    deepl_translation_fields = [
+    translation_fields = [
         'description',
     ]
 
