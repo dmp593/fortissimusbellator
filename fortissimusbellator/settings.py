@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import environ
 
 from pathlib import Path
+from django.utils.csp import CSP
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -50,6 +51,10 @@ env = environ.Env(
     RECAPTCHA_SITE_KEY=(str, ''),
     RECAPTCHA_SECRET_KEY=(str, ''),
 
+    FACEBOOK_PAGE_ID=(str, ''),
+    FACEBOOK_ACCESS_TOKEN=(str, ''),
+    INSTAGRAM_ACCOUNT_ID=(str, ''),
+
     DEEPL_AUTH_KEY=(str, '')
 )
 
@@ -83,6 +88,64 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_SECONDS = 31536000  # 1 year
 
+SECURE_CSP = {
+    'default-src': [
+        CSP.SELF
+    ],
+    'script-src': [
+        CSP.SELF,
+        CSP.UNSAFE_INLINE,  # django admin uses inline scripts
+        CSP.UNSAFE_EVAL,  # Needed in production (mod_pagespeed)
+        # f"'nonce-{request.csp_nonce}'",  # For inline scripts with nonce
+        'https://cdn.jsdelivr.net',
+        '*.google.com',
+        '*.gstatic.com',
+        '*.tawk.to',
+    ],
+    'style-src': [
+        CSP.SELF,
+        CSP.UNSAFE_INLINE,
+        'https://fonts.googleapis.com',
+        'https://embed.tawk.to',
+    ],
+    'font-src': [
+        CSP.SELF,
+        'https://fonts.gstatic.com',
+        'https://embed.tawk.to',
+    ],
+    'img-src': [
+        CSP.SELF,
+        'data:',
+        'https://www.facebook.com',
+        'https://www.instagram.com',
+        'https://cdn.jsdelivr.net',
+        'https://embed.tawk.to',
+        'https://tawk.link',
+        '*.openstreetmap.org',
+    ],
+    'connect-src': [
+        CSP.SELF,
+        '*.tawk.to',
+        'wss://*.tawk.to',
+    ],
+    'frame-src': [
+        CSP.SELF,
+        '*.google.com',
+        '*.tawk.to',
+        'https://www.instagram.com'
+    ],
+    'frame-ancestors': [
+        CSP.NONE,
+    ],
+    'media-src': [
+        CSP.SELF,
+        'https://embed.tawk.to'
+    ],
+    'object-src': [
+        CSP.NONE,
+    ]
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -95,6 +158,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
 
     # 3rd party apps
@@ -114,7 +178,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'fortissimusbellator.middleware.ContentSecurityPolicyMiddleware',
     'django_permissions_policy.PermissionsPolicyMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -152,6 +215,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fortissimusbellator.wsgi.application'
 
+SITE_ID = 1
+SITE_DOMAIN = 'fortissimusbellator.pt'
+SITE_NAME = 'Fortissimus Bellator'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -372,5 +438,8 @@ EDITORJS_DEFAULT_CONFIG = {
     }
 }
 
+FACEBOOK_PAGE_ID = env('FACEBOOK_PAGE_ID'),
+FACEBOOK_ACCESS_TOKEN = env('FACEBOOK_ACCESS_TOKEN'),
+INSTAGRAM_ACCOUNT_ID = env('INSTAGRAM_ACCOUNT_ID'),
 
 DEEPL_AUTH_KEY = env('DEEPL_AUTH_KEY')

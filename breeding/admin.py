@@ -12,6 +12,24 @@ from fortissimusbellator.admin import TranslationAdmin, FieldTranslatorAdmin
 
 from . import forms
 from .translation import models
+from .social_media import publish_animal
+
+
+@admin.action(description=_("Publish selected animals to Social Media (PT)"))
+def publish_animals_social_media(modeladmin, request, queryset):
+    for animal in queryset:
+        results = publish_animal(animal)
+
+        msg_parts = []
+        for platform, status in results.items():
+            msg_parts.append(f"{platform}: {status}")
+
+        full_msg = f"Animal {animal.name}: " + ", ".join(msg_parts)
+
+        if "Error" in full_msg:
+            messages.warning(request, full_msg)
+        else:
+            messages.success(request, full_msg)
 
 
 @admin.action(description=_("Create animals from selected litters"))
@@ -168,6 +186,10 @@ class AnimalAdmin(FieldTranslatorAdmin):
     Admin configuration for Animal, including attachments and certifications.
     """
     form = forms.AnimalForm
+
+    actions = [
+        publish_animals_social_media
+    ]
 
     translation_fields = [
         'description'
