@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-04 15:55+0000\n"
+"POT-Creation-Date: 2026-01-06 16:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -760,21 +760,25 @@ msgstr ""
 msgid "Read"
 msgstr "Leggere"
 
-#: breeding/admin.py:19
+#: breeding/admin.py:18
+msgid "Publish selected animals to Social Media"
+msgstr "Pubblica animali selezionati sui social media"
+
+#: breeding/admin.py:35
 msgid "Create animals from selected litters"
 msgstr "Crea animali da cucciolate selezionate"
 
-#: breeding/admin.py:28
+#: breeding/admin.py:44
 #, python-format
 msgid "Litter \"%(litter_name)s\" has no babies to create."
 msgstr "La cucciolata \"%(litter_name)s\" non ha bambini da creare."
 
-#: breeding/admin.py:42
+#: breeding/admin.py:58
 #, python-brace-format
 msgid "Offspring {offspring_number} from litter {litter_name}"
 msgstr "Prole {offspring_number} dalla cucciolata {litter_name}"
 
-#: breeding/admin.py:102
+#: breeding/admin.py:118
 #, python-format
 msgid "Created %(babies_count)d babies for litter \"%(litter_name)s\"."
 msgstr "Creati %(babies_count)d cuccioli per la cucciolata \"%(litter_name)s\"."
@@ -1317,57 +1321,57 @@ msgstr ""
 "Al momento non abbiamo cucciolate disponibili. Ricontrolla più tardi o "
 "contattaci per ulteriori informazioni."
 
-#: fortissimusbellator/admin.py:5
+#: fortissimusbellator/admin.py:9
 msgid "Fortissimus Bellator Site Admin"
 msgstr "Amministratore del sito Fortissimus Bellator"
 
-#: fortissimusbellator/admin.py:6
+#: fortissimusbellator/admin.py:10
 msgid "Fortissimus Bellator Administration"
 msgstr "Amministrazione di Fortissimus Bellator"
 
-#: fortissimusbellator/settings.py:193
+#: fortissimusbellator/settings.py:259
 #: fortissimusbellator/templates/components/navbar.html:71
 #: fortissimusbellator/templates/components/navbar.html:80
 #: fortissimusbellator/templates/components/navbar.html:81
 msgid "English"
 msgstr "Inglese"
 
-#: fortissimusbellator/settings.py:194
+#: fortissimusbellator/settings.py:260
 #: fortissimusbellator/templates/components/navbar.html:61
 #: fortissimusbellator/templates/components/navbar.html:84
 #: fortissimusbellator/templates/components/navbar.html:85
 msgid "Portuguese"
 msgstr "Portoghese"
 
-#: fortissimusbellator/settings.py:195
+#: fortissimusbellator/settings.py:261
 #: fortissimusbellator/templates/components/navbar.html:65
 #: fortissimusbellator/templates/components/navbar.html:92
 #: fortissimusbellator/templates/components/navbar.html:93
 msgid "Spanish"
 msgstr "Spagnolo"
 
-#: fortissimusbellator/settings.py:196
+#: fortissimusbellator/settings.py:262
 #: fortissimusbellator/templates/components/navbar.html:63
 #: fortissimusbellator/templates/components/navbar.html:88
 #: fortissimusbellator/templates/components/navbar.html:89
 msgid "French"
 msgstr "Francese"
 
-#: fortissimusbellator/settings.py:197
+#: fortissimusbellator/settings.py:263
 #: fortissimusbellator/templates/components/navbar.html:67
 #: fortissimusbellator/templates/components/navbar.html:96
 #: fortissimusbellator/templates/components/navbar.html:97
 msgid "German"
 msgstr "Tedesco"
 
-#: fortissimusbellator/settings.py:198
+#: fortissimusbellator/settings.py:264
 #: fortissimusbellator/templates/components/navbar.html:69
 #: fortissimusbellator/templates/components/navbar.html:100
 #: fortissimusbellator/templates/components/navbar.html:101
 msgid "Italian"
 msgstr "Italiano"
 
-#: fortissimusbellator/templates/base.html:120
+#: fortissimusbellator/templates/base.html:124
 msgid "Dog Breeder in Portugal"
 msgstr "Allevatore di cani in Portogallo"
 

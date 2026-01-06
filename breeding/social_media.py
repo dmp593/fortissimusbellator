@@ -209,17 +209,21 @@ def publish_animal(animal):
     """
     Build a PT message and publish to FB Page and IG Business account.
     """
-    message = f"🐕 {animal.name} de Fortissimus Bellator 🐕\n"
+    site_domain = Site.objects.get_current().domain
+    site_url = f"https://{site_domain}/"
 
+    animal_breed_name = animal.breed.name_pt or animal.breed.name_en or animal.breed.name
+    animal_description = animal.description_pt or animal.description_en or animal.description
+
+    message = f"🐕 {animal.name} de Fortissimus Bellator 🐕\n"
     if animal.father and animal.mother:
         message += f"({animal.father.name} x {animal.mother.name})\n"
+    message += f"Raça: {animal_breed_name}\n\n"
 
-    message += f"Raça: {animal.breed.name_pt or animal.breed.name}\n\n"
-    message += f"{animal.description_pt or animal.description}\n\n"
+    message += f"{animal_description}\n\n"
 
-    message += "Entre em contacto para mais informações!\n\n"
-
-    message += f"🌐 Website: https://{Site.objects.get_current().domain}/\n\n"
+    message += "Entre em contacto para mais informações!\n"
+    message += f"🌐 Website: {site_url}\n"
     message += "📞 WhatsApp: +351 924 454 382\n\n"
 
     message += "⚔️FORTISSIMUS BELLATOR⚔️\n•▪️Breeding Legendaries▪️•\n\n"

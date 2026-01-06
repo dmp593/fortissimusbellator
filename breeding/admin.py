@@ -15,7 +15,7 @@ from .translation import models
 from .social_media import publish_animal
 
 
-@admin.action(description=_("Publish selected animals to Social Media (PT)"))
+@admin.action(description=_("Publish selected animals to Social Media"))
 def publish_animals_social_media(modeladmin, request, queryset):
     for animal in queryset:
         results = publish_animal(animal)
