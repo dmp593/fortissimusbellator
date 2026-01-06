@@ -8,9 +8,8 @@ from django.contrib.sites.models import Site
 from django.utils.text import slugify
 from attachments.models import Attachment
 
-logger = logging.getLogger(__name__)
 
-GRAPH_VERSION = "v24.0"
+logger = logging.getLogger(__name__)
 
 
 def get_animal_image_url(animal):
@@ -57,15 +56,17 @@ def publish_to_facebook(message, image_url):
         logger.warning("Facebook credentials missing")
         return False, "Facebook credentials not configured"
 
+    url = f"https://graph.facebook.com/{settings.FACEBOOK_GRAPH_VERSION}/{page_id}"
+
     if image_url:
-        url = f"https://graph.facebook.com/{GRAPH_VERSION}/{page_id}/photos"
+        url = f"{url}/photos"
         payload = {
             "message": message,
             "url": image_url,
             "access_token": access_token,
         }
     else:
-        url = f"https://graph.facebook.com/{GRAPH_VERSION}/{page_id}/feed"
+        url = f"{url}/feed"
         payload = {
             "message": message,
             "access_token": access_token,
@@ -94,7 +95,7 @@ def create_instagram_media(ig_user_id, access_token, image_url, caption):
     """
     Step 1: Create IG media container (image post). Supports alt_text optional.
     """
-    url = f"https://graph.facebook.com/{GRAPH_VERSION}/{ig_user_id}/media"
+    url = f"https://graph.facebook.com/{settings.FACEBOOK_GRAPH_VERSION}/{ig_user_id}/media"
 
     payload = {
         "image_url": image_url,
@@ -123,7 +124,7 @@ def publish_instagram_media(ig_user_id, access_token, creation_id):
         instagram_content_publish
         pages_show_list
     """
-    url = f"https://graph.facebook.com/{GRAPH_VERSION}/{ig_user_id}/media_publish"
+    url = f"https://graph.facebook.com/{settings.FACEBOOK_GRAPH_VERSION}/{ig_user_id}/media_publish"
 
     payload = {
         "creation_id": creation_id,
