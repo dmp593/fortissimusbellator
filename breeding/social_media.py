@@ -30,10 +30,8 @@ def get_animal_image_url(animal):
     if not attachment or not attachment.file:
         return None
 
-    site_url = getattr(settings, "SITE_URL", None)
-    if not site_url:
-        logger.warning("SITE_URL is not configured — public image URLs may fail")
-        return None
+    site = Site.objects.get_current()
+    site_url = f"https://{site.domain}/"
 
     return f"{site_url}{attachment.file.url}"
 
