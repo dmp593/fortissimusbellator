@@ -761,7 +761,7 @@ msgstr "Ler"
 
 #: breeding/admin.py:18
 msgid "Publish selected animals to Social Media"
-msgstr "Publique animais selecionados nas redes sociais"
+msgstr "Publicar animais selecionados nas redes sociais"
 
 #: breeding/admin.py:35
 msgid "Create animals from selected litters"
