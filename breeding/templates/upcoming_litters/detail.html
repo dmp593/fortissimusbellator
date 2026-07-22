@@ -2,11 +2,17 @@
 {% load static %}
 {% load i18n %}
 
+{% block title %}{{ litter.breed.name }} | {{ litter.name }}{% endblock %}
+
+{% block chat_context %}
+{% include "components/chat_context.html" with litter=litter %}
+{% endblock %}
+
 {% block content %}
-<div class="container mx-auto px-4 py-16">
+<div class="ui-page">
     <!-- Litter Name and Breed -->
     <div class="text-center mb-12">
-        <h1 class="font-serif text-4xl font-bold text-stone-900 dark:text-white">
+        <h1 class="ui-page-title">
             {{ litter.name }}
         </h1>
         <p class="font-sans text-stone-600 dark:text-stone-300 mt-2">
@@ -26,15 +32,15 @@
     </div>
 
     <!-- Litter Details Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
         <!-- Left Column: Description -->
         <div class="order-1">
             <!-- Description -->
-            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg mb-6">
-                <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
+            <div class="ui-card mb-8 p-8">
+                <h2 class="ui-section-title mb-4 text-2xl">
                     {% translate "About" %} {{ litter.name }}
                 </h2>
-                <p class="font-sans text-stone-600 dark:text-stone-300 whitespace-pre-line">
+                <p class="ui-body whitespace-pre-line">
                     {{ litter.description }}
                 </p>
             </div>
@@ -43,8 +49,8 @@
         <!-- Right Column: Details -->
         <div class="order-2">
             <!-- Details Card -->
-            <div class="bg-white dark:bg-stone-800 p-6 rounded-lg shadow-lg mb-6">
-                <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
+            <div class="ui-card mb-6 p-6">
+                <h2 class="ui-section-title mb-4 text-2xl">
                     {% translate "Details" %}
                 </h2>
                 <div class="space-y-4">
@@ -74,18 +80,18 @@
                     {% endif %}
 
                     <!-- (Expected) Ready Date -->
-                    {% if litter.expected_ready_date %}
+                    {% if litter.ready_date %}
+                    <div class="flex items-center space-x-2">
+                        {% include "icons/truck.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300">
+                            {{ litter.ready_date|date:"M d, Y" }}
+                        </span>
+                    </div>
+                    {% elif litter.expected_ready_date %}
                     <div class="flex items-center space-x-2">
                         {% include "icons/truck.html" %}
                         <span class="font-sans text-stone-600 dark:text-stone-300">
                             {{ litter.expected_ready_date|date:"M d, Y" }} <span class="text-xs text-stone-500 dark:text-stone-400">({% translate "Expected" %})</span>
-                        </span>
-                    </div>
-                    {% elif litter.ready_date %}
-                    <div class="flex items-center space-x-2">
-                        {% include "icons/truck.html" %}
-                        <span class="font-sans text-stone-600 dark:text-stone-300">
-                            {{ litter.ready_date }}
                         </span>
                     </div>
                     {% endif %}
@@ -110,18 +116,23 @@
                 </div>
             </div>
 
-            <!-- Call Us Button -->
-            <a href="{% url 'contact_us' %}" class="w-full bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300 flex items-center justify-center space-x-2 mb-6">
-                {% include "icons/phone.html" %}
-                <span>{% translate "Call Us" %}</span>
-            </a>
+            <div class="mb-8 flex flex-col gap-3 sm:flex-row">
+                <a href="{% url 'breeding:pre_reserve_litter' litter.pk %}" class="ui-button ui-button-secondary w-full px-8 py-4">
+                    {% include "icons/users.html" with class="size-6" %}
+                    <span>{% translate "Pre-Reserve" %}</span>
+                </a>
+                <a href="tel:+351924454382" class="ui-button ui-button-primary w-full px-8 py-4">
+                    {% include "icons/phone.html" with class="size-6" %}
+                    <span>{% translate "Call Us" %}</span>
+                </a>
+            </div>
         </div>
     </div>
 
     <!-- Lineage Tree Section -->
     {% if litter.father or litter.mother %}
     <div class="mt-24">
-        <h2 class="font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12 text-left">
+        <h2 class="ui-section-title mb-12 text-left text-4xl">
             {% translate "Lineage" %}
         </h2>
         {% include "components/lineage_tree.html" with animal=litter %}
@@ -130,7 +141,7 @@
 
     <!-- Gallery Section -->
     <div class="mt-24">
-        <h2 class="font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12 text-left">
+        <h2 class="ui-section-title mb-12 text-left text-4xl">
             {% translate "Gallery" %}
         </h2>
         {% include "components/gallery.html" with object=litter %}
@@ -138,7 +149,7 @@
 
     <!-- Back to Litters -->
     <div class="text-center mt-12">
-        <a href="{% url 'breeding:upcoming_litters' %}" class="inline-flex items-center bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300">
+        <a href="{% url 'breeding:upcoming_litters' %}" class="ui-button ui-button-primary px-8 py-4">
             {% include "icons/arrow_left.html" %}
             <span class="ml-2">{% translate "Go Back" %}</span>
         </a>

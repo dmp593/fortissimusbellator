@@ -3,3 +3,8 @@
     text-align: center;
     line-height: 40px; /* Center the emoji vertically */
 }
+
+/* Google permits hiding the v3 badge when its attribution remains visible. */
+.grecaptcha-badge {
+    visibility: hidden !important;
+}

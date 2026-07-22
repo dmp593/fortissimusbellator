@@ -19,6 +19,11 @@ from django.utils.translation import gettext_lazy as _
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+# Read .env file if it exists (for local development)
+env_file = BASE_DIR / '.env'
+if env_file.exists():
+    environ.Env.read_env(env_file)
+
 env = environ.Env(
     # <key>=(<casting>, <default-value>),
     SECRET_KEY=(
@@ -56,7 +61,23 @@ env = environ.Env(
     FACEBOOK_ACCESS_TOKEN=(str, ''),
     INSTAGRAM_ACCOUNT_ID=(str, ''),
 
-    DEEPL_AUTH_KEY=(str, '')
+    DEEPL_AUTH_KEY=(str, ''),
+
+    CHAT_MODEL_PATH=(
+        str,
+        str(BASE_DIR / '.models' / 'qwen2.5-1.5b-instruct-q4_k_m.gguf'),
+    ),
+    CHAT_MODEL_AUTO_DOWNLOAD=(bool, True),
+    CHAT_MODEL_DOWNLOAD_URL=(
+        str,
+        'https://huggingface.co/Qwen/'
+        'Qwen2.5-1.5B-Instruct-GGUF/resolve/main/'
+        'qwen2.5-1.5b-instruct-q4_k_m.gguf',
+    ),
+    CHAT_MODEL_DOWNLOAD_TIMEOUT=(int, 60),
+    CHAT_CONTEXT_SIZE=(int, 2048),
+    CHAT_MAX_OUTPUT_TOKENS=(int, 192),
+    CHAT_THREADS=(int, 2),
 )
 
 
@@ -89,6 +110,10 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_SECONDS = 31536000  # 1 year
 
+# Cross-origin services such as OpenStreetMap need to identify the requesting
+# website. Only send the origin over HTTPS; never expose paths or query strings.
+SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+
 SECURE_CSP = {
     'default-src': [
         CSP.SELF
@@ -101,18 +126,15 @@ SECURE_CSP = {
         'https://cdn.jsdelivr.net',
         '*.google.com',
         '*.gstatic.com',
-        '*.tawk.to',
     ],
     'style-src': [
         CSP.SELF,
         CSP.UNSAFE_INLINE,
         'https://fonts.googleapis.com',
-        'https://embed.tawk.to',
     ],
     'font-src': [
         CSP.SELF,
         'https://fonts.gstatic.com',
-        'https://embed.tawk.to',
     ],
     'img-src': [
         CSP.SELF,
@@ -120,27 +142,21 @@ SECURE_CSP = {
         'https://www.facebook.com',
         'https://www.instagram.com',
         'https://cdn.jsdelivr.net',
-        'https://embed.tawk.to',
-        'https://tawk.link',
         '*.openstreetmap.org',
     ],
     'connect-src': [
         CSP.SELF,
-        '*.tawk.to',
-        'wss://*.tawk.to',
     ],
     'frame-src': [
         CSP.SELF,
         '*.google.com',
-        '*.tawk.to',
         'https://www.instagram.com'
     ],
     'frame-ancestors': [
         CSP.NONE,
     ],
     'media-src': [
-        CSP.SELF,
-        'https://embed.tawk.to'
+        CSP.NONE,
     ],
     'object-src': [
         CSP.NONE,
@@ -175,6 +191,7 @@ INSTALLED_APPS = [
     'frontoffice',
     'blog',
     'quiz',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -320,8 +337,8 @@ FIXTURE_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_SITE_KEY')
-RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_SECRET_KEY')
+RECAPTCHA_PUBLIC_KEY = env('RECAPTCHA_SITE_KEY', '')
+RECAPTCHA_PRIVATE_KEY = env('RECAPTCHA_SECRET_KEY', '')
 
 PERMISSIONS_POLICY = {
     "accelerometer": [],
@@ -445,3 +462,41 @@ FACEBOOK_ACCESS_TOKEN = env('FACEBOOK_ACCESS_TOKEN')
 INSTAGRAM_ACCOUNT_ID = env('INSTAGRAM_ACCOUNT_ID')
 
 DEEPL_AUTH_KEY = env('DEEPL_AUTH_KEY')
+
+# Local chat model. Defaults are deliberately conservative for a server with
+# 2 GB RAM and 2 vCPUs. Run one web-server process so the model is loaded once.
+CHAT_MODEL_PATH = env('CHAT_MODEL_PATH')
+CHAT_MODEL_AUTO_DOWNLOAD = env('CHAT_MODEL_AUTO_DOWNLOAD')
+CHAT_MODEL_DOWNLOAD_URL = env('CHAT_MODEL_DOWNLOAD_URL')
+CHAT_MODEL_DOWNLOAD_TIMEOUT = env('CHAT_MODEL_DOWNLOAD_TIMEOUT')
+CHAT_CONTEXT_SIZE = env('CHAT_CONTEXT_SIZE')
+CHAT_MAX_OUTPUT_TOKENS = env('CHAT_MAX_OUTPUT_TOKENS')
+CHAT_THREADS = env('CHAT_THREADS')
+CHAT_BATCH_SIZE = 128
+CHAT_MODEL_WAIT_SECONDS = 30
+CHAT_MAX_INPUT_CHARS = 500
+CHAT_MAX_RESPONSE_CHARS = 2000
+CHAT_MAX_HISTORY_MESSAGES = 10
+CHAT_KNOWLEDGE_MAX_CHARS = 4000
+CHAT_MAX_FAQS = 3
+CHAT_MAX_KENNEL_ITEMS = 5
+CHAT_REQUESTS_PER_MINUTE = 12
+
+# Django's default logging hides application INFO messages.  Keep the model
+# download/load lifecycle visible on hosts where there is no shell access.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'chat': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}

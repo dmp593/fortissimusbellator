@@ -5,11 +5,15 @@
 
 {% block title %}{{ dog.breed.name }} | {{ dog.name }}{% endblock %}
 
+{% block chat_context %}
+{% include "components/chat_context.html" with dog=dog %}
+{% endblock %}
+
 {% block content %}
-<div class="container mx-auto px-4 py-16">
+<div class="ui-page">
     <!-- Dog Name and Breed -->
     <div class="text-center mb-16">
-        <h1 class="font-serif text-5xl font-bold text-stone-900 dark:text-white">
+        <h1 class="ui-page-title">
             {{ dog.name }}
         </h1>
         <p class="font-sans text-stone-600 dark:text-stone-300 mt-2 text-xl">
@@ -44,24 +48,24 @@
         <!-- Left Column: Description and Certifications -->
         <div class="space-y-12">
             <!-- Description -->
-            <div class="bg-white dark:bg-stone-800 p-8 rounded-xl shadow-lg">
-                <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-6">
+            <div class="ui-card p-8">
+                <h2 class="ui-section-title mb-6">
                     {% translate "About" %} {{ dog.name }}
                 </h2>
-                <p class="font-sans text-stone-600 dark:text-stone-300 text-lg leading-relaxed whitespace-pre-line">
+                <p class="ui-body text-lg whitespace-pre-line">
                     {{ dog.description }}
                 </p>
             </div>
 
             <!-- Certifications -->
             {% if dog.certifications.exists %}
-            <div class="bg-white dark:bg-stone-800 p-8 rounded-xl shadow-lg">
-                <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-6">
+            <div class="ui-card p-8">
+                <h2 class="ui-section-title mb-6">
                     {% translate "Certifications" %}
                 </h2>
                 <div class="space-y-6">
                     {% for cert in dog.animal_certifications.all %}
-                    <div class="bg-stone-50 dark:bg-stone-700 p-6 rounded-lg shadow-sm">
+                    <div class="ui-muted-surface p-6 shadow-sm">
                         <!-- Certification Header -->
                         <div class="cert-header flex justify-between items-center cursor-pointer">
                             <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">
@@ -71,7 +75,7 @@
                         </div>
                         <!-- Certification Content (Hidden by Default) -->
                         <div class="cert-content mt-4 hidden">
-                            <p class="font-sans text-stone-600 dark:text-stone-300 text-lg leading-relaxed">
+                            <p class="ui-body text-lg">
                                 {{ cert.certification.description }}
                             </p>
                             {% if cert.date %}
@@ -90,8 +94,8 @@
         <!-- Right Column: Details and Call Us Button -->
         <div class="space-y-12">
             <!-- Details Card -->
-            <div class="bg-white dark:bg-stone-800 p-8 rounded-xl shadow-lg">
-                <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-6">
+            <div class="ui-card p-8">
+                <h2 class="ui-section-title mb-6">
                     {% translate "Details" %}
                 </h2>
                 <div class="space-y-6">
@@ -119,7 +123,7 @@
 
                     <!-- Hair Type -->
                     {% if dog.hair_type %}
-                    <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
                         {% include "icons/hair_root.html" %}
                         <span class="font-sans text-stone-600 dark:text-stone-300 text-lg">
                             {% if dog.hair_type == 'short' %}
@@ -192,19 +196,19 @@
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row jusfity-center items-center gap-2 md:gap-3 lg:gap-4">
+            <div class="flex flex-col items-center justify-center gap-3 md:flex-row">
             <!-- Pre-reserve Button -->
             {% if not dog.sold_at %}
-            <a href="{% url 'breeding:pre_reserve_dog' dog.pk %}" class="hidden w-full bg-yellow-700 text-white px-8 py-4 rounded-xl hover:bg-yellow-600 transition duration-300 flex items-center justify-center space-x-3">
-                {% include "icons/currency_euro.html" with width=24 height=24 %}
+            <a href="{% url 'breeding:pre_reserve_dog' dog.pk %}" class="ui-button ui-button-secondary w-full px-8 py-4">
+                {% include "icons/currency_euro.html" with class="size-6" %}
                 <span class="text-lg">{% translate "Pre-Reserve" %}</span>
             </a>
             {% endif %}
 
             <!-- Call Us Button -->
             {% if not dog.sold_at %}
-            <a href="{% url 'contact_us' %}" class="w-full bg-stone-700 text-white px-8 py-4 rounded-xl hover:bg-stone-600 transition duration-300 flex items-center justify-center space-x-3">
-                {% include "icons/phone.html" with width=24 height=24 %}
+            <a href="tel:+351924454382" class="ui-button ui-button-primary w-full px-8 py-4">
+                {% include "icons/phone.html" with class="size-6" %}
                 <span class="text-lg">{% translate "Call Us" %}</span>
             </a>
             {% endif %}
@@ -215,7 +219,7 @@
     <!-- Lineage Tree Section -->
     {% if dog.father or dog.mother %}
     <div class="mt-24">
-        <h2 class="font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12 text-left">
+        <h2 class="ui-section-title mb-12 text-left text-4xl">
             {% translate "Lineage" %}
         </h2>
         {% include "components/lineage_tree.html" with animal=dog %}
@@ -224,7 +228,7 @@
 
     <!-- Gallery Section -->
     <div class="mt-24">
-        <h2 class="font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12 text-left">
+        <h2 class="ui-section-title mb-12 text-left text-4xl">
             {% translate "Gallery" %}
         </h2>
         {% include "components/gallery.html" with object=dog %}
@@ -232,9 +236,9 @@
 
     <!-- Back to 'breeding:buy_a_dog' -->
     <div class="text-center mt-24">
-        <a href="{% url 'breeding:buy_a_dog' %}" class="inline-flex items-center bg-stone-700 text-white px-8 py-4 rounded-xl hover:bg-stone-600 transition duration-300">
-            {% include "icons/arrow_left.html" with width=24 height=24 %}
-            <span class="ml-3 text-lg">{% translate "Go Back" %}</span>
+        <a href="{% url 'breeding:buy_a_dog' %}" class="ui-button ui-button-primary px-8 py-4 text-lg">
+            {% include "icons/arrow_left.html" with class="size-6" %}
+            <span>{% translate "Go Back" %}</span>
         </a>
     </div>
 </div>

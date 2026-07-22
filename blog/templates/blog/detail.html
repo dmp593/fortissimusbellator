@@ -7,11 +7,10 @@
 {% block title %}{% trans "Journal" %} | {{ post.title }}{% endblock %}
 
 {% block content %}
-<div class="pt-24">
-    <div class="container mx-auto px-4 py-8">
+<div class="ui-page py-8 sm:py-8">
         <!-- Paper-like background for the entire post -->
-        <article class="max-w-7xl mx-auto bg-white dark:bg-stone-800 rounded-xl shadow-lg overflow-hidden">
-            <div class="relative py-3 md:py-6 lg:py-8 md:py-12 px-3 md:px-12 lg:px-24 xl:px-32 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')] dark:bg-stone-900/50">
+        <article class="ui-card mx-auto max-w-7xl overflow-hidden">
+            <div class="paper-bg relative px-3 py-3 dark:bg-stone-900/50 md:px-12 md:py-12 lg:px-24 xl:px-32">
                 <!-- Post Title -->
                 <h1 class="font-serif text-3xl md:text-4xl xl:text-5xl font-bold text-stone-900 dark:text-white my-8 mx-4 md:mx-0">
                     {{ post.title }}
@@ -167,11 +166,10 @@
         
         <!-- Back to Posts -->
         <div class="text-center mt-12">
-            <a href="{% url 'blog:posts' %}" class="inline-flex items-center bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300">
+            <a href="{% url 'blog:posts' %}" class="ui-button ui-button-primary">
                 {% include "icons/arrow_left.html" %}
                 <span class="ml-2">{% translate "Go Back" %}</span>
             </a>
         </div>
     </div>
-</div>
 {% endblock %}

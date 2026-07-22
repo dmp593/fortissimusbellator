@@ -3,15 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Daniel Pinto <dmp593@gmail.com>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Fortissimus Bellator 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-06 16:49+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2026-07-22 15:07+0000\n"
+"PO-Revision-Date: 2026-07-22 10:50+0000\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Portuguese\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -95,6 +94,7 @@ msgid "Address Type"
 msgstr "Tipo de Morada"
 
 #: accounts/models.py:116
+#: fortissimusbellator/templates/components/navbar.html:121
 #: fortissimusbellator/templates/components/navbar.html:132
 msgid "Profile"
 msgstr "Perfil"
@@ -334,11 +334,11 @@ msgstr "Registe-se aqui"
 msgid "Forgot your password?"
 msgstr "Esqueceu-se da sua palavra-passe?"
 
-#: accounts/templates/logout.html:8
+#: accounts/templates/logout.html:9
 msgid "You have been logged out"
 msgstr "Terminou a sua sessão"
 
-#: accounts/templates/logout.html:11
+#: accounts/templates/logout.html:12
 msgid "Login again"
 msgstr "Entrar novamente"
 
@@ -365,12 +365,12 @@ msgstr "Redefinição de palavra-passe enviada"
 #: accounts/templates/password/password_reset_done.html:12
 msgid ""
 "We've emailed you instructions for setting your password. If you don't "
-"receive an email, please make sure you've entered the address you registered"
-" with."
+"receive an email, please make sure you've entered the address you registered "
+"with."
 msgstr ""
-"Enviamos-lhe por e-mail as instruções para definir a sua palavra-passe. Caso"
-" não tenha, recebido um e-mail, certifique-se de que introduz o endereço com"
-" que se registou."
+"Enviamos-lhe por e-mail as instruções para definir a sua palavra-passe. Caso "
+"não tenha, recebido um e-mail, certifique-se de que introduz o endereço com "
+"que se registou."
 
 #: accounts/templates/password/password_reset_done.html:16
 #: accounts/templates/password/password_reset_form.html:27
@@ -391,8 +391,8 @@ msgid ""
 "You're receiving this email because you requested a password reset for your "
 "account at Fortissimus Bellator."
 msgstr ""
-"Está a receber este e-mail porque solicitou uma redefinição de palavra-passe"
-" para a sua conta no Fortissimus Bellator."
+"Está a receber este e-mail porque solicitou uma redefinição de palavra-passe "
+"para a sua conta no Fortissimus Bellator."
 
 #: accounts/templates/password/password_reset_email.html:24
 msgid "Please click the button below to reset your password:"
@@ -469,14 +469,13 @@ msgstr "Painel de Administração"
 
 #: accounts/templates/welcome.html:40
 msgid "Manage the platform and keep everything running smoothly."
-msgstr ""
-"Faça a gestão da plataforma e mantenha tudo a funcionar perfeitamente."
+msgstr "Faça a gestão da plataforma e mantenha tudo a funcionar perfeitamente."
 
 #: accounts/templates/welcome.html:44
 msgid "Go to Admin Panel"
 msgstr "Aceder ao Painel Administrativo"
 
-#: accounts/templates/welcome.html:51
+#: accounts/templates/welcome.html:51 chat/templates/components/chat.html:70
 #: fortissimusbellator/templates/components/navbar.html:44
 #: fortissimusbellator/templates/components/navbar.html:185
 #: frontoffice/templates/faqs.html:5
@@ -549,8 +548,8 @@ msgid ""
 "Join us in our mission to breed and train exceptional dogs. Explore, "
 "connect, and be part of the journey."
 msgstr ""
-"Junte-se a nós na nossa missão de criar e treinar cães excecionais. Explore,"
-" conecte-se e faça parte da jornada."
+"Junte-se a nós na nossa missão de criar e treinar cães excecionais. Explore, "
+"conecte-se e faça parte da jornada."
 
 #: accounts/views.py:84 accounts/views.py:121
 msgid "Activate your account"
@@ -694,46 +693,46 @@ msgstr "comentários"
 msgid "Journal"
 msgstr "Jornal"
 
-#: blog/templates/blog/detail.html:44
+#: blog/templates/blog/detail.html:43
 #: blog/templates/blog/partials/cards.html:34
 msgid "By"
 msgstr "Por"
 
-#: blog/templates/blog/detail.html:78
+#: blog/templates/blog/detail.html:77
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: blog/templates/blog/detail.html:91
+#: blog/templates/blog/detail.html:90
 msgid "Share this post"
 msgstr "Partilha esta publicação"
 
-#: blog/templates/blog/detail.html:98
+#: blog/templates/blog/detail.html:97
 msgid "Share on X (Twitter)"
 msgstr "Partilhar no X (Twitter)"
 
-#: blog/templates/blog/detail.html:109
+#: blog/templates/blog/detail.html:108
 msgid "Share on Facebook"
 msgstr "Partilhar no Facebook"
 
-#: blog/templates/blog/detail.html:120
+#: blog/templates/blog/detail.html:119
 msgid "Share on LinkedIn"
 msgstr "Partilhar no LinkedIn"
 
-#: blog/templates/blog/detail.html:131
+#: blog/templates/blog/detail.html:130
 msgid "Send via WhatsApp"
 msgstr "Enviar via WhatsApp"
 
-#: blog/templates/blog/detail.html:145
+#: blog/templates/blog/detail.html:144
 msgid "You might also like"
 msgstr "Poderá também gostar de"
 
-#: blog/templates/blog/detail.html:154
+#: blog/templates/blog/detail.html:153
 msgid "No Image"
 msgstr "Sem Imagem"
 
-#: blog/templates/blog/detail.html:172
-#: breeding/templates/buy_a_dog/detail.html:237
-#: breeding/templates/upcoming_litters/detail.html:143
+#: blog/templates/blog/detail.html:171
+#: breeding/templates/buy_a_dog/detail.html:241
+#: breeding/templates/upcoming_litters/detail.html:154
 msgid "Go Back"
 msgstr "Voltar atrás"
 
@@ -745,11 +744,11 @@ msgstr "O nosso Jornal"
 msgid "Stories, tips, and insights from our kennel and the world of dogs."
 msgstr "Histórias, dicas e perspetivas do nosso canil e do mundo dos cães."
 
-#: blog/templates/blog/index.html:29
+#: blog/templates/blog/index.html:25
 msgid "No Posts Yet"
 msgstr "Sem Publicações"
 
-#: blog/templates/blog/index.html:32
+#: blog/templates/blog/index.html:26
 msgid "We haven't published any blog posts yet. Check back soon for updates!"
 msgstr ""
 "Ainda não publicámos nenhuma publicação no blog. Volte em breve para "
@@ -794,22 +793,22 @@ msgstr "Preço (€)"
 msgid "Discount (€)"
 msgstr "Desconto (€)"
 
-#: breeding/models.py:18 breeding/templates/buy_a_dog/detail.html:102
+#: breeding/models.py:18 breeding/templates/buy_a_dog/detail.html:106
 #: breeding/templates/buy_a_dog/index.html:76
 #: breeding/templates/buy_a_dog/partials/cards.html:38
-#: breeding/templates/our_dogs/index.html:45
+#: breeding/templates/our_dogs/index.html:42
 msgid "Male"
 msgstr "Macho"
 
-#: breeding/models.py:19 breeding/templates/buy_a_dog/detail.html:105
+#: breeding/models.py:19 breeding/templates/buy_a_dog/detail.html:109
 #: breeding/templates/buy_a_dog/index.html:77
 #: breeding/templates/buy_a_dog/partials/cards.html:41
-#: breeding/templates/our_dogs/index.html:48
+#: breeding/templates/our_dogs/index.html:45
 msgid "Female"
 msgstr "Fêmea"
 
 #: breeding/models.py:20 breeding/models.py:27
-#: breeding/templates/buy_a_dog/detail.html:108
+#: breeding/templates/buy_a_dog/detail.html:112
 #: breeding/templates/buy_a_dog/index.html:78
 #: breeding/templates/buy_a_dog/partials/cards.html:44
 #: breeding/templates/components/lineage_tree.html:44
@@ -818,7 +817,7 @@ msgstr "Fêmea"
 #: breeding/templates/components/lineage_tree.html:121
 #: breeding/templates/components/lineage_tree.html:146
 #: breeding/templates/components/lineage_tree.html:171
-#: breeding/templates/our_dogs/index.html:51
+#: breeding/templates/our_dogs/index.html:48
 msgid "Unknown"
 msgstr "Desconhecido"
 
@@ -859,7 +858,7 @@ msgstr ""
 "inicial e navegação"
 
 #: breeding/models.py:124 breeding/models.py:226 breeding/models.py:414
-#: quiz/models.py:73
+#: chat/experts.py:227 quiz/models.py:73
 msgid "breed"
 msgstr "raça"
 
@@ -915,7 +914,7 @@ msgstr "pai"
 msgid "mother"
 msgstr "mãe"
 
-#: breeding/models.py:283 breeding/models.py:524
+#: breeding/models.py:283 breeding/models.py:524 chat/experts.py:226
 msgid "litter"
 msgstr "ninhada"
 
@@ -1023,99 +1022,102 @@ msgstr "Fase atual do ciclo de vida da ninhada"
 msgid "litters"
 msgstr "ninhadas"
 
-#: breeding/templates/buy_a_dog/detail.html:26
+#: breeding/templates/buy_a_dog/detail.html:30
 #: breeding/templates/buy_a_dog/partials/cards.html:11
-#: breeding/templates/upcoming_litters/detail.html:23
+#: breeding/templates/components/pre_reserve.html:17
+#: breeding/templates/upcoming_litters/detail.html:29
 #: breeding/templates/upcoming_litters/partials/cards.html:11
 msgid "No Image Available"
 msgstr "Sem Imagem"
 
-#: breeding/templates/buy_a_dog/detail.html:33
-#: breeding/templates/buy_a_dog/detail.html:168
+#: breeding/templates/buy_a_dog/detail.html:37
+#: breeding/templates/buy_a_dog/detail.html:172
 #: breeding/templates/buy_a_dog/partials/cards.html:18
 #: breeding/templates/buy_a_dog/partials/cards.html:94
 msgid "Sold"
 msgstr "Vendido"
 
-#: breeding/templates/buy_a_dog/detail.html:37
+#: breeding/templates/buy_a_dog/detail.html:41
 #: breeding/templates/buy_a_dog/partials/cards.html:22
 msgid "On Sale"
 msgstr "Com desconto"
 
-#: breeding/templates/buy_a_dog/detail.html:49
-#: breeding/templates/upcoming_litters/detail.html:35
+#: breeding/templates/buy_a_dog/detail.html:53
+#: breeding/templates/upcoming_litters/detail.html:41
 msgid "About"
 msgstr "Sobre"
 
-#: breeding/templates/buy_a_dog/detail.html:60
-#: breeding/templates/our_dogs/index.html:109
+#: breeding/templates/buy_a_dog/detail.html:64
+#: breeding/templates/our_dogs/index.html:99
 msgid "Certifications"
 msgstr "Certificações"
 
-#: breeding/templates/buy_a_dog/detail.html:79
-#: breeding/templates/our_dogs/index.html:128
+#: breeding/templates/buy_a_dog/detail.html:83
+#: breeding/templates/our_dogs/index.html:118
 msgid "Certified on"
 msgstr "Certificado em"
 
-#: breeding/templates/buy_a_dog/detail.html:95
-#: breeding/templates/upcoming_litters/detail.html:48
+#: breeding/templates/buy_a_dog/detail.html:99
+#: breeding/templates/upcoming_litters/detail.html:54
 msgid "Details"
 msgstr "Detalhes"
 
-#: breeding/templates/buy_a_dog/detail.html:126
+#: breeding/templates/buy_a_dog/detail.html:130
 #: breeding/templates/buy_a_dog/index.html:101
 #: breeding/templates/buy_a_dog/partials/cards.html:60
 msgid "Short Hair"
 msgstr "Pêlo Curto"
 
-#: breeding/templates/buy_a_dog/detail.html:128
+#: breeding/templates/buy_a_dog/detail.html:132
 #: breeding/templates/buy_a_dog/index.html:102
 #: breeding/templates/buy_a_dog/partials/cards.html:62
 msgid "Medium Hair"
 msgstr "Pêlo Médio"
 
-#: breeding/templates/buy_a_dog/detail.html:130
+#: breeding/templates/buy_a_dog/detail.html:134
 #: breeding/templates/buy_a_dog/index.html:103
 #: breeding/templates/buy_a_dog/partials/cards.html:64
 msgid "Long Hair"
 msgstr "Pêlo Comprido"
 
-#: breeding/templates/buy_a_dog/detail.html:143
+#: breeding/templates/buy_a_dog/detail.html:147
 #: breeding/templates/buy_a_dog/partials/cards.html:76
-#: breeding/templates/our_dogs/index.html:66
+#: breeding/templates/our_dogs/index.html:61
 msgid "Trained"
 msgstr "Treinado"
 
-#: breeding/templates/buy_a_dog/detail.html:153
-#, fuzzy
-#| msgid "litter"
+#: breeding/templates/buy_a_dog/detail.html:157
 msgid "Litter"
 msgstr "ninhada"
 
-#: breeding/templates/buy_a_dog/detail.html:188
+#: breeding/templates/buy_a_dog/detail.html:192
 #: breeding/templates/buy_a_dog/partials/cards.html:107
 msgid "Call for Pricing"
 msgstr "Contacte-nos para Preço"
 
-#: breeding/templates/buy_a_dog/detail.html:200
+#: breeding/templates/buy_a_dog/detail.html:204
+#: breeding/templates/buy_a_dog/pre_reserve.html:4
+#: breeding/templates/upcoming_litters/detail.html:122
+#: breeding/templates/upcoming_litters/pre_reserve.html:4
 msgid "Pre-Reserve"
 msgstr "Pré-Reservar"
 
-#: breeding/templates/buy_a_dog/detail.html:208
-#: breeding/templates/upcoming_litters/detail.html:116
+#: breeding/templates/buy_a_dog/detail.html:212
+#: breeding/templates/components/pre_reserve.html:91
+#: breeding/templates/upcoming_litters/detail.html:126
 msgid "Call Us"
 msgstr "Ligue-nos"
 
-#: breeding/templates/buy_a_dog/detail.html:219
-#: breeding/templates/our_dogs/index.html:142
-#: breeding/templates/upcoming_litters/detail.html:125
+#: breeding/templates/buy_a_dog/detail.html:223
+#: breeding/templates/our_dogs/index.html:132
+#: breeding/templates/upcoming_litters/detail.html:136
 msgid "Lineage"
 msgstr "Linhagem"
 
-#: breeding/templates/buy_a_dog/detail.html:228
+#: breeding/templates/buy_a_dog/detail.html:232
 #: breeding/templates/components/gallery.html:8
-#: breeding/templates/our_dogs/index.html:151
-#: breeding/templates/upcoming_litters/detail.html:134
+#: breeding/templates/our_dogs/index.html:141
+#: breeding/templates/upcoming_litters/detail.html:145
 msgid "Gallery"
 msgstr "Galeria"
 
@@ -1177,15 +1179,15 @@ msgstr "Tem Treino"
 msgid "Has Certifications"
 msgstr "Tem Certificações"
 
-#: breeding/templates/buy_a_dog/index.html:183
+#: breeding/templates/buy_a_dog/index.html:180
 msgid "Find Your Fur"
 msgstr "Encontre o seu cão-panheiro"
 
-#: breeding/templates/buy_a_dog/index.html:203
+#: breeding/templates/buy_a_dog/index.html:196
 msgid "No Dogs Available"
 msgstr "Sem Cães Disponíveis"
 
-#: breeding/templates/buy_a_dog/index.html:206
+#: breeding/templates/buy_a_dog/index.html:197
 msgid ""
 "We currently don't have any dogs available. Please check back later or "
 "contact us for more information."
@@ -1236,6 +1238,70 @@ msgstr "Avó"
 msgid "Load More"
 msgstr "Carregar Mais"
 
+#: breeding/templates/components/pre_reserve.html:34
+msgid "Pre-Reserve This Dog"
+msgstr "Pré-Reservar"
+
+#: breeding/templates/components/pre_reserve.html:36
+msgid "Pre-Reserve a Puppy from This Litter"
+msgstr "Pré-Reservar um Cachorro desta Ninhada"
+
+#: breeding/templates/components/pre_reserve.html:43
+#, python-format
+msgid ""
+"You're about to pre-reserve <strong>%(name)s</strong>. By pre-reserving, you "
+"express your serious interest in purchasing this dog. Our team will contact "
+"you to discuss the next steps, including availability, pricing, and any "
+"additional details."
+msgstr ""
+"Está prestes a pré-reservar <strong>%(name)s</strong>. Ao fazer a pré-"
+"reserva, manifesta o seu interesse sério em adquirir este cão. A nossa "
+"equipa irá contactá-lo para explicar os próximos passos, incluindo "
+"disponibilidade, preço e outros detalhes."
+
+#: breeding/templates/components/pre_reserve.html:45
+#, python-format
+msgid ""
+"You're about to pre-reserve a puppy from the <strong>%(name)s</strong> "
+"litter. By pre-reserving, you express your serious interest in purchasing "
+"one of the puppies. Our team will contact you to discuss availability, "
+"expected dates, and next steps."
+msgstr ""
+"Está prestes a pré-reservar um cachorro da ninhada <strong>%(name)s</"
+"strong>. Ao fazer a pré-reserva, manifesta o seu interesse sério em adquirir "
+"um dos cachorros. A nossa equipa irá contactá-lo para falar sobre a "
+"disponibilidade, as datas previstas e os próximos passos."
+
+#: breeding/templates/components/pre_reserve.html:51
+msgid "Price"
+msgstr "Preço (€)"
+
+#: breeding/templates/components/pre_reserve.html:64
+#: breeding/templates/upcoming_litters/detail.html:61
+msgid "Status"
+msgstr "Estado"
+
+#: breeding/templates/components/pre_reserve.html:69
+msgid "Expected Ready"
+msgstr "data de entrega expectável"
+
+#: breeding/templates/components/pre_reserve.html:75
+msgid "Expected Puppies"
+msgstr "número expectável de bebés"
+
+#: breeding/templates/components/pre_reserve.html:81
+msgid "Birth Date"
+msgstr "Data de nascimento"
+
+#: breeding/templates/components/pre_reserve.html:95
+msgid "Send a Message"
+msgstr "Enviar Mensagem"
+
+#: breeding/templates/components/pre_reserve.html:107
+#, python-format
+msgid "Back to %(name)s"
+msgstr "Voltar a %(name)s"
+
 #: breeding/templates/our_dogs/index.html:5
 #: fortissimusbellator/templates/components/navbar.html:20
 #: fortissimusbellator/templates/components/navbar.html:166
@@ -1256,37 +1322,33 @@ msgstr ""
 "querido da nossa família, e estamos orgulhosos de partilhar as suas "
 "histórias consigo."
 
-#: breeding/templates/our_dogs/index.html:199
+#: breeding/templates/our_dogs/index.html:189
 msgid "Link copied to clipboard!"
 msgstr "Link copiado!"
 
-#: breeding/templates/our_dogs/index.html:201
+#: breeding/templates/our_dogs/index.html:191
 msgid "Failed to copy link."
 msgstr "Falha ao copiar o link."
 
-#: breeding/templates/our_dogs/index.html:216
+#: breeding/templates/our_dogs/index.html:206
 msgid "Page shared!"
 msgstr "Pagina partilhada!"
 
-#: breeding/templates/our_dogs/index.html:218
+#: breeding/templates/our_dogs/index.html:208
 msgid "Page was not shared."
 msgstr "Página não foi partilhada."
 
-#: breeding/templates/upcoming_litters/detail.html:55
-msgid "Status"
-msgstr "Estado"
-
-#: breeding/templates/upcoming_litters/detail.html:71
-#: breeding/templates/upcoming_litters/detail.html:81
-#: breeding/templates/upcoming_litters/detail.html:106
+#: breeding/templates/upcoming_litters/detail.html:77
+#: breeding/templates/upcoming_litters/detail.html:94
+#: breeding/templates/upcoming_litters/detail.html:112
 #: breeding/templates/upcoming_litters/partials/cards.html:32
 #: breeding/templates/upcoming_litters/partials/cards.html:50
 #: breeding/templates/upcoming_litters/partials/cards.html:67
 msgid "Expected"
 msgstr "Expectável"
 
-#: breeding/templates/upcoming_litters/detail.html:98
-#: breeding/templates/upcoming_litters/detail.html:105
+#: breeding/templates/upcoming_litters/detail.html:104
+#: breeding/templates/upcoming_litters/detail.html:111
 #: breeding/templates/upcoming_litters/partials/cards.html:60
 #: breeding/templates/upcoming_litters/partials/cards.html:67
 #, python-format
@@ -1306,21 +1368,392 @@ msgstr "Próximas Ninhadas"
 msgid "Find Your Future Furry Family"
 msgstr "Encontre a sua Futura Família Patuda"
 
-#: breeding/templates/upcoming_litters/index.html:45
+#: breeding/templates/upcoming_litters/index.html:42
 msgid "Find Litters"
 msgstr "Encontre Ninhadas"
 
-#: breeding/templates/upcoming_litters/index.html:66
+#: breeding/templates/upcoming_litters/index.html:58
 msgid "No Litters Available"
 msgstr "Sem Ninhadas"
 
-#: breeding/templates/upcoming_litters/index.html:69
+#: breeding/templates/upcoming_litters/index.html:59
 msgid ""
 "We currently don't have any litters available. Please check back later or "
 "contact us for more information."
 msgstr ""
 "Atualmente não temos ninhadas disponíveis. Volte a verificar mais tarde ou "
 "contacte-nos para mais informações."
+
+#: chat/experts.py:53
+msgid "Hello! How can I help you today?"
+msgstr "Olá! Como posso ajudar hoje?"
+
+#: chat/experts.py:68
+msgid "I cannot identify the current page."
+msgstr "Não consigo identificar a página atual."
+
+#: chat/experts.py:72
+#, python-format
+msgid "You are on the “%(page)s” page."
+msgstr "Está na página “%(page)s”."
+
+#: chat/experts.py:99
+#, python-format
+msgid "Did you mean: %(choices)s?"
+msgstr "Queria dizer: %(choices)s?"
+
+#: chat/experts.py:131
+#, python-format
+msgid "%(name)s is available for %(price)s."
+msgstr "%(name)s está disponível por %(price)s."
+
+#: chat/experts.py:135
+#, python-format
+msgid "%(name)s is not currently available for sale."
+msgstr "%(name)s não está atualmente disponível para venda."
+
+#: chat/experts.py:142
+#, python-format
+msgid "%(name)s is listed for %(price)s."
+msgstr "%(name)s está à venda por %(price)s."
+
+#: chat/experts.py:146
+#, python-format
+msgid "%(name)s has no current sale price."
+msgstr "%(name)s não tem atualmente um preço de venda."
+
+#: chat/experts.py:150
+#, python-format
+msgid "About %(name)s:"
+msgstr "Sobre %(name)s:"
+
+#: chat/experts.py:151 chat/experts.py:193
+#, python-format
+msgid "- Breed: %(value)s"
+msgstr "- Raça: %(value)s"
+
+#: chat/experts.py:152
+#, python-format
+msgid "- Gender: %(value)s"
+msgstr "- Sexo: %(value)s"
+
+#: chat/experts.py:155
+#, python-format
+msgid "- Born: %(value)s"
+msgstr "- Nascimento: %(value)s"
+
+#: chat/experts.py:158 chat/experts.py:201
+#, python-format
+msgid "- Description: %(value)s"
+msgstr "- Descrição: %(value)s"
+
+#: chat/experts.py:162
+msgid "- Training: listed"
+msgstr "- Treino: indicado"
+
+#: chat/experts.py:166
+#, python-format
+msgid "- Certifications: %(value)s"
+msgstr "- Certificações: %(value)s"
+
+#: chat/experts.py:171
+#, python-format
+msgid "- Availability: available for %(price)s"
+msgstr "- Disponibilidade: disponível por %(price)s"
+
+#: chat/experts.py:175
+msgid "- Availability: no longer available"
+msgstr "- Disponibilidade: já não está disponível"
+
+#: chat/experts.py:185
+#, python-format
+msgid "- Current litters: %(value)s"
+msgstr "- Ninhadas atuais: %(value)s"
+
+#: chat/experts.py:192
+#, python-format
+msgid "About the %(name)s litter:"
+msgstr "Sobre a ninhada %(name)s:"
+
+#: chat/experts.py:194
+#, python-format
+msgid "- Status: %(value)s"
+msgstr "- Estado: %(value)s"
+
+#: chat/experts.py:205
+#, python-format
+msgid "- Father: %(value)s"
+msgstr "- Pai: %(value)s"
+
+#: chat/experts.py:207
+#, python-format
+msgid "- Mother: %(value)s"
+msgstr "- Mãe: %(value)s"
+
+#: chat/experts.py:210
+#, python-format
+msgid "- Babies: %(value)s"
+msgstr "- Crias: %(value)s"
+
+#: chat/experts.py:215
+#, python-format
+msgid "About the %(name)s breed:"
+msgstr "Sobre a raça %(name)s:"
+
+#: chat/experts.py:219
+msgid "No additional description is currently published."
+msgstr "Não existe atualmente uma descrição adicional publicada."
+
+#: chat/experts.py:225
+msgid "dog"
+msgstr "cão"
+
+#: chat/experts.py:255
+msgid ""
+"No dogs are currently listed for sale. Contact us for the latest "
+"availability."
+msgstr ""
+"Neste momento, não existem cães anunciados para venda. Contacte-nos para "
+"saber a disponibilidade mais recente."
+
+#: chat/experts.py:259
+msgid "Dogs currently available:"
+msgstr "Cães atualmente disponíveis:"
+
+#: chat/experts.py:261
+#, python-format
+msgid "- %(name)s — %(breed)s, %(gender)s, %(price)s."
+msgstr "- %(name)s — %(breed)s, %(gender)s, %(price)s."
+
+#: chat/experts.py:268
+msgid "Contact us for more information or to arrange a visit."
+msgstr "Contacte-nos para mais informações ou para marcar uma visita."
+
+#: chat/experts.py:280
+msgid "No prices are currently listed. Contact us for the latest information."
+msgstr ""
+"Neste momento, não existem preços publicados. Contacte-nos para obter as "
+"informações mais recentes."
+
+#: chat/experts.py:284
+msgid "Current prices:"
+msgstr "Preços atuais:"
+
+#: chat/experts.py:286
+#, python-format
+msgid "- %(name)s — %(price)s."
+msgstr "- %(name)s — %(price)s."
+
+#: chat/experts.py:291
+msgid ""
+"These are the prices currently shown on the website. Contact us for details."
+msgstr ""
+"Estes são os preços atualmente apresentados no site. Contacte-nos para mais "
+"detalhes."
+
+#: chat/experts.py:304
+msgid ""
+"No current or upcoming litters are listed. Contact us for the latest "
+"information."
+msgstr ""
+"Não existem ninhadas atuais ou futuras publicadas. Contacte-nos para obter "
+"as informações mais recentes."
+
+#: chat/experts.py:308
+msgid "Current or upcoming litters:"
+msgstr "Ninhadas atuais ou futuras:"
+
+#: chat/experts.py:310
+#, python-format
+msgid "%(name)s — %(breed)s; status: %(status)s"
+msgstr "%(name)s — %(breed)s; estado: %(status)s"
+
+#: chat/experts.py:319
+msgid "Contact us for more information about a litter."
+msgstr "Contacte-nos para mais informações sobre uma ninhada."
+
+#: chat/experts.py:349
+msgid "We are at Rua Quinta dos Frades, 904, 2400-821 Leiria, Portugal."
+msgstr "Estamos na Rua Quinta dos Frades, 904, 2400-821 Leiria, Portugal."
+
+#: chat/experts.py:354
+#, fuzzy
+#| msgid ""
+#| "You can contact us on +351 924 454 382 or +351 916 749 407 or at "
+#| "geral@fortissimusbellator.pt."
+msgid ""
+"You can contact us on +351 924 454 382 or at geral@fortissimusbellator.pt."
+msgstr ""
+"Pode contactar-nos através do +351 924 454 382 ou do +351 916 749 407 ou de "
+"geral@fortissimusbellator.pt."
+
+#: chat/experts.py:359
+#, fuzzy
+#| msgid ""
+#| "Visits are arranged in advance. Contact us on +351 924 454 382 or +351 "
+#| "916 749 407 to schedule one."
+msgid ""
+"Visits are arranged in advance. Contact us on +351 924 454 382 to schedule "
+"one."
+msgstr ""
+"As visitas são agendadas com antecedência. Contacte-nos através do +351 924 "
+"454 382 ou do +351 916 749 407 para marcar uma visita."
+
+#: chat/experts.py:378
+#, fuzzy
+#| msgid ""
+#| "No frequently asked questions are currently listed. Please contact us at "
+#| "+351 924 454 382 or +351 916 749 407."
+msgid ""
+"No frequently asked questions are currently listed. Please contact us at "
+"+351 924 454 382."
+msgstr ""
+"Não existem perguntas frequentes publicadas. Contacte-nos através do +351 "
+"924 454 382 ou do +351 916 749 407."
+
+#: chat/experts.py:381
+msgid "Frequently asked questions:"
+msgstr "Perguntas frequentes:"
+
+#: chat/experts.py:383
+msgid "Ask me one of these questions to see the answer."
+msgstr "Faça-me uma destas perguntas para ver a resposta."
+
+#: chat/experts.py:429
+msgid "price on request"
+msgstr "preço sob consulta"
+
+#: chat/experts.py:433
+#, python-format
+msgid "€%(amount)s"
+msgstr "%(amount)s €"
+
+#: chat/experts.py:443
+#, python-format
+msgid "ready since: %(date)s"
+msgstr "disponível desde: %(date)s"
+
+#: chat/experts.py:445
+#, python-format
+msgid "born: %(date)s"
+msgstr "nascimento: %(date)s"
+
+#: chat/experts.py:447
+#, python-format
+msgid "expected birth: %(date)s"
+msgstr "nascimento previsto: %(date)s"
+
+#: chat/experts.py:451
+#, python-format
+msgid "expected ready: %(date)s"
+msgstr "disponível a partir de: %(date)s"
+
+#: chat/templates/components/chat.html:8
+msgid ""
+"Hello! I'm here to help you with questions about Fortissimus Bellator. How "
+"can I assist you today?"
+msgstr ""
+"Olá! Estou aqui para ajudar com questões sobre a Fortissimus Bellator. Como "
+"posso ajudar?"
+
+#: chat/templates/components/chat.html:9 chat/views.py:106
+msgid "Something went wrong. Please try again."
+msgstr "Algo correu mal. Tente novamente."
+
+#: chat/templates/components/chat.html:15
+msgid "Open chat"
+msgstr "Abrir chat"
+
+#: chat/templates/components/chat.html:27
+#: chat/templates/components/chat.html:36
+msgid "AI Assistant"
+msgstr "Assistente de IA"
+
+#: chat/templates/components/chat.html:44
+#: chat/templates/components/chat.html:45
+msgid "Reset chat"
+msgstr "Reiniciar chat"
+
+#: chat/templates/components/chat.html:53
+msgid "Close chat"
+msgstr "Fechar chat"
+
+#: chat/templates/components/chat.html:67
+msgid "Show available dogs"
+msgstr "Mostrar cães disponíveis"
+
+#: chat/templates/components/chat.html:67
+msgid "Available dogs"
+msgstr "Cães disponíveis"
+
+#: chat/templates/components/chat.html:68
+msgid "Show current litters"
+msgstr "Mostrar ninhadas atuais"
+
+#: chat/templates/components/chat.html:68
+msgid "Current litters"
+msgstr "Ninhadas atuais"
+
+#: chat/templates/components/chat.html:69
+msgid "How much do your dogs cost?"
+msgstr "Quanto custam os vossos cães?"
+
+#: chat/templates/components/chat.html:69
+msgid "Pricing"
+msgstr "Preços"
+
+#: chat/templates/components/chat.html:70
+msgid "Frequently asked questions"
+msgstr "Perguntas Frequentes"
+
+#: chat/templates/components/chat.html:79
+msgid "Type your message..."
+msgstr "Escreva a sua mensagem..."
+
+#: chat/templates/components/chat.html:89
+msgid "Send message"
+msgstr "Enviar mensagem"
+
+#: chat/templates/components/chat.html:95
+msgid "Powered by AI · Limited knowledge base"
+msgstr "Tecnologia de IA · Base de conhecimento limitada"
+
+#: chat/views.py:36
+msgid "Too many requests. Please wait a moment."
+msgstr "Demasiados pedidos. Aguarde um momento."
+
+#: chat/views.py:42
+msgid "Invalid request format."
+msgstr "Formato de pedido inválido."
+
+#: chat/views.py:46
+msgid "Message is required."
+msgstr "A mensagem é obrigatória."
+
+#: chat/views.py:52
+#, python-format
+msgid "Message too long (max %(limit)s characters)."
+msgstr "Mensagem demasiado longa (máximo de %(limit)s caracteres)."
+
+#: chat/views.py:77
+msgid "The assistant is busy. Please try again shortly."
+msgstr "O assistente está ocupado. Tente novamente dentro de instantes."
+
+#: chat/views.py:84
+msgid ""
+"The assistant is being prepared for first use. Please try again in a few "
+"minutes."
+msgstr ""
+"O assistente está a ser preparado para a primeira utilização. Tente "
+"novamente dentro de alguns minutos."
+
+#: chat/views.py:97
+msgid ""
+"The assistant is temporarily unavailable. Please contact us at +351 924 454 "
+"382."
+msgstr ""
+"O assistente está temporariamente indisponível. Contacte-nos através do +351 "
+"924 454 382."
 
 #: fortissimusbellator/admin.py:9
 msgid "Fortissimus Bellator Site Admin"
@@ -1330,42 +1763,42 @@ msgstr "Site Administrativo de Fortissimus Bellator"
 msgid "Fortissimus Bellator Administration"
 msgstr "Administração de Fortissimus Bellator"
 
-#: fortissimusbellator/settings.py:259
+#: fortissimusbellator/settings.py:277
 #: fortissimusbellator/templates/components/navbar.html:71
 #: fortissimusbellator/templates/components/navbar.html:80
 #: fortissimusbellator/templates/components/navbar.html:81
 msgid "English"
 msgstr "Inglês"
 
-#: fortissimusbellator/settings.py:260
+#: fortissimusbellator/settings.py:278
 #: fortissimusbellator/templates/components/navbar.html:61
 #: fortissimusbellator/templates/components/navbar.html:84
 #: fortissimusbellator/templates/components/navbar.html:85
 msgid "Portuguese"
 msgstr "Português"
 
-#: fortissimusbellator/settings.py:261
+#: fortissimusbellator/settings.py:279
 #: fortissimusbellator/templates/components/navbar.html:65
 #: fortissimusbellator/templates/components/navbar.html:92
 #: fortissimusbellator/templates/components/navbar.html:93
 msgid "Spanish"
 msgstr "Espanhol"
 
-#: fortissimusbellator/settings.py:262
+#: fortissimusbellator/settings.py:280
 #: fortissimusbellator/templates/components/navbar.html:63
 #: fortissimusbellator/templates/components/navbar.html:88
 #: fortissimusbellator/templates/components/navbar.html:89
 msgid "French"
 msgstr "Francês"
 
-#: fortissimusbellator/settings.py:263
+#: fortissimusbellator/settings.py:281
 #: fortissimusbellator/templates/components/navbar.html:67
 #: fortissimusbellator/templates/components/navbar.html:96
 #: fortissimusbellator/templates/components/navbar.html:97
 msgid "German"
 msgstr "Alemão"
 
-#: fortissimusbellator/settings.py:264
+#: fortissimusbellator/settings.py:282
 #: fortissimusbellator/templates/components/navbar.html:69
 #: fortissimusbellator/templates/components/navbar.html:100
 #: fortissimusbellator/templates/components/navbar.html:101
@@ -1375,6 +1808,10 @@ msgstr "Italiano"
 #: fortissimusbellator/templates/base.html:124
 msgid "Dog Breeder in Portugal"
 msgstr "Criador de Cães em Portugal"
+
+#: fortissimusbellator/templates/base.html:133
+msgid "Skip to main content"
+msgstr "Ir para o conteúdo principal"
 
 #: fortissimusbellator/templates/components/footer.html:15
 msgid "Partnerships"
@@ -1393,17 +1830,14 @@ msgid "School and Training"
 msgstr "Escola e Treino"
 
 #: fortissimusbellator/templates/components/footer.html:33
-#, fuzzy
 msgid "Facebook Social Page of Fortissimus Bellator"
 msgstr "Página Social do Facebook do Fortissimus Bellator"
 
 #: fortissimusbellator/templates/components/footer.html:44
-#, fuzzy
 msgid "Instagram Social Page of Fortissimus Bellator"
 msgstr "Página Social do Instagram do Fortissimus Bellator"
 
 #: fortissimusbellator/templates/components/footer.html:56
-#, fuzzy
 msgid "YouTube Social Page of Fortissimus Bellator"
 msgstr "Página Social do YouTube do Fortissimus Bellator"
 
@@ -1443,7 +1877,6 @@ msgid "My Dogs"
 msgstr "Os meus Cães"
 
 #: fortissimusbellator/templates/components/navbar.html:135
-#, fuzzy
 msgid "Logout form"
 msgstr "Formulário de Saída"
 
@@ -1462,12 +1895,16 @@ msgstr "Dúvidas sobre qual a raça certa para si?"
 #: fortissimusbellator/templates/components/quiz_cta.html:6
 msgid "Take our quick quiz to discover the ideal breed for your lifestyle."
 msgstr ""
-"Responda ao nosso rápido questionário para descobrir a raça ideal para o seu"
-" estilo de vida."
+"Responda ao nosso rápido questionário para descobrir a raça ideal para o seu "
+"estilo de vida."
 
 #: fortissimusbellator/templates/components/quiz_cta.html:9
 msgid "Start Quiz"
 msgstr "Iniciar Questionário"
+
+#: fortissimusbellator/templates/components/whatsapp.html:5
+msgid "Chat on WhatsApp"
+msgstr "Conversar no WhatsApp"
 
 #: frontoffice/forms.py:12 frontoffice/templates/contact_us.html:41
 msgid "Your Name"
@@ -1536,9 +1973,9 @@ msgstr ""
 #: frontoffice/templates/about_us.html:39
 msgid ""
 "Whether it's for police work, service roles, or as beloved family pets, "
-"every dog we breed is raised with care, trained with expertise, and nurtured"
-" to reach their full potential. We believe in the power of a well-trained "
-"dog to make a difference in the lives of individuals and communities."
+"every dog we breed is raised with care, trained with expertise, and nurtured "
+"to reach their full potential. We believe in the power of a well-trained dog "
+"to make a difference in the lives of individuals and communities."
 msgstr ""
 "Seja para trabalho policial, funções de serviço ou como adorados animais de "
 "estimação da família, cada cão que criamos é criado com cuidado, treinado "
@@ -1553,8 +1990,8 @@ msgid ""
 "to grow in their role."
 msgstr ""
 "O nosso compromisso vai além da criação. Oferecemos apoio vitalício aos "
-"nossos clientes, garantindo que cada cão prospera no seu ambiente e continua"
-" para crescer no seu papel."
+"nossos clientes, garantindo que cada cão prospera no seu ambiente e continua "
+"para crescer no seu papel."
 
 #: frontoffice/templates/about_us.html:53
 msgid "Our Core Values"
@@ -1671,21 +2108,46 @@ msgstr ""
 msgid "Message"
 msgstr "Mensagem"
 
-#: frontoffice/templates/contact_us.html:120
+#: frontoffice/templates/contact_us.html:110
+msgid "This site is protected by reCAPTCHA and the Google"
+msgstr "Este site está protegido pelo reCAPTCHA e aplicam-se a"
+
+#: frontoffice/templates/contact_us.html:111
+msgid "Privacy Policy"
+msgstr "Política de Privacidade"
+
+#: frontoffice/templates/contact_us.html:112
+msgid "and"
+msgstr "e os"
+
+#: frontoffice/templates/contact_us.html:113
+msgid "Terms of Service"
+msgstr "Termos de Serviço"
+
+#: frontoffice/templates/contact_us.html:114
+msgid "apply."
+msgstr "da Google."
+
+#: frontoffice/templates/contact_us.html:127
 msgid "Send Message"
 msgstr "Enviar Mensagem"
 
-#: frontoffice/templates/contact_us.html:128
+#: frontoffice/templates/contact_us.html:135
 msgid "Our Location"
 msgstr "A Nossa Localização"
 
-#: frontoffice/templates/contact_us.html:131
+#: frontoffice/templates/contact_us.html:138
 msgid "Visit us at our facility in Leiria, Portugal."
 msgstr "Visite-nos nas nossas instalações em Leiria, Portugal."
 
-#: frontoffice/templates/contact_us.html:138
+#: frontoffice/templates/contact_us.html:145
 msgid "View Larger Map"
 msgstr "Ver Mapa Maior"
+
+#: frontoffice/templates/home/_card_breed.html:5
+#, python-format
+msgid "%(breed_name)s from a breeder in Portugal"
+msgstr "%(breed_name)s de um criador em Portugal"
 
 #: frontoffice/templates/home/_card_breed.html:16
 #, python-format
@@ -1702,9 +2164,8 @@ msgid ""
 "passion ensures that each breed maintains its unique characteristics and "
 "health."
 msgstr ""
-"Dedicados à criação de cães fortes, inteligentes e bem socializados. A nossa"
-" paixão garante que cada raça mantenha as suas características únicas e "
-"saúde."
+"Dedicados à criação de cães fortes, inteligentes e bem socializados. A nossa "
+"paixão garante que cada raça mantenha as suas características únicas e saúde."
 
 #: frontoffice/templates/home/index.html:33
 msgid "Our Philosophy"
@@ -1826,15 +2287,3 @@ msgstr "cor para o tema escuro"
 #: tags/models.py:34
 msgid "content_type"
 msgstr "tipo de conteúdo"
-
-#~ msgid "long"
-#~ msgstr "longo"
-
-#~ msgid "expected delivery date"
-#~ msgstr "data de entrega expectável"
-
-#~ msgid "Puppy Finder"
-#~ msgstr "Encontrar Cachorro"
-
-#~ msgid "Description"
-#~ msgstr "Descrição"

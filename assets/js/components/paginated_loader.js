@@ -20,9 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (! response.ok) {
                 console.error('failed to load more');
                 btnLoadMore.closest('.paginated-loader-container').remove();
+                return;
             }
 
-            target.innerHTML += await response.text();
+            target.insertAdjacentHTML('beforeend', await response.text());
 
             if (++btnLoadMore.dataset.nextPage > btnLoadMore.dataset.totalPages) {
                 btnLoadMore.closest('.paginated-loader-container').remove();

@@ -5,64 +5,59 @@
 {% block title %}{% trans "Our Dogs" %}{% endblock %}
 
 {% block content %}
-<div class="mx-auto px-4 sm:px-6 lg:px-8 py-16">
+<div class="ui-page">
     <!-- Page Title -->
     <div class="text-center mb-16">
-        <h1 class="font-serif text-5xl font-bold text-stone-900 dark:text-white">
+        <h1 class="ui-page-title">
             🐾 {% translate "Our Proud Breeding Dogs" %}
         </h1>
-        <p class="font-sans text-stone-600 dark:text-stone-300 mt-4 max-w-2xl mx-auto text-xl">
+        <p class="ui-page-subtitle mx-auto max-w-2xl">
             {% translate "Meet the stars of our breeding program. Each dog is a cherished member of our family, and we're proud to share their stories with you." %}
         </p>
     </div>
 
     <!-- Dogs Sections -->
     {% for dog in dogs %}
-    <div id="dog-{{ dog.pk }}" class="pt-20">
-        <section class="bg-gradient-to-br from-stone-50 to-stone-100 dark:from-stone-800 dark:to-stone-900 rounded-xl shadow-2xl border border-stone-200 dark:border-stone-700 overflow-hidden">
+    <div id="dog-{{ dog.pk }}" class="mb-12 last:mb-0">
+        <section class="ui-panel mx-auto max-w-5xl overflow-hidden">
             <!-- Dog Card -->
-            <div class="relative flex flex-col lg:flex-row">
+            <div class="relative flex flex-col md:flex-row">
                 <!-- Image Section -->
-                <div class="lg:w-1/2 relative">
-                    <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-[80vh] lg:h-full drop-shadow-[3px_0_15px_rgba(0,0,0,0.25)] object-cover">
+                <div class="md:w-2/5 lg:w-1/2 relative flex-shrink-0">
+                    <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-72 md:h-full object-cover drop-shadow-[3px_0_15px_rgba(0,0,0,0.25)]">
                 </div>
 
                 <!-- Info Section -->
-                <div class="lg:w-1/2 p-8">
-                    <!-- Name and Gender -->
-                    <div class="flex items-center space-x-4 mb-4">
-                        <h2 class="font-serif text-4xl font-bold text-stone-900 dark:text-white mb-4">
-                            {{ dog.name }}
-                        </h2>
-                    </div>
+                <div class="md:w-3/5 lg:w-1/2 p-6 md:p-8 flex flex-col justify-center">
+                    <!-- Name -->
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-stone-900 dark:text-white mb-4">
+                        {{ dog.name }}
+                    </h2>
 
-                    <!-- Birthdate and Training Info -->
-                    <div class="flex flex-col space-y-2 mb-4">
-                        <!-- Gender Symbol -->
+                    <!-- Quick Info -->
+                    <div class="flex flex-wrap items-center gap-4 mb-4">
                         <div class="flex items-center space-x-2">
                             {% if dog.gender == 'M' %}
-                            {% include "icons/genders/male.html" with class="size-6" %}
-                            <span class="font-sans text-stone-600 dark:text-stone-300">{% translate "Male" %}</span>
+                            {% include "icons/genders/male.html" with class="size-5" %}
+                            <span class="font-sans text-stone-700 dark:text-stone-300 text-sm">{% translate "Male" %}</span>
                             {% elif dog.gender == 'F' %}
-                            {% include "icons/genders/female.html" with class="size-6" %}
-                            <span class="font-sans text-stone-600 dark:text-stone-300">{% translate "Female" %}</span>
+                            {% include "icons/genders/female.html" with class="size-5" %}
+                            <span class="font-sans text-stone-700 dark:text-stone-300 text-sm">{% translate "Female" %}</span>
                             {% else %}
-                            {% include "icons/genders/ambiguous.html" with class="size-6" %}
-                            <span class="font-sans text-stone-600 dark:text-stone-300">{% translate "Unknown" %}</span>
+                            {% include "icons/genders/ambiguous.html" with class="size-5" %}
+                            <span class="font-sans text-stone-700 dark:text-stone-300 text-sm">{% translate "Unknown" %}</span>
                             {% endif %}
                         </div>
-                        <!-- Birthdate -->
                         <div class="flex items-center space-x-2">
-                            {% include "icons/cake.html" with class="size-6 text-stone-600 dark:text-stone-300" %}
-                            <span class="font-sans text-stone-600 dark:text-stone-300">
+                            {% include "icons/cake.html" with class="size-5 text-stone-600 dark:text-stone-300" %}
+                            <span class="font-sans text-stone-700 dark:text-stone-300 text-sm">
                                 {{ dog.birth_date|date:"M d, Y" }}
                             </span>
                         </div>
-                        <!-- Training Info -->
                         {% if dog.has_training %}
                         <div class="flex items-center space-x-2">
-                            {% include "icons/dog_training.html" with class="size-6 text-stone-600 dark:text-stone-300" %}
-                            <span class="font-sans text-stone-600 dark:text-stone-300">
+                            {% include "icons/dog_training.html" with class="size-5 text-stone-600 dark:text-stone-300" %}
+                            <span class="font-sans text-stone-700 dark:text-stone-300 text-sm">
                                 {% translate "Trained" %}
                             </span>
                         </div>
@@ -70,15 +65,13 @@
                     </div>
 
                     {% if dog.description %}
-                    <!-- Description -->
-                    <p class="font-sans text-stone-600 dark:text-stone-300 text-lg whitespace-pre-line">
+                    <p class="font-sans text-stone-700 dark:text-stone-300 leading-relaxed whitespace-pre-line">
                         {{ dog.description }}
                     </p>
                     {% endif %}
                 </div>
 
                 {% if user.is_staff %}
-                <!-- Share -->
                 <div id="dog-{{ dog.pk }}-copy" class="absolute right-2 top-2 rounded-full p-2 cursor-pointer transform transition-transform duration-300 hover:scale-110" onclick="copyDogUrl('dog-{{ dog.pk }}')">
                     {% include "icons/clipboard.html" with class="size-6" %}
                 </div>
@@ -97,11 +90,8 @@
 
             <!-- Dog Details (Collapsible, Hidden by Default) -->
             <div id="dog-{{ dog.pk }}-content" class="overflow-hidden transition-all duration-500 ease-in-out max-h-0">
-                
-                <!-- Divider -->
                 <hr class="h-[0.3] border-t-0 bg-stone-800/20 dark:bg-white/20" />
-
-                <div class="p-8">
+                <div class="p-6 md:p-8">
                     <!-- Certifications -->
                     {% if dog.certifications.exists %}
                     <div class="mb-8">
@@ -110,7 +100,7 @@
                         </h3>
                         <div class="space-y-4">
                             {% for cert in dog.animal_certifications.all %}
-                            <div class="bg-stone-50 dark:bg-stone-700 p-6 rounded-lg shadow-sm">
+                            <div class="ui-muted-surface p-6 shadow-sm">
                                 <!-- Certification Header -->
                                 <div class="cert-header flex justify-between items-center cursor-pointer">
                                     <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">
@@ -161,9 +151,9 @@
 
 <!-- Toast Notification Container -->
 <div id="toast" class="fixed top-18 right-5 hidden z-[1003]">
-    <div class="bg-stone-800 text-white px-4 py-2 rounded-lg shadow-lg flex items-center justify-between">
+    <div class="bg-stone-800 dark:bg-stone-600 text-white px-4 py-2 rounded-lg shadow-lg flex items-center justify-between">
         <span id="toast-message"></span>
-        <button onclick="closeToast()" class="ml-4 text-stone-500 hover:text-stone-700 transition duration-300">
+        <button onclick="closeToast()" class="ml-4 text-stone-400 dark:text-stone-300 hover:text-stone-200 dark:hover:text-white transition duration-300">
             {% include "icons/x_mark.html" %}              
         </button>
     </div>

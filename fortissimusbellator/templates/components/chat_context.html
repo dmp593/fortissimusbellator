@@ -1,0 +1,17 @@
+{% if dog %}
+<span id="chat-page-context"
+      data-page-type="dog_detail"
+      data-dog-id="{{ dog.pk }}"
+      data-dog-name="{{ dog.name }}"
+      data-breed-id="{{ dog.breed_id }}"
+      data-breed-name="{{ dog.breed.name }}"
+      hidden></span>
+{% elif litter %}
+<span id="chat-page-context"
+      data-page-type="litter_detail"
+      data-litter-id="{{ litter.pk }}"
+      data-litter-name="{{ litter.name }}"
+      data-breed-id="{{ litter.breed_id }}"
+      data-breed-name="{{ litter.breed.name }}"
+      hidden></span>
+{% endif %}

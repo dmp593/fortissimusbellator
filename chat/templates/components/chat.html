@@ -1,0 +1,101 @@
+{% load static i18n %}
+
+<div
+  id="chat-widget"
+  class="chat-widget fixed bottom-4 z-[1003] font-sans"
+  data-message-url="{% url 'chat:message' %}"
+  data-page-name="{{ request.resolver_match.view_name|default:'' }}"
+  data-welcome="{% trans "Hello! I'm here to help you with questions about Fortissimus Bellator. How can I assist you today?" %}"
+  data-error="{% trans 'Something went wrong. Please try again.' %}"
+>
+  <button
+    id="chat-toggle"
+    type="button"
+    class="ui-button chat-toggle-button"
+    aria-label="{% trans 'Open chat' %}"
+    aria-controls="chat-panel"
+    aria-expanded="false"
+  >
+    {% include 'icons/german_shepperd.html' with class='size-10' %}
+  </button>
+
+  <section
+    id="chat-panel"
+    class="ui-card absolute bottom-20 right-0 hidden flex-col overflow-hidden rounded-2xl shadow-2xl"
+    style="width: min(24rem, calc(100vw - 2rem)); height: min(32rem, calc(100vh - 7rem));"
+    role="dialog"
+    aria-label="{% trans 'AI Assistant' %}"
+  >
+    <header class="bg-stone-700 text-white p-4 flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-stone-600 rounded-full flex items-center justify-center">
+          {% include 'icons/german_shepperd.html' with class='size-6' %}
+        </div>
+        <div>
+          <h2 class="font-semibold font-serif">Fortissimus Bellator</h2>
+          <p class="text-xs text-stone-300">{% trans 'AI Assistant' %}</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-1">
+        <button
+          id="chat-reset"
+          type="button"
+          class="ui-button rounded-full p-2 text-white hover:bg-stone-600 hover:text-stone-200 focus:ring-stone-300 focus:ring-offset-stone-700"
+          aria-label="{% trans 'Reset chat' %}"
+          title="{% trans 'Reset chat' %}"
+        >
+          <span aria-hidden="true">↻</span>
+        </button>
+        <button
+          id="chat-close"
+          type="button"
+          class="ui-button rounded-full p-2 text-xl text-white hover:bg-stone-600 hover:text-stone-200 focus:ring-stone-300 focus:ring-offset-stone-700"
+          aria-label="{% trans 'Close chat' %}"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+    </header>
+
+    <div
+      id="chat-messages"
+      class="flex-1 overflow-y-auto p-4 space-y-4 bg-stone-50 dark:bg-stone-900"
+      aria-live="polite"
+    ></div>
+
+    <div id="chat-suggestions" class="px-4 pb-2 flex flex-wrap gap-2 bg-stone-50 dark:bg-stone-900 shrink-0">
+      <button type="button" data-chat-intent="available_dogs" data-chat-suggestion="{% trans 'Show available dogs' %}" class="chat-suggestion">{% trans 'Available dogs' %}</button>
+      <button type="button" data-chat-intent="current_litters" data-chat-suggestion="{% trans 'Show current litters' %}" class="chat-suggestion">{% trans 'Current litters' %}</button>
+      <button type="button" data-chat-intent="pricing" data-chat-suggestion="{% trans 'How much do your dogs cost?' %}" class="chat-suggestion">{% trans 'Pricing' %}</button>
+      <button type="button" data-chat-intent="faqs" data-chat-suggestion="{% trans 'Frequently asked questions' %}" class="chat-suggestion">{% trans 'FAQs' %}</button>
+    </div>
+
+    <form id="chat-form" class="p-4 bg-white dark:bg-stone-800 border-t border-stone-200 dark:border-stone-700 shrink-0">
+      {% csrf_token %}
+      <div class="flex gap-2">
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="{% trans 'Type your message...' %}"
+          class="ui-input min-w-0 flex-1 py-2 text-sm dark:bg-stone-700"
+          maxlength="500"
+          autocomplete="off"
+          required
+        >
+        <button
+          id="chat-send"
+          type="submit"
+          class="ui-button ui-button-primary px-4 py-2"
+          aria-label="{% trans 'Send message' %}"
+        >
+          {% include 'icons/send.html' with class='size-5' %}
+        </button>
+      </div>
+      <p class="text-xs text-stone-500 dark:text-stone-400 mt-2 text-center">
+        {% trans 'Powered by AI · Limited knowledge base' %}
+      </p>
+    </form>
+  </section>
+</div>
+
+<script nonce="{{ request.csp_nonce }}" src="{% static 'js/components/chat.js' %}"></script>

@@ -40,7 +40,7 @@
                     {% translate "Manage the platform and keep everything running smoothly." %}
                 </p>
                 <a href="{% url 'admin:index' %}" 
-                class="mt-4 inline-block bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-600 transition duration-300 font-sans">
+                class="ui-button ui-button-primary mt-4 px-6 py-2">
                     {% translate "Go to Admin Panel" %}
                 </a>
             </div>
@@ -54,7 +54,7 @@
                     {% translate "Find answers to common questions about dog training, adoption, and care." %}
                 </p>
                 <a href="{% url 'faqs' %}" 
-                class="mt-4 inline-block bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-600 transition duration-300 font-sans">
+                class="ui-button ui-button-primary mt-4 px-6 py-2">
                     {% translate "View FAQs" %}
                 </a>
             </div>
@@ -86,7 +86,7 @@
                     {% translate "Have questions? Reach out to us for assistance." %}
                 </p>
                 <a href="{% url 'contact_us' %}" 
-                class="mt-4 inline-block bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-600 transition duration-300 font-sans">
+                class="ui-button ui-button-primary mt-4 px-6 py-2">
                     {% translate "Get in Touch" %}
                 </a>
             </div>
@@ -99,7 +99,7 @@
     <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-y-8">
         <!-- Motivational Text -->
         <div class="md:w-[50%] text-center md:text-left">
-            <h2 class="font-serif text-xl md:text-[2rem] font-bold leading-tight text-yellow-darkest dark:text-white mb-[1.5rem]">{% translate "Every Dog Deserves a Chance to Shine!" %}</h2>
+            <h2 class="font-serif text-xl md:text-3xl font-bold leading-tight text-yellow-900 dark:text-white mb-6">{% translate "Every Dog Deserves a Chance to Shine!" %}</h2>
             <p class="font-sans text-stone-700 dark:text-stone-300 text-lg leading-relaxed">
                 {% translate "At Fortissimus Bellator, we believe in the unique potential of every dog. Whether it's through training, care, or companionship, we're here to make a difference in their lives—and yours." %}
             </p>
@@ -138,7 +138,7 @@
                 <span>{% translate "Buy a Dog" %}</span>
             </a>
             <a href="{% url 'contact_us' %}" 
-            class="bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300 font-sans shadow-lg inline-flex items-center space-x-2">
+            class="ui-button ui-button-primary">
                 {% include "icons/contact.html" %}
                 <span>{% translate "Contact Us" %}</span>
             </a>

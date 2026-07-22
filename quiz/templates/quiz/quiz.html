@@ -48,7 +48,7 @@
             <button id="next" type="button" class="px-6 py-2 rounded-lg bg-gradient-to-r from-stone-700 to-stone-800 text-white hover:from-stone-800 hover:to-stone-900 shadow-md transition-all">
               {% trans "Next" %}
             </button>
-            <button id="submit" type="submit" class="hidden px-6 py-2 rounded-lg bg-gradient-to-r from-yellow-600 to-yellow-700 text-white hover:from-yellow-700 hover:to-yellow-800 shadow-md transition-all">
+            <button id="submit" type="submit" class="hidden px-6 py-2 rounded-lg bg-gradient-to-r from-stone-700 to-stone-800 text-white hover:from-stone-800 hover:to-stone-900 shadow-md transition-all">
               {% trans "Get Result" %}
             </button>
           </div>
@@ -150,21 +150,25 @@
   })();
 </script>
 <style>
-  /* Highlight selected option using :has for modern browsers */
   .quiz-group li label:has(input[type="radio"]:checked) {
-    background: linear-gradient(to right, rgb(28 25 23), rgb(41 37 36));
-    color: #fff;
-    border-color: rgb(41 37 36);
+    --tw-gradient-from: var(--color-stone-800);
+    --tw-gradient-to: var(--color-stone-900);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+    background-image: linear-gradient(var(--tw-gradient-stops));
+    color: var(--color-white);
+    border-color: var(--color-stone-800);
   }
   .dark .quiz-group li label:has(input[type="radio"]:checked) {
-    background: linear-gradient(to right, rgb(82 82 91), rgb(24 24 27));
-    color: #f9fafb;
-    border-color: rgb(82 82 91);
+    --tw-gradient-from: var(--color-stone-600);
+    --tw-gradient-to: var(--color-stone-800);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+    background-image: linear-gradient(var(--tw-gradient-stops));
+    color: var(--color-white);
+    border-color: var(--color-stone-600);
   }
-  /* Style the custom radio button when checked */
   .quiz-group li label:has(input[type="radio"]:checked) span:first-child {
-    background-color: #facc15; /* yellow-400 */
-    border-color: #facc15;
+    background-color: var(--color-yellow-400);
+    border-color: var(--color-yellow-400);
   }
 </style>
 {% endblock %}

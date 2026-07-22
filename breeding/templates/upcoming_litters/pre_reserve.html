@@ -1,10 +1,8 @@
-{% extends 'base.html' %}
-
-{% load static %}
+{% extends "base.html" %}
 {% load i18n %}
 
+{% block title %}{{ litter.breed.name }} | {{ litter.name }} | {% translate "Pre-Reserve" %}{% endblock %}
+
 {% block content %}
-
-Hello, World!
-
+{% include "components/pre_reserve.html" with item=litter item_type="litter" %}
 {% endblock %}

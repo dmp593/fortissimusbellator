@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% for litter in litters %}
-<div class="bg-white dark:bg-stone-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 flex flex-col">
+<article class="ui-card ui-card-interactive flex flex-col overflow-hidden">
     <!-- Litter Image -->
     {% if litter.cover %}
     <img src="{{ litter.cover.file.url }}" alt="{{ litter.name }}" class="w-full h-64 object-cover" loading="lazy">
@@ -71,10 +71,10 @@
 
         <!-- Details Button -->
         <div class="mt-auto pt-6">
-            <a href="{% url 'breeding:litter_detail' litter.id %}" class="w-full bg-stone-700 text-white px-4 py-2 rounded-lg hover:bg-stone-600 transition duration-300 block text-center">
+            <a href="{% url 'breeding:litter_detail' litter.id %}" class="ui-button ui-button-primary w-full px-4 py-2">
                 {% translate "View Details" %}
             </a>
         </div>
     </div>
-</div>
+</article>
 {% endfor %}

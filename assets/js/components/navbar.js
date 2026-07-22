@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileMenu.classList.toggle('hidden');
         mobileMenu.classList.toggle('scale-y-0');
         mobileMenu.classList.toggle('scale-y-100');
+        this.setAttribute('aria-expanded', String(!mobileMenu.classList.contains('hidden')));
     });
 
     // Desktop Submenu Toggle
@@ -80,6 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ourDogsButton.addEventListener('click', function (e) {
             ourDogsSubmenu.classList.toggle('scale-y-0');
             ourDogsSubmenu.classList.toggle('scale-y-100');
+            ourDogsButton.setAttribute(
+                'aria-expanded',
+                String(ourDogsSubmenu.classList.contains('scale-y-100'))
+            );
 
             // Rotate the arrow based on submenu visibility
             const arrow = ourDogsButton.querySelector('svg');
@@ -94,6 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
         userMenuButton.addEventListener('click', function (e) {
             userSubmenu.classList.toggle('scale-y-0');
             userSubmenu.classList.toggle('scale-y-100');
+            userMenuButton.setAttribute(
+                'aria-expanded',
+                String(userSubmenu.classList.contains('scale-y-100'))
+            );
         });
     }
 
@@ -109,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     mobileOurDogsSubmenu.classList.toggle('scale-y-0');
                     mobileOurDogsSubmenu.classList.toggle('scale-y-100');
+                    mobileOurDogsButton.setAttribute('aria-expanded', 'true');
                 }, 10); // Small delay to allow CSS transitions
             } else {
                 mobileOurDogsSubmenu.classList.toggle('scale-y-0');
@@ -116,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 setTimeout(() => {
                     mobileOurDogsSubmenu.classList.toggle('hidden');
+                    mobileOurDogsButton.setAttribute('aria-expanded', 'false');
                 }, 300); // Match the duration of the CSS transition
             }
         });
@@ -126,12 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ourDogsButton && !ourDogsButton.contains(e.target)) {
             ourDogsSubmenu?.classList.add('scale-y-0');
             ourDogsSubmenu?.classList.remove('scale-y-100');
+            ourDogsButton.setAttribute('aria-expanded', 'false');
             ourDogsButton.querySelector('svg')?.classList.remove('rotate-180'); // Reset arrow rotation
         }
 
         if (userMenuButton && !userMenuButton.contains(e.target)) {
             userSubmenu?.classList.add('scale-y-0');
             userSubmenu?.classList.remove('scale-y-100');
+            userMenuButton.setAttribute('aria-expanded', 'false');
         }
         
         if (languageMenu && languageToggle && !languageMenu.contains(e.target) && !languageToggle.contains(e.target)) {
@@ -144,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 mobileOurDogsSubmenu.classList.add('hidden');
+                mobileOurDogsButton.setAttribute('aria-expanded', 'false');
             }, 300); // Match the duration of the CSS transition
         }
     });

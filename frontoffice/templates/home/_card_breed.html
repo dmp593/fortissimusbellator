@@ -1,8 +1,8 @@
 {% load i18n %}
 
-<div class="bg-white dark:bg-stone-900 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 overflow-hidden">
+<article class="ui-card ui-card-interactive overflow-hidden">
     {% if breed.cover %}
-    <img src="{{ breed.cover.url }}" alt="{{ breed.name_en }} puppy from a breeder in Portugal" class="w-full h-64 object-cover rounded-t-lg" loading="lazy">
+    <img src="{{ breed.cover.url }}" alt="{% blocktrans with breed_name=breed.name %}{{ breed_name }} from a breeder in Portugal{% endblocktrans %}" class="w-full h-64 object-cover rounded-t-lg" loading="lazy">
     {% endif %}
     <div class="p-6">
         <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white">
@@ -12,9 +12,9 @@
             {{ breed.description }}
         </p>
         <a href="{% url 'breeding:buy_a_dog' %}?breed={{ breed.pk }}"
-           class="mt-6 inline-block bg-stone-700 text-white px-6 py-3 rounded-full hover:bg-stone-600 transition duration-300 font-sans shadow-lg"
+           class="ui-button ui-button-primary mt-6"
            aria-label="{% blocktrans with breed_name=breed.name %}Learn more about the breed {{ breed_name }}{% endblocktrans %}">
             {% translate "Learn More" %}
         </a>
     </div>
-</div>
+</article>

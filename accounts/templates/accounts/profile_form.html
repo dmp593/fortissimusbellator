@@ -5,10 +5,10 @@
 
 {% block content %}
 
-<div class="container mx-auto px-4 py-16">
-    <h1 class="text-center font-serif text-4xl font-bold text-stone-900 dark:text-white mb-12">{% trans "Manage your Profile" %}</h1>
+<div class="ui-page">
+    <h1 class="ui-page-title mb-12 text-center">{% trans "Manage your Profile" %}</h1>
 
-    <div class="max-w-4xl mx-auto bg-gradient-to-br from-stone-50 to-stone-100 dark:from-stone-800 dark:to-stone-900 rounded-xl shadow-lg border border-stone-200 dark:border-stone-700 p-8">
+    <div class="ui-card mx-auto max-w-4xl p-8">
         <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
             <!-- Display non-field errors (e.g., form-wide errors) -->
@@ -81,12 +81,12 @@
                 <!-- First Name Field -->
                 <div>
                     <label for="id_first_name"
-                        class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                        class="ui-label">
                         {% translate "First Name" %}
                     </label>
                     <div class="relative">
                         <input type="text" name="first_name" id="id_first_name"
-                            class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                            class="ui-input pl-10"
                             placeholder="{% translate 'Enter your first name' %}" value="{{ form.first_name.value|default:user.first_name }}" required>
                         <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -107,12 +107,12 @@
 
                 <!-- Last Name Field -->
                 <div>
-                    <label for="id_last_name" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    <label for="id_last_name" class="ui-label">
                         {% translate "Last Name" %}
                     </label>
                     <div class="relative">
                         <input type="text" name="last_name" id="id_last_name"
-                            class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                            class="ui-input pl-10"
                             placeholder="{% translate 'Enter your last name' %}" value="{{ form.last_name.value|default:user.last_name }}" required>
                         <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -134,12 +134,12 @@
 
             <!-- Birthdate Field -->
             <div>
-                <label for="id_birthdate" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                <label for="id_birthdate" class="ui-label">
                     {% translate "Birthdate" %}
                 </label>
                 <div class="relative">
                     <input type="date" name="birthdate" id="id_birthdate"
-                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        class="ui-input pl-10"
                         placeholder="{% translate 'Enter your birthdate' %}" value="{{ form.birthdate.value|default:user.profile.birthdate|date:'Y-m-d' }}">
                     {% include "icons/cake.html" with class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400" %}
                 </div>
@@ -155,12 +155,12 @@
 
             <!-- Fiscal Number Field -->
             <div>
-                <label for="id_fiscal_number" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                <label for="id_fiscal_number" class="ui-label">
                     {% translate "Fiscal Number" %}
                 </label>
                 <div class="relative">
                     <input name="fiscal_number" id="id_fiscal_number"
-                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        class="ui-input pl-10"
                         placeholder="{% translate 'Enter your Fiscal Number' %}" value="{{ form.fiscal_number.value|default_if_none:'' }}">
                     {% include "icons/identification.html" with class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400" %}
                 </div>
@@ -176,12 +176,12 @@
 
             <!-- Email Field -->
             <div>
-                <label for="id_email" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                <label for="id_email" class="ui-label">
                     {% translate "Email" %}
                 </label>
                 <div class="relative">
                     <input type="email" name="email" id="id_email"
-                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        class="ui-input pl-10"
                         placeholder="{% translate 'Enter your email' %}" value="{{ form.email.value|default:user.email }}" required>
                     <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -202,12 +202,12 @@
 
             <!-- Phone Field -->
             <div>
-                <label for="id_phone" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                <label for="id_phone" class="ui-label">
                     {% translate "Phone" %}
                 </label>
                 <div class="relative">
                     <input type="text" name="phone" id="id_phone"
-                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        class="ui-input pl-10"
                         placeholder="{% translate 'Enter your phone number' %}" value="{{ form.phone.value|default:user.profile.phone }}" required>
                     <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -228,12 +228,12 @@
 
             <!-- Username Field -->
             <div>
-                <label for="id_username" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                <label for="id_username" class="ui-label">
                     {% translate "Username" %}
                 </label>
                 <div class="relative">
                     <input type="text" name="username" id="id_username"
-                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        class="ui-input pl-10"
                         placeholder="{% translate 'Enter your username' %}" value="{{ form.username.value|default:user.username }}" required>
                     <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -254,7 +254,7 @@
 
             <!-- Submit Button -->
             <button type="submit"
-                class="w-full bg-gradient-to-r from-stone-700 to-stone-800 dark:from-stone-800 dark:to-stone-900 text-white px-6 py-3 rounded-lg hover:from-stone-800 hover:to-stone-900 dark:hover:from-stone-900 dark:hover:to-stone-950 transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl">
+                class="ui-button ui-button-primary w-full">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"

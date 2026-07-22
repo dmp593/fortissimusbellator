@@ -1,7 +1,7 @@
 {% load static %}
 {% load i18n %}
 
-<nav class="fixed w-full top-0 z-[1001] transition-colors duration-300 bg-gradient-to-r from-white to-stone-100 dark:from-stone-800 dark:to-stone-900 shadow-lg text-stone-800 dark:text-white" id="navbar">
+<nav class="fixed w-full top-0 z-[1001] transition-colors duration-300 bg-gradient-to-r from-white to-stone-100 dark:from-stone-800 dark:to-stone-900 shadow-lg text-stone-800 dark:text-white" id="navbar" aria-label="Fortissimus Bellator">
     <div class="mx-auto px-2 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <!-- Logo and Brand Name -->
@@ -16,7 +16,7 @@
             <div class="hidden xl:flex space-x-3 items-center">
                 <!-- Our Dogs By Breed -->
                 <div class="relative group">
-                    <button id="our-dogs-button" class="flex items-center text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]">
+                    <button type="button" id="our-dogs-button" class="flex items-center text-xs hover:text-stone-600 dark:hover:text-stone-300 transition-all duration-300 transform hover:translate-y-[-2px]" aria-expanded="false" aria-controls="our-dogs-submenu" aria-haspopup="true">
                         {% trans "Our Dogs" %}
                         <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -105,7 +105,7 @@
                 {% endwith %}
 
                 <!-- Theme Toggle -->
-                <button id="theme-toggle" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110" aria-label="{% trans "Toggle Light/Dark Theme" %}">
+                <button type="button" id="theme-toggle" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110" aria-label="{% trans "Toggle Light/Dark Theme" %}">
                     {% if theme == 'light' %}
                         {% include "icons/sun.html" with id="sun-icon" class="hidden" %}
                         {% include "icons/moon.html" with id="moon-icon" class="size-6" %}
@@ -118,7 +118,7 @@
                 <!-- User Authentication -->
                 {% if user.is_authenticated %}
                     <div class="relative group">
-                        <button id="user-menu-button" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110">
+                        <button type="button" id="user-menu-button" class="py-1 px-0 sm:px-1 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110" aria-expanded="false" aria-controls="user-submenu" aria-haspopup="true" aria-label="{% translate 'Profile' %}">
                             {% include "icons/user.html" %}
                         </button>
                         <!-- User Submenu -->
@@ -147,7 +147,7 @@
                 {% endif %}
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="xl:hidden p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110" aria-label="{% trans "Toggle Mobile Menu" %}">
+                <button type="button" id="mobile-menu-button" class="xl:hidden p-2 rounded-lg hover:bg-stone-200 dark:hover:bg-stone-700 transition-all duration-300 transform hover:scale-110" aria-label="{% trans "Toggle Mobile Menu" %}" aria-expanded="false" aria-controls="mobile-menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
@@ -162,7 +162,7 @@
 
             <!-- Dogs filtered by Breeds -->
             <div class="relative text-xs">
-                <button id="mobile-our-dogs-button" class="w-full text-left px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">
+                <button type="button" id="mobile-our-dogs-button" class="w-full text-left px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200" aria-expanded="false" aria-controls="mobile-our-dogs-submenu">
                     {% trans "Our Dogs" %}
                 </button>
                 <!-- Mobile Submenu for Breeds -->

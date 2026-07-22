@@ -5,9 +5,9 @@
 {% block title %}{% trans "Upcoming Litters" %}{% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-16">
+<div class="ui-page">
     <!-- Filter Section -->
-    <div class="mb-8 p-6 bg-gradient-to-br from-stone-50 to-stone-100 dark:from-stone-800 dark:to-stone-900 rounded-xl shadow-lg border border-stone-200 dark:border-stone-700">
+    <section class="ui-panel mb-8 p-6">
         <h2 class="text-2xl font-serif font-bold text-stone-900 dark:text-white mb-6"> 🐾 {% translate "Find Your Future Furry Family" %}</h2>
         <form id="filters-form" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
             <!-- Breed Filter -->
@@ -37,16 +37,13 @@
 
             <!-- Submit Button -->
             <div class="sm:col-span-2 lg:col-span-4 mt-8">
-                <button
-                    type="submit"
-                    class="w-full bg-gradient-to-r from-stone-700 to-stone-800 dark:from-stone-800 dark:to-stone-900 text-white px-6 py-3 rounded-lg hover:from-stone-800 hover:to-stone-900 dark:hover:from-stone-900 dark:hover:to-stone-950 transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
-                >
+                <button type="submit" class="ui-button ui-button-primary w-full">
                     {% include "icons/magnifying_glass.html" %}
                     <span class="font-medium">{% translate "Find Litters" %}</span>
                 </button>
             </div>
         </form>
-    </div>
+    </section>
 
     <!-- Quiz CTA -->
     <div class="mb-8">
@@ -58,22 +55,13 @@
         {% if litters %}
         {% include 'upcoming_litters/partials/cards.html' with litters=litters %}
         {% else %}
-        <!-- No Litters Message -->
-        <div class="col-span-full text-center py-12">
-            <div class="max-w-md mx-auto">
-                <div class="text-6xl mb-4">🐾</div>
-                <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white mb-4">
-                    {% translate "No Litters Available" %}
-                </h3>
-                <p class="text-stone-600 dark:text-stone-400">
-                    {% translate "We currently don't have any litters available. Please check back later or contact us for more information." %}
-                </p>
-            </div>
-        </div>
+        {% translate "No Litters Available" as empty_title %}
+        {% translate "We currently don't have any litters available. Please check back later or contact us for more information." as empty_description %}
+        {% include "components/empty_state.html" with icon="🐾" title=empty_title description=empty_description %}
         {% endif %}
     </div>
 
     <!-- Load More -->
-    {% include "components/paginated_loader.html" with pagination=pagination url_name='upcoming_litters' target="grid" %}
+    {% include "components/paginated_loader.html" with pagination=pagination url_name='breeding:upcoming_litters' target="grid" %}
 </div>
 {% endblock %}

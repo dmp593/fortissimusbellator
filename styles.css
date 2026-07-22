@@ -17,3 +17,156 @@
   * the scope of this path.
   */
 @source "./**/*.{html,py,js}";
+
+/*
+ * Shared interface building blocks.
+ *
+ * Templates keep layout-specific utilities close to their markup, while
+ * recurring visual rules live here.  This gives every page the same spacing,
+ * surfaces, typography, form controls, and button behaviour without hiding
+ * the page structure behind many tiny template includes.
+ */
+@layer components {
+    .ui-page {
+        @apply container mx-auto px-4 py-12 sm:px-6 sm:py-16 lg:px-8;
+    }
+
+    .ui-page-wide {
+        @apply mx-auto px-4 py-12 sm:px-6 sm:py-16 lg:px-8;
+    }
+
+    .ui-page-header {
+        @apply mx-auto mb-12 max-w-3xl text-center;
+    }
+
+    .ui-page-title {
+        @apply font-serif text-4xl font-bold text-stone-900 dark:text-white md:text-5xl;
+    }
+
+    .ui-page-subtitle {
+        @apply mt-4 font-sans text-lg leading-relaxed text-stone-700 dark:text-stone-300;
+    }
+
+    .ui-section-title {
+        @apply font-serif text-3xl font-bold text-stone-900 dark:text-white;
+    }
+
+    .ui-body {
+        @apply font-sans leading-relaxed text-stone-700 dark:text-stone-300;
+    }
+
+    .ui-card {
+        @apply rounded-xl border border-stone-200 bg-white shadow-lg dark:border-stone-700 dark:bg-stone-800;
+    }
+
+    .ui-card-interactive {
+        @apply transition duration-300 hover:-translate-y-1 hover:shadow-xl motion-reduce:transform-none;
+    }
+
+    .ui-panel {
+        @apply rounded-xl border border-stone-200 bg-gradient-to-br from-stone-50 to-stone-100 shadow-lg dark:border-stone-700 dark:from-stone-800 dark:to-stone-900;
+    }
+
+    .ui-muted-surface {
+        @apply rounded-lg bg-stone-100 dark:bg-stone-700;
+    }
+
+    .ui-button {
+        @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-6 py-3 font-sans font-medium transition duration-300 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:focus:ring-offset-stone-900;
+    }
+
+    .ui-button-primary {
+        @apply bg-stone-700 text-white shadow-md hover:bg-stone-600 hover:shadow-lg;
+    }
+
+    .ui-button-secondary {
+        @apply border border-stone-300 bg-white text-stone-800 hover:bg-stone-100 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-200 dark:hover:bg-stone-700;
+    }
+
+    .ui-button-quiet {
+        @apply text-stone-600 hover:bg-stone-100 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-white;
+    }
+
+    .ui-label {
+        @apply mb-2 block text-sm font-medium text-stone-700 dark:text-stone-300;
+    }
+
+    .ui-input {
+        @apply w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 outline-none transition duration-300 placeholder:text-stone-400 focus:border-stone-500 focus:ring-2 focus:ring-stone-500/30 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:placeholder:text-stone-500;
+    }
+
+    .ui-help-text {
+        @apply mt-1 text-xs text-stone-500 dark:text-stone-400;
+    }
+
+    .ui-error-text {
+        @apply mt-2 text-sm text-red-700 dark:text-red-400;
+    }
+
+    .ui-empty-state {
+        @apply col-span-full mx-auto max-w-md py-12 text-center;
+    }
+}
+
+.paper-bg {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==");
+}
+
+.chat-suggestion {
+    @apply cursor-pointer rounded-full border border-stone-300 px-3 py-1 text-xs text-stone-700 transition-colors hover:bg-stone-200 disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.dark .chat-suggestion {
+    @apply border-stone-600 text-stone-300 hover:bg-stone-700;
+}
+
+.chat-toggle-button {
+    @apply size-16 rounded-full border-2 border-amber-400 bg-stone-900 p-0 text-white shadow-2xl ring-4 ring-amber-400/30 hover:scale-105 hover:border-amber-300 hover:bg-stone-800 focus:ring-amber-400 motion-reduce:transform-none;
+}
+
+.chat-widget {
+    right: 1rem;
+    transition: right 300ms ease-in-out;
+}
+
+@media (min-width: 48rem) {
+    .chat-widget:not(.chat-widget-open):not(:hover):not(:focus-within) {
+        right: -1.75rem;
+    }
+}
+
+.chat-message-row {
+    @apply flex items-start gap-2;
+}
+
+.chat-message-row-user {
+    @apply flex-row-reverse;
+}
+
+.chat-avatar {
+    @apply flex size-8 shrink-0 items-center justify-center rounded-full text-xs;
+}
+
+.chat-avatar-assistant {
+    @apply bg-stone-200 dark:bg-stone-700;
+}
+
+.chat-avatar-user {
+    @apply bg-stone-700 text-white;
+}
+
+.chat-bubble {
+    @apply max-w-[85%] whitespace-pre-line rounded-lg p-3 text-sm shadow-sm;
+}
+
+.chat-bubble-assistant {
+    @apply bg-white text-stone-800 dark:bg-stone-800 dark:text-stone-200;
+}
+
+.chat-bubble-user {
+    @apply bg-stone-700 text-white;
+}
+
+.chat-bubble-error {
+    @apply bg-red-50 text-red-800 dark:bg-red-950 dark:text-red-200;
+}

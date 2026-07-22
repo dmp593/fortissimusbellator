@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 from dateutil.relativedelta import relativedelta
 
 from django.utils.translation import gettext_lazy as _
@@ -41,14 +41,16 @@ def buy_a_dog(request):
         dogs = dogs.filter(hair_type=hair_type_filter)
 
     if age_filter:
-        today = datetime.today()
+        today = date.today()
         today_minus_6_months = today - relativedelta(months=6)
         today_minus_12_months = today - relativedelta(months=12)
 
         if age_filter == 'puppy':
             dogs = dogs.filter(birth_date__gte=today_minus_6_months)
         elif age_filter == 'junior':
-            dogs = dogs.filter(birth_date__range=(today_minus_6_months, today_minus_12_months))
+            dogs = dogs.filter(
+                birth_date__range=(today_minus_12_months, today_minus_6_months)
+            )
         elif age_filter == 'adult':
             dogs = dogs.filter(birth_date__lte=today_minus_12_months)
 
@@ -56,7 +58,7 @@ def buy_a_dog(request):
         dogs = dogs.filter(has_training=True)
 
     if has_certifications == 'on':
-        dogs = dogs.filter(certifications__isnull=False)
+        dogs = dogs.filter(certifications__isnull=False).distinct()
 
     # Pagination
     page = to_int(request.GET.get('page'), or_default=1)
@@ -97,7 +99,7 @@ def dog_detail(request, dog_id: int):
         dog = Animal.animals_for_sale.get(pk=dog_id)
         return render(request, 'buy_a_dog/detail.html', {'dog': dog})
     except Animal.DoesNotExist:
-        return redirect('buy_a_dog')
+        return redirect('breeding:buy_a_dog')
 
 
 def upcoming_litters(request):
@@ -144,22 +146,28 @@ def litter_detail(request, litter_id: int):
         litter = Litter.litters_for_sale.get(pk=litter_id)
         return render(request, 'upcoming_litters/detail.html', {'litter': litter})
     except Litter.DoesNotExist:
-        return redirect('upcoming_litters')
+        return redirect('breeding:upcoming_litters')
 
 
 @login_required
 def pre_reserve_dog(request, dog_id: int):
     try:
-        dog = Animal.animals_for_sale.get(pk=dog_id)
-        return render(request, 'buy_a_dog/pre_reserve.html', {'dog': dog })
+        dog = Animal.animals_for_sale.get(pk=dog_id, sold_at__isnull=True)
+        return render(request, 'buy_a_dog/pre_reserve.html', {'dog': dog})
     except Animal.DoesNotExist:
-        return redirect('buy_a_dog')
+        return redirect('breeding:buy_a_dog')
 
 
 @login_required
 def pre_reserve_litter(request, litter_id: int):
     try:
-        litter = Litter.litters_for_sale.get(pk=litter_id)
-        return render(request, 'upcoming_litters/pre_reserve.html', {'litter': litter })
+        litter = Litter.litters_for_sale.exclude(
+            status=Litter.LitterStatus.COMPLETED
+        ).get(pk=litter_id)
+        return render(
+            request,
+            'upcoming_litters/pre_reserve.html',
+            {'litter': litter},
+        )
     except Litter.DoesNotExist:
-        return redirect('upcoming_litters')
+        return redirect('breeding:upcoming_litters')

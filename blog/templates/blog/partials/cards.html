@@ -1,9 +1,9 @@
 {% load i18n %}
 
 {% for post in posts %}
-<article class="bg-white dark:bg-stone-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl">
+<article class="ui-card ui-card-interactive overflow-hidden">
     <!-- Paper-like background effect -->
-    <div class="relative p-8 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgwLDAsMCwwLjAyKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==')] dark:bg-stone-900/50">
+    <div class="relative p-8 paper-bg dark:bg-stone-900/50">
         <!-- Post Cover Image -->
         {% if post.cover %}
         <div class="mb-8 w-full max-h-133 rounded-lg overflow-hidden">
@@ -35,7 +35,7 @@
         </div>
 
         <!-- Read Button -->
-        <a href="{% url 'blog:post_detail' post.pk %}" class="flex items-center justify-end bg-gradient-to-r from-stone-700 to-stone-800 dark:from-stone-800 dark:to-stone-900 text-white dark:hover:text-white font-medium group bg-yellow-500 rounded-lg px-6 py-3">
+        <a href="{% url 'blog:post_detail' post.pk %}" class="ui-button ui-button-primary group w-full justify-end">
             <span class="font-bold">{% translate "Read" %}</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />

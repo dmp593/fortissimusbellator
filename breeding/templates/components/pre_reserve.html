@@ -1,0 +1,111 @@
+{% load i18n %}
+
+<div class="ui-page">
+    <header class="ui-page-header">
+        <h1 class="ui-page-title">{{ item.name }}</h1>
+        <p class="ui-page-subtitle mt-2">{{ item.breed.name }}</p>
+    </header>
+
+    <div class="mx-auto mb-12 max-w-2xl">
+        {% if item.cover %}
+        <img src="{{ item.cover.file.url }}"
+             alt="{{ item.name }}"
+             class="aspect-[4/5] w-full rounded-xl object-cover shadow-lg sm:aspect-[3/4] md:aspect-square"
+             loading="lazy">
+        {% else %}
+        <div class="ui-muted-surface flex h-64 w-full items-center justify-center">
+            <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="mx-auto max-w-2xl">
+        <section class="ui-card p-6 text-center sm:p-8">
+            <div class="mb-6">
+                <span class="ui-muted-surface mb-4 inline-flex size-16 items-center justify-center rounded-full">
+                    {% if item_type == "dog" %}
+                    {% include "icons/currency_euro.html" with class="size-8 text-stone-700 dark:text-stone-300" %}
+                    {% else %}
+                    {% include "icons/users.html" with class="size-8 text-stone-700 dark:text-stone-300" %}
+                    {% endif %}
+                </span>
+                <h2 class="ui-section-title">
+                    {% if item_type == "dog" %}
+                    {% translate "Pre-Reserve This Dog" %}
+                    {% else %}
+                    {% translate "Pre-Reserve a Puppy from This Litter" %}
+                    {% endif %}
+                </h2>
+            </div>
+
+            <p class="ui-body mb-8">
+                {% if item_type == "dog" %}
+                {% blocktranslate with name=item.name %}You're about to pre-reserve <strong>{{ name }}</strong>. By pre-reserving, you express your serious interest in purchasing this dog. Our team will contact you to discuss the next steps, including availability, pricing, and any additional details.{% endblocktranslate %}
+                {% else %}
+                {% blocktranslate with name=item.name %}You're about to pre-reserve a puppy from the <strong>{{ name }}</strong> litter. By pre-reserving, you express your serious interest in purchasing one of the puppies. Our team will contact you to discuss availability, expected dates, and next steps.{% endblocktranslate %}
+                {% endif %}
+            </p>
+
+            {% if item_type == "dog" and item.price_in_euros %}
+            <div class="ui-muted-surface mb-8 p-4">
+                <p class="mb-1 font-sans text-sm text-stone-500 dark:text-stone-400">{% translate "Price" %}</p>
+                <p class="font-sans text-2xl font-bold text-stone-900 dark:text-white">
+                    {% if item.discount_in_euros %}
+                    <span class="text-lg text-stone-500 line-through dark:text-stone-400">{{ item.price_in_euros }}€</span>
+                    <span class="text-yellow-800 dark:text-yellow-400">{{ item.current_price_in_euros }}€</span>
+                    {% else %}
+                    {{ item.price_in_euros }}€
+                    {% endif %}
+                </p>
+            </div>
+            {% elif item_type == "litter" %}
+            <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="ui-muted-surface p-4 text-center">
+                    <p class="mb-1 font-sans text-sm text-stone-500 dark:text-stone-400">{% translate "Status" %}</p>
+                    <p class="font-sans font-semibold capitalize text-stone-900 dark:text-white">{{ item.get_status_display }}</p>
+                </div>
+                {% if item.expected_ready_date %}
+                <div class="ui-muted-surface p-4 text-center">
+                    <p class="mb-1 font-sans text-sm text-stone-500 dark:text-stone-400">{% translate "Expected Ready" %}</p>
+                    <p class="font-sans font-semibold text-stone-900 dark:text-white">{{ item.expected_ready_date|date:"M d, Y" }}</p>
+                </div>
+                {% endif %}
+                {% if item.expected_babies %}
+                <div class="ui-muted-surface p-4 text-center">
+                    <p class="mb-1 font-sans text-sm text-stone-500 dark:text-stone-400">{% translate "Expected Puppies" %}</p>
+                    <p class="font-sans font-semibold text-stone-900 dark:text-white">{{ item.expected_babies }}</p>
+                </div>
+                {% endif %}
+                {% if item.birth_date %}
+                <div class="ui-muted-surface p-4 text-center">
+                    <p class="mb-1 font-sans text-sm text-stone-500 dark:text-stone-400">{% translate "Birth Date" %}</p>
+                    <p class="font-sans font-semibold text-stone-900 dark:text-white">{{ item.birth_date|date:"M d, Y" }}</p>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <div class="flex flex-col justify-center gap-4 sm:flex-row">
+                <a href="tel:+351924454382" class="ui-button ui-button-primary px-8 py-4">
+                    {% include "icons/phone.html" with class="size-5" %}
+                    <span>{% translate "Call Us" %}</span>
+                </a>
+                <a href="{% url 'contact_us' %}" class="ui-button ui-button-secondary px-8 py-4">
+                    {% include "icons/contact.html" with class="size-5" %}
+                    <span>{% translate "Send a Message" %}</span>
+                </a>
+            </div>
+        </section>
+
+        <div class="mt-8 text-center">
+            {% if item_type == "dog" %}
+            <a href="{% url 'breeding:dog_detail' item.pk %}" class="ui-button ui-button-quiet">
+            {% else %}
+            <a href="{% url 'breeding:litter_detail' item.pk %}" class="ui-button ui-button-quiet">
+            {% endif %}
+                {% include "icons/arrow_left.html" with class="size-4" %}
+                <span>{% blocktranslate with name=item.name %}Back to {{ name }}{% endblocktranslate %}</span>
+            </a>
+        </div>
+    </div>
+</div>

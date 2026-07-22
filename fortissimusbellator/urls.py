@@ -27,6 +27,7 @@ from .views import FileUploadView, EditorJsImageUploadByFileView, EditorJsImageU
 
 urlpatterns = [
     # path('i18n/', include('django.conf.urls.i18n')),
+    path('chat/', include('chat.urls')),
     path('upload/', FileUploadView.as_view(), name='upload'),
     path('editorjs/image/upload/file/', EditorJsImageUploadByFileView.as_view(), name='editorjs_image_upload_by_file'),
     path('editorjs/image/upload/url/', EditorJsImageUploadByUrlView.as_view(), name='editorjs_image_upload_by_url'),

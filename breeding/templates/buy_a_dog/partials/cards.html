@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% for dog in dogs %}
-<div class="relative bg-white dark:bg-stone-800 rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 flex flex-col">
+<article class="ui-card ui-card-interactive relative flex flex-col overflow-hidden">
     <!-- Dog Image -->
     <div class="relative">
         {% if dog.cover %}
@@ -53,7 +53,7 @@
 
             <!-- Hair Type Icon -->
             {% if dog.hair_type %}
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2">
                 {% include "icons/hair_root.html" %}
                 <span class="text-sm text-stone-700 dark:text-stone-300">
                     {% if dog.hair_type == 'short' %}
@@ -111,11 +111,11 @@
 
             <!-- Details Button -->
             <div class="pt-6">
-                <a href="{% url 'breeding:dog_detail' dog.pk %}" class="w-full bg-stone-700 text-white px-4 py-2 rounded-lg hover:bg-stone-600 transition duration-300 block text-center">
+                <a href="{% url 'breeding:dog_detail' dog.pk %}" class="ui-button ui-button-primary w-full px-4 py-2">
                     {% translate "View Details" %}
                 </a>
             </div>
         </div>
     </div>
-</div>
+</article>
 {% endfor %}

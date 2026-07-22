@@ -3,11 +3,11 @@
 {% load i18n %}
 
 {% block content %}
-<div class="mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="max-w-4xl mx-auto bg-white dark:bg-stone-800 rounded-lg shadow-lg p-8">
+<div class="ui-page-wide">
+    <div class="ui-card mx-auto max-w-4xl p-8">
         <!-- Header -->
         <div class="text-center">
-            <h2 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-4">
+            <h2 class="ui-section-title mb-4">
                 {% translate "Create an Account" %}
             </h2>
             <p class="text-sm text-stone-600 dark:text-stone-300">
@@ -32,12 +32,12 @@
                 <!-- First Name Field -->
                 <div>
                     <label for="id_first_name"
-                        class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                        class="ui-label">
                         {% translate "First Name" %}
                     </label>
                     <div class="relative">
                         <input type="text" name="first_name" id="id_first_name"
-                            class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                            class="ui-input pl-10"
                             placeholder="{% translate 'Enter your first name' %}" required>
                         <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -58,12 +58,12 @@
 
                 <!-- Last Name Field -->
                 <div>
-                    <label for="id_last_name" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    <label for="id_last_name" class="ui-label">
                         {% translate "Last Name" %}
                     </label>
                     <div class="relative">
                         <input type="text" name="last_name" id="id_last_name"
-                            class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                            class="ui-input pl-10"
                             placeholder="{% translate 'Enter your last name' %}" required>
                         <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -85,12 +85,12 @@
 
             <!-- Email Field -->
             <div>
-                <label for="id_email" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                <label for="id_email" class="ui-label">
                     {% translate "Email" %}
                 </label>
                 <div class="relative">
                     <input type="email" name="email" id="id_email"
-                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        class="ui-input pl-10"
                         placeholder="{% translate 'Enter your email' %}" required>
                     <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -111,12 +111,12 @@
 
             <!-- Phone Field -->
             <div>
-                <label for="id_phone" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                <label for="id_phone" class="ui-label">
                     {% translate "Phone" %}
                 </label>
                 <div class="relative">
                     <input type="text" name="phone" id="id_phone"
-                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        class="ui-input pl-10"
                         placeholder="{% translate 'Enter your phone number' %}" required>
                     <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -137,12 +137,12 @@
 
             <!-- Username Field -->
             <div>
-                <label for="id_username" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                <label for="id_username" class="ui-label">
                     {% translate "Username" %}
                 </label>
                 <div class="relative">
                     <input type="text" name="username" id="id_username"
-                        class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                        class="ui-input pl-10"
                         placeholder="{% translate 'Enter your username' %}" required>
                     <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -164,12 +164,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Password Field -->
                 <div>
-                    <label for="id_password1" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    <label for="id_password1" class="ui-label">
                         {% translate "Password" %}
                     </label>
                     <div class="relative">
                         <input type="password" name="password1" id="id_password1"
-                            class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                            class="ui-input pl-10"
                             placeholder="{% translate 'Enter your password' %}" required>
                         <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -190,12 +190,12 @@
 
                 <!-- Confirm Password Field -->
                 <div>
-                    <label for="id_password2" class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                    <label for="id_password2" class="ui-label">
                         {% translate "Confirm Password" %}
                     </label>
                     <div class="relative">
                         <input type="password" name="password2" id="id_password2"
-                            class="w-full px-4 py-3 pl-10 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-stone-500 transition duration-300 placeholder-stone-400 dark:placeholder-stone-500"
+                            class="ui-input pl-10"
                             placeholder="{% translate 'Confirm your password' %}" required>
                         <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -217,7 +217,7 @@
 
             <!-- Submit Button -->
             <button type="submit"
-                class="w-full bg-stone-700 text-white px-6 py-3 rounded-lg hover:bg-stone-600 transition duration-300 font-sans shadow-lg flex items-center justify-center space-x-2">
+                class="ui-button ui-button-primary w-full">
                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"
