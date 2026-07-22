@@ -10,6 +10,7 @@ from django.utils.translation import gettext as _
 
 from frontoffice.models import FrequentlyAskedQuestion
 
+from .business import ADDRESS, CONTACT_EMAIL, CONTACT_PHONES
 from .catalog import available_dogs, current_litters
 from .domain import ChatReply, ChatRequest, EntityKind, QueryAnalysis
 from .intents import (
@@ -345,20 +346,16 @@ class ContactExpert:
 
         lines = []
         if LOCATION in intents:
-            lines.append(_(
-                "We are at Rua Quinta dos Frades, 904, "
-                "2400-821 Leiria, Portugal."
-            ))
+            lines.append(_("We are at %(address)s.") % {"address": ADDRESS})
         if CONTACT in intents:
             lines.append(_(
-                "You can contact us on +351 924 454 382 or at "
-                "geral@fortissimusbellator.pt."
-            ))
+                "You can contact us on %(phones)s or at %(email)s."
+            ) % {"phones": CONTACT_PHONES, "email": CONTACT_EMAIL})
         if VISIT in intents:
             lines.append(_(
                 "Visits are arranged in advance. Contact us on "
-                "+351 924 454 382 to schedule one."
-            ))
+                "%(phones)s to schedule one."
+            ) % {"phones": CONTACT_PHONES})
         return ChatReply(text="\n".join(lines), state=context.request.state)
 
 
@@ -376,8 +373,8 @@ class FaqExpert:
         if not faqs:
             return ChatReply(text=_(
                 "No frequently asked questions are currently listed. "
-                "Please contact us at +351 924 454 382."
-            ))
+                "Please contact us at %(phones)s."
+            ) % {"phones": CONTACT_PHONES})
         lines = [_('Frequently asked questions:')]
         lines.extend(f"- {faq.question}" for faq in faqs)
         lines.extend(("", _("Ask me one of these questions to see the answer.")))

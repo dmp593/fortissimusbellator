@@ -578,8 +578,8 @@ GitHub.sublime-settings
 .backup/
 static/
 
-!.env.example
 .env.*
+!.env.example
 
 # Local GGUF models are deployment artifacts, not source files.
 .models/

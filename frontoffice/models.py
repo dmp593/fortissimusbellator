@@ -30,6 +30,14 @@ class FrequentlyAskedQuestion(models.Model):
         verbose_name=_('answer')
     )
 
+    chat_search_aliases = models.TextField(
+        blank=True,
+        verbose_name=_('chat search aliases'),
+        help_text=_(
+            'Optional alternative questions, one per line. Used only by chat search.'
+        ),
+    )
+
     image = models.ImageField(
         upload_to=faq_image_upload_to,
         null=True,

@@ -4,6 +4,7 @@
         "pk": 1,
         "fields": {
             "name": "German Shepherd Spring 2024 Litter",
+            "chat_search_aliases": "Spring 2024 litter\nGerman Shepherd spring litter\nNinhada primavera 2024\nCamada primavera 2024\nPortée printemps 2024\nFrühlingswurf 2024\nCucciolata primavera 2024",
             "breed": ["German Shepherd (Show Line)"],
             "description_en": "A healthy litter of German Shepherd puppies.",
             "description_pt": "Uma camada saudável de filhotes de Pastor Alemão.",

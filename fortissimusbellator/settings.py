@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-import environ
-
 from pathlib import Path
+
+import environ
 from django.utils.csp import CSP
 from django.utils.translation import gettext_lazy as _
 
@@ -63,21 +63,21 @@ env = environ.Env(
 
     DEEPL_AUTH_KEY=(str, ''),
 
-    CHAT_MODEL_PATH=(
-        str,
-        str(BASE_DIR / '.models' / 'qwen2.5-1.5b-instruct-q4_k_m.gguf'),
-    ),
+    CHAT_MODEL_DIR=(str, str(BASE_DIR / '.models')),
     CHAT_MODEL_AUTO_DOWNLOAD=(bool, True),
-    CHAT_MODEL_DOWNLOAD_URL=(
-        str,
-        'https://huggingface.co/Qwen/'
-        'Qwen2.5-1.5B-Instruct-GGUF/resolve/main/'
-        'qwen2.5-1.5b-instruct-q4_k_m.gguf',
-    ),
     CHAT_MODEL_DOWNLOAD_TIMEOUT=(int, 60),
+    CHAT_MODEL_MAX_DOWNLOAD_BYTES=(int, 850_000_000),
     CHAT_CONTEXT_SIZE=(int, 2048),
     CHAT_MAX_OUTPUT_TOKENS=(int, 192),
     CHAT_THREADS=(int, 2),
+
+    UPLOAD_MAX_FILE_BYTES=(int, 100 * 1024 * 1024),
+    UPLOAD_MAX_CHUNK_BYTES=(int, 5 * 1024 * 1024),
+    UPLOAD_CHUNK_MAX_AGE_SECONDS=(int, 24 * 60 * 60),
+    EDITOR_IMAGE_MAX_BYTES=(int, 10 * 1024 * 1024),
+    EDITOR_IMAGE_MAX_PIXELS=(int, 25_000_000),
+    EDITOR_REMOTE_READ_TIMEOUT=(int, 15),
+    EDITOR_REMOTE_MAX_REDIRECTS=(int, 3),
 )
 
 
@@ -465,10 +465,10 @@ DEEPL_AUTH_KEY = env('DEEPL_AUTH_KEY')
 
 # Local chat model. Defaults are deliberately conservative for a server with
 # 2 GB RAM and 2 vCPUs. Run one web-server process so the model is loaded once.
-CHAT_MODEL_PATH = env('CHAT_MODEL_PATH')
+CHAT_MODEL_DIR = env('CHAT_MODEL_DIR')
 CHAT_MODEL_AUTO_DOWNLOAD = env('CHAT_MODEL_AUTO_DOWNLOAD')
-CHAT_MODEL_DOWNLOAD_URL = env('CHAT_MODEL_DOWNLOAD_URL')
 CHAT_MODEL_DOWNLOAD_TIMEOUT = env('CHAT_MODEL_DOWNLOAD_TIMEOUT')
+CHAT_MODEL_MAX_DOWNLOAD_BYTES = env('CHAT_MODEL_MAX_DOWNLOAD_BYTES')
 CHAT_CONTEXT_SIZE = env('CHAT_CONTEXT_SIZE')
 CHAT_MAX_OUTPUT_TOKENS = env('CHAT_MAX_OUTPUT_TOKENS')
 CHAT_THREADS = env('CHAT_THREADS')
@@ -481,6 +481,15 @@ CHAT_KNOWLEDGE_MAX_CHARS = 4000
 CHAT_MAX_FAQS = 3
 CHAT_MAX_KENNEL_ITEMS = 5
 CHAT_REQUESTS_PER_MINUTE = 12
+
+# Staff-only uploads are bounded to protect memory and disk on shared hosting.
+UPLOAD_MAX_FILE_BYTES = env('UPLOAD_MAX_FILE_BYTES')
+UPLOAD_MAX_CHUNK_BYTES = env('UPLOAD_MAX_CHUNK_BYTES')
+UPLOAD_CHUNK_MAX_AGE_SECONDS = env('UPLOAD_CHUNK_MAX_AGE_SECONDS')
+EDITOR_IMAGE_MAX_BYTES = env('EDITOR_IMAGE_MAX_BYTES')
+EDITOR_IMAGE_MAX_PIXELS = env('EDITOR_IMAGE_MAX_PIXELS')
+EDITOR_REMOTE_READ_TIMEOUT = env('EDITOR_REMOTE_READ_TIMEOUT')
+EDITOR_REMOTE_MAX_REDIRECTS = env('EDITOR_REMOTE_MAX_REDIRECTS')
 
 # Django's default logging hides application INFO messages.  Keep the model
 # download/load lifecycle visible on hosts where there is no shell access.

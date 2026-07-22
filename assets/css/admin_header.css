@@ -1,0 +1,36 @@
+#branding {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+#branding #site-name {
+  margin-inline-end: 0;
+  line-height: 1.15;
+}
+
+#branding .admin-model-status-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding-inline: 2px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  #branding {
+    align-items: center;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+
+  #branding .admin-model-status-link {
+    min-height: auto;
+    font-size: 0.8125rem;
+    justify-content: center;
+  }
+}

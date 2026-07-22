@@ -9,6 +9,7 @@
             "question_fr": "Quelles races de chiens vendez-vous ?",
             "question_de": "Welche Hunderassen verkaufen Sie?",
             "question_it": "Quali razze di cani vendete?",
+            "chat_search_aliases": "Which breeds are available?\nWhat dogs do you breed?\nQue raças têm?\nQue cães criam?\n¿Qué razas tienen?\nQuelles races avez-vous ?\nWelche Rassen haben Sie?\nQuali razze avete?",
 
             "answer_en": "We specialize in selling high-quality breeds such as the German Shepherd, the Belgian Shepherd Malinois and the German Spitz.",
             "answer_pt": "Especializamo-nos na venda de raças de alta qualidade, como o Pastor Alemão, o Pastor Belga Malinois e o Spitz Alemão.",
@@ -31,6 +32,7 @@
             "question_fr": "Vos chiens sont-ils vaccinés ?",
             "question_de": "Sind Ihre Hunde geimpft?",
             "question_it": "I vostri cani sono vaccinati?",
+            "chat_search_aliases": "Are the dogs vaccinated?\nDo puppies have vaccines?\nOs cães têm vacinas?\nOs cachorros estão vacinados?\n¿Los perros están vacunados?\nLes chiens sont-ils vaccinés ?\nSind die Hunde geimpft?\nI cani sono vaccinati?",
 
             "answer_en": "Yes, all our dogs are fully vaccinated and come with a health certificate from a licensed veterinarian.",
             "answer_pt": "Sim, todos os nossos cães são totalmente vacinados e vêm com um certificado de saúde emitido por um veterinário licenciado.",
@@ -53,6 +55,7 @@
             "question_fr": "Puis-je visiter vos installations pour voir les chiens ?",
             "question_de": "Kann ich Ihre Einrichtung besuchen, um die Hunde zu sehen?",
             "question_it": "Posso visitare la vostra struttura per vedere i cani?",
+            "chat_search_aliases": "Can I visit the kennel?\nCan I see the dogs in person?\nPosso visitar o canil?\nPosso ver os cães?\n¿Puedo visitar el criadero?\nPuis-je visiter l'élevage ?\nKann ich die Zucht besuchen?\nPosso visitare l'allevamento?",
 
             "answer_en": "Yes, we welcome visits! Please contact us to schedule an appointment.",
             "answer_pt": "Sim, recebemos visitas! Por favor, contacte-nos para marcar uma visita.",
@@ -75,6 +78,7 @@
             "question_fr": "Fournissez-vous des certificats de pedigree pour vos chiens ?",
             "question_de": "Stellen Sie Stammbaumzertifikate für Ihre Hunde aus?",
             "question_it": "Fornite certificati di pedigree per i vostri cani?",
+            "chat_search_aliases": "Do the dogs have pedigree?\nIs pedigree included?\nOs cães têm pedigree?\nO pedigree está incluído?\n¿Los perros tienen pedigrí?\nLes chiens ont-ils un pedigree ?\nHaben die Hunde einen Stammbaum?\nI cani hanno il pedigree?",
 
             "answer_en": "Yes, all our dogs come with official pedigree certificates.",
             "answer_pt": "Sim, todos os nossos cães vêm com certificados de pedigree oficiais.",
@@ -97,6 +101,7 @@
             "question_fr": "Qu'est-ce qui est inclus dans le prix d'un chien ?",
             "question_de": "Was ist im Preis eines Hundes enthalten?",
             "question_it": "Cosa è incluso nel prezzo di un cane?",
+            "chat_search_aliases": "What does the price include?\nWhat comes with a puppy?\nO que inclui o preço?\nO que vem com o cachorro?\n¿Qué incluye el precio?\nQue comprend le prix ?\nWas ist im Preis enthalten?\nCosa comprende il prezzo?",
 
             "answer_en": "The price includes vaccinations, a health certificate, and a starter kit with food and care instructions.",
             "answer_pt": "O preço inclui vacinas, um certificado de saúde e um kit inicial com comida e instruções de cuidados.",
@@ -119,6 +124,7 @@
             "question_fr": "Puis-je réserver un chiot avant qu'il ne soit prêt à rentrer à la maison ?",
             "question_de": "Kann ich einen Welpen reservieren, bevor er bereit ist, nach Hause zu gehen?",
             "question_it": "Posso prenotare un cucciolo prima che sia pronto per andare a casa?",
+            "chat_search_aliases": "Can I book a puppy?\nHow do reservations work?\nCan I reserve a dog?\nPosso reservar um cachorro?\nComo funcionam as reservas?\n¿Puedo reservar un cachorro?\nPuis-je réserver un chiot ?\nKann ich einen Welpen reservieren?\nPosso prenotare un cucciolo?",
 
             "answer_en": "Yes, you can reserve a puppy with a deposit. Contact us for more details.",
             "answer_pt": "Sim, pode reservar um cachorro com um depósito. Contacte-nos para mais detalhes.",
@@ -141,6 +147,7 @@
             "question_fr": "Expédiez-vous des chiens à l'international ?",
             "question_de": "Versenden Sie Hunde international?",
             "question_it": "Spedite cani a livello internazionale?",
+            "chat_search_aliases": "Do you deliver dogs abroad?\nInternational dog delivery\nEnviam cães para fora de Portugal?\nFazem entregas no estrangeiro?\n¿Envían perros al extranjero?\nLivrez-vous des chiens à l'étranger ?\nLiefern Sie Hunde ins Ausland?\nConsegnate cani all'estero?",
 
             "answer_en": "Yes, we can arrange international shipping under specific conditions. Contact us for details.",
             "answer_pt": "Sim, podemos organizar envios internacionais sob condições específicas. Contacte-nos para mais informações.",
@@ -163,6 +170,7 @@
             "question_fr": "Que dois-je préparer avant d'amener un chien à la maison ?",
             "question_de": "Was sollte ich vorbereiten, bevor ich einen Hund nach Hause bringe?",
             "question_it": "Cosa dovrei preparare prima di portare un cane a casa?",
+            "chat_search_aliases": "How should I prepare for a puppy?\nWhat do I need before bringing a dog home?\nComo preparo a casa para um cachorro?\nO que preciso para receber um cão?\n¿Cómo preparo la casa para un cachorro?\nComment préparer la maison pour un chiot ?\nWie bereite ich mein Zuhause auf einen Welpen vor?\nCome preparo la casa per un cucciolo?",
 
             "answer_en": "You should prepare a safe space, food, water bowls, toys, and a comfortable bed for your new dog.",
             "answer_pt": "Deve preparar um espaço seguro, comida, taças de água, brinquedos e uma cama confortável para o seu novo cão.",
@@ -185,6 +193,7 @@
             "question_fr": "Offrez-vous une garantie de santé pour vos chiens ?",
             "question_de": "Bieten Sie eine Gesundheitsgarantie für Ihre Hunde an?",
             "question_it": "Offrite una garanzia di salute per i vostri cani?",
+            "chat_search_aliases": "Is there a health guarantee?\nDo puppies have a health warranty?\nExiste garantia de saúde?\nOs cachorros têm garantia?\n¿Hay garantía de salud?\nY a-t-il une garantie de santé ?\nGibt es eine Gesundheitsgarantie?\nC'è una garanzia sanitaria?",
 
             "answer_en": "Yes, we provide a health guarantee for all our dogs. Please contact us for the terms and conditions.",
             "answer_pt": "Sim, fornecemos uma garantia de saúde para todos os nossos cães. Contacte-nos para conhecer os termos e condições.",
@@ -207,6 +216,7 @@
             "question_fr": "Puis-je retourner un chien s'il y a des problèmes ?",
             "question_de": "Kann ich einen Hund zurückgeben, wenn es Probleme gibt?",
             "question_it": "Posso restituire un cane se ci sono problemi?",
+            "chat_search_aliases": "Can I return a puppy?\nWhat is the return policy?\nCan I get a refund?\nPosso devolver um cachorro?\nQual é a política de devolução?\n¿Puedo devolver un cachorro?\nPuis-je rendre un chiot ?\nKann ich einen Welpen zurückgeben?\nPosso restituire un cucciolo?",
 
             "answer_en": "We have a return policy in case of health issues. Please contact us within 14 days of purchase.",
             "answer_pt": "Temos uma política de devolução em caso de problemas de saúde. Por favor, contacte-nos no prazo de 14 dias após a compra.",

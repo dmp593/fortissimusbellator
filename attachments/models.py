@@ -5,7 +5,6 @@ import logging
 from io import BytesIO
 from uuid import uuid4
 
-import cv2
 from PIL import Image
 
 from django.db import models
@@ -123,6 +122,11 @@ class Attachment(models.Model):
         # Generate thumbnail for videos if not provided
         if self.mime_type and self.mime_type.startswith('video') and not self.thumbnail:
             try:
+                # OpenCV adds a sizeable native-library footprint. Import it
+                # only for the uncommon operation that needs it, not at every
+                # Django process startup.
+                import cv2
+
                 # Open the video file
                 video = cv2.VideoCapture(self.file.path)
                 success, frame = video.read()  # Read the first frame
@@ -136,14 +140,20 @@ class Attachment(models.Model):
                     # Save the frame as a thumbnail
                     thumb_io = BytesIO()
                     img.save(thumb_io, format='WebP')
-                    thumb_file = ContentFile(thumb_io.getvalue(), name=f"{uuid4().hex}.webp")
+                    thumb_file = ContentFile(
+                        thumb_io.getvalue(),
+                        name=f"{uuid4().hex}.webp",
+                    )
 
                     # Save the thumbnail
                     self.thumbnail.save(thumb_file.name, thumb_file, save=False)
                     super().save(*args, **kwargs)  # Save again to store the thumbnail
 
-            except Exception as e:
-                logger.error(f"Error generating thumbnail for {self.file.name}: {e}")
+            except Exception:
+                logger.exception(
+                    "Error generating thumbnail for %s",
+                    self.file.name,
+                )
 
     def __str__(self):
         return f"{self.filename}"

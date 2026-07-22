@@ -1,0 +1,173 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}{% translate "Local chat model status" %}{% endblock %}
+
+{% block bodyclass %}chat-model-status-page{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/admin_model_status.css' %}">
+{% endblock %}
+
+{% block extrahead %}
+  {{ block.super }}
+  {% if snapshot.is_preparing %}
+    <meta http-equiv="refresh" content="5">
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% translate "Home" %}</a>
+  &rsaquo; {% translate "Local chat model status" %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main" class="model-status model-status--{{ snapshot.state.value }}">
+  <header class="model-status__intro">
+    <div>
+      <p class="model-status__eyebrow">{% translate "Local AI assistant" %}</p>
+      <p class="model-status__subtitle">
+        {% translate "Model health, storage, and preparation controls." %}
+      </p>
+    </div>
+    <div class="model-status__badge" aria-label="{% translate 'State' %}: {{ snapshot.state_label }}">
+      <span class="model-status__dot" aria-hidden="true"></span>
+      {{ snapshot.state_label }}
+    </div>
+  </header>
+
+  <section class="model-status__selector">
+    <div>
+      <p class="model-status__label">{% translate "Website chat model" %}</p>
+      <p class="model-status__subtitle">
+        {% translate "Choose from the enabled models configured for this server." %}
+      </p>
+    </div>
+    <form method="post" class="model-status__selector-form">
+      {% csrf_token %}
+      <label class="visually-hidden" for="chat-model-id">
+        {% translate "Website chat model" %}
+      </label>
+      <select id="chat-model-id" name="model_id" {% if snapshot.is_preparing or not model_options %}disabled{% endif %}>
+        {% if not model_options %}
+          <option>{% translate "No enabled models" %}</option>
+        {% endif %}
+        {% for option in model_options %}
+          <option value="{{ option.model.model_id }}" {% if option.is_active %}selected{% endif %}>
+            {{ option.model.name }} ·
+            {% if option.file_size_known %}{{ option.file_size|filesizeformat }}{% else %}{% translate "Unknown size" %}{% endif %}
+            {% if option.model.recommended %} · {% translate "Recommended" %}{% endif %}
+            {% if option.is_downloaded %} · {% translate "Downloaded" %}{% endif %}
+          </option>
+        {% endfor %}
+      </select>
+      <button type="submit" name="action" value="activate" class="button default" {% if snapshot.is_preparing or not model_options %}disabled{% endif %}>
+        {% translate "Activate and prepare" %}
+      </button>
+    </form>
+    <div class="model-status__selector-help">
+      {% for option in model_options %}
+        {% if option.is_active %}<p>{{ option.model.summary }}</p>{% endif %}
+      {% endfor %}
+      <p class="model-status__muted">
+        {% translate "Changing model safely unloads the current one. Existing verified downloads are reused." %}
+      </p>
+      <p>
+        <a href="{% url 'admin:chat_chatmodel_changelist' %}">
+          {% translate "Manage downloadable models" %}
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <div class="model-status__grid">
+    <section class="model-status__card model-status__card--wide">
+      <p class="model-status__label">{% translate "Active model" %}</p>
+      <p class="model-status__value">{{ snapshot.model_name }}</p>
+    </section>
+    <section class="model-status__card">
+      <p class="model-status__label">{% translate "State" %}</p>
+      <p class="model-status__value">{{ snapshot.state_label }}</p>
+    </section>
+    <section class="model-status__card">
+      <p class="model-status__label">{% translate "Model file size" %}</p>
+      <p class="model-status__value">{{ snapshot.file_size|filesizeformat }}</p>
+    </section>
+    <section class="model-status__card model-status__card--wide">
+      <p class="model-status__label">{% translate "Model path" %}</p>
+      <code class="model-status__path">{{ snapshot.model_path }}</code>
+    </section>
+  </div>
+
+  {% if snapshot.total_bytes %}
+    <section class="model-status__card model-status__progress-card">
+      <div class="model-status__progress-heading">
+        <p class="model-status__label">{% translate "Download progress" %}</p>
+        <strong>{{ snapshot.progress_percent }}%</strong>
+      </div>
+      <progress value="{{ snapshot.downloaded_bytes }}" max="{{ snapshot.total_bytes }}">
+        {{ snapshot.progress_percent }}%
+      </progress>
+      <p class="model-status__muted">
+        {{ snapshot.downloaded_bytes|filesizeformat }} /
+        {{ snapshot.total_bytes|filesizeformat }}
+      </p>
+    </section>
+  {% endif %}
+
+  {% if snapshot.error %}
+    <section class="model-status__alert" role="alert">
+      <div class="model-status__alert-icon" aria-hidden="true">!</div>
+      <div>
+        <strong>{% translate "Last error" %}</strong>
+        <p>{{ snapshot.error }}</p>
+      </div>
+    </section>
+  {% endif %}
+
+  <footer class="model-status__footer">
+    <div class="model-status__help">
+      {% if snapshot.state.value == "ready" %}
+        <strong>{% translate "The assistant is ready." %}</strong>
+        <span>{% translate "Database-backed answers remain preferred; the local model handles fallback questions." %}</span>
+      {% elif snapshot.is_preparing %}
+        <strong>{% translate "Preparation is running in the background." %}</strong>
+        <span>{% translate "This page refreshes automatically while progress is being made." %}</span>
+      {% else %}
+        <strong>{% translate "The assistant still needs preparation." %}</strong>
+        <span>{% translate "Use the action to verify, download if necessary, and load the model." %}</span>
+      {% endif %}
+    </div>
+
+    {% if not snapshot.model_id %}
+      <a href="{% url 'admin:chat_chatmodel_add' %}" class="button default">
+        {% translate "Add a model" %}
+      </a>
+    {% elif snapshot.error %}
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="action" value="retry" class="button default">
+          {% translate "Retry model preparation" %}
+        </button>
+      </form>
+    {% elif snapshot.state.value == "ready" %}
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="action" value="download_latest" class="button">
+          {% translate "Download latest version" %}
+        </button>
+      </form>
+    {% elif snapshot.state.value != "ready" and not snapshot.is_preparing %}
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="action" value="prepare" class="button default">
+          {% translate "Prepare model" %}
+        </button>
+      </form>
+    {% endif %}
+  </footer>
+</div>
+{% endblock %}

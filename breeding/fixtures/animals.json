@@ -4,6 +4,7 @@
         "pk": 1,
         "fields": {
             "name": "Bella",
+            "chat_search_aliases": "Bela\nBellinha",
             "breed": ["German Shepherd (Show Line)"],
             "description": "A beautiful show line German Shepherd.",
             "description_en": "A beautiful show line German Shepherd.",
@@ -26,6 +27,7 @@
         "pk": 2,
         "fields": {
             "name": "Max",
+            "chat_search_aliases": "Maxi\nMaxinho",
             "breed": ["German Shepherd (Working Line)"],
             "description": "A highly trained German Shepherd.",
             "description_en": "A highly trained German Shepherd.",

@@ -23,6 +23,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 from fortissimusbellator import admin
+from chat.views import model_status as chat_model_status
 from .views import FileUploadView, EditorJsImageUploadByFileView, EditorJsImageUploadByUrlView
 
 urlpatterns = [
@@ -39,6 +40,11 @@ urlpatterns += i18n_patterns(
     path('', include('accounts.urls')),
     path('quiz/', include('quiz.urls')),
     path('blog/', include('blog.urls')),
+    path(
+        'admin/chat/model-status/',
+        chat_model_status,
+        name='chat_model_status',
+    ),
     path('admin/', admin.site.urls),
 
     prefix_default_language=True

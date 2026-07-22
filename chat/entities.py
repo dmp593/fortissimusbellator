@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from .catalog import current_litters, public_breeds, public_dogs
 from .domain import EntityKind, EntityMatch, EntityResolution
-from .matching import AMBIGUITY_MARGIN, phrase_score
+from .matching import AMBIGUITY_MARGIN, phrase_score, search_aliases
 
 
 @dataclass(frozen=True)
@@ -105,19 +105,25 @@ class EntityResolver:
             candidates.append(_Candidate(
                 kind=EntityKind.DOG,
                 instance=dog,
-                aliases=(dog.name,),
+                aliases=(dog.name, *search_aliases(dog.chat_search_aliases)),
             ))
         for litter in current_litters():
             candidates.append(_Candidate(
                 kind=EntityKind.LITTER,
                 instance=litter,
-                aliases=(litter.name,),
+                aliases=(
+                    litter.name,
+                    *search_aliases(litter.chat_search_aliases),
+                ),
             ))
         for breed in public_breeds():
             candidates.append(_Candidate(
                 kind=EntityKind.BREED,
                 instance=breed,
-                aliases=tuple(dict.fromkeys((str(breed), breed.name))),
+                aliases=tuple(dict.fromkeys((
+                    str(breed),
+                    breed.name,
+                    *search_aliases(breed.chat_search_aliases),
+                ))),
             ))
         return candidates
-

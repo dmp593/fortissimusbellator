@@ -1,3 +1,4 @@
+import hashlib
 import json
 from datetime import date
 from decimal import Decimal
@@ -6,6 +7,8 @@ from tempfile import TemporaryDirectory
 from unittest.mock import Mock, patch
 
 from django.core.cache import cache
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
 
@@ -16,13 +19,34 @@ from .assistant import (
     ChatAssistant,
     LocalModel,
     ModelPreparing,
+    ModelSnapshot,
+    ModelState,
     ModelUnavailable,
 )
 from .domain import ChatReply, ChatRequest, ConversationState, EntityKind
 from .knowledge import build_knowledge, matching_faq
 from .matching import normalize_text, phrase_score, same_word
+from .model_catalog import ChatModelSpec, validate_model_spec
+from .model_selection import ModelSelectionError
+from .models import ChatModel, ChatModelConfiguration
 from .service import ChatService
 from .views import _clean_history, _clean_state
+
+
+def _test_model_spec(**changes):
+    values = {
+        "model_id": "test-model",
+        "name": "Test model",
+        "repository": "example/models",
+        "filename": "model.gguf",
+        "revision": "main",
+        "sha256": "",
+        "download_size": 400_000_000,
+        "summary": "Test model",
+        "recommended": False,
+    }
+    values.update(changes)
+    return ChatModelSpec(**values)
 
 
 class FakeTokenizer:
@@ -84,15 +108,50 @@ class MatchingTests(SimpleTestCase):
     def test_one_letter_entity_does_not_match_inside_a_sentence(self):
         self.assertEqual(phrase_score("Tell me about a dog", "A"), 0.0)
 
+    def test_three_letter_name_or_alias_matches_as_a_complete_word(self):
+        self.assertEqual(phrase_score("Tell me about GSD", "GSD"), 0.99)
+
+
+class ModelCatalogTests(SimpleTestCase):
+    def test_spec_builds_safe_hugging_face_url_and_storage_path(self):
+        model = _test_model_spec(
+            repository="owner/model-name",
+            filename="small model.gguf",
+            revision="refs/pr/2",
+        )
+
+        with override_settings(CHAT_MODEL_DIR="/models"):
+            self.assertEqual(model.path, Path("/models/small model.gguf"))
+        self.assertEqual(
+            model.download_url,
+            "https://huggingface.co/owner/model-name/resolve/"
+            "refs%2Fpr%2F2/small%20model.gguf",
+        )
+
+    def test_checksum_is_optional(self):
+        validate_model_spec(_test_model_spec(sha256=""))
+        validate_model_spec(_test_model_spec(sha256="a" * 64))
+
+    def test_invalid_or_unsafe_values_are_rejected(self):
+        invalid_models = (
+            _test_model_spec(repository="https://example.com/model"),
+            _test_model_spec(filename="../model.gguf"),
+            _test_model_spec(sha256="not-a-checksum"),
+            _test_model_spec(download_size=850_000_001),
+        )
+
+        for model in invalid_models:
+            with self.subTest(model=model), self.assertRaises(ValidationError):
+                validate_model_spec(model)
+
 
 class LocalModelTests(SimpleTestCase):
     def test_missing_model_starts_one_background_download(self):
         with TemporaryDirectory() as directory:
-            model_path = Path(directory) / "model.gguf"
-            model = LocalModel()
+            model = LocalModel(lambda: _test_model_spec())
             with (
                 override_settings(
-                    CHAT_MODEL_PATH=str(model_path),
+                    CHAT_MODEL_DIR=directory,
                     CHAT_MODEL_AUTO_DOWNLOAD=True,
                 ),
                 patch("chat.assistant.threading.Thread") as thread,
@@ -107,10 +166,9 @@ class LocalModelTests(SimpleTestCase):
 
     def test_missing_model_can_disable_automatic_download(self):
         with TemporaryDirectory() as directory:
-            model_path = Path(directory) / "model.gguf"
-            model = LocalModel()
+            model = LocalModel(lambda: _test_model_spec())
             with override_settings(
-                CHAT_MODEL_PATH=str(model_path),
+                CHAT_MODEL_DIR=directory,
                 CHAT_MODEL_AUTO_DOWNLOAD=False,
             ):
                 with self.assertRaises(ModelUnavailable):
@@ -126,16 +184,149 @@ class LocalModelTests(SimpleTestCase):
 
         with TemporaryDirectory() as directory:
             model_path = Path(directory) / "model.gguf"
-            model = LocalModel()
+            model = LocalModel(lambda: _test_model_spec(
+                sha256=hashlib.sha256(b"abcdef").hexdigest(),
+            ))
             with override_settings(
-                CHAT_MODEL_DOWNLOAD_URL="https://example.test/model.gguf",
                 CHAT_MODEL_DOWNLOAD_TIMEOUT=30,
+                CHAT_MODEL_DIR=directory,
             ):
                 model._download(model_path)
 
             self.assertEqual(model_path.read_bytes(), b"abcdef")
             self.assertFalse(Path(f"{model_path}.part").exists())
-            self.assertIsNone(model._download_error)
+            self.assertEqual(model.snapshot().downloaded_bytes, 6)
+
+    def test_existing_model_is_verified_and_loaded_in_background(self):
+        with TemporaryDirectory() as directory:
+            model_path = Path(directory) / "model.gguf"
+            model_path.write_bytes(b"valid model")
+            model = LocalModel(lambda: _test_model_spec(
+                sha256=hashlib.sha256(b"valid model").hexdigest(),
+            ))
+            loaded_model = object()
+            with (
+                override_settings(
+                    CHAT_MODEL_DIR=directory,
+                ),
+                patch.object(model, "_load", return_value=loaded_model),
+            ):
+                model._prepare(model_path)
+
+            self.assertIs(model.get(), loaded_model)
+            self.assertEqual(model.snapshot().state, ModelState.READY)
+
+    def test_close_releases_loaded_model_once(self):
+        model = LocalModel(lambda: _test_model_spec())
+        loaded_model = Mock()
+        model._model = loaded_model
+        model._state = ModelState.READY
+
+        model.close()
+        model.close()
+
+        loaded_model.close.assert_called_once_with()
+        self.assertIsNone(model._model)
+        self.assertNotEqual(model.snapshot().state, ModelState.READY)
+
+    def test_activate_unloads_current_model_before_preparing_replacement(self):
+        with TemporaryDirectory() as directory:
+            current = _test_model_spec(model_id="current")
+            replacement = _test_model_spec(
+                model_id="replacement",
+                name="Replacement",
+                filename="replacement.gguf",
+            )
+            model = LocalModel(lambda: current)
+            loaded_model = Mock()
+            model._model_spec = current
+            model._model = loaded_model
+            model._state = ModelState.READY
+
+            with (
+                override_settings(
+                    CHAT_MODEL_DIR=directory,
+                ),
+                patch("chat.assistant.threading.Thread") as thread,
+            ):
+                snapshot = model.activate(replacement)
+
+            loaded_model.close.assert_called_once_with()
+            self.assertEqual(snapshot.model_id, replacement.model_id)
+            self.assertEqual(model._model_spec, replacement)
+            thread.assert_called_once()
+            thread.return_value.start.assert_called_once_with()
+
+    @patch("chat.assistant.requests.get")
+    def test_bad_checksum_never_publishes_download(self, get):
+        response = get.return_value
+        response.__enter__.return_value = response
+        response.__exit__.return_value = False
+        response.headers = {"Content-Length": "6"}
+        response.iter_content.return_value = [b"abcdef"]
+
+        with TemporaryDirectory() as directory:
+            model_path = Path(directory) / "model.gguf"
+            model = LocalModel(lambda: _test_model_spec(
+                sha256="0" * 64,
+            ))
+            with override_settings(CHAT_MODEL_DIR=directory):
+                with self.assertRaisesRegex(RuntimeError, "checksum mismatch"):
+                    model._download(model_path)
+
+            self.assertFalse(model_path.exists())
+            self.assertFalse(Path(f"{model_path}.part").exists())
+
+    @patch("chat.assistant.requests.get")
+    def test_stream_limit_applies_when_content_length_is_invalid(self, get):
+        response = get.return_value
+        response.__enter__.return_value = response
+        response.__exit__.return_value = False
+        response.headers = {"Content-Length": "not-a-number"}
+        response.iter_content.return_value = [b"abc"]
+
+        with TemporaryDirectory() as directory:
+            model_path = Path(directory) / "model.gguf"
+            model = LocalModel(lambda: _test_model_spec())
+            with override_settings(CHAT_MODEL_MAX_DOWNLOAD_BYTES=2):
+                with self.assertRaisesRegex(RuntimeError, "size limit"):
+                    model._download(model_path)
+
+            self.assertFalse(model_path.exists())
+            self.assertFalse(Path(f"{model_path}.part").exists())
+
+    @patch("chat.assistant.requests.get")
+    def test_unpinned_download_is_allowed_and_hash_is_logged(self, get):
+        response = get.return_value
+        response.__enter__.return_value = response
+        response.__exit__.return_value = False
+        response.headers = {"Content-Length": "3"}
+        response.iter_content.return_value = [b"abc"]
+
+        with TemporaryDirectory() as directory:
+            model_path = Path(directory) / "model.gguf"
+            model = LocalModel(lambda: _test_model_spec(sha256=""))
+            with (
+                override_settings(CHAT_MODEL_DIR=directory),
+                self.assertLogs("chat.assistant", level="INFO") as logs,
+            ):
+                model._download(model_path)
+                self.assertEqual(model_path.read_bytes(), b"abc")
+
+        self.assertIn("chat_model_checksum_observed", " ".join(logs.output))
+
+    def test_download_latest_reads_fresh_database_spec(self):
+        original = _test_model_spec(revision="old")
+        updated = _test_model_spec(revision="main")
+        provider = Mock(return_value=updated)
+        model = LocalModel(provider)
+        model._model_spec = original
+
+        with patch.object(model, "activate", return_value="snapshot") as activate:
+            result = model.download_latest()
+
+        self.assertEqual(result, "snapshot")
+        activate.assert_called_once_with(updated, force_download=True)
 
 
 @override_settings(CHAT_REQUESTS_PER_MINUTE=1000, STATIC_ROOT=None)
@@ -264,6 +455,7 @@ class ChatServiceTests(TestCase):
         FrequentlyAskedQuestion.objects.create(
             question="How do reservations work?",
             answer="Contact us to discuss the reservation process.",
+            chat_search_aliases="Can I book a puppy?",
             active=True,
             order=1,
         )
@@ -282,6 +474,7 @@ class ChatServiceTests(TestCase):
             price_in_euros=Decimal("1500.00"),
             active=True,
             for_sale=True,
+            chat_search_aliases="Bibi\nBellinha",
         )
         Animal.objects.create(
             breed=cls.breed,
@@ -354,6 +547,12 @@ class ChatServiceTests(TestCase):
         self.assertIn("German Shepherd", reply.text)
         self.model.reply.assert_not_called()
 
+    def test_admin_managed_alias_finds_dog(self):
+        reply = self.service.reply(self.request("Tell me about Bibi"))
+
+        self.assertIn("About Bella", reply.text)
+        self.model.reply.assert_not_called()
+
     def test_current_litters_are_database_facts(self):
         reply = self.service.reply(self.request(
             "Show current litters", requested_intent="current_litters"
@@ -392,6 +591,15 @@ class ChatServiceTests(TestCase):
         )
         self.model.reply.assert_not_called()
 
+    def test_admin_managed_alias_finds_faq(self):
+        reply = self.service.reply(self.request("Can I book a puppy?"))
+
+        self.assertEqual(
+            reply.text,
+            "Contact us to discuss the reservation process.",
+        )
+        self.model.reply.assert_not_called()
+
     def test_loose_faq_match_is_context_not_an_unsafe_direct_answer(self):
         self.assertIsNone(matching_faq("Which dogs are available?"))
 
@@ -410,6 +618,41 @@ class ChatServiceTests(TestCase):
         self.assertEqual(args[0], [])
         self.assertEqual(args[1], request.message)
         self.assertIn("Fortissimus Bellator", args[3])
+        self.assertIn("German Shepherd", args[3])
+
+    def test_route_log_contains_metadata_but_not_the_message(self):
+        secret_message = "A private but unknown customer question"
+        with self.assertLogs("chat.service", level="INFO") as logs:
+            self.service.reply(self.request(secret_message))
+
+        output = " ".join(logs.output)
+        self.assertIn("route=model", output)
+        self.assertNotIn(secret_message, output)
+
+    def test_golden_sales_conversation_in_every_supported_language(self):
+        conversations = {
+            "en": ("Which dogs are available?", "How much does she cost?", "Dogs currently available:"),
+            "pt": ("Que cães estão disponíveis?", "Quanto custa ela?", "Cães atualmente disponíveis:"),
+            "es": ("¿Qué perros están disponibles?", "¿Cuánto cuesta ella?", "Perros disponibles actualmente:"),
+            "fr": ("Quels chiens sont disponibles ?", "Combien coûte-t-elle ?", "Chiens actuellement disponibles:"),
+            "de": ("Welche Hunde sind verfügbar?", "Wie viel kostet sie?", "Derzeit verfügbare Hunde:"),
+            "it": ("Quali cani sono disponibili?", "Quanto costa lei?", "Cani attualmente disponibili:"),
+        }
+
+        for language, (question, follow_up, heading) in conversations.items():
+            with self.subTest(language=language):
+                first = self.service.reply(self.request(
+                    question, language=language
+                ))
+                second = self.service.reply(self.request(
+                    follow_up, language=language, state=first.state
+                ))
+                self.assertIn(heading, first.text)
+                self.assertIn("Bella", first.text)
+                self.assertIn("Bella", second.text)
+                self.assertTrue(second.state.has_entity)
+
+        self.model.reply.assert_not_called()
 
     def test_model_knowledge_excludes_unrequested_catalogue_noise(self):
         knowledge = build_knowledge(
@@ -439,6 +682,50 @@ class ChatServiceTests(TestCase):
         inference.assert_not_called()
 
 
+class ChatFixtureAliasTests(TestCase):
+    fixtures = (
+        "animalskinds",
+        "breeds",
+        "certifications",
+        "animals",
+        "litters",
+        "faqs",
+    )
+
+    def test_searchable_fixture_models_have_aliases(self):
+        self.assertFalse(
+            Breed.objects.filter(chat_search_aliases="").exists()
+        )
+        self.assertFalse(
+            Animal.objects.filter(chat_search_aliases="").exists()
+        )
+        self.assertFalse(
+            Litter.objects.filter(chat_search_aliases="").exists()
+        )
+        self.assertFalse(
+            FrequentlyAskedQuestion.objects.filter(
+                chat_search_aliases=""
+            ).exists()
+        )
+
+    def test_fixture_aliases_are_used_by_chat_matching(self):
+        service = ChatService(model_assistant=Mock())
+        request = ChatRequest(
+            message="Fala-me do GSD",
+            history=[],
+            language="pt",
+            page_context={},
+        )
+
+        reply = service.reply(request)
+
+        self.assertIn("Pastor Alemão", reply.text)
+        self.assertEqual(
+            matching_faq("Como funcionam as reservas?").pk,
+            6,
+        )
+
+
 @override_settings(
     STATIC_ROOT=Path(__file__).parent / "migrations",
     STORAGES={
@@ -461,3 +748,181 @@ class WidgetIntegrationTests(TestCase):
         self.assertContains(response, 'name="csrfmiddlewaretoken"')
         self.assertContains(response, 'data-chat-intent="available_dogs"')
         self.assertContains(response, "data-page-name=")
+
+
+@override_settings(
+    STATIC_ROOT=Path(__file__).parent / "migrations",
+    STORAGES={
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": (
+                "django.contrib.staticfiles.storage.StaticFilesStorage"
+            ),
+        },
+    },
+)
+class ModelStatusViewTests(TestCase):
+    fixtures = ("chat_models",)
+
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="admin",
+            password="password",
+            is_staff=True,
+            is_superuser=True,
+        )
+
+    def test_status_page_requires_staff(self):
+        response = self.client.get(reverse("chat_model_status"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_admin_header_links_to_model_status(self):
+        self.client.force_login(self.user)
+
+        response = self.client.get(reverse("admin:index"))
+
+        self.assertContains(response, reverse("chat_model_status"))
+        self.assertContains(response, "Local chat model status")
+
+    def test_admin_can_manage_dynamic_model_catalogue(self):
+        self.client.force_login(self.user)
+
+        response = self.client.get(
+            reverse("admin:chat_chatmodel_changelist")
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Qwen3.5 0.8B Instruct")
+        self.assertContains(response, "Qwen2.5 0.5B Instruct")
+
+    @patch(
+        "chat.views.local_model.snapshot",
+        side_effect=ModelSelectionError("No model"),
+    )
+    def test_empty_catalogue_links_to_add_model(self, _snapshot):
+        ChatModel.objects.update(enabled=False)
+        self.client.force_login(self.user)
+
+        response = self.client.get(reverse("chat_model_status"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No enabled models")
+        self.assertContains(response, reverse("admin:chat_chatmodel_add"))
+
+    @patch("chat.views.local_model")
+    def test_staff_can_view_and_retry_model(self, model):
+        model.snapshot.return_value = ModelSnapshot(
+            state=ModelState.FAILED,
+            model_path="/models/chat.gguf",
+            file_size=0,
+            downloaded_bytes=10,
+            total_bytes=100,
+            error="download failed",
+        )
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            reverse("chat_model_status"), {"action": "retry"}
+        )
+
+        self.assertRedirects(
+            response,
+            reverse("chat_model_status"),
+            fetch_redirect_response=False,
+        )
+        model.prepare.assert_called_once_with(retry=True)
+
+        response = self.client.get(reverse("chat_model_status"))
+        self.assertContains(response, "download failed")
+        self.assertContains(response, "Fortissimus Bellator Administration")
+        self.assertContains(response, "model-status--failed")
+        self.assertContains(response, "model-status__alert")
+
+    @patch("chat.views.local_model")
+    def test_preparing_status_refreshes_without_duplicate_action(self, model):
+        model.snapshot.return_value = ModelSnapshot(
+            state=ModelState.DOWNLOADING,
+            model_path="/models/chat.gguf",
+            file_size=0,
+            downloaded_bytes=25,
+            total_bytes=100,
+            error="",
+        )
+        self.client.force_login(self.user)
+
+        response = self.client.get(reverse("chat_model_status"))
+
+        self.assertContains(response, 'http-equiv="refresh"')
+        self.assertContains(response, "25%")
+        self.assertContains(response, "Qwen3.5 0.8B Instruct")
+        self.assertContains(response, "Qwen2.5 0.5B Instruct")
+        self.assertContains(response, 'id="chat-model-id"')
+        self.assertNotContains(response, 'value="prepare"')
+
+    @patch("chat.views.local_model")
+    def test_staff_can_select_only_an_approved_model(self, model):
+        current = ChatModel.objects.get(
+            pk="qwen2.5-0.5b-q4-k-m"
+        ).to_spec()
+        model.snapshot.return_value = ModelSnapshot(
+            state=ModelState.READY,
+            model_path=str(current.path),
+            file_size=0,
+            downloaded_bytes=0,
+            total_bytes=0,
+            error="",
+            model_id=current.model_id,
+            model_name=current.name,
+        )
+        self.client.force_login(self.user)
+        selected = ChatModel.objects.get(
+            pk="qwen3.5-0.8b-q4-k-m"
+        ).to_spec()
+
+        response = self.client.post(
+            reverse("chat_model_status"),
+            {"action": "activate", "model_id": selected.model_id},
+        )
+
+        self.assertEqual(response.status_code, 302)
+        model.activate.assert_called_once_with(selected)
+        self.assertEqual(
+            ChatModelConfiguration.objects.get(pk=1).active_model_id,
+            selected.model_id,
+        )
+
+        model.reset_mock()
+        response = self.client.post(
+            reverse("chat_model_status"),
+            {"action": "activate", "model_id": "untrusted-model"},
+        )
+
+        self.assertEqual(response.status_code, 302)
+        model.activate.assert_not_called()
+
+    @patch("chat.views.local_model")
+    def test_staff_can_download_latest_active_revision(self, model):
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            reverse("chat_model_status"),
+            {"action": "download_latest"},
+        )
+
+        self.assertEqual(response.status_code, 302)
+        model.download_latest.assert_called_once_with()
+
+
+class ChatModelFixtureTests(TestCase):
+    fixtures = ("chat_models",)
+
+    def test_seed_models_allow_upstream_updates_without_required_checksum(self):
+        models = ChatModel.objects.order_by("model_id")
+
+        self.assertEqual(models.count(), 5)
+        self.assertFalse(models.exclude(revision="main").exists())
+        self.assertFalse(models.exclude(sha256="").exists())
+        for model in models:
+            validate_model_spec(model)

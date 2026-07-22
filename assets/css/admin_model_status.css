@@ -1,0 +1,339 @@
+.model-status {
+  --model-state-color: var(--body-quiet-color);
+  container-type: inline-size;
+  max-width: 960px;
+}
+
+.model-status--ready {
+  --model-state-color: #16a34a;
+}
+
+.model-status--downloading,
+.model-status--verifying,
+.model-status--loading {
+  --model-state-color: #ca8a04;
+}
+
+.model-status--failed,
+.model-status--missing {
+  --model-state-color: #dc2626;
+}
+
+.model-status__intro,
+.model-status__footer,
+.model-status__progress-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.model-status__intro {
+  margin-bottom: 24px;
+}
+
+.model-status__eyebrow,
+.model-status__subtitle,
+.model-status__label,
+.model-status__value,
+.model-status__muted,
+.model-status__alert p {
+  margin: 0;
+}
+
+.model-status__eyebrow,
+.model-status__label {
+  color: var(--body-quiet-color);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.model-status__subtitle {
+  margin-top: 5px;
+  color: var(--body-quiet-color);
+  font-size: 0.9375rem;
+}
+
+.model-status__badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 9px;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--hairline-color);
+  border-radius: 999px;
+  background: var(--darkened-bg);
+  font-weight: 700;
+}
+
+.model-status__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--model-state-color);
+  box-shadow: 0 0 0 4px
+    color-mix(in srgb, var(--model-state-color) 18%, transparent);
+}
+
+.model-status__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.model-status__card,
+.model-status__selector,
+.model-status__alert,
+.model-status__footer {
+  border: 1px solid var(--hairline-color);
+  border-radius: 10px;
+  background: var(--body-bg);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 6%);
+}
+
+.model-status__card {
+  padding: 20px;
+}
+
+.model-status__selector {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, auto);
+  gap: 8px 24px;
+  margin-bottom: 16px;
+  padding: 20px;
+}
+
+.model-status__selector-form {
+  display: flex;
+  grid-row: span 2;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin: 0;
+}
+
+.model-status__selector-form select {
+  flex: 1 1 360px;
+  min-width: 0;
+  max-width: 470px;
+  min-height: 42px;
+}
+
+.model-status__selector-form .button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding-inline: 22px;
+  white-space: nowrap;
+}
+
+.model-status__selector-help {
+  display: grid;
+  gap: 3px;
+  align-self: start;
+}
+
+.model-status__selector-help p {
+  margin: 0;
+}
+
+.model-status__card--wide {
+  grid-column: 1 / -1;
+}
+
+.model-status__value {
+  margin-top: 8px;
+  color: var(--body-fg);
+  font-size: 1.375rem;
+  font-weight: 700;
+}
+
+.model-status__path {
+  display: block;
+  margin-top: 10px;
+  padding: 12px 14px;
+  overflow-wrap: anywhere;
+  border-radius: 6px;
+  background: var(--darkened-bg);
+  color: var(--body-fg);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.model-status__progress-card,
+.model-status__alert,
+.model-status__footer {
+  margin-top: 16px;
+}
+
+.model-status__progress-card progress {
+  width: 100%;
+  height: 10px;
+  margin: 14px 0 8px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  accent-color: var(--primary);
+}
+
+.model-status__muted {
+  color: var(--body-quiet-color);
+  font-size: 0.8125rem;
+}
+
+.model-status__alert {
+  display: flex;
+  gap: 14px;
+  padding: 18px 20px;
+  border-color: var(--error-fg);
+}
+
+.model-status__alert-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--error-fg);
+  color: white;
+  font-weight: 800;
+}
+
+.model-status__alert p {
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+  color: var(--body-quiet-color);
+}
+
+.model-status__footer {
+  padding: 18px 20px;
+  background: var(--darkened-bg);
+}
+
+.model-status__help {
+  display: grid;
+  gap: 4px;
+}
+
+.model-status__help span {
+  color: var(--body-quiet-color);
+}
+
+.model-status__footer form {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.model-status__footer > .button {
+  display: inline-flex;
+  align-items: center;
+}
+
+.model-status__footer .button {
+  min-height: 38px;
+  padding-inline: 18px;
+}
+
+@container (max-width: 920px) {
+  .model-status__selector {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .model-status__selector-form {
+    grid-row: auto;
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .model-status__selector-form select {
+    max-width: none;
+  }
+}
+
+@container (max-width: 620px) {
+  .model-status__selector-form {
+    display: grid;
+    gap: 12px;
+  }
+
+  .model-status__selector-form select,
+  .model-status__selector-form .button {
+    width: 100%;
+    max-width: none;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 767px) {
+  .chat-model-status-page #content > h1 {
+    text-align: center;
+  }
+
+  .model-status__intro,
+  .model-status__footer {
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .model-status__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .model-status__selector {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .model-status__selector-form {
+    display: grid;
+    grid-row: auto;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .model-status__selector-form select,
+  .model-status__selector-form .button {
+    width: 100%;
+    max-width: none;
+    min-height: 44px;
+  }
+
+  .model-status__badge {
+    margin-inline: auto;
+  }
+
+  .model-status__card {
+    text-align: center;
+  }
+
+  .model-status__card--wide {
+    grid-column: auto;
+  }
+
+  .model-status__path,
+  .model-status__alert {
+    text-align: left;
+  }
+
+  .model-status__help {
+    justify-items: center;
+  }
+
+  .model-status__footer form,
+  .model-status__footer .button,
+  .model-status__footer > .button {
+    width: 100%;
+  }
+
+  .model-status__footer > .button {
+    justify-content: center;
+  }
+}

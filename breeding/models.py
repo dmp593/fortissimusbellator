@@ -89,6 +89,14 @@ class Breed(models.Model):
         verbose_name=_('description'),
     )
 
+    chat_search_aliases = models.TextField(
+        blank=True,
+        verbose_name=_('chat search aliases'),
+        help_text=_(
+            'Optional alternative names, one per line. Used only by chat search.'
+        ),
+    )
+
     parent = models.ForeignKey(
         'self',
         on_delete=models.CASCADE,
@@ -236,6 +244,14 @@ class Animal(models.Model):
     description = models.TextField(
         blank=True,
         verbose_name=_('description'),
+    )
+
+    chat_search_aliases = models.TextField(
+        blank=True,
+        verbose_name=_('chat search aliases'),
+        help_text=_(
+            'Optional alternative names, one per line. Used only by chat search.'
+        ),
     )
 
     birth_date = models.DateField(
@@ -424,6 +440,14 @@ class Litter(models.Model):
     description = models.TextField(
         blank=True,
         verbose_name=_('description'),
+    )
+
+    chat_search_aliases = models.TextField(
+        blank=True,
+        verbose_name=_('chat search aliases'),
+        help_text=_(
+            'Optional alternative names, one per line. Used only by chat search.'
+        ),
     )
 
     father = models.ForeignKey(

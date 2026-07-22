@@ -3,20 +3,34 @@
 import hashlib
 import json
 import logging
+from pathlib import Path
 
 from django.conf import settings
+from django.contrib import admin, messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.cache import cache
 from django.http import JsonResponse
+from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_http_methods, require_POST
 
 from .assistant import (
     ModelBusy,
     ModelPreparing,
+    ModelSnapshot,
+    ModelState,
     ModelUnavailable,
+    local_model,
 )
+from .business import CONTACT_PHONES
 from .domain import ChatRequest, ConversationState, EntityKind
 from .intents import QUICK_INTENTS
+from .model_selection import (
+    ModelSelectionError,
+    available_models,
+    save_selected_model,
+)
+from .models import ChatModel
 from .service import chat_service
 
 
@@ -29,9 +43,106 @@ ALLOWED_CONTEXT_FIELDS = {
 }
 
 
+@staff_member_required
+@require_http_methods(["GET", "POST"])
+def model_status(request):
+    """Show and control model preparation without blocking an admin request."""
+    if request.method == "POST":
+        _handle_model_action(request)
+        return redirect("chat_model_status")
+
+    models = [model.to_spec() for model in available_models()]
+    try:
+        snapshot = local_model.snapshot()
+    except ModelSelectionError:
+        snapshot = _unconfigured_snapshot()
+    context = admin.site.each_context(request)
+    context.update({
+        "title": _("Local chat model status"),
+        "snapshot": snapshot,
+        "model_options": [
+            _model_option(model, snapshot.model_id) for model in models
+        ],
+    })
+    return render(
+        request,
+        "admin/chat/model_status.html",
+        context,
+    )
+
+
+def _handle_model_action(request):
+    action = request.POST.get("action")
+    if action in {"prepare", "retry"}:
+        try:
+            local_model.prepare(retry=action == "retry")
+        except ModelSelectionError:
+            messages.error(request, _("Add and enable a chat model first."))
+        return
+    if action == "download_latest":
+        try:
+            local_model.download_latest()
+        except (ModelBusy, ModelSelectionError):
+            messages.error(
+                request,
+                _("Wait for the current model operation or add a model first."),
+            )
+        return
+    if action != "activate":
+        messages.error(request, _("Unknown model action."))
+        return
+
+    model_id = request.POST.get("model_id", "")
+    try:
+        model = available_models().get(pk=model_id).to_spec()
+    except (ValueError, TypeError, ChatModel.DoesNotExist):
+        messages.error(request, _("Select one of the approved chat models."))
+        return
+
+    try:
+        local_model.activate(model)
+    except ModelBusy:
+        messages.error(
+            request,
+            _("Wait for the current model operation to finish before switching."),
+        )
+        return
+
+    save_selected_model(model.model_id)
+    messages.success(
+        request,
+        _("%(model)s is now the active chat model.") % {"model": model.name},
+    )
+
+
+def _model_option(model, active_model_id):
+    path = model.path
+    is_downloaded = path.is_file()
+    file_size = path.stat().st_size if is_downloaded else model.download_size
+    return {
+        "model": model,
+        "is_active": model.model_id == active_model_id,
+        "is_downloaded": is_downloaded,
+        "file_size": file_size,
+        "file_size_known": bool(file_size),
+    }
+
+
+def _unconfigured_snapshot():
+    return ModelSnapshot(
+        state=ModelState.MISSING,
+        model_path=str(Path(settings.CHAT_MODEL_DIR)),
+        file_size=0,
+        downloaded_bytes=0,
+        total_bytes=0,
+        error=str(_("No enabled local chat model is configured.")),
+    )
+
+
 @require_POST
 def message(request):
     if _rate_limited(request):
+        logger.warning("chat_request_rejected reason=rate_limit")
         return JsonResponse(
             {"error": _("Too many requests. Please wait a moment.")},
             status=429,
@@ -95,8 +206,8 @@ def message(request):
             {
                 "error": _(
                     "The assistant is temporarily unavailable. "
-                    "Please contact us at +351 924 454 382."
-                )
+                    "Please contact us at %(phones)s."
+                ) % {"phones": CONTACT_PHONES}
             },
             status=503,
         )

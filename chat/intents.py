@@ -26,7 +26,8 @@ INTENT_PHRASES = {
     PRICING: (
         "price", "pricing", "cost", "preco", "quanto custa",
         "quanto custam", "precio", "cuanto cuesta", "prix", "cout",
-        "preis", "kosten", "prezzo", "quanto costa",
+        "combien coute", "preis", "kosten", "wie viel kostet", "prezzo",
+        "quanto costa",
     ),
     CURRENT_LITTERS: (
         "current litter", "upcoming litter", "ninhada", "ninhadas",
@@ -83,7 +84,7 @@ CURRENT_WORDS = (
 REFERENCE_WORDS = (
     "he", "she", "it", "this dog", "that dog", "him", "her",
     "ele", "ela", "este cao", "esta cadela", "esse cao", "essa cadela",
-    "este", "esta", "esse", "essa", "el", "ella", "ce chien",
+    "este", "esta", "esse", "essa", "el", "ella", "il", "elle", "ce chien",
     "cette chienne", "er", "sie", "dieser hund", "lui", "lei",
 )
 GREETINGS = frozenset({

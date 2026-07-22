@@ -1,150 +1,90 @@
-import requests
-import mimetypes
-import pathlib
+"""Private upload endpoints used by Django admin widgets."""
 
-from uuid import uuid4
-from django.views.generic.base import View
-from django.http import JsonResponse
-from django.core.files.base import ContentFile
-from django.core.files.uploadedfile import UploadedFile
+from django.contrib.admin.views.decorators import staff_member_required
 from django.core.files.storage import default_storage
+from django.http import JsonResponse
+from django.utils.decorators import method_decorator
+from django.views import View
+
+from .upload_security import (
+    RemoteImageUnavailable,
+    UploadRejected,
+    assemble_chunks,
+    clean_chunk_numbers,
+    clean_filename,
+    clean_upload_id,
+    cleanup_stale_chunks,
+    fetch_remote_image,
+    save_uploaded_image,
+    store_chunk,
+    validate_chunk,
+)
 
 
-class ChunkedUploadView(View):
-    combine_chunks: bool = True
+class StaffUploadView(View):
+    """Require an authenticated staff account for every upload action."""
 
-    def get_file_chunk_name(self, file_id: str, file_name: str, chunk_index: int, total_chunks: int) -> str:
-        return f"{file_id}_chunk_{chunk_index}"
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
-    def get_combined_file_name(self, file_id: str, file_name: str, total_chunks: int):
-        return f"uploads/{file_id}/{file_name}"
+    @staticmethod
+    def rejected(error, status=400):
+        return JsonResponse({"error": str(error)}, status=status)
 
-    def save_file_chunk(self, file_chunk_name: str, file_chunk: UploadedFile):
-        default_storage.save(file_chunk_name, ContentFile(file_chunk.read()))
 
-    def combine_files_chunks(self, combined_file_name: str, total_chunks: int, file_id: str, file_name: str):
-        # Combined chunks
-        file = ContentFile(b'')
-
-        for chunk_index in range(total_chunks):
-            file_chunk_name = self.get_file_chunk_name(file_id, file_name, chunk_index, total_chunks)
-
-            with default_storage.open(file_chunk_name) as file_chunk:
-                file.write(file_chunk.read())
-
-            default_storage.delete(file_chunk_name)
-
-        # Save the combined file
-        default_storage.save(combined_file_name, file)
-
-    def file_upload_finished(self, request, filename: str, *args, **kwargs):
-        ...
+class FileUploadView(StaffUploadView):
+    """Receive bounded chunks and publish one temporary assembled file."""
 
     def post(self, request, *args, **kwargs):
-        file_chunk = request.FILES.get('file')
-        file_id = request.POST.get('fileId')
-        file_name = request.POST.get('fileName', request.POST.get('filename'))
+        try:
+            cleanup_stale_chunks()
+            upload_id = clean_upload_id(request.POST.get("fileId"))
+            filename = clean_filename(
+                request.POST.get("fileName", request.POST.get("filename"))
+            )
+            chunk_index, total_chunks = clean_chunk_numbers(
+                request.POST.get("chunkIndex"),
+                request.POST.get("totalChunks"),
+            )
+            file_chunk = request.FILES.get("file")
+            validate_chunk(file_chunk)
+            store_chunk(upload_id, chunk_index, file_chunk)
 
-        chunk_index = int(request.POST['chunkIndex'])
-        total_chunks = int(request.POST['totalChunks'])
+            if chunk_index != total_chunks - 1:
+                return JsonResponse({"status": "ok"})
 
-        file_chunk_name = self.get_file_chunk_name(file_id, file_name, chunk_index, total_chunks)
-        self.save_file_chunk(file_chunk_name, file_chunk)
-
-        if chunk_index == total_chunks - 1:
-            combined_file_name = self.get_combined_file_name(file_id, file_name, total_chunks)
-
-            if self.combine_chunks:
-                self.combine_files_chunks(combined_file_name, total_chunks, file_id, file_name)
-
-            self.file_upload_finished(request, combined_file_name, *args, **kwargs)
-
+            path = assemble_chunks(upload_id, filename, total_chunks)
             return JsonResponse({
-                'status': 'ok',
-                'url': default_storage.url(file_chunk_name)
+                "status": "ok",
+                "url": default_storage.url(path),
             })
-
-        return JsonResponse({'status': 'ok'})
-
-
-class FileUploadView(ChunkedUploadView):
-    combine_chunks: bool = False
-
-    def get_file_chunk_name(self, file_id: str, file_name: str, chunk_index: int, total_chunks: int) -> str:
-        return f"uploads/{file_id}/{file_name}"
-
-    def save_file_chunk(self, file_chunk_name: str, file_chunk: UploadedFile):
-        if not default_storage.exists(file_chunk_name):
-            default_storage.save(file_chunk_name, ContentFile(file_chunk.read()))
-            return
-
-        with default_storage.open(file_chunk_name, 'ab') as f:
-            f.write(file_chunk.read())
+        except UploadRejected as exc:
+            return self.rejected(exc)
 
 
-class EditorJsImageUploadByFileView(View):
+class EditorJsImageUploadByFileView(StaffUploadView):
     def post(self, request, *args, **kwargs):
-        file = request.FILES.get('image')
-
-        if not file:
-            return JsonResponse({'success': 0})
-
-        filename = request.POST.get('filename', file.name)
-
-        if not filename:
-            return JsonResponse({'success': 0})
-
-        extension = mimetypes.guess_extension(filename)
-
-        if not extension:
-            extension = pathlib.Path(filename).suffix
-
-        filename = f"{uuid4().hex}{extension}"
-        filepath = f"uploads/blog/{filename}"
-
-        if not file:
-            return JsonResponse({'success': 0})
-
-        default_storage.save(filepath, ContentFile(file.read()))
-
-        return JsonResponse({
-            'success': 1,
-            'file': {
-                'url': default_storage.url(filepath)
-            }
-        })
+        try:
+            path = save_uploaded_image(request.FILES.get("image"))
+        except UploadRejected as exc:
+            return JsonResponse({"success": 0, "error": str(exc)}, status=400)
+        return _editor_success(path)
 
 
-class EditorJsImageUploadByUrlView(View):
+class EditorJsImageUploadByUrlView(StaffUploadView):
     def post(self, request, *args, **kwargs):
-        url = request.POST.get('url')
+        try:
+            path = fetch_remote_image(request.POST.get("url"))
+        except UploadRejected as exc:
+            return JsonResponse({"success": 0, "error": str(exc)}, status=400)
+        except RemoteImageUnavailable as exc:
+            return JsonResponse({"success": 0, "error": str(exc)}, status=502)
+        return _editor_success(path)
 
-        if not url:
-            return JsonResponse({'success': 0})
 
-        response = requests.get(url, timeout=15)
-
-        if not response.ok:
-            return JsonResponse({'success': 0})
-
-        filename = response.headers.get('Content-Disposition', '').split('filename=')[-1].strip('"')
-
-        if not filename:
-            filename = url.split('/')[-1]
-
-        extension = mimetypes.guess_extension(filename)
-
-        if not extension:
-            extension = pathlib.Path(filename).suffix
-
-        filename = f"{uuid4().hex}{extension}"
-        filepath = f"uploads/blog/{filename}"
-
-        default_storage.save(filepath, ContentFile(response.content))
-
-        return JsonResponse({
-            'success': 1,
-            'file': {
-                'url': default_storage.url(filepath)
-            }
-        })
+def _editor_success(path):
+    return JsonResponse({
+        "success": 1,
+        "file": {"url": default_storage.url(path)},
+    })

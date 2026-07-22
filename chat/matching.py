@@ -23,6 +23,19 @@ def words(value):
     return normalize_text(value).split()
 
 
+def search_aliases(value):
+    """Parse one admin-managed alias per line, comma, or semicolon."""
+    if not value:
+        return ()
+    return tuple(
+        dict.fromkeys(
+            alias.strip()
+            for alias in re.split(r"[\n,;]+", str(value))
+            if alias.strip()
+        )
+    )
+
+
 def similarity(first, second):
     first = normalize_text(first)
     second = normalize_text(second)
@@ -41,11 +54,11 @@ def phrase_score(query, candidate):
     if query_words == candidate_words:
         return 1.0
 
-    # A one-letter name may be valid in the catalogue, but it must only match
-    # when the complete query is that name. Otherwise articles such as "a"
-    # would select it accidentally.
+    # One- and two-character names are too easily confused with articles and
+    # short words inside a sentence. Three-character dog names and common
+    # abbreviations such as "Max" and "GSD" remain useful exact matches.
     candidate_text = " ".join(candidate_words)
-    if len(candidate_text) < 4:
+    if len(candidate_text) < 3:
         return 0.0
 
     candidate_length = len(candidate_words)

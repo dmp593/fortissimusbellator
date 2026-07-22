@@ -1,0 +1,77 @@
+[
+  {
+    "model": "chat.chatmodel",
+    "pk": "qwen3.5-0.8b-q4-k-m",
+    "fields": {
+      "name": "Qwen3.5 0.8B Instruct · Q4_K_M",
+      "repository": "unsloth/Qwen3.5-0.8B-GGUF",
+      "filename": "Qwen3.5-0.8B-Q4_K_M.gguf",
+      "revision": "main",
+      "sha256": "",
+      "download_size": 533400000,
+      "summary": "Best balance of multilingual quality, speed, and memory use.",
+      "recommended": true,
+      "enabled": true
+    }
+  },
+  {
+    "model": "chat.chatmodel",
+    "pk": "qwen2.5-0.5b-q4-k-m",
+    "fields": {
+      "name": "Qwen2.5 0.5B Instruct · Q4_K_M",
+      "repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "filename": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+      "revision": "main",
+      "sha256": "",
+      "download_size": 491400032,
+      "summary": "Lowest-memory fallback for the most constrained server.",
+      "recommended": false,
+      "enabled": true
+    }
+  },
+  {
+    "model": "chat.chatmodel",
+    "pk": "lfm2-1.2b-q4-k-m",
+    "fields": {
+      "name": "LFM2 1.2B Instruct · Q4_K_M",
+      "repository": "LiquidAI/LFM2-1.2B-GGUF",
+      "filename": "LFM2-1.2B-Q4_K_M.gguf",
+      "revision": "main",
+      "sha256": "",
+      "download_size": 731000000,
+      "summary": "Edge-focused 1.2B alternative with support for eight languages.",
+      "recommended": false,
+      "enabled": true
+    }
+  },
+  {
+    "model": "chat.chatmodel",
+    "pk": "gemma-3-1b-it-q4-k-m",
+    "fields": {
+      "name": "Gemma 3 1B IT · Q4_K_M",
+      "repository": "ggml-org/gemma-3-1b-it-GGUF",
+      "filename": "gemma-3-1b-it-Q4_K_M.gguf",
+      "revision": "main",
+      "sha256": "",
+      "download_size": 806000000,
+      "summary": "Multilingual 1B option in a higher-quality Q4 quantization.",
+      "recommended": false,
+      "enabled": true
+    }
+  },
+  {
+    "model": "chat.chatmodel",
+    "pk": "llama-3.2-1b-instruct-q3-k-l",
+    "fields": {
+      "name": "Llama 3.2 1B Instruct · Q3_K_L",
+      "repository": "bartowski/Llama-3.2-1B-Instruct-GGUF",
+      "filename": "Llama-3.2-1B-Instruct-Q3_K_L.gguf",
+      "revision": "main",
+      "sha256": "",
+      "download_size": 730000000,
+      "summary": "Compact instruction model with eight-language support; test Portuguese before production.",
+      "recommended": false,
+      "enabled": true
+    }
+  }
+]
