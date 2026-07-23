@@ -21,12 +21,17 @@
     </div>
 
     <!-- Litter Image -->
-    <div class="mb-12">
+    <div class="relative mb-12">
         {% if litter.cover %}
         <img src="{{ litter.cover.file.url }}" alt="{{ litter.name }}" class="aspect-[4/5] sm:aspect-[3/4] md:aspect-square lg:aspect-video w-full h-full object-cover rounded-lg shadow-lg" loading="lazy">
         {% else %}
         <div class="w-full h-64 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
             <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+        </div>
+        {% endif %}
+        {% if litter.pre_reservation_enabled and litter.pre_reservation_capacity > 0 and litter.status != 'expecting' %}
+        <div class="absolute right-3 top-3 rounded-lg px-4 py-2 text-sm font-bold shadow-lg {% if litter.pre_reserved_count >= litter.pre_reservation_capacity %}bg-red-700 text-white dark:bg-red-400{% else %}bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900{% endif %}">
+            {{ litter.pre_reserved_count }}/{{ litter.pre_reservation_capacity }} {% translate "reserved" %}
         </div>
         {% endif %}
     </div>
@@ -79,6 +84,15 @@
                     </div>
                     {% endif %}
 
+                    {% if litter.pre_reservation_capacity > 0 and litter.status != 'expecting' %}
+                    <div class="flex items-center space-x-2">
+                        {% include "icons/info.html" %}
+                        <span class="font-sans text-stone-600 dark:text-stone-300">
+                            {% blocktranslate with reserved=litter.pre_reserved_count capacity=litter.pre_reservation_capacity %}{{ reserved }}/{{ capacity }} pre-reservation places reserved{% endblocktranslate %}
+                        </span>
+                    </div>
+                    {% endif %}
+
                     <!-- (Expected) Ready Date -->
                     {% if litter.ready_date %}
                     <div class="flex items-center space-x-2">
@@ -117,10 +131,14 @@
             </div>
 
             <div class="mb-8 flex flex-col gap-3 sm:flex-row">
+                {% if litter.pre_reservation_enabled and litter.pre_reservation_capacity > 0 and litter.pre_reserved_count < litter.pre_reservation_capacity and litter.status != 'expecting' and litter.status != 'completed' %}
                 <a href="{% url 'breeding:pre_reserve_litter' litter.pk %}" class="ui-button ui-button-secondary w-full px-8 py-4">
                     {% include "icons/users.html" with class="size-6" %}
                     <span>{% translate "Pre-Reserve" %}</span>
                 </a>
+                {% elif litter.pre_reservation_capacity > 0 and litter.pre_reserved_count >= litter.pre_reservation_capacity %}
+                <span class="ui-button w-full cursor-default bg-stone-200 px-8 py-4 text-stone-700 dark:bg-stone-700 dark:text-stone-200">{% translate "Fully reserved" %}</span>
+                {% endif %}
                 <a href="tel:+351924454382" class="ui-button ui-button-primary w-full px-8 py-4">
                     {% include "icons/phone.html" with class="size-6" %}
                     <span>{% translate "Call Us" %}</span>

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "My Reservations" %}{% endblock %}
+
+{% block content %}
+<div class="ui-page">
+    <header class="ui-page-header">
+        <p class="mb-3 font-sans text-xs font-bold uppercase tracking-[0.24em] text-yellow-800 dark:text-yellow-400">{% translate "Private dashboard" %}</p>
+        <h1 class="ui-page-title">{% translate "My Reservations" %}</h1>
+        <p class="ui-page-subtitle">{% translate "Track payments, reservation status, promotions, and fiscal documents." %}</p>
+    </header>
+
+    <section class="mb-16">
+        <div class="mb-6 flex items-end justify-between gap-4">
+            <h2 class="ui-section-title text-2xl">{% translate "Active" %}</h2>
+            <span class="text-sm text-stone-500 dark:text-stone-400">{{ active_reservations|length }}</span>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-2">
+            {% for reservation in active_reservations %}
+                {% include "reservations/partials/reservation_card.html" with reservation=reservation %}
+            {% empty %}
+            <div class="ui-card ui-empty-state p-8">
+                <h3 class="font-serif text-xl font-bold">{% translate "No active reservations" %}</h3>
+                <p class="ui-body mt-2 text-sm">{% translate "Available dogs and born litters can be pre-reserved from their detail pages." %}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <div class="mb-6 flex items-end justify-between gap-4">
+            <h2 class="ui-section-title text-2xl">{% translate "History" %}</h2>
+            <span class="text-sm text-stone-500 dark:text-stone-400">{{ reservation_history|length }}</span>
+        </div>
+        <div class="grid gap-6 lg:grid-cols-2">
+            {% for reservation in reservation_history %}
+                {% include "reservations/partials/reservation_card.html" with reservation=reservation %}
+            {% empty %}
+            <div class="ui-card ui-empty-state p-8">
+                <p class="ui-body">{% translate "Your completed and cancelled reservations will remain available here." %}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}
+

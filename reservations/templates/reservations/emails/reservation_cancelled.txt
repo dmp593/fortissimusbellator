@@ -1,0 +1,6 @@
+Your pre-reservation for {{ reservation.target_name }} has been cancelled.
+
+{% if cancelled_by_staff %}It was cancelled by our team. If a payment was collected, its refund is processed separately and may take several business days to appear.{% else %}It was cancelled at your request. As accepted during checkout, the pre-reservation fee is non-refundable when the customer cancels.{% endif %}
+
+Reservation reference: {{ reservation.public_id }}
+Cancellation reason: {{ reservation.cancellation_reason }}

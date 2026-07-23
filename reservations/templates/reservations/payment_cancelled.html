@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Payment not completed" %}{% endblock %}
+
+{% block content %}
+<div class="ui-page">
+    <section class="ui-card mx-auto max-w-2xl p-8 text-center sm:p-12">
+        <h1 class="ui-page-title text-3xl">{% translate "Payment was not completed" %}</h1>
+        <p class="ui-page-subtitle">{% translate "Your place remains temporarily held. Continue payment or cancel to release it for someone else." %}</p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <form method="post" action="{% url 'reservations:retry_payment' reservation.public_id %}" class="flex-1">
+                {% csrf_token %}
+                <button type="submit" class="ui-button ui-button-primary w-full">{% translate "Continue payment" %}</button>
+            </form>
+            <a href="{% url 'reservations:cancel' reservation.public_id %}" class="ui-button ui-button-secondary flex-1 text-center">{% translate "Cancel and release" %}</a>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -4,13 +4,20 @@
 {% for litter in litters %}
 <article class="ui-card ui-card-interactive flex flex-col overflow-hidden">
     <!-- Litter Image -->
-    {% if litter.cover %}
-    <img src="{{ litter.cover.file.url }}" alt="{{ litter.name }}" class="w-full h-64 object-cover" loading="lazy">
-    {% else %}
-    <div class="w-full h-64 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
-        <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+    <div class="relative">
+        {% if litter.cover %}
+        <img src="{{ litter.cover.file.url }}" alt="{{ litter.name }}" class="w-full h-64 object-cover" loading="lazy">
+        {% else %}
+        <div class="w-full h-64 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+            <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+        </div>
+        {% endif %}
+        {% if litter.pre_reservation_enabled and litter.pre_reservation_capacity > 0 and litter.status != 'expecting' %}
+        <div class="absolute right-2 top-2 rounded-lg px-3 py-1 text-xs font-bold shadow-lg {% if litter.pre_reserved_count >= litter.pre_reservation_capacity %}bg-red-700 text-white dark:bg-red-400{% else %}bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900{% endif %}">
+            {{ litter.pre_reserved_count }}/{{ litter.pre_reservation_capacity }} {% translate "reserved" %}
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
 
     <!-- Litter Details -->
     <div class="p-6 flex flex-col flex-grow">

@@ -5,6 +5,7 @@
         "fields": {
             "code": "WB",
             "name": "Wesensbeurteilung",
+            "chat_search_aliases": "What is WB?\nO que é o WB?\nExame WB\nTeste de temperamento WB",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -25,6 +26,7 @@
         "fields": {
             "code": "AD",
             "name": "Ausdauerpruefung",
+            "chat_search_aliases": "What is AD?\nO que é o AD?\nExame AD\nTeste de resistência AD",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -45,6 +47,7 @@
         "fields": {
             "code": "BH",
             "name": "Begleitungshund",
+            "chat_search_aliases": "What is BH?\nO que é o BH?\nExame BH\nTeste de cão de companhia BH",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -65,6 +68,7 @@
         "fields": {
             "code": "IGP",
             "name": "Internationale Gebrauchshundepruefung",
+            "chat_search_aliases": "What is IGP?\nO que é o IGP?\nProva IGP\nTítulo de trabalho IGP",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -86,6 +90,7 @@
             "code": "IGP1",
             "parent": ["IGP"],
             "name": "Internationale Gebrauchshundepruefung 1",
+            "chat_search_aliases": "What is IGP1?\nO que é o IGP1?\nPrimeiro nível IGP1\nProva IGP nível 1",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -107,12 +112,13 @@
             "code": "IGP2",
             "parent": ["IGP"],
             "name": "Internationale Gebrauchshundepruefung 2",
+            "chat_search_aliases": "What is IGP2?\nO que é o IGP2?\nSegundo nível IGP2\nProva IGP nível 2",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
             ],
             "description": "Internationale Gebrauchshundepruefung 2: The IGP2 is the second level of the IGP titles. The IGP2 is a combination of tracking, obedience, and protection. The tracking portion is a 30 minute old track with 4-6 turns. The obedience portion includes heeling, retrieves, and a long down. The protection portion includes a search of hiding places, a hold and bark, and a courage test.",
-            "description_en": "Internationale Gebrauchshundepruefung 1: The IGP1 is the first level of the IGP titles. The IGP1 is a combination of tracking, obedience, and protection. The tracking portion is a 20 minute old track with 2-4 turns. The obedience portion includes heeling, retrieves, and a long down. The protection portion includes a search of hiding places, a hold and bark, and a courage test.",
+            "description_en": "Internationale Gebrauchshundepruefung 2: The IGP2 is the second level of the IGP titles. The IGP2 is a combination of tracking, obedience, and protection. The tracking portion is a 30 minute old track with 4-6 turns. The obedience portion includes heeling, retrieves, and a long down. The protection portion includes a search of hiding places, a hold and bark, and a courage test.",
             "description_pt": "Internationale Gebrauchshundepruefung 2: O IGP2 é o segundo nível dos títulos IGP. O IGP2 é uma combinação de rastreamento, obediência e proteção. A parte de rastreamento é uma pista de 30 minutos com 4-6 voltas. A parte de obediência inclui heeling, recuperações e um longo descanso. A parte de proteção inclui uma busca de esconderijos, uma espera e latido e um teste de coragem.",
             "description_es": "Internationale Gebrauchshundepruefung 2: El IGP2 es el segundo nivel de los títulos IGP. El IGP2 es una combinación de rastreo, obediencia y protección. La parte de rastreo es una pista de 30 minutos con 4-6 giros. La parte de obediencia incluye heeling, recuperaciones y un largo descanso. La parte de protección incluye una búsqueda de escondites, una espera y ladrido, y una prueba de coraje.",
             "description_fr": "Internationale Gebrauchshundepruefung 2 : L'IGP2 est le deuxième niveau des titres IGP. L'IGP2 est une combinaison de pistage, d'obéissance et de protection. La partie pistage est une piste de 30 minutes avec 4-6 virages. La partie obéissance comprend le talonnage, les rapports et un long coucher. La partie protection comprend une recherche de cachettes, une attente et un aboiement, et un test de courage.",
@@ -128,6 +134,7 @@
             "code": "IGP3",
             "parent": ["IGP"],
             "name": "Internationale Gebrauchshundepruefung 3",
+            "chat_search_aliases": "What is IGP3?\nO que é o IGP3?\nTerceiro nível IGP3\nProva IGP nível 3",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -148,6 +155,7 @@
         "fields": {
             "code": "KKL",
             "name": "Koerklasse",
+            "chat_search_aliases": "What is KKL?\nO que é o KKL?\nCertificação KKL\nSeleção para reprodução KKL",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]

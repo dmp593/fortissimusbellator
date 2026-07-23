@@ -46,7 +46,7 @@ def send_contact_email(form):
         subject=_(f"Contact Form Submission from {name}"),
         body=html_message,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        to=settings.RECIPIENT_LIST_ON_CONTACT_US_REQUEST,
+        to=settings.BUSINESS_NOTIFICATION_RECIPIENTS,
     )
 
     email.content_subtype = "html"

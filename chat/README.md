@@ -1,9 +1,9 @@
 # Local chat module
 
-The chat widget answers short sales, litter, breed, and FAQ questions. It uses
-live Django data for website facts and one small local GGUF model only when no
-deterministic answer is available. It never stores conversations in the
-database.
+The chat widget answers short sales, litter, breed, blog, and FAQ questions.
+It uses live Django data for website facts and one small local GGUF model only
+when a question has related published knowledge but no deterministic answer.
+It never stores conversations in the database.
 
 ## Design
 
@@ -12,9 +12,10 @@ have one job:
 
 - `views.py` validates the HTTP payload and bounds the browser-supplied history;
 - `intents.py` detects supported intentions;
-- `entities.py` resolves live dog, litter, and breed names;
+- `entities.py` resolves live animals, animal kinds, litters, breeds, and
+  certifications;
 - `matching.py` provides accent-insensitive fuzzy matching with `difflib`;
-- `catalog.py` contains the public Django queries;
+- `catalog.py` contains the public Django queries, including published posts;
 - `experts.py` contains deterministic answer strategies;
 - `knowledge.py` selects compact facts for the model fallback;
 - `models.py` stores the administrator-managed GGUF catalogue;
@@ -23,23 +24,37 @@ have one job:
 - `assistant.py` owns model download, loading, context fitting, and inference.
 
 The router asks every relevant deterministic expert so a compound request can
-combine, for example, available dogs and current litters. If none can answer,
-it invokes the model expert exactly once. There is deliberately no model call
-for intent classification: on a two-vCPU host a second inference would increase
-latency and queue contention without making database facts more reliable.
+combine, for example, available animals and current litters. If none can answer,
+the model is invoked exactly once only when related FAQ, blog, or certification
+knowledge was found. Otherwise a deterministic knowledge-boundary response is
+returned. This prevents a small local model from answering unrelated
+general-knowledge questions. There is deliberately no model call for intent
+classification: on a two-vCPU host a second inference would increase latency
+and queue contention without making database facts more reliable.
 
 Entity names are read from the database on each request. Exact matches win;
 small spelling mistakes use conservative fuzzy matching. This avoids an entity
 cache that could become stale and adds no vector database, embedding model, or
-large runtime dependency. Administrators can add alternative names or questions
-through each dog's, litter's, breed's, or FAQ's **chat search aliases** field.
-Enter one alias per line; no Python change is required.
+large runtime dependency. `EntityKind` describes technical model types such as
+`ANIMAL` and `ANIMAL_KIND`; it never contains one enum member per category.
+Animal categories and their translated names come from `AnimalKind` records.
+Administrators can add alternative names or questions through each animal
+kind's, animal's, litter's, breed's, certification's, or FAQ's **chat search
+aliases** field. Adding cats or another category therefore requires database
+configuration, not a new enum, intent, or expert. Enter one alias per line.
+
+Sales and pre-reservation answers are also live database facts. Animals with a
+pending, confirmed, or fulfilled pre-reservation are excluded from available
+inventory. Reservable litter queries include only born or ready litters with
+offered capacity remaining. Failed, expired, and cancelled reservations do not
+consume capacity. Named-entity and price answers use the same availability
+rules, so they cannot contradict the inventory lists.
 
 ## Session and context
 
 `assets/js/components/chat.js` keeps completed turns and the last unambiguous
-dog/litter/breed reference in `sessionStorage`. This lets a follow-up such as
-“How much does she cost?” refer to the dog from the previous answer. Resetting
+animal/litter/breed reference in `sessionStorage`. This lets a follow-up such as
+“How much does she cost?” refer to the animal from the previous answer. Resetting
 the widget or closing the browser tab ends the session. The server stores no
 chat history.
 
@@ -50,8 +65,9 @@ facts.
 
 ## Model setup
 
-The seed catalogue contains Qwen3.5 0.8B Instruct Q4_K_M and Qwen2.5 0.5B
-Instruct Q4_K_M. Load it once after migrating:
+The seed catalogue contains Qwen3.5 0.8B Instruct Q4_K_M, Qwen2.5 0.5B
+Instruct Q4_K_M, LFM2 1.2B Q4_K_M, Gemma 3 1B IT Q4_K_M, and Llama 3.2 1B
+Instruct Q3_K_L. Load it once after migrating:
 
 ```bash
 python manage.py loaddata chat_models
@@ -93,6 +109,10 @@ Environment settings:
 - `CHAT_CONTEXT_SIZE`, `CHAT_MAX_OUTPUT_TOKENS`, and `CHAT_THREADS`: inference
   limits.
 
+`CHAT_MAX_BLOG_POSTS` limits the number of published titles included in a
+deterministic blog reply and in model knowledge. `CHAT_MAX_CERTIFICATIONS`
+bounds the certification catalogue supplied to the model.
+
 Production storage example:
 
 ```text
@@ -122,6 +142,26 @@ Django concurrency, knowing that model requests are intentionally serialized.
 The module emits structured `key=value` events for selected experts, detected
 intents, entity IDs and confidence scores, model progress, and duration. Raw
 messages, session history, and client addresses are deliberately excluded.
+
+## AI-assisted search aliases
+
+Animal kinds, animals, litters, breeds, certifications, and FAQs expose a
+**Generate with AI** action beside their chat-alias field on their Django admin
+change form. The action sends only an explicit set of public names, codes, or
+questions to the active local model. Suggestions are validated, deduplicated,
+checked against other active records, and added to the browser form without
+being saved. An administrator must review the textarea and use the normal save
+action before any suggestion becomes searchable.
+
+Blog posts are deliberately excluded. Their body is structured editor JSON,
+and the chat currently exposes only real published titles. The weak local model
+must never generate or rewrite that JSON.
+
+Alias generation is deliberately separate from model `save()` methods, signals,
+and the public `ChatService`. A missing, busy, or invalid local model therefore
+cannot prevent normal admin edits. New records must first be saved with
+**Save and continue editing** so the staff-only, CSRF-protected suggestion
+endpoint can enforce object-level change permission.
 
 ## Verification
 

@@ -17,6 +17,10 @@
         <div class="absolute top-2 right-2 bg-red-700 dark:bg-red-400 text-white text-xs font-bold px-3 py-1 rounded-lg shadow-lg">
             {% translate "Sold" %}
         </div>
+        {% elif dog.has_blocking_pre_reservation %}
+        <div class="absolute top-2 right-2 rounded-lg bg-stone-900 px-3 py-1 text-xs font-bold text-white shadow-lg dark:bg-stone-100 dark:text-stone-900">
+            {% translate "Reserved" %}
+        </div>
         {% elif dog.discount_in_euros %}
         <div class="absolute top-2 right-2 bg-yellow-800 dark:bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-lg shadow-lg">
             {% translate "On Sale" %}
@@ -77,13 +81,7 @@
             </div>
             {% endif %}
 
-            <!-- Certifications Icon -->
-            {% if dog.certifications.exists %}
-            <div class="flex items-center space-x-2">
-                {% include "icons/academic_cap.html" %}
-                <span class="text-sm text-stone-700 dark:text-stone-300">{% translate "Certified" %}</span>
-            </div>
-            {% endif %}
+            {% include "components/certification_codes.html" with animal=dog %}
         </div>
 
         <div class="mt-auto">

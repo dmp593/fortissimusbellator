@@ -1,0 +1,24 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="content-main">
+  <p class="errornote">
+    {% blocktranslate count count=reservation_count %}
+      This item has {{ count }} pre-reservation in its history. It will disappear from the public website, but every reservation snapshot and payment record will remain accessible.
+    {% plural %}
+      This item has {{ count }} pre-reservations in its history. It will disappear from the public website, but every reservation snapshot and payment record will remain accessible.
+    {% endblocktranslate %}
+  </p>
+  <p>{% translate "This is the second and final confirmation. This action cannot be undone." %}</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="post" value="yes">
+    <input type="hidden" name="confirm_reservation_history" value="yes">
+    <div class="submit-row">
+      <input type="submit" value="{% translate 'Yes, delete permanently' %}" class="deletelink">
+      <a href="{{ change_url }}" class="button cancel-link">{% translate "No, keep it" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

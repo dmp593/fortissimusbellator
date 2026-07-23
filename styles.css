@@ -129,6 +129,51 @@
     transition: right 300ms ease-in-out;
 }
 
+.chat-panel {
+    position: absolute;
+    right: 0;
+    bottom: 5rem;
+    width: min(24rem, calc(100vw - 2rem));
+    height: min(32rem, calc(100dvh - 7rem));
+    border-radius: 1rem;
+}
+
+.chat-messages {
+    min-height: 0;
+    overscroll-behavior: contain;
+}
+
+@media (max-width: 47.999rem) {
+    html.chat-overlay-open,
+    html.chat-overlay-open body {
+        overflow: hidden;
+        overscroll-behavior: none;
+    }
+
+    .chat-panel {
+        position: fixed;
+        top: var(--chat-viewport-offset-top, 0);
+        right: 0;
+        bottom: auto;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        height: var(--chat-viewport-height, 100dvh);
+        max-height: none;
+        border-width: 0;
+        border-radius: 0;
+    }
+
+    .chat-panel-header {
+        padding-top: calc(1rem + env(safe-area-inset-top, 0px));
+    }
+
+    .chat-form {
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    }
+}
+
 @media (min-width: 48rem) {
     .chat-widget:not(.chat-widget-open):not(:hover):not(:focus-within) {
         right: -1.75rem;

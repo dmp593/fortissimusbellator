@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fortissimus Bellator 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-22 19:54+0000\n"
+"POT-Creation-Date: 2026-07-23 12:13+0000\n"
 "PO-Revision-Date: 2026-07-22 10:50+0000\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: French\n"
@@ -510,13 +510,17 @@ msgstr "Créer des animaux à partir de portées sélectionnées"
 msgid "Litter \"%(litter_name)s\" has no babies to create."
 msgstr "La portée \"%(litter_name)s\" n'a pas de bébés à créer."
 
+#, python-format
+msgid "Litter \"%(litter_name)s\" has no remaining babies to create: %(reserved_count)d reserved and %(existing_count)d already created."
+msgstr "La portée \"%(litter_name)s\" n'a plus de chiots à créer : %(reserved_count)d réservés et %(existing_count)d déjà créés."
+
 #, python-brace-format
 msgid "Offspring {offspring_number} from litter {litter_name}"
 msgstr "Progéniture {offspring_number} de la portée {litter_name}"
 
 #, python-format
-msgid "Created %(babies_count)d babies for litter \"%(litter_name)s\"."
-msgstr "%(babies_count)d bébés ont été créés pour la portée \"%(litter_name)s\"."
+msgid "Created %(babies_count)d remaining babies for litter \"%(litter_name)s\"; %(reserved_count)d places were already reserved."
+msgstr "%(babies_count)d chiots restants ont été créés pour la portée \"%(litter_name)s\" ; %(reserved_count)d places étaient déjà réservées."
 
 msgid "breeding"
 msgstr "reproduction"
@@ -526,6 +530,36 @@ msgstr "Prix ​​(€)"
 
 msgid "Discount (€)"
 msgstr "Remise (€)"
+
+msgid "The pre-reservation fee cannot change while this dog has a pending, confirmed, or fulfilled reservation."
+msgstr ""
+
+msgid "This dog is reserved by a different customer."
+msgstr ""
+
+#, fuzzy
+#| msgid "Actual number of babies born"
+msgid "Enter the actual number of babies born first."
+msgstr "Nombre réel de bébés nés"
+
+#, fuzzy
+#| msgid "Actual number of babies born"
+msgid "Capacity cannot exceed the actual number of babies born."
+msgstr "Nombre réel de bébés nés"
+
+msgid "Expecting litters must have a reservation capacity of zero."
+msgstr ""
+
+#, python-format
+msgid "Capacity cannot be lower than the %(count)d places already reserved."
+msgstr ""
+
+#, python-format
+msgid "Actual babies cannot be lower than the %(count)d places already reserved."
+msgstr ""
+
+msgid "The pre-reservation fee cannot change while this litter has pending, confirmed, or fulfilled reservations."
+msgstr ""
 
 msgid "Male"
 msgstr "Mâle"
@@ -545,6 +579,12 @@ msgstr "Moyen"
 msgid "Long"
 msgstr "Long"
 
+msgid "chat search aliases"
+msgstr "alias de recherche du chat"
+
+msgid "Optional singular, plural, or colloquial names, one per line. Used only by chat search."
+msgstr "Noms singuliers, pluriels ou familiers facultatifs, un par ligne. Utilisés uniquement par la recherche du chat."
+
 msgid "animal kind"
 msgstr "espèce animale"
 
@@ -553,9 +593,6 @@ msgstr "espèces d'animaux"
 
 msgid "kind"
 msgstr "gentil"
-
-msgid "chat search aliases"
-msgstr "alias de recherche du chat"
 
 msgid "Optional alternative names, one per line. Used only by chat search."
 msgstr "Noms alternatifs facultatifs, un par ligne. Utilisés uniquement par la recherche du chat."
@@ -632,6 +669,17 @@ msgstr "pour l'élevage"
 msgid "for sale"
 msgstr "à vendre"
 
+msgid "available for pre-reservation"
+msgstr ""
+
+#, fuzzy
+#| msgid "Pre-Reserve"
+msgid "pre-reservation fee"
+msgstr "Pré-réservation"
+
+msgid "Non-refundable pre-reservation fee in euros."
+msgstr ""
+
 msgid "files"
 msgstr "fichiers"
 
@@ -686,6 +734,12 @@ msgstr "statut"
 msgid "Current stage of the litter lifecycle"
 msgstr "Stade actuel du cycle de vie des déchets"
 
+msgid "pre-reservation capacity"
+msgstr ""
+
+msgid "Number of born babies offered for pre-reservation. Use zero to offer no places."
+msgstr ""
+
 msgid "litters"
 msgstr "portées"
 
@@ -694,6 +748,11 @@ msgstr "Aucune image disponible"
 
 msgid "Sold"
 msgstr "Vendu"
+
+#, fuzzy
+#| msgid "Pre-Reserve"
+msgid "Reserved"
+msgstr "Pré-réservation"
 
 msgid "On Sale"
 msgstr "En vente"
@@ -821,41 +880,56 @@ msgstr "Grand-mère"
 msgid "Load More"
 msgstr "Charger plus"
 
-msgid "Pre-Reserve This Dog"
-msgstr "Pré-réserver ce chien"
+msgid "Secure checkout"
+msgstr ""
 
-msgid "Pre-Reserve a Puppy from This Litter"
-msgstr "Pré-réserver un chiot de cette portée"
+#, fuzzy
+#| msgid "Pre-Reserve"
+msgid "Pre-reservation fee"
+msgstr "Pré-réservation"
+
+msgid "Reserved places"
+msgstr ""
+
+msgid "Important: non-refundable fee"
+msgstr ""
+
+msgid "If you choose to cancel after payment, the pre-reservation fee will not be refunded."
+msgstr ""
+
+msgid "Read the pre-reservation FAQs"
+msgstr ""
+
+#, fuzzy
+#| msgid "Your Email"
+msgid "Your details"
+msgstr "Votre e-mail"
+
+msgid "We use these details for your reservation and fiscal document. Payment is completed securely on Stripe."
+msgstr ""
+
+msgid "Pre-reservation terms"
+msgstr "Conditions de pré-réservation"
 
 #, python-format
-msgid "You're about to pre-reserve <strong>%(name)s</strong>. By pre-reserving, you express your serious interest in purchasing this dog. Our team will contact you to discuss the next steps, including availability, pricing, and any additional details."
-msgstr "Vous êtes sur le point de pré-réserver <strong>%(name)s</strong>. Cette pré-réservation confirme votre intérêt sérieux pour l'achat de ce chien. Notre équipe vous contactera pour expliquer les prochaines étapes, notamment la disponibilité, le prix et les autres détails."
+msgid "Version %(version)s"
+msgstr "Version %(version)s"
 
-#, python-format
-msgid "You're about to pre-reserve a puppy from the <strong>%(name)s</strong> litter. By pre-reserving, you express your serious interest in purchasing one of the puppies. Our team will contact you to discuss availability, expected dates, and next steps."
-msgstr "Vous êtes sur le point de pré-réserver un chiot de la portée <strong>%(name)s</strong>. Cette pré-réservation confirme votre intérêt sérieux pour l'achat de l'un des chiots. Notre équipe vous contactera pour discuter de la disponibilité, des dates prévues et des prochaines étapes."
+msgid "Open the terms on a separate page"
+msgstr "Ouvrir les conditions sur une page séparée"
 
-msgid "Price"
-msgstr "Prix"
+msgid "Continue to secure payment"
+msgstr ""
 
-msgid "Status"
-msgstr "Statut"
+#, fuzzy
+#| msgid "Call Us"
+msgid "Call us"
+msgstr "Appelez-nous"
 
-msgid "Expected Ready"
-msgstr "Disponibilité prévue"
-
-msgid "Expected Puppies"
-msgstr "Chiots attendus"
-
-msgid "Birth Date"
-msgstr "Date de naissance"
-
-msgid "Send a Message"
-msgstr "Envoyer un message"
-
-#, python-format
-msgid "Back to %(name)s"
-msgstr "Retour à %(name)s"
+#, fuzzy
+#| msgid "Contact Us"
+msgid "Contact us"
+msgstr "Contactez-nous"
 
 msgid "Our Dogs"
 msgstr "Nos chiens"
@@ -878,14 +952,31 @@ msgstr "Page partagée !"
 msgid "Page was not shared."
 msgstr "La page n'a pas été partagée."
 
+#, fuzzy
+#| msgid "Pre-Reserve"
+msgid "reserved"
+msgstr "Pré-réservation"
+
+msgid "Status"
+msgstr "Statut"
+
 msgid "Expected"
 msgstr "Attendu"
+
+#, python-format
+msgid "%(reserved)s/%(capacity)s pre-reservation places reserved"
+msgstr ""
 
 #, python-format
 msgid "1 baby"
 msgid_plural "%(babies)s babies"
 msgstr[0] "1 bébé"
 msgstr[1] "%(babies)s bébés"
+
+#, fuzzy
+#| msgid "All rights reserved"
+msgid "Fully reserved"
+msgstr "Tous droits réservés"
 
 msgid "Upcoming Litters"
 msgstr "Portées à venir"
@@ -910,6 +1001,24 @@ msgstr "Disponibilité"
 
 msgid "Estimated size"
 msgstr "Taille estimée"
+
+msgid "The local chat model is not ready. Check its status and try again."
+msgstr "Le modèle local du chat n’est pas prêt. Vérifiez son état et réessayez."
+
+msgid "The local model did not return usable aliases. Please try again."
+msgstr "Le modèle local n’a renvoyé aucun alias utilisable. Veuillez réessayer."
+
+msgid "Could not generate alias suggestions."
+msgstr "Impossible de générer des suggestions d’alias."
+
+#, python-format
+msgid "%(count)d new alias was added to the form. Review and save it."
+msgid_plural "%(count)d new aliases were added to the form. Review and save them."
+msgstr[0] "%(count)d nouvel alias a été ajouté au formulaire. Vérifiez-le et enregistrez."
+msgstr[1] "%(count)d nouveaux alias ont été ajoutés au formulaire. Vérifiez-les et enregistrez."
+
+msgid "The model found no useful new aliases. Existing aliases may already cover its suggestions."
+msgstr "Le modèle n’a trouvé aucun nouvel alias utile. Les alias existants couvrent peut-être déjà ses suggestions."
 
 msgid "Not ready"
 msgstr "Non préparé"
@@ -942,6 +1051,12 @@ msgstr "Je ne parviens pas à identifier la page actuelle."
 msgid "You are on the “%(page)s” page."
 msgstr "Vous êtes sur la page « %(page)s »."
 
+msgid "No blog posts are currently published."
+msgstr "Aucun article de blog n’est actuellement publié."
+
+msgid "Published blog posts:"
+msgstr "Articles de blog publiés :"
+
 #, python-format
 msgid "Did you mean: %(choices)s?"
 msgstr "Vouliez-vous dire : %(choices)s ?"
@@ -950,13 +1065,18 @@ msgstr "Vouliez-vous dire : %(choices)s ?"
 msgid "%(name)s is available for %(price)s."
 msgstr "%(name)s est disponible au prix de %(price)s."
 
-#, python-format
-msgid "%(name)s is not currently available for sale."
+#, fuzzy, python-format
+#| msgid "%(name)s is not currently available for sale."
+msgid "%(name)s is not currently available. %(reason)s"
 msgstr "%(name)s n’est pas actuellement disponible à la vente."
 
 #, python-format
 msgid "%(name)s is listed for %(price)s."
 msgstr "%(name)s est proposé(e) au prix de %(price)s."
+
+#, python-format
+msgid "It cannot currently be pre-reserved. %(reason)s"
+msgstr ""
 
 #, python-format
 msgid "%(name)s has no current sale price."
@@ -965,6 +1085,10 @@ msgstr "%(name)s n’a actuellement aucun prix de vente."
 #, python-format
 msgid "About %(name)s:"
 msgstr "À propos de %(name)s :"
+
+#, python-format
+msgid "- Animal kind: %(value)s"
+msgstr "- Espèce animale : %(value)s"
 
 #, python-format
 msgid "- Breed: %(value)s"
@@ -993,8 +1117,10 @@ msgstr "- Certifications : %(value)s"
 msgid "- Availability: available for %(price)s"
 msgstr "- Disponibilité : disponible au prix de %(price)s"
 
-msgid "- Availability: no longer available"
-msgstr "- Disponibilité : n’est plus disponible"
+#, fuzzy, python-format
+#| msgid "- Availability: available for %(price)s"
+msgid "- Availability: %(reason)s"
+msgstr "- Disponibilité : disponible au prix de %(price)s"
 
 #, python-format
 msgid "- Current litters: %(value)s"
@@ -1020,6 +1146,15 @@ msgstr "- Mère : %(value)s"
 msgid "- Babies: %(value)s"
 msgstr "- Chiots : %(value)s"
 
+#, fuzzy, python-format
+#| msgid "- Description: %(value)s"
+msgid "- Pre-reservation: %(value)s"
+msgstr "- Description : %(value)s"
+
+#, python-format
+msgid "%(name)s pre-reservation availability: %(availability)s"
+msgstr ""
+
 #, python-format
 msgid "About the %(name)s breed:"
 msgstr "À propos de la race %(name)s :"
@@ -1027,18 +1162,15 @@ msgstr "À propos de la race %(name)s :"
 msgid "No additional description is currently published."
 msgstr "Aucune description supplémentaire n’est actuellement publiée."
 
-msgid "dog"
-msgstr "chien"
+msgid "No animals are currently listed for sale. Contact us for the latest availability."
+msgstr "Aucun animal n’est actuellement proposé à la vente. Contactez-nous pour connaître les dernières disponibilités."
 
-msgid "No dogs are currently listed for sale. Contact us for the latest availability."
-msgstr "Aucun chien n’est actuellement proposé à la vente. Contactez-nous pour connaître les dernières disponibilités."
-
-msgid "Dogs currently available:"
-msgstr "Chiens actuellement disponibles:"
+msgid "Animals currently available:"
+msgstr "Animaux actuellement disponibles :"
 
 #, python-format
-msgid "- %(name)s — %(breed)s, %(gender)s, %(price)s."
-msgstr "- %(name)s — %(breed)s, %(gender)s, %(price)s."
+msgid "- %(name)s — %(kind)s; %(breed)s, %(gender)s, %(price)s."
+msgstr "- %(name)s — %(kind)s ; %(breed)s, %(gender)s, %(price)s."
 
 msgid "Contact us for more information or to arrange a visit."
 msgstr "Contactez-nous pour plus d’informations ou pour organiser une visite."
@@ -1066,8 +1198,26 @@ msgstr "Portées actuelles ou à venir :"
 msgid "%(name)s — %(breed)s; status: %(status)s"
 msgstr "%(name)s — %(breed)s ; statut : %(status)s"
 
+#, fuzzy, python-format
+#| msgid "Pre-Reserve"
+msgid "pre-reservation: %(availability)s"
+msgstr "Pré-réservation"
+
 msgid "Contact us for more information about a litter."
 msgstr "Contactez-nous pour plus d’informations sur une portée."
+
+msgid "No born litters currently have places available for pre-reservation."
+msgstr ""
+
+#, fuzzy
+#| msgid "%(name)s is not currently available for sale."
+msgid "Litters currently available for pre-reservation:"
+msgstr "%(name)s n’est pas actuellement disponible à la vente."
+
+#, fuzzy, python-format
+#| msgid "%(name)s — %(breed)s; status: %(status)s"
+msgid "- %(name)s — %(breed)s; %(availability)s."
+msgstr "%(name)s — %(breed)s ; statut : %(status)s"
 
 #, python-format
 msgid "We are at %(address)s."
@@ -1091,12 +1241,22 @@ msgstr "Foire aux questions :"
 msgid "Ask me one of these questions to see the answer."
 msgstr "Posez-moi l’une de ces questions pour voir la réponse."
 
+msgid "I can only answer using information published by Fortissimus Bellator. I do not have information about that. You can ask about animals, litters, prices, blog posts, visits, certifications, or contact details."
+msgstr "Je ne peux répondre qu’à partir des informations publiées par Fortissimus Bellator. Je n’ai pas d’information à ce sujet. Vous pouvez poser des questions sur les animaux, les portées, les prix, les articles du blog, les visites, les certifications ou les coordonnées."
+
+msgid "Optional alternative codes, names, or questions, one per line. Used only by chat search."
+msgstr "Codes, noms ou questions alternatifs facultatifs, un par ligne. Utilisés uniquement par la recherche du chat."
+
 msgid "price on request"
 msgstr "prix sur demande"
 
 #, python-format
 msgid "€%(amount)s"
 msgstr "%(amount)s €"
+
+#, python-format
+msgid "%(available)d of %(capacity)d places available (%(reserved)d already reserved)"
+msgstr ""
 
 #, python-format
 msgid "ready since: %(date)s"
@@ -1246,6 +1406,12 @@ msgstr "Télécharger la dernière version"
 msgid "Prepare model"
 msgstr "Préparer le modèle"
 
+msgid "Generate with AI"
+msgstr "Générer avec l’IA"
+
+msgid "Generating…"
+msgstr "Génération…"
+
 msgid "Hello! I'm here to help you with questions about Fortissimus Bellator. How can I assist you today?"
 msgstr "Bonjour ! Je suis là pour répondre à vos questions sur Fortissimus Bellator. Comment puis-je vous aider ?"
 
@@ -1264,11 +1430,11 @@ msgstr "Réinitialiser le chat"
 msgid "Close chat"
 msgstr "Fermer le chat"
 
-msgid "Show available dogs"
-msgstr "Afficher les chiens disponibles"
+msgid "Show available animals"
+msgstr "Afficher les animaux disponibles"
 
-msgid "Available dogs"
-msgstr "Chiens disponibles"
+msgid "Available animals"
+msgstr "Animaux disponibles"
 
 msgid "Show current litters"
 msgstr "Afficher les portées en cours"
@@ -1276,8 +1442,8 @@ msgstr "Afficher les portées en cours"
 msgid "Current litters"
 msgstr "Portées en cours"
 
-msgid "How much do your dogs cost?"
-msgstr "Combien coûtent vos chiens ?"
+msgid "How much do your animals cost?"
+msgstr "Combien coûtent vos animaux ?"
 
 msgid "Pricing"
 msgstr "Tarifs"
@@ -1339,6 +1505,133 @@ msgstr "L’assistant est en cours de préparation pour sa première utilisation
 msgid "The assistant is temporarily unavailable. Please contact us at %(phones)s."
 msgstr "L’assistant est temporairement indisponible. Contactez-nous au %(phones)s."
 
+msgid "used"
+msgstr ""
+
+msgid "Global scopes need no selection. For a selected scope, use only the matching field shown below."
+msgstr ""
+
+msgid "Required only for the selected breeds scope."
+msgstr ""
+
+msgid "Required only for the selected dogs scope."
+msgstr ""
+
+#, fuzzy
+#| msgid "Create animals from selected litters"
+msgid "Required only for the selected litters scope."
+msgstr "Créer des animaux à partir de portées sélectionnées"
+
+msgid "Select at least one item for this promotion scope."
+msgstr ""
+
+#, fuzzy
+#| msgid "liked at"
+msgid "Fixed amount"
+msgstr "aimé à"
+
+msgid "Percentage"
+msgstr ""
+
+msgid "Any pre-reservation"
+msgstr ""
+
+msgid "All dogs"
+msgstr "Tous les chiens"
+
+#, fuzzy
+#| msgid "litters"
+msgid "All litters"
+msgstr "portées"
+
+#, fuzzy
+#| msgid "expected babies"
+msgid "Selected breeds"
+msgstr "bébés attendus"
+
+msgid "Selected dogs"
+msgstr ""
+
+#, fuzzy
+#| msgid "Current litters"
+msgid "Selected litters"
+msgstr "Portées en cours"
+
+msgid "promotion code"
+msgstr ""
+
+msgid "Codes are stored and matched without letter case."
+msgstr ""
+
+#, fuzzy
+#| msgid "discount in euros"
+msgid "discount type"
+msgstr "réduction en euros"
+
+#, fuzzy
+#| msgid "discount in euros"
+msgid "discount value"
+msgstr "réduction en euros"
+
+msgid "applies to"
+msgstr ""
+
+#, fuzzy
+#| msgid "All dogs"
+msgid "dogs"
+msgstr "Tous les chiens"
+
+msgid "starts at"
+msgstr ""
+
+msgid "ends at"
+msgstr ""
+
+msgid "maximum redemptions"
+msgstr ""
+
+msgid "Leave empty for unlimited redemptions."
+msgstr ""
+
+msgid "maximum redemptions per user"
+msgstr ""
+
+msgid "Leave empty for unlimited redemptions per user."
+msgstr ""
+
+msgid "promotion"
+msgstr ""
+
+msgid "promotions"
+msgstr ""
+
+msgid "A percentage discount cannot exceed 100%."
+msgstr ""
+
+msgid "The end date must be after the start date."
+msgstr ""
+
+msgid "This promotion code is not valid."
+msgstr ""
+
+msgid "This promotion code is not active."
+msgstr ""
+
+msgid "This promotion has not started yet."
+msgstr ""
+
+msgid "This promotion has expired."
+msgstr ""
+
+msgid "This promotion does not apply to this pre-reservation."
+msgstr ""
+
+msgid "This promotion has reached its limit."
+msgstr ""
+
+msgid "You have already used this promotion the maximum number of times."
+msgstr ""
+
 msgid "Fortissimus Bellator Site Admin"
 msgstr "Administrateur du site Fortissimus Bellator"
 
@@ -1399,9 +1692,6 @@ msgstr "Développé avec ❤️ par"
 msgid "Home Page"
 msgstr "Page d'accueil"
 
-msgid "All dogs"
-msgstr "Tous les chiens"
-
 msgid "About Us"
 msgstr "À propos de nous"
 
@@ -1411,8 +1701,8 @@ msgstr "Choisir la langue"
 msgid "Toggle Light/Dark Theme"
 msgstr "Basculer le thème clair/sombre"
 
-msgid "My Dogs"
-msgstr "Mes chiens"
+msgid "My Reservations"
+msgstr ""
 
 msgid "Logout form"
 msgstr "Formulaire de déconnexion"
@@ -1653,6 +1943,626 @@ msgstr "Votre meilleur match de race est"
 msgid "Retake Quiz"
 msgstr "Reprendre le quiz"
 
+#, fuzzy
+#| msgid "description"
+msgid "reservations"
+msgstr "description"
+
+msgid "ERP integration"
+msgstr ""
+
+msgid "Paid without an integrated sale document"
+msgstr ""
+
+msgid "Paid and integrated"
+msgstr ""
+
+#, fuzzy
+#| msgid "description"
+msgid "Reservation"
+msgstr "description"
+
+msgid "Customer snapshot"
+msgstr ""
+
+msgid "Price snapshot"
+msgstr ""
+
+msgid "Operational state"
+msgstr ""
+
+msgid "Lifecycle"
+msgstr ""
+
+msgid "reference"
+msgstr ""
+
+msgid "payment"
+msgstr ""
+
+#, fuzzy
+#| msgid "for sale"
+msgid "ERP sale"
+msgstr "à vendre"
+
+#, fuzzy
+#| msgid "Required."
+msgid "Not required"
+msgstr "Requis."
+
+msgid "PDF"
+msgstr ""
+
+msgid "ERP and PDF"
+msgstr ""
+
+msgid "No fiscal document is required for a zero-value reservation."
+msgstr ""
+
+msgid "No sale document task exists."
+msgstr ""
+
+msgid "Only paid reservations can be integrated with the ERP."
+msgstr ""
+
+#, fuzzy, python-format
+#| msgid "- Status: %(value)s"
+msgid "ERP status: %(status)s"
+msgstr "- Statut : %(value)s"
+
+#, fuzzy
+#| msgid "Retry model preparation"
+msgid "Retry ERP integration"
+msgstr "Réessayer la préparation du modèle"
+
+msgid "The operation first searches TOConline by the stable external reference, then creates a document only when none exists."
+msgstr ""
+
+#, fuzzy
+#| msgid "Retry model preparation"
+msgid "Retry integration"
+msgstr "Réessayer la préparation du modèle"
+
+msgid "The ERP sale must be integrated before downloading its PDF."
+msgstr ""
+
+#, fuzzy, python-format
+#| msgid "- Status: %(value)s"
+msgid "PDF status: %(status)s"
+msgstr "- Statut : %(value)s"
+
+msgid "Retry fiscal document PDF"
+msgstr ""
+
+msgid "This downloads the existing fiscal document again. It does not create another sale."
+msgstr ""
+
+msgid "Retry PDF download"
+msgstr ""
+
+msgid "Download the fiscal document PDF before sending it."
+msgstr ""
+
+msgid "The email could not be sent. The failed attempt was recorded."
+msgstr ""
+
+msgid "The fiscal document was sent."
+msgstr ""
+
+msgid "Resend fiscal document"
+msgstr ""
+
+msgid "The PDF contains customer and fiscal information."
+msgstr ""
+
+msgid "Send PDF"
+msgstr ""
+
+msgid "The reservation was cancelled, but its refund needs attention. Use Retry refund."
+msgstr ""
+
+msgid "The pre-reservation was cancelled."
+msgstr ""
+
+msgid "Cancel pre-reservation"
+msgstr ""
+
+msgid "This immediately releases the dog or litter place. A paid reservation will be refunded because staff initiated the cancellation."
+msgstr ""
+
+msgid "Cancel reservation"
+msgstr ""
+
+msgid "This payment is not awaiting a refund."
+msgstr ""
+
+#, fuzzy, python-format
+#| msgid "- Status: %(value)s"
+msgid "Refund status: %(status)s"
+msgstr "- Statut : %(value)s"
+
+msgid "Retry Stripe refund"
+msgstr ""
+
+msgid "Stripe idempotency prevents this action from creating a duplicate refund."
+msgstr ""
+
+msgid "Retry refund"
+msgstr ""
+
+msgid "The pre-reservation was marked fulfilled."
+msgstr ""
+
+msgid "Mark pre-reservation fulfilled"
+msgstr ""
+
+msgid "Use this only after the reservation has been converted into the final sale or allocation."
+msgstr ""
+
+msgid "Mark fulfilled"
+msgstr ""
+
+msgid "Confirm deletion of an item with reservation history"
+msgstr ""
+
+#, fuzzy
+#| msgid "- Availability: no longer available"
+msgid "This dog is no longer available."
+msgstr "- Disponibilité : n’est plus disponible"
+
+msgid "This dog is not available for pre-reservation."
+msgstr ""
+
+msgid "This dog is already reserved."
+msgstr ""
+
+msgid "This litter is not available for pre-reservation."
+msgstr ""
+
+msgid "Pre-reservations open only after the babies are born."
+msgstr ""
+
+msgid "This litter has no places available for pre-reservation."
+msgstr ""
+
+msgid "This litter is fully reserved."
+msgstr ""
+
+msgid "You already have an active pre-reservation for this litter."
+msgstr ""
+
+#, fuzzy
+#| msgid "name"
+msgid "Full name"
+msgstr "nom"
+
+#, fuzzy
+#| msgid "fiscal number"
+msgid "Tax number"
+msgstr "numéro fiscal"
+
+#, fuzzy
+#| msgid "Billing"
+msgid "Billing address"
+msgstr "Facturation"
+
+#, fuzzy
+#| msgid "Postal Code"
+msgid "Postcode"
+msgstr "Code Postal"
+
+msgid "Country code"
+msgstr ""
+
+msgid "Two-letter country code, for example PT."
+msgstr ""
+
+msgid "Promotion code"
+msgstr ""
+
+msgid "I have read and accept the pre-reservation terms, including that the fee is non-refundable if I cancel."
+msgstr "J’ai lu et j’accepte les conditions de pré-réservation, notamment que les frais ne sont pas remboursables si j’annule."
+
+msgid "Enter a valid two-letter country code."
+msgstr ""
+
+msgid "The pre-reservation terms were updated. Review them again."
+msgstr "Les conditions de pré-réservation ont été mises à jour. Veuillez les relire."
+
+msgid "Cancellation reason"
+msgstr ""
+
+msgid "I confirm that this pre-reservation must be cancelled."
+msgstr ""
+
+#, fuzzy
+#| msgid "Resend Email"
+msgid "Recipient email"
+msgstr "Renvoyer l'e-mail"
+
+msgid "I confirm that this fiscal document may be emailed."
+msgstr ""
+
+msgid "version"
+msgstr "version"
+
+msgid "pre-reservation terms"
+msgstr "conditions de pré-réservation"
+
+#, fuzzy
+#| msgid "dog"
+msgid "Dog"
+msgstr "chien"
+
+msgid "Awaiting payment"
+msgstr ""
+
+#, fuzzy
+#| msgid "Confirm Password"
+msgid "Confirmed"
+msgstr "Confirmez le mot de passe"
+
+msgid "Payment failed"
+msgstr ""
+
+msgid "Expired"
+msgstr ""
+
+msgid "Cancelled by customer"
+msgstr ""
+
+msgid "Cancelled by staff"
+msgstr ""
+
+msgid "Fulfilled"
+msgstr ""
+
+msgid "customer"
+msgstr ""
+
+#, fuzzy
+#| msgid "hair type"
+msgid "target type"
+msgstr "type de cheveux"
+
+msgid "dog"
+msgstr "chien"
+
+msgid "target name"
+msgstr ""
+
+msgid "accepted terms"
+msgstr "conditions acceptées"
+
+#, fuzzy
+#| msgid "Pre-Reserve"
+msgid "pre-reservation"
+msgstr "Pré-réservation"
+
+msgid "pre-reservations"
+msgstr ""
+
+msgid "A pre-reservation must target exactly one dog or litter."
+msgstr ""
+
+msgid "Total must equal fee minus discount."
+msgstr ""
+
+#, fuzzy
+#| msgid "comment"
+msgid "Complimentary"
+msgstr "commentaire"
+
+msgid "Initializing"
+msgstr ""
+
+#, fuzzy
+#| msgid "breeding"
+msgid "Pending"
+msgstr "reproduction"
+
+msgid "Paid"
+msgstr ""
+
+msgid "Refund pending"
+msgstr ""
+
+msgid "Refund failed"
+msgstr ""
+
+#, fuzzy
+#| msgid "Recommended"
+msgid "Refunded"
+msgstr "Recommandé"
+
+msgid "Sale document"
+msgstr ""
+
+msgid "Credit note"
+msgstr ""
+
+msgid "Processing"
+msgstr ""
+
+#, fuzzy
+#| msgid "Integrity"
+msgid "Integrated"
+msgstr "Intégrité"
+
+msgid "Retryable failure"
+msgstr ""
+
+msgid "Needs attention"
+msgstr ""
+
+#, fuzzy
+#| msgid "Not ready"
+msgid "Not requested"
+msgstr "Non préparé"
+
+#, fuzzy
+#| msgid "Available dogs"
+msgid "Available"
+msgstr "Chiens disponibles"
+
+msgid "ERP document"
+msgstr ""
+
+msgid "ERP documents"
+msgstr ""
+
+msgid "Automatic"
+msgstr ""
+
+msgid "Payment success page"
+msgstr ""
+
+#, fuzzy
+#| msgid "Django administration"
+msgid "Administrator"
+msgstr "Administration Django"
+
+msgid "Success"
+msgstr ""
+
+msgid "Reconciled existing document"
+msgstr ""
+
+msgid "Sent"
+msgstr ""
+
+msgid "Pre-reservation terms are not available."
+msgstr "Les conditions de pré-réservation ne sont pas disponibles."
+
+msgid "Target"
+msgstr ""
+
+msgid "Customer"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+#, python-format
+msgid ""
+"\n"
+"      This item has %(count)s pre-reservation in its history. It will disappear from the public website, but every reservation snapshot and payment record will remain accessible.\n"
+"    "
+msgid_plural ""
+"\n"
+"      This item has %(count)s pre-reservations in its history. It will disappear from the public website, but every reservation snapshot and payment record will remain accessible.\n"
+"    "
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "This is the second and final confirmation. This action cannot be undone."
+msgstr ""
+
+msgid "Yes, delete permanently"
+msgstr ""
+
+msgid "No, keep it"
+msgstr ""
+
+msgid "Retry ERP"
+msgstr ""
+
+msgid "Retry PDF"
+msgstr ""
+
+#, fuzzy
+#| msgid "Downloaded"
+msgid "Download PDF"
+msgstr "Téléchargé"
+
+#, fuzzy
+#| msgid "Resend Email"
+msgid "Resend PDF"
+msgstr "Renvoyer l'e-mail"
+
+#, fuzzy
+#| msgid "Email Confirmation Sent"
+msgid "Final confirmation"
+msgstr "Confirmation par e-mail envoyée"
+
+msgid "Cancel this pre-reservation?"
+msgstr ""
+
+msgid "The fee will not be refunded."
+msgstr ""
+
+#, python-format
+msgid "You accepted that the %(amount)s %(currency)s pre-reservation payment is non-refundable when you cancel. Cancelling also releases the dog or litter place immediately."
+msgstr ""
+
+msgid "Yes, cancel and release"
+msgstr ""
+
+msgid "Keep reservation"
+msgstr ""
+
+msgid "Private dashboard"
+msgstr ""
+
+msgid "Track payments, reservation status, promotions, and fiscal documents."
+msgstr ""
+
+#, fuzzy
+#| msgid "active"
+msgid "Active"
+msgstr "actif"
+
+msgid "No active reservations"
+msgstr ""
+
+msgid "Available dogs and born litters can be pre-reserved from their detail pages."
+msgstr ""
+
+msgid "History"
+msgstr ""
+
+msgid "Your completed and cancelled reservations will remain available here."
+msgstr ""
+
+msgid "This listing was deleted, but your reservation history is preserved."
+msgstr ""
+
+msgid "This listing is no longer public. Your reservation remains available here."
+msgstr ""
+
+#, fuzzy
+#| msgid "Female"
+msgid "Fee"
+msgstr "Femelle"
+
+msgid "Total"
+msgstr ""
+
+#, fuzzy
+#| msgid "status"
+msgid "Payment status"
+msgstr "statut"
+
+msgid "Promotion"
+msgstr ""
+
+msgid "No fiscal document is required for this zero-value reservation."
+msgstr ""
+
+#, fuzzy
+#| msgid "Fiscal Number"
+msgid "Fiscal document"
+msgstr "Numéro fiscal"
+
+msgid "Pending accounting integration"
+msgstr ""
+
+msgid "Your payment is confirmed. Our team has been notified to complete the accounting integration."
+msgstr ""
+
+msgid "The sale is integrated, but the PDF is temporarily unavailable."
+msgstr ""
+
+msgid "The pre-reservation fee is non-refundable if you cancel."
+msgstr ""
+
+msgid "Continue payment"
+msgstr ""
+
+msgid "Cancel and release"
+msgstr ""
+
+msgid "Availability, current price, and promotion will be checked again before a new payment attempt."
+msgstr ""
+
+#, fuzzy
+#| msgid "Login again"
+msgid "Try again"
+msgstr "Connectez-vous à nouveau"
+
+msgid "The failed payment no longer holds this dog or litter place. A new attempt is only possible when the listing is available for pre-reservation."
+msgstr ""
+
+msgid "Payment not completed"
+msgstr ""
+
+#, fuzzy
+#| msgid "Page was not shared."
+msgid "Payment was not completed"
+msgstr "La page n'a pas été partagée."
+
+msgid "Your place remains temporarily held. Continue payment or cancel to release it for someone else."
+msgstr ""
+
+msgid "Payment confirmed"
+msgstr ""
+
+msgid "Pre-reservation confirmed"
+msgstr ""
+
+#, python-format
+msgid "Your place for %(name)s is secured."
+msgstr ""
+
+msgid "Amount paid"
+msgstr ""
+
+#, fuzzy
+#| msgid "Download source"
+msgid "Download fiscal document"
+msgstr "Source du téléchargement"
+
+msgid "Payment is confirmed. Your fiscal document is being prepared and will appear in your dashboard."
+msgstr ""
+
+msgid "Open my reservations"
+msgstr ""
+
+msgid "Pre-reservations"
+msgstr "Pré-réservations"
+
+#, python-format
+msgid "Current version: %(version)s"
+msgstr "Version actuelle : %(version)s"
+
+#, python-format
+msgid "Published on %(published_at)s"
+msgstr "Publié le %(published_at)s"
+
+msgid "Pre-reservation terms are not currently available."
+msgstr "Les conditions de pré-réservation ne sont actuellement pas disponibles."
+
+msgid "Your pre-reservation is confirmed."
+msgstr ""
+
+msgid "This payment cannot be retried."
+msgstr ""
+
+msgid "This pre-reservation cannot be retried because the listing no longer exists."
+msgstr ""
+
+msgid "Payment confirmation is missing."
+msgstr ""
+
+msgid "We could not verify the payment yet. Please check your dashboard."
+msgstr ""
+
+msgid "This pre-reservation can no longer be cancelled."
+msgstr ""
+
+msgid "Your pre-reservation was cancelled. The pre-reservation fee is non-refundable."
+msgstr ""
+
+#, fuzzy
+#| msgid "The assistant is ready."
+msgid "Your fiscal document is ready."
+msgstr "L’assistant est prêt."
+
+#, fuzzy
+#| msgid "The assistant is temporarily unavailable. Please contact us at %(phones)s."
+msgid "The fiscal document is temporarily unavailable. Please try again."
+msgstr "L’assistant est temporairement indisponible. Contactez-nous au %(phones)s."
+
 msgid "tag"
 msgstr "étiqueter"
 
@@ -1670,20 +2580,3 @@ msgstr "Administration du site Django"
 
 msgid "Django administration"
 msgstr "Administration Django"
-
-#~ msgid "Best balance of multilingual quality, speed, and memory use."
-#~ msgstr "Meilleur équilibre entre qualité multilingue, vitesse et utilisation de la mémoire."
-
-#~ msgid "Lowest-memory fallback for the most constrained server."
-#~ msgstr "Option utilisant le moins de mémoire pour le serveur le plus limité."
-
-#~ msgid "Preparation runs in the background. Refresh this page to see updated progress."
-#~ msgstr "La préparation s’exécute en arrière-plan. Actualisez cette page pour voir la progression."
-
-#~ msgid "We are at Rua Quinta dos Frades, 904, 2400-821 Leiria, Portugal."
-#~ msgstr "Nous sommes situés Rua Quinta dos Frades, 904, 2400-821 Leiria, Portugal."
-
-#, fuzzy
-#~| msgid "You can contact us on +351 924 454 382 or +351 916 749 407 or at geral@fortissimusbellator.pt."
-#~ msgid "You can contact us on +351 924 454 382 or at geral@fortissimusbellator.pt."
-#~ msgstr "Vous pouvez nous contacter au +351 924 454 382 ou au +351 916 749 407 ou à geral@fortissimusbellator.pt."

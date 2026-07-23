@@ -1,0 +1,83 @@
+x-app-environment: &app-environment
+  DEBUG: "off"
+  SECRET_KEY: ${SECRET_KEY:-replace-this-local-only-secret}
+  DATABASE_URL: mysql://${DATABASE_USER:-fortissimus}:${DATABASE_PASSWORD:-fortissimus}@database:3306/${DATABASE_NAME:-fortissimus}
+  ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost,127.0.0.1}
+  SECURE_SSL_REDIRECT: ${SECURE_SSL_REDIRECT:-false}
+  SESSION_COOKIE_SECURE: ${SESSION_COOKIE_SECURE:-false}
+  CSRF_COOKIE_SECURE: ${CSRF_COOKIE_SECURE:-false}
+  TRUST_PROXY_HTTPS: ${TRUST_PROXY_HTTPS:-false}
+  STATIC_ROOT: /app/static
+  MEDIA_ROOT: /app/media
+  DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL:-no-reply@example.com}
+  EMAIL_HOST: ${EMAIL_HOST:-localhost}
+  EMAIL_PORT: ${EMAIL_PORT:-25}
+  EMAIL_HOST_USER: ${EMAIL_HOST_USER:-}
+  EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD:-}
+  EMAIL_USE_TLS: ${EMAIL_USE_TLS:-false}
+  EMAIL_USE_SSL: ${EMAIL_USE_SSL:-false}
+  BUSINESS_NOTIFICATION_RECIPIENTS: ${BUSINESS_NOTIFICATION_RECIPIENTS:-operations@example.com}
+  STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+  STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+  RESERVATION_CHECKOUT_MINUTES: ${RESERVATION_CHECKOUT_MINUTES:-30}
+  RESERVATION_ERP_MAX_AUTOMATIC_ATTEMPTS: ${RESERVATION_ERP_MAX_AUTOMATIC_ATTEMPTS:-5}
+  RESERVATION_PDF_MAX_BYTES: ${RESERVATION_PDF_MAX_BYTES:-15728640}
+  TOCONLINE_ENABLED: ${TOCONLINE_ENABLED:-false}
+  TOCONLINE_BASE_URL: ${TOCONLINE_BASE_URL:-https://api10.toconline.pt}
+  TOCONLINE_OAUTH_BASE_URL: ${TOCONLINE_OAUTH_BASE_URL:-https://app10.toconline.pt/oauth}
+  TOCONLINE_OAUTH_CLIENT_ID: ${TOCONLINE_OAUTH_CLIENT_ID:-}
+  TOCONLINE_OAUTH_CLIENT_SECRET: ${TOCONLINE_OAUTH_CLIENT_SECRET:-}
+  TOCONLINE_OAUTH_REDIRECT_URI: ${TOCONLINE_OAUTH_REDIRECT_URI:-https://oauth.pstmn.io/v1/callback}
+  TOCONLINE_ALLOWED_DOWNLOAD_HOSTS: ${TOCONLINE_ALLOWED_DOWNLOAD_HOSTS:-toconline.pt}
+  TOCONLINE_TIMEOUT: ${TOCONLINE_TIMEOUT:-10}
+  TOCONLINE_PAYMENT_MECHANISM: ${TOCONLINE_PAYMENT_MECHANISM:-}
+  TOCONLINE_TAX_CODE: ${TOCONLINE_TAX_CODE:-}
+  TOCONLINE_TAX_PERCENTAGE: ${TOCONLINE_TAX_PERCENTAGE:-}
+
+services:
+  database:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DATABASE_NAME:-fortissimus}
+      MARIADB_USER: ${DATABASE_USER:-fortissimus}
+      MARIADB_PASSWORD: ${DATABASE_PASSWORD:-fortissimus}
+      MARIADB_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-local-root-password}
+    volumes:
+      - database_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  web:
+    image: fortissimusbellator:local
+    build: .
+    restart: unless-stopped
+    environment: *app-environment
+    volumes:
+      - media_data:/app/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      database:
+        condition: service_healthy
+
+  reservation_scheduler:
+    image: fortissimusbellator:local
+    restart: unless-stopped
+    environment: *app-environment
+    volumes:
+      - media_data:/app/media
+    depends_on:
+      database:
+        condition: service_healthy
+    command:
+      - sh
+      - -c
+      - while true; do python manage.py process_reservation_workflows --limit 100; sleep 60; done
+
+volumes:
+  database_data:
+  media_data:

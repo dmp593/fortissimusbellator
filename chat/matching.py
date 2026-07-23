@@ -55,7 +55,7 @@ def phrase_score(query, candidate):
         return 1.0
 
     # One- and two-character names are too easily confused with articles and
-    # short words inside a sentence. Three-character dog names and common
+    # short words inside a sentence. Three-character animal names and common
     # abbreviations such as "Max" and "GSD" remain useful exact matches.
     candidate_text = " ".join(candidate_words)
     if len(candidate_text) < 3:

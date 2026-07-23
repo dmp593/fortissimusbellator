@@ -20,8 +20,8 @@
       page_name: root ? root.dataset.pageName || "" : "",
       page_path: window.location.pathname || "",
       page_type: element ? element.dataset.pageType || "" : "",
-      dog_id: element ? element.dataset.dogId || "" : "",
-      dog_name: element ? element.dataset.dogName || "" : "",
+      animal_id: element ? element.dataset.animalId || "" : "",
+      animal_name: element ? element.dataset.animalName || "" : "",
       litter_id: element ? element.dataset.litterId || "" : "",
       litter_name: element ? element.dataset.litterName || "" : "",
       breed_id: element ? element.dataset.breedId || "" : "",
@@ -67,6 +67,7 @@
     this.history = loadHistory();
     this.state = loadState();
     this.loading = false;
+    this.mobileViewport = window.matchMedia("(max-width: 47.999rem)");
 
     this.bindEvents();
     this.renderHistory();
@@ -99,6 +100,17 @@
         self.setOpen(false, true);
       }
     });
+    window.addEventListener("resize", function () {
+      self.syncViewport();
+    });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", function () {
+        self.syncViewport();
+      });
+      window.visualViewport.addEventListener("scroll", function () {
+        self.syncViewport();
+      });
+    }
   };
 
   ChatWidget.prototype.setOpen = function (open, restoreFocus) {
@@ -106,13 +118,40 @@
     this.panel.classList.toggle("flex", open);
     this.root.classList.toggle("chat-widget-open", open);
     this.toggle.setAttribute("aria-expanded", String(open));
+    this.syncViewport();
     if (open) {
-      this.input.focus();
+      if (!this.mobileViewport.matches) {
+        this.input.focus({ preventScroll: true });
+      }
     } else if (restoreFocus) {
       this.toggle.focus();
     } else if (this.root.contains(document.activeElement)) {
       document.activeElement.blur();
     }
+  };
+
+  ChatWidget.prototype.syncViewport = function () {
+    var open = !this.panel.classList.contains("hidden");
+    var mobileOpen = open && this.mobileViewport.matches;
+    document.documentElement.classList.toggle("chat-overlay-open", mobileOpen);
+
+    if (!mobileOpen) {
+      this.root.style.removeProperty("--chat-viewport-height");
+      this.root.style.removeProperty("--chat-viewport-offset-top");
+      return;
+    }
+
+    var viewport = window.visualViewport;
+    var height = viewport ? viewport.height : window.innerHeight;
+    var offsetTop = viewport ? viewport.offsetTop : 0;
+    this.root.style.setProperty(
+      "--chat-viewport-height",
+      Math.round(height) + "px"
+    );
+    this.root.style.setProperty(
+      "--chat-viewport-offset-top",
+      Math.round(offsetTop) + "px"
+    );
   };
 
   ChatWidget.prototype.resetChat = function () {
@@ -126,7 +165,9 @@
     }
     this.state = {};
     this.renderHistory();
-    this.input.focus();
+    if (!this.mobileViewport.matches) {
+      this.input.focus({ preventScroll: true });
+    }
   };
 
   ChatWidget.prototype.submit = function (intent) {
@@ -227,7 +268,9 @@
     this.root.querySelectorAll("[data-chat-suggestion]").forEach(function (button) {
       button.disabled = loading;
     });
-    if (!loading) this.input.focus();
+    if (!loading && !this.mobileViewport.matches) {
+      this.input.focus({ preventScroll: true });
+    }
   };
 
   var root = document.getElementById("chat-widget");

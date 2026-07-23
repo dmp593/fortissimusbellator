@@ -4,20 +4,43 @@ from .domain import EntityKind, QueryAnalysis
 from .matching import contains_phrase, normalize_text, same_word, words
 
 
-AVAILABLE_DOGS = "available_dogs"
+AVAILABLE_ANIMALS = "available_animals"
+AVAILABLE_LITTERS = "available_litters"
+AVAILABILITY = "availability"
 CURRENT_LITTERS = "current_litters"
 PRICING = "pricing"
 FAQS = "faqs"
+BLOG = "blog"
 CURRENT_PAGE = "current_page"
 CONTACT = "contact"
 LOCATION = "location"
 VISIT = "visit"
 GREETING = "greeting"
 ENTITY_INFO = "entity_info"
+CERTIFICATIONS = "certifications"
 
-QUICK_INTENTS = frozenset({AVAILABLE_DOGS, CURRENT_LITTERS, PRICING, FAQS})
+QUICK_INTENTS = frozenset({
+    AVAILABLE_ANIMALS,
+    AVAILABLE_LITTERS,
+    CURRENT_LITTERS,
+    PRICING,
+    FAQS,
+})
 
 INTENT_PHRASES = {
+    CERTIFICATIONS: (
+        "certification", "certifications", "certificate", "certificates",
+        "certificacao", "certificacoes", "certificado", "certificados",
+        "certificacion", "certificaciones", "certificat", "certificats",
+        "zertifizierung", "zertifizierungen", "zertifikat", "zertifikate",
+        "certificazione", "certificazioni",
+    ),
+    BLOG: (
+        "blog", "post", "posts", "article", "articles", "artigo",
+        "artigos", "publicacao", "publicacoes", "publicacion",
+        "publicaciones", "article de blog", "articles de blog",
+        "beitrag", "beitrage", "articolo", "articoli",
+    ),
     FAQS: (
         "faq", "frequently asked", "perguntas frequentes",
         "preguntas frecuentes", "questions frequentes",
@@ -62,28 +85,36 @@ INTENT_PHRASES = {
     ),
 }
 
-DOG_WORDS = (
-    "dog", "dogs", "puppy", "puppies", "cao", "caes", "cachorro",
-    "cachorros", "perro", "perros", "chien", "chiens", "hund",
-    "hunde", "cane", "cani",
+ANIMAL_WORDS = (
+    "animal", "animals", "pet", "pets", "animais", "animal de estimacao",
+    "mascota", "mascotas", "animaux", "haustier", "haustiere", "animali",
 )
 AVAILABLE_WORDS = (
     "available", "for sale", "disponivel", "disponiveis", "venda",
     "disponible", "disponibles", "verfugbar", "verkauf",
     "disponibile", "disponibili",
 )
+PURCHASE_WORDS = (
+    "buy", "purchase", "acquire", "reserve",
+    "comprar", "adquirir", "reservar",
+    "acheter", "acquerir", "reserver",
+    "kaufen", "reservieren",
+    "comprare", "acquistare", "prenotare",
+)
 LITTER_WORDS = (
     "litter", "litters", "ninhada", "ninhadas", "camada", "camadas",
     "portee", "portees", "wurf", "wurfe", "cucciolata", "cucciolate",
 )
-CURRENT_WORDS = (
-    "current", "upcoming", "available", "atual", "atuais", "proxima",
-    "proximas", "actual", "actuales", "actuel", "prochain", "aktuell",
-    "kommend", "attuale", "prossima",
+EXPLICIT_CURRENT_WORDS = (
+    "current", "upcoming", "atual", "atuais", "proxima", "proximas",
+    "actual", "actuales", "actuel", "prochain", "aktuell", "kommend",
+    "attuale", "prossima",
 )
 REFERENCE_WORDS = (
-    "he", "she", "it", "this dog", "that dog", "him", "her",
-    "ele", "ela", "este cao", "esta cadela", "esse cao", "essa cadela",
+    "he", "she", "it", "this animal", "that animal", "this pet", "him", "her",
+    "this dog", "that dog",
+    "ele", "ela", "este animal", "esse animal", "este cao", "esta cadela",
+    "esse cao", "essa cadela",
     "este", "esta", "esse", "essa", "el", "ella", "il", "elle", "ce chien",
     "cette chienne", "er", "sie", "dieser hund", "lui", "lei",
 )
@@ -92,6 +123,16 @@ GREETINGS = frozenset({
     "hola", "bonjour", "salut", "hallo", "guten tag", "ciao",
     "buongiorno",
 })
+
+
+def is_blog_query(message):
+    """Return whether a message explicitly asks about published articles."""
+    return contains_phrase(message, INTENT_PHRASES[BLOG])
+
+
+def is_certification_query(message):
+    """Return whether a message explicitly asks about certifications."""
+    return contains_phrase(message, INTENT_PHRASES[CERTIFICATIONS])
 
 
 class IntentDetector:
@@ -109,12 +150,31 @@ class IntentDetector:
                 intents.add(intent)
 
         query_words = words(message)
-        has_dog_word = self._contains_word(query_words, DOG_WORDS)
-        if has_dog_word and contains_phrase(message, AVAILABLE_WORDS):
-            intents.add(AVAILABLE_DOGS)
+        has_availability_word = contains_phrase(message, AVAILABLE_WORDS)
+        has_purchase_word = self._contains_exact_word(
+            query_words,
+            PURCHASE_WORDS,
+        )
+        asks_availability = has_availability_word or has_purchase_word
+        if asks_availability:
+            intents.add(AVAILABILITY)
+
+        has_animal_word = self._contains_word(query_words, ANIMAL_WORDS)
+        if has_animal_word and asks_availability:
+            intents.add(AVAILABLE_ANIMALS)
         has_litter_word = self._contains_word(query_words, LITTER_WORDS)
-        if has_litter_word and self._contains_word(query_words, CURRENT_WORDS):
-            intents.add(CURRENT_LITTERS)
+        asks_current_litters = has_litter_word and self._contains_word(
+            query_words,
+            EXPLICIT_CURRENT_WORDS,
+        )
+        if has_litter_word:
+            if asks_availability and not (
+                has_animal_word and asks_current_litters
+            ):
+                intents.add(AVAILABLE_LITTERS)
+                intents.discard(CURRENT_LITTERS)
+            else:
+                intents.add(CURRENT_LITTERS)
         return frozenset(intents)
 
     @staticmethod
@@ -122,12 +182,43 @@ class IntentDetector:
         return contains_phrase(message, REFERENCE_WORDS, threshold=0.92)
 
     @staticmethod
-    def has_generic_dog_word(message):
-        return IntentDetector._contains_word(words(message), DOG_WORDS)
+    def has_generic_animal_word(message):
+        return IntentDetector._contains_word(words(message), ANIMAL_WORDS)
+
+    @staticmethod
+    def has_generic_litter_word(message):
+        return IntentDetector._contains_word(words(message), LITTER_WORDS)
+
+    @staticmethod
+    def asks_current_litters(message):
+        query_words = words(message)
+        return (
+            IntentDetector._contains_word(query_words, LITTER_WORDS)
+            and IntentDetector._contains_word(
+                query_words,
+                EXPLICIT_CURRENT_WORDS,
+            )
+        )
 
     @staticmethod
     def has_availability_word(message):
-        return contains_phrase(message, AVAILABLE_WORDS)
+        query_words = words(message)
+        return (
+            contains_phrase(message, AVAILABLE_WORDS)
+            or IntentDetector._contains_exact_word(
+                query_words,
+                PURCHASE_WORDS,
+            )
+        )
+
+    @staticmethod
+    def _contains_exact_word(query_words, candidates):
+        candidate_words = {
+            word
+            for candidate in candidates
+            for word in words(candidate)
+        }
+        return any(query_word in candidate_words for query_word in query_words)
 
     @staticmethod
     def _contains_word(query_words, candidates):
@@ -152,10 +243,28 @@ class QueryAnalyzer:
         used_state = False
 
         if (
-            any(match.kind == EntityKind.DOG for match in entities.matches)
+            any(
+                match.kind in {EntityKind.ANIMAL, EntityKind.ANIMAL_KIND}
+                for match in entities.matches
+            )
             and self.intent_detector.has_availability_word(request.message)
         ):
-            intents = intents.union({AVAILABLE_DOGS})
+            intents = intents.union({AVAILABILITY, AVAILABLE_ANIMALS})
+        if (
+            any(
+                match.kind == EntityKind.ANIMAL_KIND
+                for match in entities.matches
+            )
+            and self.intent_detector.asks_current_litters(request.message)
+        ):
+            intents = intents.difference({AVAILABLE_LITTERS}).union({
+                CURRENT_LITTERS,
+            })
+        if (
+            any(match.kind == EntityKind.LITTER for match in entities.matches)
+            and self.intent_detector.has_availability_word(request.message)
+        ):
+            intents = intents.union({AVAILABILITY, AVAILABLE_LITTERS})
 
         if not entities.matches and self._needs_context(request.message, intents):
             entities = self.entity_resolver.resolve_page(request.page_context)
@@ -174,7 +283,12 @@ class QueryAnalyzer:
             return True
         if ENTITY_INFO in intents:
             return True
+        has_animal_word = self.intent_detector.has_generic_animal_word(message)
+        has_litter_word = self.intent_detector.has_generic_litter_word(message)
+        if PRICING in intents and not has_animal_word:
+            return True
         return bool(
-            intents.intersection({PRICING, AVAILABLE_DOGS})
-            and not self.intent_detector.has_generic_dog_word(message)
+            intents.intersection({AVAILABILITY, AVAILABLE_ANIMALS})
+            and not has_animal_word
+            and not has_litter_word
         )

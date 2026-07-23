@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% with certifications=animal.animal_certifications.all %}
+{% if certifications %}
+<div
+    class="flex flex-wrap items-center gap-2"
+    aria-label="{% translate 'Certifications' %}"
+>
+    {% include "icons/academic_cap.html" with class="size-5 shrink-0 text-stone-600 dark:text-stone-300" %}
+    {% for animal_certification in certifications %}
+    <span class="rounded-full border border-stone-300 px-2.5 py-1 font-sans text-xs font-semibold tracking-wide text-stone-700 dark:border-stone-600 dark:text-stone-200">
+        {{ animal_certification.certification.code }}
+    </span>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}

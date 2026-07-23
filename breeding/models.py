@@ -1,3 +1,4 @@
+import decimal
 import mimetypes
 import pathlib
 
@@ -87,14 +88,6 @@ class Breed(models.Model):
     description = models.TextField(
         blank=True,
         verbose_name=_('description'),
-    )
-
-    chat_search_aliases = models.TextField(
-        blank=True,
-        verbose_name=_('chat search aliases'),
-        help_text=_(
-            'Optional alternative names, one per line. Used only by chat search.'
-        ),
     )
 
     parent = models.ForeignKey(
@@ -246,14 +239,6 @@ class Animal(models.Model):
         verbose_name=_('description'),
     )
 
-    chat_search_aliases = models.TextField(
-        blank=True,
-        verbose_name=_('chat search aliases'),
-        help_text=_(
-            'Optional alternative names, one per line. Used only by chat search.'
-        ),
-    )
-
     birth_date = models.DateField(
         verbose_name=_('birth date'),
     )
@@ -367,6 +352,20 @@ class Animal(models.Model):
         verbose_name=_('for sale'),
     )
 
+    pre_reservation_enabled = models.BooleanField(
+        default=True,
+        verbose_name=_('available for pre-reservation'),
+    )
+
+    pre_reservation_fee = models.DecimalField(
+        max_digits=7,
+        decimal_places=2,
+        default=decimal.Decimal('50.00'),
+        validators=[MinValueValidator(decimal.Decimal('0.50'))],
+        verbose_name=_('pre-reservation fee'),
+        help_text=_('Non-refundable pre-reservation fee in euros.'),
+    )
+
     order = models.IntegerField(
         default=999,
         verbose_name=_('order'),
@@ -442,14 +441,6 @@ class Litter(models.Model):
         verbose_name=_('description'),
     )
 
-    chat_search_aliases = models.TextField(
-        blank=True,
-        verbose_name=_('chat search aliases'),
-        help_text=_(
-            'Optional alternative names, one per line. Used only by chat search.'
-        ),
-    )
-
     father = models.ForeignKey(
         Animal, on_delete=models.CASCADE,
         null=True,
@@ -522,6 +513,29 @@ class Litter(models.Model):
         verbose_name=_('active')
     )
 
+    pre_reservation_enabled = models.BooleanField(
+        default=True,
+        verbose_name=_('available for pre-reservation'),
+    )
+
+    pre_reservation_fee = models.DecimalField(
+        max_digits=7,
+        decimal_places=2,
+        default=decimal.Decimal('50.00'),
+        validators=[MinValueValidator(decimal.Decimal('0.50'))],
+        verbose_name=_('pre-reservation fee'),
+        help_text=_('Non-refundable pre-reservation fee in euros.'),
+    )
+
+    pre_reservation_capacity = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_('pre-reservation capacity'),
+        help_text=_(
+            'Number of born babies offered for pre-reservation. '
+            'Use zero to offer no places.'
+        ),
+    )
+
     order = models.IntegerField(
         default=999,
         verbose_name=_('order'),
@@ -548,6 +562,25 @@ class Litter(models.Model):
         verbose_name = _('litter')
         verbose_name_plural = _('litters')
         ordering = ['order',]
+        constraints = [
+            models.CheckConstraint(
+                condition=(
+                    models.Q(pre_reservation_capacity=0)
+                    | models.Q(
+                        babies__isnull=False,
+                        pre_reservation_capacity__lte=models.F('babies'),
+                    )
+                ),
+                name='litter_reservation_capacity_lte_babies',
+            ),
+            models.CheckConstraint(
+                condition=(
+                    ~models.Q(status='expecting')
+                    | models.Q(pre_reservation_capacity=0)
+                ),
+                name='expecting_litter_reservation_capacity_zero',
+            ),
+        ]
 
     def __str__(self):
         return f"{self.name}"

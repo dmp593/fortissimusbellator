@@ -9,12 +9,14 @@ from .assistant import assistant
 from .domain import ChatReply
 from .entities import EntityResolver
 from .experts import (
+    BlogExpert,
     ContactExpert,
     EntityExpert,
     ExpertContext,
     FaqExpert,
     GreetingExpert,
     InventoryExpert,
+    KnowledgeBoundaryExpert,
     LocalModelExpert,
     PageExpert,
     ResponseComposer,
@@ -28,10 +30,17 @@ logger = logging.getLogger(__name__)
 class ExpertRouter:
     """Ask cheap deterministic experts before the single model expert."""
 
-    def __init__(self, analyzer, deterministic_experts, model_expert):
+    def __init__(
+        self,
+        analyzer,
+        deterministic_experts,
+        model_expert,
+        knowledge_boundary_expert,
+    ):
         self.analyzer = analyzer
         self.deterministic_experts = deterministic_experts
         self.model_expert = model_expert
+        self.knowledge_boundary_expert = knowledge_boundary_expert
 
     def route(self, request):
         started_at = time.monotonic()
@@ -56,7 +65,17 @@ class ExpertRouter:
         except Exception:
             self._log_route("model_error", [], analysis, started_at)
             raise
-        self._log_route("model", [], analysis, started_at)
+        if response is not None:
+            self._log_route("model", [], analysis, started_at)
+            return response
+
+        response = self.knowledge_boundary_expert.answer(context)
+        self._log_route(
+            "knowledge_boundary",
+            [self.knowledge_boundary_expert.__class__.__name__],
+            analysis,
+            started_at,
+        )
         return response
 
     @staticmethod
@@ -91,12 +110,14 @@ class ChatService:
             deterministic_experts=(
                 GreetingExpert(),
                 PageExpert(),
+                BlogExpert(),
                 EntityExpert(),
                 InventoryExpert(),
                 ContactExpert(),
                 FaqExpert(),
             ),
             model_expert=model_expert,
+            knowledge_boundary_expert=KnowledgeBoundaryExpert(),
         )
 
     def reply(self, request):

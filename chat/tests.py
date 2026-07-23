@@ -11,9 +11,23 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
+from django.utils import timezone
 
-from breeding.models import Animal, AnimalKind, Breed, Litter
+from blog.models import Post
+from breeding.models import (
+    Animal,
+    AnimalCertification,
+    AnimalKind,
+    Breed,
+    Certification,
+    Litter,
+)
 from frontoffice.models import FrequentlyAskedQuestion
+from reservations.models import PreReservation, PreReservationTerms
+from reservations.services.reservation import (
+    create_pending_reservation,
+    mark_payment_setup_failed,
+)
 
 from .assistant import (
     ChatAssistant,
@@ -23,6 +37,7 @@ from .assistant import (
     ModelState,
     ModelUnavailable,
 )
+from .catalog import available_animals, reservable_litters
 from .domain import ChatReply, ChatRequest, ConversationState, EntityKind
 from .knowledge import build_knowledge, matching_faq
 from .matching import normalize_text, phrase_score, same_word
@@ -93,6 +108,7 @@ class AssistantTests(SimpleTestCase):
         prompt = ChatAssistant._system_prompt("pt", "facts", "sales")
         self.assertIn("European Portuguese", prompt)
         self.assertIn("avoid 'você'", prompt)
+        self.assertIn("Do not use\ngeneral or external knowledge", prompt)
 
 
 class MatchingTests(SimpleTestCase):
@@ -345,7 +361,7 @@ class MessageViewTests(SimpleTestCase):
     def test_message_returns_history_and_session_entity(self, reply):
         reply.return_value = ChatReply(
             text="Rex is available.",
-            state=ConversationState(EntityKind.DOG, 7, "Rex"),
+            state=ConversationState(EntityKind.ANIMAL, 7, "Rex"),
         )
         old_history = []
         for index in range(6):
@@ -356,7 +372,7 @@ class MessageViewTests(SimpleTestCase):
 
         response = self.post({
             "message": "Is Rex available?",
-            "intent": "available_dogs",
+            "intent": "available_animals",
             "history": old_history,
             "language": "pt-PT",
             "state": {
@@ -364,9 +380,9 @@ class MessageViewTests(SimpleTestCase):
             },
             "context": {
                 "page_title": "Comprar um cão | Fortissimus Bellator",
-                "page_type": "dog_detail",
-                "dog_id": "7",
-                "dog_name": "Rex",
+                "page_type": "animal_detail",
+                "animal_id": "7",
+                "animal_name": "Rex",
                 "ignored": "not allowed",
             },
         })
@@ -377,18 +393,19 @@ class MessageViewTests(SimpleTestCase):
         self.assertLessEqual(len(data["history"]), 10)
         self.assertEqual(data["history"][-1]["role"], "assistant")
         self.assertEqual(data["state"], {
-            "entity_kind": "dog", "entity_id": 7, "entity_name": "Rex"
+            "entity_kind": "animal", "entity_id": 7, "entity_name": "Rex"
         })
 
         request = reply.call_args.args[0]
         self.assertEqual(request.language, "pt")
-        self.assertEqual(request.requested_intent, "available_dogs")
+        self.assertEqual(request.requested_intent, "available_animals")
+        self.assertEqual(request.state.entity_kind, EntityKind.ANIMAL)
         self.assertEqual(request.state.entity_id, 7)
         self.assertEqual(request.page_context, {
             "page_title": "Comprar um cão | Fortissimus Bellator",
-            "page_type": "dog_detail",
-            "dog_id": "7",
-            "dog_name": "Rex",
+            "page_type": "animal_detail",
+            "animal_id": "7",
+            "animal_name": "Rex",
         })
 
     def test_rejects_invalid_json(self):
@@ -445,12 +462,36 @@ class MessageViewTests(SimpleTestCase):
 class ChatServiceTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        kind = AnimalKind.objects.create(name="Dog")
+        cls.blog_author = get_user_model().objects.create_user(
+            username="chat-blog-author",
+            password="password",
+        )
+        cls.pre_reservation_terms = PreReservationTerms.objects.create(
+            version="chat-tests-v1",
+            description="The pre-reservation fee is non-refundable.",
+            published_at=timezone.now(),
+        )
+        kind = AnimalKind.objects.create(
+            name="Dog",
+            chat_search_aliases=(
+                "Dogs\nPuppy\nPuppies\nCães\nCachorros\nPerros\n"
+                "Chiens\nHunde\nCani"
+            ),
+        )
         cls.breed = Breed.objects.create(
             kind=kind,
             name="German Shepherd",
             cover="breeds/test.jpg",
             description="Loyal, active working dogs.",
+        )
+        cls.cat_kind = AnimalKind.objects.create(
+            name="Cat",
+            chat_search_aliases="Cats\nKitten\nKittens\nGato\nGatos",
+        )
+        cls.cat_breed = Breed.objects.create(
+            kind=cls.cat_kind,
+            name="Maine Coon",
+            cover="breeds/cat-test.jpg",
         )
         FrequentlyAskedQuestion.objects.create(
             question="How do reservations work?",
@@ -476,6 +517,23 @@ class ChatServiceTests(TestCase):
             for_sale=True,
             chat_search_aliases="Bibi\nBellinha",
         )
+        cls.certification = Certification.objects.create(
+            code="WB",
+            name="Wesensbeurteilung",
+            description=(
+                "The WB examines an animal's character and temperament "
+                "before training can significantly influence it."
+            ),
+            description_pt=(
+                "O WB avalia o caráter e o temperamento do animal antes de "
+                "o treino os poder influenciar significativamente."
+            ),
+            chat_search_aliases="What is WB?\nO que é o WB?",
+        )
+        AnimalCertification.objects.create(
+            animal=cls.bella,
+            certification=cls.certification,
+        )
         Animal.objects.create(
             breed=cls.breed,
             name="Sold Dog",
@@ -494,6 +552,22 @@ class ChatServiceTests(TestCase):
             status=Litter.LitterStatus.EXPECTING,
             active=True,
         )
+        cls.blog_post = Post.posts.create(
+            author=cls.blog_author,
+            title="Preparing your home for a puppy",
+            cover="posts/puppy-home.jpg",
+            content={"type": "doc"},
+            published_at=timezone.now(),
+            active=True,
+        )
+        Post.posts.create(
+            author=cls.blog_author,
+            title="Unpublished staff notes",
+            cover="posts/staff-notes.jpg",
+            content={"type": "doc"},
+            published_at=timezone.now(),
+            active=False,
+        )
 
     def setUp(self):
         self.model = Mock()
@@ -511,20 +585,69 @@ class ChatServiceTests(TestCase):
             state=values.get("state", ConversationState()),
         )
 
-    def test_available_dogs_are_database_facts_and_set_active_entity(self):
+    def reserve(self, target):
+        target_type = (
+            PreReservation.TargetType.DOG
+            if isinstance(target, Animal)
+            else PreReservation.TargetType.LITTER
+        )
+        return create_pending_reservation(
+            user=self.blog_author,
+            target_type=target_type,
+            target_id=target.pk,
+            checkout_data={
+                "full_name": "Chat Test Customer",
+                "email": "chat-customer@example.com",
+                "phone": "+351900000000",
+                "tax_number": "999999990",
+                "billing_address": "Test Street 1",
+                "billing_postcode": "1000-001",
+                "billing_city": "Lisbon",
+                "billing_country": "PT",
+                "promotion_code": "",
+                "terms": self.pre_reservation_terms,
+                "accept_non_refundable": True,
+            },
+            language_code="en",
+        )
+
+    def test_available_animals_are_database_facts_and_set_active_entity(self):
         reply = self.service.reply(self.request(
-            "Show available dogs", requested_intent="available_dogs"
+            "Show available animals", requested_intent="available_animals"
         ))
 
         self.assertIn("Bella", reply.text)
         self.assertIn("€1,500.00", reply.text)
         self.assertNotIn("Sold Dog", reply.text)
         self.assertNotIn("health", reply.text.lower())
+        self.assertIn("WB", reply.text)
+        self.assertNotIn(self.certification.description, reply.text)
         self.assertEqual(reply.state.entity_id, self.bella.pk)
         self.model.reply.assert_not_called()
 
+    def test_database_animal_kind_filters_inventory_without_new_python_enum(self):
+        luna = Animal.objects.create(
+            breed=self.cat_breed,
+            name="Luna",
+            birth_date=date(2025, 2, 1),
+            gender="F",
+            price_in_euros=Decimal("900.00"),
+            active=True,
+            for_sale=True,
+        )
+
+        cats_reply = self.service.reply(self.request("Which cats can I buy?"))
+        dogs_reply = self.service.reply(self.request("Which dogs can I buy?"))
+
+        self.assertIn(luna.name, cats_reply.text)
+        self.assertNotIn(self.bella.name, cats_reply.text)
+        self.assertIn(self.bella.name, dogs_reply.text)
+        self.assertNotIn(luna.name, dogs_reply.text)
+        self.assertEqual(cats_reply.state.entity_kind, EntityKind.ANIMAL)
+        self.model.reply.assert_not_called()
+
     def test_follow_up_price_uses_session_entity(self):
-        state = ConversationState(EntityKind.DOG, self.bella.pk, "Bella")
+        state = ConversationState(EntityKind.ANIMAL, self.bella.pk, "Bella")
         reply = self.service.reply(self.request(
             "How much does she cost?", state=state
         ))
@@ -537,6 +660,81 @@ class ChatServiceTests(TestCase):
         reply = self.service.reply(self.request("Is Bella available?"))
 
         self.assertEqual(reply.text, "Bella is available for €1,500.00.")
+        self.model.reply.assert_not_called()
+
+    def test_reserved_dog_is_excluded_from_available_inventory(self):
+        self.reserve(self.bella)
+
+        reply = self.service.reply(self.request("Which dogs can I buy?"))
+
+        self.assertNotIn("Bella", reply.text)
+        self.assertIn("No animals are currently listed for sale", reply.text)
+        self.model.reply.assert_not_called()
+
+    def test_portuguese_acquisition_query_excludes_reserved_dog(self):
+        self.reserve(self.bella)
+
+        reply = self.service.reply(self.request(
+            "Que cães posso adquirir?",
+            language="pt",
+        ))
+
+        self.assertNotIn("Bella", reply.text)
+        self.assertIn("não existem animais anunciados para venda", reply.text)
+        self.model.reply.assert_not_called()
+
+    def test_named_reserved_dog_is_never_reported_as_available(self):
+        self.reserve(self.bella)
+
+        reply = self.service.reply(self.request("Can I buy Bella?"))
+
+        self.assertIn("Bella is not currently available", reply.text)
+        self.assertIn("already reserved", reply.text)
+        self.model.reply.assert_not_called()
+
+    def test_reserved_dog_price_includes_the_reservation_warning(self):
+        self.reserve(self.bella)
+
+        reply = self.service.reply(self.request("How much does Bella cost?"))
+
+        self.assertIn("€1,500.00", reply.text)
+        self.assertIn("cannot currently be pre-reserved", reply.text)
+        self.assertIn("already reserved", reply.text)
+        self.model.reply.assert_not_called()
+
+    def test_failed_payment_returns_dog_to_available_chat_inventory(self):
+        reservation = self.reserve(self.bella)
+        mark_payment_setup_failed(reservation.pk, "Definite payment failure")
+
+        reply = self.service.reply(self.request("Which dogs can I acquire?"))
+
+        self.assertIn("Bella", reply.text)
+        self.assertIn("€1,500.00", reply.text)
+        self.model.reply.assert_not_called()
+
+    def test_reservation_aware_catalogues_execute_one_query_each(self):
+        self.reserve(self.bella)
+
+        with self.assertNumQueries(1):
+            animals = list(available_animals())
+        with self.assertNumQueries(1):
+            litters = list(reservable_litters())
+
+        self.assertEqual(animals, [])
+        self.assertEqual(litters, [])
+
+    def test_page_context_reports_reserved_dog_as_unavailable(self):
+        self.reserve(self.bella)
+
+        reply = self.service.reply(self.request(
+            "Can I reserve this?",
+            page_context={
+                "animal_id": str(self.bella.pk),
+                "animal_name": self.bella.name,
+            },
+        ))
+
+        self.assertIn("already reserved", reply.text)
         self.model.reply.assert_not_called()
 
     def test_fuzzy_name_finds_rich_dog_information(self):
@@ -560,7 +758,36 @@ class ChatServiceTests(TestCase):
 
         self.assertIn("Summer Litter", reply.text)
         self.assertIn("expected birth", reply.text)
+        self.assertIn("only after the babies are born", reply.text)
         self.assertEqual(reply.state.entity_id, self.litter.pk)
+        self.model.reply.assert_not_called()
+
+    def test_full_litter_is_not_reported_as_available_for_reservation(self):
+        litter = Litter.objects.get(pk=self.litter.pk)
+        litter.birth_date = timezone.localdate()
+        litter.babies = 1
+        litter.status = Litter.LitterStatus.BORN
+        litter.pre_reservation_capacity = 1
+        litter.save(
+            update_fields=[
+                "birth_date",
+                "babies",
+                "status",
+                "pre_reservation_capacity",
+            ]
+        )
+        self.reserve(litter)
+
+        inventory_reply = self.service.reply(
+            self.request("Which litters can I reserve?")
+        )
+        named_reply = self.service.reply(
+            self.request("Can I reserve Summer Litter?")
+        )
+
+        self.assertNotIn("Summer Litter", inventory_reply.text)
+        self.assertIn("No born litters", inventory_reply.text)
+        self.assertIn("fully reserved", named_reply.text)
         self.model.reply.assert_not_called()
 
     def test_multiple_inventory_intents_are_composed(self):
@@ -591,6 +818,23 @@ class ChatServiceTests(TestCase):
         )
         self.model.reply.assert_not_called()
 
+    def test_blog_lists_only_published_post_titles(self):
+        reply = self.service.reply(self.request("Which blog posts do you have?"))
+
+        self.assertIn("Published blog posts:", reply.text)
+        self.assertIn(self.blog_post.title, reply.text)
+        self.assertNotIn("Unpublished staff notes", reply.text)
+        self.model.reply.assert_not_called()
+
+    def test_blog_titles_use_the_active_language(self):
+        reply = self.service.reply(self.request(
+            "Que posts tens?", language="pt"
+        ))
+
+        self.assertIn("Publicações do blogue:", reply.text)
+        self.assertIn(self.blog_post.title, reply.text)
+        self.model.reply.assert_not_called()
+
     def test_admin_managed_alias_finds_faq(self):
         reply = self.service.reply(self.request("Can I book a puppy?"))
 
@@ -608,17 +852,55 @@ class ChatServiceTests(TestCase):
 
         self.assertIn("How do reservations work?", knowledge)
 
-    def test_unknown_question_invokes_the_model_exactly_once(self):
-        request = self.request("How should I prepare my home for a puppy?")
+    def test_blog_titles_are_added_to_blog_knowledge(self):
+        knowledge = build_knowledge("Which blog posts do you have?", {})
+
+        self.assertIn("Published blog posts:", knowledge)
+        self.assertIn(self.blog_post.title, knowledge)
+        self.assertNotIn("Unpublished staff notes", knowledge)
+
+    def test_specific_certification_uses_detailed_database_knowledge(self):
+        reply = self.service.reply(self.request("What is WB?"))
+
+        self.assertEqual(reply.text, "Model fallback answer.")
+        self.model.reply.assert_called_once()
+        knowledge = self.model.reply.call_args.args[3]
+        self.assertIn("Code: WB", knowledge)
+        self.assertIn("Name: Wesensbeurteilung", knowledge)
+        self.assertIn(self.certification.description, knowledge)
+        self.assertEqual(
+            self.model.reply.call_args.args[4],
+            "animal certification explanations",
+        )
+
+    def test_generic_certification_query_uses_published_certification_catalogue(self):
+        reply = self.service.reply(self.request(
+            "Que certificações existem?",
+            language="pt",
+        ))
+
+        self.assertEqual(reply.text, "Model fallback answer.")
+        self.model.reply.assert_called_once()
+        knowledge = self.model.reply.call_args.args[3]
+        self.assertIn("Code: WB", knowledge)
+        self.assertIn(self.certification.description_pt, knowledge)
+
+    def test_related_published_faq_can_use_the_model_once(self):
+        request = self.request("What food should a dog eat?")
         reply = self.service.reply(request)
 
         self.assertEqual(reply.text, "Model fallback answer.")
         self.model.reply.assert_called_once()
-        args = self.model.reply.call_args.args
-        self.assertEqual(args[0], [])
-        self.assertEqual(args[1], request.message)
-        self.assertIn("Fortissimus Bellator", args[3])
-        self.assertIn("German Shepherd", args[3])
+        self.assertIn(
+            "We discuss feeding with each new owner.",
+            self.model.reply.call_args.args[3],
+        )
+
+    def test_general_knowledge_question_does_not_invoke_model(self):
+        reply = self.service.reply(self.request("Who is the current Pope?"))
+
+        self.assertIn("I do not have information about that.", reply.text)
+        self.model.reply.assert_not_called()
 
     def test_route_log_contains_metadata_but_not_the_message(self):
         secret_message = "A private but unknown customer question"
@@ -626,17 +908,17 @@ class ChatServiceTests(TestCase):
             self.service.reply(self.request(secret_message))
 
         output = " ".join(logs.output)
-        self.assertIn("route=model", output)
+        self.assertIn("route=knowledge_boundary", output)
         self.assertNotIn(secret_message, output)
 
     def test_golden_sales_conversation_in_every_supported_language(self):
         conversations = {
-            "en": ("Which dogs are available?", "How much does she cost?", "Dogs currently available:"),
-            "pt": ("Que cães estão disponíveis?", "Quanto custa ela?", "Cães atualmente disponíveis:"),
-            "es": ("¿Qué perros están disponibles?", "¿Cuánto cuesta ella?", "Perros disponibles actualmente:"),
-            "fr": ("Quels chiens sont disponibles ?", "Combien coûte-t-elle ?", "Chiens actuellement disponibles:"),
-            "de": ("Welche Hunde sind verfügbar?", "Wie viel kostet sie?", "Derzeit verfügbare Hunde:"),
-            "it": ("Quali cani sono disponibili?", "Quanto costa lei?", "Cani attualmente disponibili:"),
+            "en": ("Which dogs are available?", "How much does she cost?", "Animals currently available:"),
+            "pt": ("Que cães estão disponíveis?", "Quanto custa ela?", "Animais atualmente disponíveis:"),
+            "es": ("¿Qué perros están disponibles?", "¿Cuánto cuesta ella?", "Animales disponibles actualmente:"),
+            "fr": ("Quels chiens sont disponibles ?", "Combien coûte-t-elle ?", "Animaux actuellement disponibles :"),
+            "de": ("Welche Hunde sind verfügbar?", "Wie viel kostet sie?", "Derzeit verfügbare Tiere:"),
+            "it": ("Quali cani sono disponibili?", "Quanto costa lei?", "Animali attualmente disponibili:"),
         }
 
         for language, (question, follow_up, heading) in conversations.items():
@@ -671,7 +953,7 @@ class ChatServiceTests(TestCase):
             reverse("chat:message"),
             data=json.dumps({
                 "message": "Mostrar cães disponíveis",
-                "intent": "available_dogs",
+                "intent": "available_animals",
                 "language": "pt",
             }),
             content_type="application/json",
@@ -694,6 +976,9 @@ class ChatFixtureAliasTests(TestCase):
 
     def test_searchable_fixture_models_have_aliases(self):
         self.assertFalse(
+            AnimalKind.objects.filter(chat_search_aliases="").exists()
+        )
+        self.assertFalse(
             Breed.objects.filter(chat_search_aliases="").exists()
         )
         self.assertFalse(
@@ -701,6 +986,9 @@ class ChatFixtureAliasTests(TestCase):
         )
         self.assertFalse(
             Litter.objects.filter(chat_search_aliases="").exists()
+        )
+        self.assertFalse(
+            Certification.objects.filter(chat_search_aliases="").exists()
         )
         self.assertFalse(
             FrequentlyAskedQuestion.objects.filter(
@@ -725,6 +1013,13 @@ class ChatFixtureAliasTests(TestCase):
             6,
         )
 
+    def test_all_fixture_certifications_fit_in_generic_model_knowledge(self):
+        knowledge = build_knowledge("Que certificações existem?", {})
+
+        for code in Certification.objects.values_list("code", flat=True):
+            with self.subTest(code=code):
+                self.assertIn(f"Code: {code}", knowledge)
+
 
 @override_settings(
     STATIC_ROOT=Path(__file__).parent / "migrations",
@@ -746,8 +1041,16 @@ class WidgetIntegrationTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("csrftoken", response.cookies)
         self.assertContains(response, 'name="csrfmiddlewaretoken"')
-        self.assertContains(response, 'data-chat-intent="available_dogs"')
+        self.assertContains(response, 'data-chat-intent="available_animals"')
         self.assertContains(response, "data-page-name=")
+
+    def test_mobile_chat_uses_full_screen_overlay_without_small_input_zoom(self):
+        response = self.client.get(reverse("home"))
+
+        self.assertContains(response, 'class="chat-panel ')
+        self.assertContains(response, 'aria-modal="true"')
+        self.assertContains(response, "text-base md:text-sm")
+        self.assertNotContains(response, "calc(100vh - 7rem)")
 
 
 @override_settings(

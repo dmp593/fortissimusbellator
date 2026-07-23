@@ -1,0 +1,17 @@
+[
+    {
+        "model": "reservations.prereservationterms",
+        "pk": 1,
+        "fields": {
+            "version": "pre-reservation-v1",
+            "description": "The amount paid for the pre-reservation is non-refundable if the customer cancels the pre-reservation.\n\nIf the purchase is completed, the amount paid for the pre-reservation is deducted in full from the final price of the dog.",
+            "description_en": "The amount paid for the pre-reservation is non-refundable if the customer cancels the pre-reservation.\n\nIf the purchase is completed, the amount paid for the pre-reservation is deducted in full from the final price of the dog.",
+            "description_pt": "O valor pago pela pré-reserva não é reembolsável se o cliente cancelar a pré-reserva.\n\nSe a compra for concluída, o valor pago pela pré-reserva é deduzido na totalidade do preço final do cão.",
+            "description_es": "El importe pagado por la prerreserva no es reembolsable si el cliente cancela la prerreserva.\n\nSi se completa la compra, el importe pagado por la prerreserva se descuenta íntegramente del precio final del perro.",
+            "description_fr": "Le montant versé pour la pré-réservation n'est pas remboursable si le client annule la pré-réservation.\n\nSi l'achat est finalisé, le montant versé pour la pré-réservation est intégralement déduit du prix final du chien.",
+            "description_de": "Der für die Vorreservierung gezahlte Betrag wird nicht erstattet, wenn der Kunde die Vorreservierung storniert.\n\nWird der Kauf abgeschlossen, wird der für die Vorreservierung gezahlte Betrag vollständig vom endgültigen Kaufpreis des Hundes abgezogen.",
+            "description_it": "L'importo versato per la pre-prenotazione non è rimborsabile se il cliente annulla la pre-prenotazione.\n\nSe l'acquisto viene completato, l'importo versato per la pre-prenotazione viene detratto integralmente dal prezzo finale del cane.",
+            "published_at": "2026-07-23T00:00:00Z"
+        }
+    }
+]

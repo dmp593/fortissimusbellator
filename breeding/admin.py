@@ -1,5 +1,6 @@
 from django.contrib import admin, messages
 from django.contrib.contenttypes.models import ContentType
+from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
 from attachments.admin import AttachmentStackedInline
@@ -8,7 +9,10 @@ from attachments.models import Attachment
 from tags.admin import TagAdminStackedInline
 from tags.models import Tag
 
+from chat.admin_aliases import ChatAliasSuggestionsAdminMixin
 from fortissimusbellator.admin import TranslationAdmin, FieldTranslatorAdmin
+from reservations.availability import litter_reserved_count
+from reservations.admin_mixins import ReservationHistoryDeleteMixin
 
 from . import forms
 from .translation import models
@@ -34,93 +38,121 @@ def publish_animals_social_media(modeladmin, request, queryset):
 
 @admin.action(description=_("Create animals from selected litters"))
 def create_animals_from_litter(modeladmin, request, queryset):
-    for litter in queryset:
-        litter_babies = litter.babies or litter.expected_babies or 0
+    for litter_id in queryset.values_list('pk', flat=True):
+        with transaction.atomic():
+            litter = models.Litter.objects.select_for_update().get(pk=litter_id)
+            litter_babies = litter.babies or litter.expected_babies or 0
 
-        if litter_babies <= 0:
-            messages.warning(
+            if litter_babies <= 0:
+                messages.warning(
+                    request,
+                    _(
+                        'Litter "%(litter_name)s" has no babies to create.'
+                    ) % {
+                        'litter_name': litter.name
+                    }
+                )
+                continue
+
+            reserved_count = litter_reserved_count(litter)
+            existing_animals_count = litter.animals.count()
+            babies_to_create = (
+                litter_babies - reserved_count - existing_animals_count
+            )
+
+            if babies_to_create <= 0:
+                if litter.pre_reservation_capacity != reserved_count:
+                    litter.pre_reservation_capacity = reserved_count
+                    litter.save(update_fields=['pre_reservation_capacity'])
+                messages.warning(
+                    request,
+                    _(
+                        'Litter "%(litter_name)s" has no remaining babies to '
+                        'create: %(reserved_count)d reserved and '
+                        '%(existing_count)d already created.'
+                    ) % {
+                        'litter_name': litter.name,
+                        'reserved_count': reserved_count,
+                        'existing_count': existing_animals_count,
+                    }
+                )
+                continue
+
+            animal_content_type = ContentType.objects.get_for_model(models.Animal)
+            litter_content_type = ContentType.objects.get_for_model(litter)
+            litter_attachments = list(
+                Attachment.objects.filter(
+                    content_type=litter_content_type,
+                    object_id=litter.id,
+                )
+            )
+            litter_tags = list(
+                Tag.objects.filter(
+                    content_type=litter_content_type,
+                    object_id=litter.id,
+                )
+            )
+
+            for index in range(babies_to_create):
+                animal = models.Animal.objects.create(
+                    breed=litter.breed,
+                    name=_(
+                        "Offspring {offspring_number} from litter {litter_name}"
+                    ).format(
+                        offspring_number=existing_animals_count + index + 1,
+                        litter_name=litter.name,
+                    ),
+                    description_en=litter.description_en,
+                    description_pt=litter.description_pt,
+                    birth_date=litter.birth_date or litter.expected_birth_date,
+                    gender='?',
+                    hair_type='?',
+                    father=litter.father,
+                    mother=litter.mother,
+                    litter=litter,
+                    for_sale=True,
+                    pre_reservation_enabled=litter.pre_reservation_enabled,
+                    pre_reservation_fee=litter.pre_reservation_fee,
+                )
+
+                for attachment in litter_attachments:
+                    Attachment.objects.create(
+                        file=attachment.file,
+                        thumbnail=attachment.thumbnail,
+                        content_type=animal_content_type,
+                        object_id=animal.id,
+                        description=attachment.description,
+                        filename=attachment.filename,
+                        mime_type=attachment.mime_type,
+                        order=attachment.order,
+                    )
+
+                for tag in litter_tags:
+                    Tag.objects.create(
+                        tag=tag.tag,
+                        color_light=tag.color_light,
+                        color_dark=tag.color_dark,
+                        content_type=animal_content_type,
+                        object_id=animal.id,
+                    )
+
+            # Remaining inventory is now represented by individual animals.
+            if litter.pre_reservation_capacity != reserved_count:
+                litter.pre_reservation_capacity = reserved_count
+                litter.save(update_fields=['pre_reservation_capacity'])
+
+            messages.success(
                 request,
                 _(
-                    'Litter "%(litter_name)s" has no babies to create.'
+                    'Created %(babies_count)d remaining babies for litter '
+                    '"%(litter_name)s"; %(reserved_count)d places were already '
+                    'reserved.'
                 ) % {
-                    'litter_name': litter.name
+                    'babies_count': babies_to_create,
+                    'litter_name': litter.name,
+                    'reserved_count': reserved_count,
                 }
             )
-
-            continue
-
-        for i in range(litter_babies):
-            # Create each animal individually to get the ID
-            animal = models.Animal.objects.create(
-                breed=litter.breed,
-
-                name=_(
-                    "Offspring {offspring_number} from litter {litter_name}"
-                ).format(
-                    offspring_number=i + 1,
-                    litter_name=litter.name
-                ),
-
-                description_en=litter.description_en,
-                description_pt=litter.description_pt,
-
-                birth_date=litter.birth_date or litter.expected_birth_date,
-                gender='?',
-                hair_type='?',
-
-                father=litter.father,
-                mother=litter.mother,
-                litter=litter,
-
-                for_sale=True,
-            )
-
-            # Get content types
-            animal_content_type = ContentType.objects.get_for_model(models.Animal)
-
-            # Copy attachments from litter to animal
-            litter_attachments = Attachment.objects.filter(
-                content_type=ContentType.objects.get_for_model(litter),
-                object_id=litter.id
-            )
-
-            for attachment in litter_attachments:
-                Attachment.objects.create(
-                    file=attachment.file,  # This will reference the same file
-                    thumbnail=attachment.thumbnail,
-                    content_type=animal_content_type,
-                    object_id=animal.id,
-                    description=attachment.description,
-                    filename=attachment.filename,
-                    mime_type=attachment.mime_type,
-                    order=attachment.order,
-                )
-
-            # Copy tags from litter to animal
-            litter_tags = Tag.objects.filter(
-                content_type=ContentType.objects.get_for_model(litter),
-                object_id=litter.id
-            )
-
-            for tag in litter_tags:
-                Tag.objects.create(
-                    tag=tag.tag,
-                    color_light=tag.color_light,
-                    color_dark=tag.color_dark,
-                    content_type=animal_content_type,
-                    object_id=animal.id,
-                )
-
-        # Provide user feedback
-        messages.success(
-            request,
-            _(
-                'Created %(babies_count)d babies for litter "%(litter_name)s".'
-            ) % {
-                'babies_count': litter_babies,
-                'litter_name': litter.name
-            }
-        )
 
 
 class AnimalCertificationStackedInline(admin.StackedInline):
@@ -132,7 +164,7 @@ class AnimalCertificationStackedInline(admin.StackedInline):
 
 
 @admin.register(models.AnimalKind)
-class AnimalKindAdmin(TranslationAdmin):
+class AnimalKindAdmin(ChatAliasSuggestionsAdminMixin, TranslationAdmin):
     """
     Admin configuration for AnimalKind.
     """
@@ -141,7 +173,7 @@ class AnimalKindAdmin(TranslationAdmin):
 
 
 @admin.register(models.Breed)
-class BreedAdmin(TranslationAdmin):
+class BreedAdmin(ChatAliasSuggestionsAdminMixin, TranslationAdmin):
     """
     Admin configuration for Breed.
     """
@@ -161,7 +193,7 @@ class BreedAdmin(TranslationAdmin):
 
 
 @admin.register(models.Certification)
-class CertificationAdmin(TranslationAdmin):
+class CertificationAdmin(ChatAliasSuggestionsAdminMixin, TranslationAdmin):
     """
     Admin configuration for Certification.
     """
@@ -181,7 +213,11 @@ class CertificationAdmin(TranslationAdmin):
 
 
 @admin.register(models.Animal)
-class AnimalAdmin(FieldTranslatorAdmin):
+class AnimalAdmin(
+    ChatAliasSuggestionsAdminMixin,
+    ReservationHistoryDeleteMixin,
+    FieldTranslatorAdmin,
+):
     """
     Admin configuration for Animal, including attachments and certifications.
     """
@@ -205,6 +241,8 @@ class AnimalAdmin(FieldTranslatorAdmin):
         'name',
         'breed',
         'current_price_in_euros',
+        'pre_reservation_enabled',
+        'pre_reservation_fee',
         'has_training',
         'active',
         'order',
@@ -214,11 +252,11 @@ class AnimalAdmin(FieldTranslatorAdmin):
         'breed',
         'for_sale',
         'active',
+        'pre_reservation_enabled',
     )
 
     list_editable = (
         'has_training',
-        'active',
         'order',
     )
 
@@ -226,7 +264,11 @@ class AnimalAdmin(FieldTranslatorAdmin):
 
 
 @admin.register(models.Litter)
-class LitterAdmin(FieldTranslatorAdmin):
+class LitterAdmin(
+    ChatAliasSuggestionsAdminMixin,
+    ReservationHistoryDeleteMixin,
+    FieldTranslatorAdmin,
+):
     """
     Litter configuration for Animal, including attachments.
     """
@@ -258,6 +300,10 @@ class LitterAdmin(FieldTranslatorAdmin):
         'expected_babies',
         'babies',
 
+        'pre_reservation_enabled',
+        'pre_reservation_capacity',
+        'pre_reservation_fee',
+
         'status',
         'active',
     )
@@ -266,10 +312,7 @@ class LitterAdmin(FieldTranslatorAdmin):
         'breed',
         'status',
         'active',
-    )
-
-    list_editable = (
-        'active',
+        'pre_reservation_enabled',
     )
 
     ordering = (

@@ -5,9 +5,12 @@ from enum import StrEnum
 
 
 class EntityKind(StrEnum):
-    DOG = "dog"
+    ANIMAL = "animal"
+    ANIMAL_KIND = "animal_kind"
     LITTER = "litter"
     BREED = "breed"
+    CERTIFICATION = "certification"
+    FAQ = "faq"
 
 
 @dataclass(frozen=True)
@@ -77,4 +80,3 @@ class QueryAnalysis:
     intents: frozenset[str]
     entities: EntityResolution = field(default_factory=EntityResolution)
     used_conversation_state: bool = False
-

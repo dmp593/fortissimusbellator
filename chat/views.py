@@ -38,6 +38,8 @@ logger = logging.getLogger(__name__)
 
 ALLOWED_CONTEXT_FIELDS = {
     "page_title", "page_name", "page_path", "page_type",
+    "animal_id", "animal_name",
+    # Kept temporarily for pages cached before the generic animal context.
     "dog_id", "dog_name", "litter_id", "litter_name",
     "breed_id", "breed_name",
 }
@@ -305,7 +307,10 @@ def _clean_state(value):
         return ConversationState()
 
     try:
-        kind = EntityKind(value.get("entity_kind"))
+        raw_kind = value.get("entity_kind")
+        if raw_kind == "dog":
+            raw_kind = EntityKind.ANIMAL.value
+        kind = EntityKind(raw_kind)
         entity_id = int(value.get("entity_id"))
     except (TypeError, ValueError):
         return ConversationState()

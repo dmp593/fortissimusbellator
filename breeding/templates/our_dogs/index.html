@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 {% load i18n %}
 
 {% block title %}{% trans "Our Dogs" %}{% endblock %}
@@ -64,8 +63,10 @@
                         {% endif %}
                     </div>
 
+                    {% include "components/certification_codes.html" with animal=dog %}
+
                     {% if dog.description %}
-                    <p class="font-sans text-stone-700 dark:text-stone-300 leading-relaxed whitespace-pre-line">
+                    <p class="mt-4 font-sans text-stone-700 dark:text-stone-300 leading-relaxed whitespace-pre-line">
                         {{ dog.description }}
                     </p>
                     {% endif %}
@@ -92,39 +93,6 @@
             <div id="dog-{{ dog.pk }}-content" class="overflow-hidden transition-all duration-500 ease-in-out max-h-0">
                 <hr class="h-[0.3] border-t-0 bg-stone-800/20 dark:bg-white/20" />
                 <div class="p-6 md:p-8">
-                    <!-- Certifications -->
-                    {% if dog.certifications.exists %}
-                    <div class="mb-8">
-                        <h3 class="font-serif text-3xl font-bold text-stone-900 dark:text-white mb-4">
-                            {% translate "Certifications" %}
-                        </h3>
-                        <div class="space-y-4">
-                            {% for cert in dog.animal_certifications.all %}
-                            <div class="ui-muted-surface p-6 shadow-sm">
-                                <!-- Certification Header -->
-                                <div class="cert-header flex justify-between items-center cursor-pointer">
-                                    <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-white">
-                                        {{ cert.certification.code }}
-                                    </h3>
-                                    <span class="text-stone-600 dark:text-stone-300 transform transition-transform duration-300">▼</span>
-                                </div>
-                                <!-- Certification Content (Hidden by Default) -->
-                                <div class="cert-content mt-4 hidden">
-                                    <p class="font-sans text-stone-600 dark:text-stone-300 text-justify whitespace-pre-line">
-                                        {{ cert.certification.description }}
-                                    </p>
-                                    {% if cert.date %}
-                                    <p class="font-sans text-sm text-stone-500 dark:text-stone-400 mt-2">
-                                        {% translate "Certified on" %} {{ cert.date|date:"M d, Y" }}
-                                    </p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    {% endif %}
-
                     <!-- Lineage -->
                     {% if dog.father or dog.mother %}
                     <div class="mb-8">
@@ -227,13 +195,5 @@
         }
     }
 
-    // Toggle certification content
-    document.querySelectorAll('.cert-header').forEach(header => {
-        header.addEventListener('click', () => {
-            const content = header.nextElementSibling;
-            content.classList.toggle('hidden');
-            header.querySelector('span').style.transform = header.querySelector('span').style.transform === 'rotate(180deg)' ? 'rotate(0deg)' : 'rotate(180deg)';
-        });
-    });
 </script>
 {% endblock %}

@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<div
+  class="chat-alias-widget"
+  data-chat-alias-widget
+  data-error-message="{% translate 'Could not generate alias suggestions.' %}"
+  data-empty-message="{% translate 'The model found no useful new aliases. Existing aliases may already cover its suggestions.' %}"
+>
+  {% include "django/forms/widgets/textarea.html" %}
+
+  {% if widget.suggestion_url %}
+    <button
+      type="button"
+      class="button chat-alias-widget__button"
+      data-chat-alias-generate
+      data-url="{{ widget.suggestion_url }}"
+      data-idle-label="{% translate 'Generate with AI' %}"
+      data-loading-label="{% translate 'Generating…' %}"
+    >
+      {% translate "Generate with AI" %}
+    </button>
+
+    <span
+      class="chat-alias-widget__status"
+      data-chat-alias-status
+      role="status"
+      aria-live="polite"
+    ></span>
+  {% endif %}
+</div>

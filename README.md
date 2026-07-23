@@ -10,6 +10,7 @@ The main product areas are:
 - FAQs, contact information, an about page, and a kennel blog;
 - a breed-matching quiz and customer accounts;
 - multilingual content, media attachments, and Django admin management;
+- Stripe-backed dog and born-litter pre-reservations with fiscal documents;
 - a small local sales assistant documented in [`chat/README.md`](chat/README.md).
 
 ## Local development
@@ -26,6 +27,22 @@ poetry run python manage.py runserver
 The default database is SQLite. Copy the required deployment values into a
 local `.env`; Django reads that file automatically when it exists. See the chat
 module documentation for the optional local GGUF model setup.
+
+For container-based development or deployment, build the image and apply
+migrations before starting both application services:
+
+```bash
+docker compose build
+docker compose run --rm web python manage.py migrate
+docker compose up -d
+```
+
+The Compose stack runs MariaDB, Gunicorn, and one reservation reconciliation
+scheduler. Replace every default secret before exposing it outside localhost.
+
+Pre-reservation deployment, Stripe webhook, TOConline, and reconciliation
+instructions are documented in
+[`docs/pre-reservations.md`](docs/pre-reservations.md).
 
 Admin file and EditorJS image uploads are staff-only and bounded by the
 `UPLOAD_*` and `EDITOR_*` environment settings. Remote EditorJS images accept

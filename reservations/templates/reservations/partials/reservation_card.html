@@ -1,0 +1,110 @@
+{% load i18n %}
+
+<article class="ui-card overflow-hidden">
+    <div class="border-b border-stone-200 bg-gradient-to-r from-stone-50 to-white p-6 dark:border-stone-700 dark:from-stone-900 dark:to-stone-800">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+            <div>
+                <p class="mb-1 text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">{{ reservation.get_target_type_display }}</p>
+                <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white">{{ reservation.target_name }}</h3>
+                <p class="mt-1 text-sm text-stone-600 dark:text-stone-300">{{ reservation.target_breed }}</p>
+            </div>
+            <span class="rounded-full px-3 py-1 text-xs font-bold
+                {% if reservation.status == 'confirmed' or reservation.status == 'fulfilled' %}bg-green-100 text-green-800 dark:bg-green-950 dark:text-green-200
+                {% elif reservation.status == 'pending_payment' %}bg-yellow-100 text-yellow-900 dark:bg-yellow-950 dark:text-yellow-200
+                {% else %}bg-stone-200 text-stone-700 dark:bg-stone-700 dark:text-stone-200{% endif %}">
+                {{ reservation.get_status_display }}
+            </span>
+        </div>
+
+        {% if reservation.target_deleted_at %}
+        <p class="mt-4 rounded-lg bg-stone-200 p-3 text-sm text-stone-700 dark:bg-stone-700 dark:text-stone-200">{% translate "This listing was deleted, but your reservation history is preserved." %}</p>
+        {% elif reservation.target and not reservation.target_is_public %}
+        <p class="mt-4 rounded-lg bg-stone-200 p-3 text-sm text-stone-700 dark:bg-stone-700 dark:text-stone-200">{% translate "This listing is no longer public. Your reservation remains available here." %}</p>
+        {% endif %}
+    </div>
+
+    <div class="space-y-5 p-6">
+        <dl class="grid grid-cols-2 gap-4 text-sm">
+            <div>
+                <dt class="text-stone-500 dark:text-stone-400">{% translate "Fee" %}</dt>
+                <dd class="mt-1 font-semibold">{{ reservation.fee_amount }} {{ reservation.currency }}</dd>
+            </div>
+            <div>
+                <dt class="text-stone-500 dark:text-stone-400">{% translate "Total" %}</dt>
+                <dd class="mt-1 font-semibold">{{ reservation.total_amount }} {{ reservation.currency }}</dd>
+            </div>
+            <div class="col-span-2">
+                <dt class="text-stone-500 dark:text-stone-400">{% translate "Payment status" %}</dt>
+                <dd class="mt-1 font-semibold">{{ reservation.payment.get_status_display }}</dd>
+            </div>
+            {% if reservation.promotion_code %}
+            <div class="col-span-2 rounded-lg bg-green-50 p-3 dark:bg-green-950/30">
+                <dt class="text-green-700 dark:text-green-300">{% translate "Promotion" %}</dt>
+                <dd class="mt-1 font-semibold text-green-900 dark:text-green-100">{{ reservation.promotion_code }} · -{{ reservation.discount_amount }} {{ reservation.currency }}</dd>
+            </div>
+            {% endif %}
+        </dl>
+
+        {% if reservation.payment.status == 'paid' or reservation.payment.status == 'refund_pending' or reservation.payment.status == 'refund_failed' or reservation.payment.status == 'refunded' %}
+        {% if reservation.payment.amount == 0 %}
+        <div class="rounded-lg border border-stone-200 p-4 text-sm dark:border-stone-700">
+            {% translate "No fiscal document is required for this zero-value reservation." %}
+        </div>
+        {% else %}
+        <div class="rounded-lg border border-stone-200 p-4 dark:border-stone-700">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">{% translate "Fiscal document" %}</p>
+                    {% if reservation.sale_erp_document %}
+                    <p class="mt-1 text-sm font-semibold">{{ reservation.sale_erp_document.get_status_display }}</p>
+                    {% else %}
+                    <p class="mt-1 text-sm font-semibold text-red-700 dark:text-red-300">{% translate "Pending accounting integration" %}</p>
+                    {% endif %}
+                </div>
+                {% if reservation.sale_erp_document.pdf_status == 'available' %}
+                <a href="{% url 'reservations:download_document' reservation.sale_erp_document.pk %}" class="ui-button ui-button-secondary px-4 py-2 text-sm">{% translate "Download PDF" %}</a>
+                {% elif reservation.sale_erp_document.status == 'integrated' %}
+                <form method="post" action="{% url 'reservations:retry_pdf' reservation.sale_erp_document.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="ui-button ui-button-secondary px-4 py-2 text-sm">{% translate "Retry PDF" %}</button>
+                </form>
+                {% endif %}
+            </div>
+            {% if reservation.sale_erp_document.status == 'retryable_failure' or reservation.sale_erp_document.status == 'needs_attention' %}
+            <p class="mt-3 text-sm text-yellow-800 dark:text-yellow-300">{% translate "Your payment is confirmed. Our team has been notified to complete the accounting integration." %}</p>
+            {% elif reservation.sale_erp_document.pdf_status == 'failed' %}
+            <p class="mt-3 text-sm text-stone-600 dark:text-stone-300">{% translate "The sale is integrated, but the PDF is temporarily unavailable." %}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% endif %}
+
+        <p class="text-xs leading-relaxed text-stone-500 dark:text-stone-400">{% translate "The pre-reservation fee is non-refundable if you cancel." %}</p>
+
+        {% if reservation.status == 'pending_payment' %}
+        <div class="flex flex-col gap-3 sm:flex-row">
+            <form method="post" action="{% url 'reservations:retry_payment' reservation.public_id %}" class="flex-1">
+                {% csrf_token %}
+                <button type="submit" class="ui-button ui-button-primary w-full px-4 py-2">{% translate "Continue payment" %}</button>
+            </form>
+            <a href="{% url 'reservations:cancel' reservation.public_id %}" class="ui-button ui-button-secondary flex-1 px-4 py-2 text-center">{% translate "Cancel and release" %}</a>
+        </div>
+        {% elif reservation.status == 'payment_failed' or reservation.status == 'expired' %}
+            {% if reservation.payment.status == 'failed' and reservation.target and reservation.target_is_public and reservation.target.pre_reservation_enabled %}
+            <div class="space-y-3">
+                <p class="text-sm text-stone-600 dark:text-stone-300">{% translate "Availability, current price, and promotion will be checked again before a new payment attempt." %}</p>
+                <form method="post" action="{% url 'reservations:retry_payment' reservation.public_id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="ui-button ui-button-primary w-full px-4 py-2">{% translate "Try again" %}</button>
+                </form>
+            </div>
+            {% else %}
+            <p class="rounded-lg bg-stone-100 p-3 text-sm text-stone-700 dark:bg-stone-800 dark:text-stone-200">
+                {% translate "The failed payment no longer holds this dog or litter place. A new attempt is only possible when the listing is available for pre-reservation." %}
+            </p>
+            {% endif %}
+        {% elif reservation.status == 'confirmed' %}
+        <a href="{% url 'reservations:cancel' reservation.public_id %}" class="ui-button ui-button-secondary block w-full px-4 py-2 text-center">{% translate "Cancel reservation" %}</a>
+        {% endif %}
+    </div>
+</article>

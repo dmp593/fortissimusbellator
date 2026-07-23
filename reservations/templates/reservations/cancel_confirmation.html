@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Cancel pre-reservation" %}{% endblock %}
+
+{% block content %}
+<div class="ui-page">
+    <section class="ui-card mx-auto max-w-2xl p-8 sm:p-12">
+        <p class="mb-3 font-sans text-xs font-bold uppercase tracking-[0.24em] text-red-700 dark:text-red-300">{% translate "Final confirmation" %}</p>
+        <h1 class="ui-page-title text-3xl">{% translate "Cancel this pre-reservation?" %}</h1>
+        <p class="ui-page-subtitle">{{ reservation.target_name }} · {{ reservation.target_breed }}</p>
+
+        <div class="mt-8 rounded-xl border border-red-300 bg-red-50 p-5 text-sm leading-relaxed text-red-900 dark:border-red-800 dark:bg-red-950/40 dark:text-red-100" role="alert">
+            <strong class="block">{% translate "The fee will not be refunded." %}</strong>
+            <p class="mt-2">{% blocktranslate with amount=reservation.total_amount currency=reservation.currency %}You accepted that the {{ amount }} {{ currency }} pre-reservation payment is non-refundable when you cancel. Cancelling also releases the dog or litter place immediately.{% endblocktranslate %}</p>
+        </div>
+
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <form method="post" class="flex-1">
+                {% csrf_token %}
+                <button type="submit" class="ui-button w-full bg-red-800 px-6 py-3 text-white hover:bg-red-900">{% translate "Yes, cancel and release" %}</button>
+            </form>
+            <a href="{% url 'reservations:dashboard' %}" class="ui-button ui-button-secondary flex-1 px-6 py-3 text-center">{% translate "Keep reservation" %}</a>
+        </div>
+    </section>
+</div>
+{% endblock %}

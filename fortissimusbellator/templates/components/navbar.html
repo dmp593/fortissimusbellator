@@ -125,9 +125,9 @@
                         <div id="user-submenu" class="text-xs z-[1002] absolute scale-y-0 shadow-lg rounded-lg mt-2 py-2 w-50 right-0 bg-white dark:bg-stone-800 transition-all duration-300 origin-top transform group-hover:scale-y-100">
                             {% if user.is_staff %}
                             <a href="{% url 'admin:index' %}" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Admin Panel" %}</a>
-                            {% else %}
-                            <a href="#" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "My Dogs" %}</a>
                             {% endif %}
+
+                            <a href="{% url 'reservations:dashboard' %}" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "My Reservations" %}</a>
 
                             <a href="{% url 'profile' %}" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Profile" %}</a>
                             <a href="{% url 'change_password' %}" class="block px-4 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Change Password" %}</a>
@@ -184,6 +184,9 @@
             <a href="{% url 'about_us' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "About Us" %}</a>
             <a href="{% url 'faqs' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "FAQs" %}</a>
             <a href="{% url 'contact_us' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Contact Us" %}</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'reservations:dashboard' %}" class="text-xs block px-3 py-2 font-semibold hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "My Reservations" %}</a>
+            {% endif %}
         </div>
     </div>
 </nav>

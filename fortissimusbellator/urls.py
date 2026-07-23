@@ -23,7 +23,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 from fortissimusbellator import admin
+from fortissimusbellator.health import liveness, readiness
 from chat.views import model_status as chat_model_status
+from reservations.views import pre_reservation_terms, stripe_webhook
 from .views import FileUploadView, EditorJsImageUploadByFileView, EditorJsImageUploadByUrlView
 
 urlpatterns = [
@@ -32,12 +34,21 @@ urlpatterns = [
     path('upload/', FileUploadView.as_view(), name='upload'),
     path('editorjs/image/upload/file/', EditorJsImageUploadByFileView.as_view(), name='editorjs_image_upload_by_file'),
     path('editorjs/image/upload/url/', EditorJsImageUploadByUrlView.as_view(), name='editorjs_image_upload_by_url'),
+    path('webhooks/stripe/', stripe_webhook, name='stripe_webhook'),
+    path('health/live/', liveness, name='health_liveness'),
+    path('health/ready/', readiness, name='health_readiness'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
+    path(
+        'pre-reservation-terms/',
+        pre_reservation_terms,
+        name='pre_reservation_terms',
+    ),
     path('', include('frontoffice.urls')),
     path('', include('breeding.urls')),
     path('', include('accounts.urls')),
+    path('my-reservations/', include('reservations.urls')),
     path('quiz/', include('quiz.urls')),
     path('blog/', include('blog.urls')),
     path(

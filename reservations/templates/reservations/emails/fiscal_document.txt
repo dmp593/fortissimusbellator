@@ -1,0 +1,6 @@
+Your fiscal document for the pre-reservation of {{ reservation.target_name }} is attached.
+
+Reference: {{ document.external_reference }}
+
+You can also download it from your reservations dashboard.
+

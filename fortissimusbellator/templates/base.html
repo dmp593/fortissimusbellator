@@ -156,11 +156,11 @@
     {% comment %}
     Page-specific chat context. Child templates can override this
     to give the chat engine extra info about what the user is viewing.
-    Example in a dog-detail page:
+    Example in an animal-detail page:
       {% block chat_context %}
       <span id="chat-page-context"
-            data-page-type="dog_detail"
-            data-dog-name="Rex"
+            data-page-type="animal_detail"
+            data-animal-name="Rex"
             hidden></span>
       {% endblock %}
     {% endcomment %}

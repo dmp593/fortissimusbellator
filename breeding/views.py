@@ -8,10 +8,20 @@ from django.core.paginator import Paginator
 
 from fortissimusbellator.parsers import to_int
 from breeding.models import Animal, Breed, Litter
+from reservations.availability import (
+    annotate_dog_availability,
+    annotate_litter_availability,
+)
+from reservations.models import PreReservation
+from reservations.views import reservation_checkout
 
 
 def our_dogs(request, breed_id: int | None = None):
-    animals = Animal.animals_for_breeding.all()
+    animals = (
+        Animal.animals_for_breeding
+        .select_related("breed", "breed__kind")
+        .prefetch_related("animal_certifications__certification")
+    )
 
     if breed_id:
         animals = animals.filter(breed=breed_id)
@@ -21,7 +31,11 @@ def our_dogs(request, breed_id: int | None = None):
 
 
 def buy_a_dog(request):
-    dogs = Animal.animals_for_sale.all()
+    dogs = annotate_dog_availability(
+        Animal.animals_for_sale
+        .select_related("breed", "breed__kind")
+        .prefetch_related("animal_certifications__certification")
+    )
 
     # Filters
     breed_filter = request.GET.get('breed')
@@ -96,14 +110,18 @@ def buy_a_dog(request):
 
 def dog_detail(request, dog_id: int):
     try:
-        dog = Animal.animals_for_sale.get(pk=dog_id)
+        dog = annotate_dog_availability(
+            Animal.animals_for_sale
+            .select_related("breed", "breed__kind", "litter")
+            .prefetch_related("animal_certifications__certification")
+        ).get(pk=dog_id)
         return render(request, 'buy_a_dog/detail.html', {'dog': dog})
     except Animal.DoesNotExist:
         return redirect('breeding:buy_a_dog')
 
 
 def upcoming_litters(request):
-    litters = Litter.litters_for_sale.all()
+    litters = annotate_litter_availability(Litter.litters_for_sale.all())
 
     # Filters
     breed_filter = request.GET.get('breed')
@@ -143,7 +161,9 @@ def upcoming_litters(request):
 
 def litter_detail(request, litter_id: int):
     try:
-        litter = Litter.litters_for_sale.get(pk=litter_id)
+        litter = annotate_litter_availability(
+            Litter.litters_for_sale.all()
+        ).get(pk=litter_id)
         return render(request, 'upcoming_litters/detail.html', {'litter': litter})
     except Litter.DoesNotExist:
         return redirect('breeding:upcoming_litters')
@@ -151,23 +171,17 @@ def litter_detail(request, litter_id: int):
 
 @login_required
 def pre_reserve_dog(request, dog_id: int):
-    try:
-        dog = Animal.animals_for_sale.get(pk=dog_id, sold_at__isnull=True)
-        return render(request, 'buy_a_dog/pre_reserve.html', {'dog': dog})
-    except Animal.DoesNotExist:
-        return redirect('breeding:buy_a_dog')
+    return reservation_checkout(
+        request,
+        target_type=PreReservation.TargetType.DOG,
+        target_id=dog_id,
+    )
 
 
 @login_required
 def pre_reserve_litter(request, litter_id: int):
-    try:
-        litter = Litter.litters_for_sale.exclude(
-            status=Litter.LitterStatus.COMPLETED
-        ).get(pk=litter_id)
-        return render(
-            request,
-            'upcoming_litters/pre_reserve.html',
-            {'litter': litter},
-        )
-    except Litter.DoesNotExist:
-        return redirect('breeding:upcoming_litters')
+    return reservation_checkout(
+        request,
+        target_type=PreReservation.TargetType.LITTER,
+        target_id=litter_id,
+    )

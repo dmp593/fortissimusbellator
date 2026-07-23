@@ -1,5 +1,7 @@
 """Database configuration for locally downloadable chat models."""
 
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -85,3 +87,46 @@ class ChatModelConfiguration(models.Model):
 
     def __str__(self):
         return str(self.active_model or _("No active model"))
+
+
+class ChatSearchEntry(models.Model):
+    """Search projection for one chat-visible Django object."""
+
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+        related_name="chat_search_entries",
+    )
+    object_id = models.PositiveBigIntegerField()
+    content_object = GenericForeignKey("content_type", "object_id")
+    label = models.CharField(max_length=255)
+    canonical_terms = models.JSONField(default=list)
+    aliases = models.TextField(
+        blank=True,
+        verbose_name=_("chat search aliases"),
+        help_text=_(
+            "Optional alternative names or questions, one per line. "
+            "Used only by chat search."
+        ),
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ("label",)
+        constraints = (
+            models.UniqueConstraint(
+                fields=("content_type", "object_id"),
+                name="unique_chat_search_object",
+            ),
+        )
+        indexes = (
+            models.Index(
+                fields=("content_type", "object_id"),
+                name="chat_search_object_idx",
+            ),
+        )
+        verbose_name = _("chat search entry")
+        verbose_name_plural = _("chat search entries")
+
+    def __str__(self):
+        return self.label
