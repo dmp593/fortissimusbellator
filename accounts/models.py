@@ -10,6 +10,11 @@ from django.utils.translation import gettext_lazy as _
 
 from django_countries.fields import CountryField
 
+from fortissimusbellator.contact_details import (
+    E164_MAX_LENGTH,
+    validate_international_phone,
+)
+
 
 def profile_picture_upload_to(instance, filename):
     extension = mimetypes.guess_extension(filename)
@@ -43,7 +48,8 @@ class Profile(models.Model):
     )
 
     phone = models.CharField(
-        max_length=15,
+        max_length=E164_MAX_LENGTH,
+        validators=[validate_international_phone],
         verbose_name=_('phone number')
     )
 

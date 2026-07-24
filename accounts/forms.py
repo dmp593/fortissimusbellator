@@ -5,6 +5,7 @@ from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 
 from breeding.models import Breed, LitterAlertPreference
+from fortissimusbellator.form_fields import InternationalPhoneField
 
 from .models import Profile
 
@@ -28,10 +29,11 @@ class UserCreationForm(AuthUserCreationForm):
         help_text=_('Required. Enter a valid email address.')
     )
 
-    phone = forms.CharField(
-        max_length=15,
+    phone = InternationalPhoneField(
         required=True,
-        help_text=_('Required. Enter your phone number.')
+        help_text=_(
+            'Required. Enter the country calling code and phone number.'
+        ),
     )
 
     class Meta:
@@ -78,6 +80,13 @@ class UserProfileForm(forms.ModelForm):
         required=True,
         max_length=40,
         help_text=_('Required. Enter a unique username.')
+    )
+
+    phone = InternationalPhoneField(
+        required=True,
+        help_text=_(
+            'Required. Enter the country calling code and phone number.'
+        ),
     )
 
     class Meta:
@@ -136,6 +145,23 @@ class UserProfileForm(forms.ModelForm):
                 profile.save()
 
         return profile
+
+
+class ResendActivationEmailForm(forms.Form):
+    email = forms.EmailField(
+        max_length=254,
+        label=_('Email'),
+        widget=forms.EmailInput(
+            attrs={
+                'autocomplete': 'email',
+                'class': 'ui-input',
+                'placeholder': _('Enter your email'),
+            }
+        ),
+    )
+
+    def clean_email(self):
+        return self.cleaned_data['email'].strip().lower()
 
 
 class LitterAlertPreferenceForm(forms.ModelForm):

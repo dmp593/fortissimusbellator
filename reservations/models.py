@@ -8,6 +8,8 @@ from django.db.models import F, Q
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from fortissimusbellator.contact_details import validate_international_phone
+
 
 def _prefetched_objects(instance, relation_name):
     return getattr(instance, '_prefetched_objects_cache', {}).get(
@@ -165,7 +167,11 @@ class AnimalSaleCase(models.Model):
 
     customer_name = models.CharField(max_length=150)
     customer_email = models.EmailField(blank=True)
-    customer_phone = models.CharField(max_length=30, blank=True)
+    customer_phone = models.CharField(
+        max_length=30,
+        blank=True,
+        validators=[validate_international_phone],
+    )
     customer_tax_number = models.CharField(max_length=30, blank=True)
     billing_address = models.CharField(max_length=255, blank=True)
     billing_postcode = models.CharField(max_length=20, blank=True)
@@ -598,7 +604,10 @@ class PreReservation(models.Model):
 
     customer_name = models.CharField(max_length=150)
     customer_email = models.EmailField()
-    customer_phone = models.CharField(max_length=30)
+    customer_phone = models.CharField(
+        max_length=30,
+        validators=[validate_international_phone],
+    )
     customer_tax_number = models.CharField(max_length=30, blank=True)
     billing_address = models.CharField(max_length=255, blank=True)
     billing_postcode = models.CharField(max_length=20, blank=True)

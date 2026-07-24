@@ -6855,3 +6855,36 @@ msgstr "Administração do site Django"
 #: templates/admin/base_site.html:17
 msgid "Django administration"
 msgstr "Administração do Django"
+
+msgid "Required. Enter the country calling code and phone number."
+msgstr "Obrigatório. Introduza o indicativo do país e o número de telefone."
+
+msgid "Enter a valid country calling code, for example +351."
+msgstr "Introduza um indicativo de país válido, por exemplo +351."
+
+msgid "Enter a valid phone number."
+msgstr "Introduza um número de telefone válido."
+
+msgid "Enter a valid phone number for this country calling code."
+msgstr "Introduza um número de telefone válido para este indicativo."
+
+msgid "Enter the phone number in international format."
+msgstr "Introduza o número de telefone em formato internacional."
+
+msgid "Country calling code"
+msgstr "Indicativo do país"
+
+msgid "Phone number"
+msgstr "Número de telefone"
+
+msgid "912 345 678"
+msgstr "912 345 678"
+
+msgid ""
+"Enter the country calling code separately, for example +351 and 912 345 678."
+msgstr ""
+"Introduza separadamente o indicativo do país, por exemplo +351, e o número "
+"912 345 678."
+
+msgid "Enter the country calling code, for example +351."
+msgstr "Introduza o indicativo do país, por exemplo +351."

@@ -200,7 +200,7 @@ class BreedingPageTests(TestCase):
             checkout_data={
                 'full_name': 'Buyer',
                 'email': 'buyer@example.com',
-                'phone': '+351900000000',
+                'phone': '+351912345678',
                 'tax_number': '',
                 'billing_address': '',
                 'billing_postcode': '',

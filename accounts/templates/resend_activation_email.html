@@ -11,13 +11,13 @@
         <form method="post" class="space-y-6">
             {% csrf_token %}
             <div>
-                <label for="email" class="ui-label">
-                    {% translate "Email" %}
+                <label for="{{ form.email.id_for_label }}" class="ui-label">
+                    {{ form.email.label }}
                 </label>
-                <input type="email" name="email" id="email" 
-                       class="ui-input"
-                       autocomplete="email"
-                       placeholder="{% translate 'Enter your email' %}" required>
+                {{ form.email }}
+                {% for error in form.email.errors %}
+                    <p class="ui-error-text">{{ error }}</p>
+                {% endfor %}
             </div>
             <button type="submit" class="ui-button ui-button-primary w-full">
                 {% translate "Resend Email" %}

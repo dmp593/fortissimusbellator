@@ -3,6 +3,8 @@ from django_recaptcha.fields import ReCaptchaField
 from django_recaptcha.widgets import ReCaptchaV3
 from django.utils.translation import gettext_lazy as _
 
+from fortissimusbellator.form_fields import InternationalPhoneField
+
 
 class ContactForm(forms.Form):
     name = forms.CharField(
@@ -15,19 +17,17 @@ class ContactForm(forms.Form):
     )
 
     email = forms.EmailField(
+        max_length=254,
         widget=forms.EmailInput(
             attrs={
+                'autocomplete': 'email',
                 'placeholder': _('Your Email')
             }
         )
     )
 
-    phone = forms.CharField(
-        widget=forms.EmailInput(
-            attrs={
-                'placeholder': _('Your Email')
-            }
-        )
+    phone = InternationalPhoneField(
+        label=_('Phone'),
     )
 
     message = forms.CharField(

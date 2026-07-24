@@ -55,7 +55,7 @@ class ContactEmailTests(SimpleTestCase):
             cleaned_data={
                 'name': 'Customer Example',
                 'email': 'customer@example.com',
-                'phone': '+351 900 000 000',
+                'phone': '+351 912 345 678',
                 'message': 'I would like more information.',
             },
         )

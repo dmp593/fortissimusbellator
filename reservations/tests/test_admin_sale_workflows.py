@@ -75,7 +75,7 @@ class AdminSaleWorkflowTests(ReservationTestMixin, TestCase):
         return {
             'customer_name': 'Customer Example',
             'customer_email': self.user.email,
-            'customer_phone': '+351900000000',
+            'customer_phone': '+351912345678',
             'customer_tax_number': '999999990',
             'billing_address': 'Example Street 1',
             'billing_postcode': '1000-001',

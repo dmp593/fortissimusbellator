@@ -136,7 +136,7 @@ class CommercialEmailTests(ReservationTestMixin, TestCase):
             target_birth_date=target_dog.birth_date,
             customer_name='Customer Example',
             customer_email=self.user.email,
-            customer_phone='+351900000000',
+            customer_phone='+351912345678',
             language_code='en',
             currency='EUR',
         )

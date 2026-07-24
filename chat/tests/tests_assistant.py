@@ -787,7 +787,7 @@ class ChatServiceTests(TestCase):
             checkout_data={
                 "full_name": "Chat Test Customer",
                 "email": "chat-customer@example.com",
-                "phone": "+351900000000",
+                "phone": "+351912345678",
                 "tax_number": "999999990",
                 "billing_address": "Test Street 1",
                 "billing_postcode": "1000-001",

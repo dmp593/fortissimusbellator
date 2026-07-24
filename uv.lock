@@ -229,6 +229,7 @@ dependencies = [
     { name = "llama-cpp-python" },
     { name = "mysqlclient" },
     { name = "opencv-python-headless" },
+    { name = "phonenumbers" },
     { name = "pillow" },
     { name = "polib" },
     { name = "python-dateutil" },
@@ -253,6 +254,7 @@ requires-dist = [
     { name = "llama-cpp-python", specifier = ">=0.3.34,<0.4.0" },
     { name = "mysqlclient", specifier = ">=2.2.7,<3.0.0" },
     { name = "opencv-python-headless", specifier = ">=4.11.0.86,<5.0.0.0" },
+    { name = "phonenumbers", specifier = ">=9.0.0,<10.0.0" },
     { name = "pillow", specifier = ">=12.0.0,<13.0.0" },
     { name = "polib", specifier = ">=1.2.0,<2.0.0" },
     { name = "python-dateutil", specifier = ">=2.9.0.post0,<3.0.0" },
@@ -519,6 +521,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626c03e4e99c87f241ba9e350cd9e6d75123f992427270/packaging-26.2.tar.gz", hash = "sha256:ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661", size = 228134, upload-time = "2026-04-24T20:15:23.917Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/df/b2/87e62e8c3e2f4b32e5fe99e0b86d576da1312593b39f47d8ceef365e95ed/packaging-26.2-py3-none-any.whl", hash = "sha256:5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e", size = 100195, upload-time = "2026-04-24T20:15:22.081Z" },
+]
+
+[[package]]
+name = "phonenumbers"
+version = "9.0.34"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/86/c3/e154829a50679c38ae28ec9c4f151f2c425db5e70fd445266e76f6d6cd65/phonenumbers-9.0.34.tar.gz", hash = "sha256:00751c75d1166485ca80ce02ec15b6a61a2628e9b313381579330bc70c934075", size = 2306776, upload-time = "2026-07-03T06:30:37.358Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/16/0a/3a7980f3b071dde9a297d85cf6b18ba4bc2e5024e1c453b3da8a1dc14268/phonenumbers-9.0.34-py2.py3-none-any.whl", hash = "sha256:1221bf8e65bd2c02770226488af806d4636814bc997104d3a1f7de6ed6410bd2", size = 2595344, upload-time = "2026-07-03T06:30:33.913Z" },
 ]
 
 [[package]]

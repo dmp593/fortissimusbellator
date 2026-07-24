@@ -35,7 +35,7 @@ class AccountLifecycleTests(TestCase):
             'first_name': 'New',
             'last_name': 'Customer',
             'email': 'customer@example.com',
-            'phone': '+351900000000',
+            'phone': '+351912345678',
             'password1': self.password,
             'password2': self.password,
         }

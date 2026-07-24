@@ -6977,3 +6977,36 @@ msgstr "Django-Website-Administration"
 #: templates/admin/base_site.html:17
 msgid "Django administration"
 msgstr "Django-Administration"
+
+msgid "Required. Enter the country calling code and phone number."
+msgstr "Erforderlich. Geben Sie die Ländervorwahl und die Telefonnummer ein."
+
+msgid "Enter a valid country calling code, for example +351."
+msgstr "Geben Sie eine gültige Ländervorwahl ein, zum Beispiel +351."
+
+msgid "Enter a valid phone number."
+msgstr "Geben Sie eine gültige Telefonnummer ein."
+
+msgid "Enter a valid phone number for this country calling code."
+msgstr "Geben Sie eine gültige Telefonnummer für diese Ländervorwahl ein."
+
+msgid "Enter the phone number in international format."
+msgstr "Geben Sie die Telefonnummer im internationalen Format ein."
+
+msgid "Country calling code"
+msgstr "Ländervorwahl"
+
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+msgid "912 345 678"
+msgstr "912 345 678"
+
+msgid ""
+"Enter the country calling code separately, for example +351 and 912 345 678."
+msgstr ""
+"Geben Sie die Ländervorwahl, zum Beispiel +351, und die Telefonnummer "
+"912 345 678 getrennt ein."
+
+msgid "Enter the country calling code, for example +351."
+msgstr "Geben Sie die Ländervorwahl ein, zum Beispiel +351."

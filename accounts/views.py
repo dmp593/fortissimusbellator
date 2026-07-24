@@ -29,6 +29,7 @@ from .emails import send_activation_email
 from .models import Profile
 from .forms import (
     LitterAlertPreferenceForm,
+    ResendActivationEmailForm,
     UserCreationForm,
     UserProfileForm,
 )
@@ -130,8 +131,15 @@ def register(request):
 
 @require_http_methods(['GET', 'POST'])
 def resend_activation_email(request):
+    form = ResendActivationEmailForm(request.POST or None)
     if request.method == 'POST':
-        email = request.POST.get('email', '').strip()
+        if not form.is_valid():
+            return render(
+                request,
+                'resend_activation_email.html',
+                {'form': form},
+            )
+        email = form.cleaned_data['email']
         user = (
             User.objects.filter(email__iexact=email, is_active=False)
             .order_by('pk')
@@ -153,7 +161,11 @@ def resend_activation_email(request):
             ),
         )
         return redirect('email_confirmation_sent')
-    return render(request, 'resend_activation_email.html')
+    return render(
+        request,
+        'resend_activation_email.html',
+        {'form': form},
+    )
 
 
 def activate(request, uidb64, token):

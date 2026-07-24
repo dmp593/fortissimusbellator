@@ -79,7 +79,7 @@ class ReservationTestMixin:
         return {
             'full_name': 'Customer Example',
             'email': 'customer@example.com',
-            'phone': '+351900000000',
+            'phone': '+351912345678',
             'tax_number': '999999990',
             'billing_address': 'Example Street 1',
             'billing_postcode': '1000-001',

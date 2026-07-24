@@ -38,7 +38,9 @@
                 </label>
                 <input type="text" name="name" id="id_name" 
                         class="ui-input"
-                        placeholder="{% trans 'Your Name' %}" value="{{ form.name.value|default:'' }}">
+                        autocomplete="name"
+                        maxlength="100"
+                        placeholder="{% trans 'Your Name' %}" value="{{ form.name.value|default:'' }}" required>
                 <!-- Display errors for name field -->
                 {% if form.name.errors %}
                     <div class="ui-error-text">
@@ -51,13 +53,13 @@
 
             <!-- Phone Field -->
             <div>
-                <label for="id_phone" class="ui-label">
+                <label for="{{ form.phone.id_for_label }}" class="ui-label">
                     {% trans "Phone" %}
                 </label>
-                <input type="text" name="phone" id="id_phone" 
-                        class="ui-input"
-                        placeholder="{% trans 'Your Phone' %}" value="{{ form.phone.value|default:'' }}">
-                <p class="ui-help-text">{% trans "Please include your country code. Example for Portugal: (+351) 912 345 678" %}</p>
+                <div class="grid grid-cols-[7rem_minmax(0,1fr)] gap-3">
+                    {{ form.phone }}
+                </div>
+                <p class="ui-help-text">{{ form.phone.help_text }}</p>
                 <!-- Display errors for phone field -->
                 {% if form.phone.errors %}
                     <div class="ui-error-text">
@@ -75,7 +77,9 @@
                 </label>
                 <input type="email" name="email" id="id_email" 
                         class="ui-input"
-                        placeholder="{% trans 'Your Email' %}" value="{{ form.email.value|default:'' }}">
+                        autocomplete="email"
+                        maxlength="254"
+                        placeholder="{% trans 'Your Email' %}" value="{{ form.email.value|default:'' }}" required>
                 <!-- Display errors for email field -->
                 {% if form.email.errors %}
                     <div class="ui-error-text">
@@ -93,7 +97,7 @@
                 </label>
                 <textarea name="message" id="id_message" rows="5" 
                             class="ui-input"
-                            placeholder="{% trans 'Your Message' %}">{{ form.message.value|default:'' }}</textarea>
+                            placeholder="{% trans 'Your Message' %}" required>{{ form.message.value|default:'' }}</textarea>
                 <!-- Display errors for message field -->
                 {% if form.message.errors %}
                     <div class="ui-error-text">

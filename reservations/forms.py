@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from breeding.models import Animal
+from fortissimusbellator.form_fields import InternationalPhoneField
 from reservations.availability import annotate_dog_availability
 from reservations.models import (
     AnimalSaleCase,
@@ -23,7 +24,13 @@ class PreReservationCheckoutForm(forms.Form):
     terms = forms.IntegerField(widget=forms.HiddenInput())
     full_name = forms.CharField(max_length=150, label=_('Full name'))
     email = forms.EmailField(label=_('Email'))
-    phone = forms.CharField(max_length=30, label=_('Phone'))
+    phone = InternationalPhoneField(
+        label=_('Phone'),
+        help_text=_(
+            'Enter the country calling code separately, for example '
+            '+351 and 912 345 678.'
+        ),
+    )
     tax_number = forms.CharField(
         max_length=30,
         required=False,
@@ -73,6 +80,9 @@ class PreReservationCheckoutForm(forms.Form):
                     'size-5 rounded border-stone-300 text-stone-700 '
                     'focus:ring-stone-500'
                 )
+            elif isinstance(field.widget, forms.MultiWidget):
+                for widget in field.widget.widgets:
+                    widget.attrs['class'] = 'ui-input'
             else:
                 field.widget.attrs['class'] = 'ui-input'
 
@@ -358,8 +368,7 @@ class AdminSaleProcessForm(forms.Form):
         required=False,
         label=_('Customer email'),
     )
-    customer_phone = forms.CharField(
-        max_length=30,
+    customer_phone = InternationalPhoneField(
         required=False,
         label=_('Customer phone'),
     )
