@@ -9,5 +9,5 @@ deployment:
     - $PYTHON $MANAGE_PY migrate --noinput
     - $PYTHON $MANAGE_PY compilemessages --ignore=.git --ignore=.models --ignore=.venv --ignore=media --ignore=node_modules --ignore=static
     - $PYTHON $MANAGE_PY collectstatic --noinput
-    - $PYTHON $MANAGE_PY loaddata animalskinds breeds certifications faqs blog/categories quiz/quiz chat_models
+    - $PYTHON $MANAGE_PY loaddata animalskinds breeds certifications faqs blog/categories quiz/quiz chat_models reservations
     - $PYTHON $MANAGE_PY rebuild_chat_search_index
