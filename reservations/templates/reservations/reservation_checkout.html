@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Reservation deposit" %} | {{ sale_case.target_name }}{% endblock %}
+
+{% block content %}
+<div class="ui-page">
+    <header class="ui-page-header">
+        <p class="mb-3 font-sans text-xs font-bold uppercase tracking-[0.24em] text-yellow-800 dark:text-yellow-400">
+            {% if pre_reservation %}{% translate "Accepted pre-reservation" %}{% else %}{% translate "Direct reservation offer" %}{% endif %}
+        </p>
+        <h1 class="ui-page-title">{% translate "Reservation deposit" %}</h1>
+        <p class="ui-page-subtitle">{{ sale_case.target_name }} · {{ sale_case.target_breed }}</p>
+    </header>
+
+    <div class="mx-auto grid max-w-4xl gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+        <aside class="ui-card h-fit overflow-hidden">
+            {% if sale_case.animal.cover %}
+            <img src="{{ sale_case.animal.cover.file.url }}" alt="{{ sale_case.target_name }}" class="aspect-square w-full object-cover grayscale brightness-75 saturate-50" loading="lazy">
+            {% else %}
+            <div class="ui-muted-surface flex h-64 items-center justify-center rounded-none">
+                <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+            </div>
+            {% endif %}
+            <div class="p-6">
+            <dl class="space-y-4 text-sm">
+                <div class="flex justify-between gap-4">
+                    <dt>{% translate "Dog price snapshot" %}</dt>
+                    <dd class="font-semibold">{{ sale_case.animal_price_amount }} {{ reservation.currency }}</dd>
+                </div>
+                <div class="flex justify-between gap-4">
+                    <dt>{% translate "Deposit percentage" %}</dt>
+                    <dd class="font-semibold">{{ sale_case.reservation_deposit_percentage }}%</dd>
+                </div>
+                <div class="flex justify-between gap-4">
+                    <dt>{% translate "Deposit target" %}</dt>
+                    <dd class="font-semibold">{{ reservation.deposit_target_amount }} {{ reservation.currency }}</dd>
+                </div>
+                {% if reservation.pre_reservation_credit_amount %}
+                <div class="flex justify-between gap-4 text-green-800 dark:text-green-300">
+                    <dt>{% translate "Pre-reservation credit" %}</dt>
+                    <dd class="font-semibold">-{{ reservation.pre_reservation_credit_amount }} {{ reservation.currency }}</dd>
+                </div>
+                {% endif %}
+                {% if reservation.customer_credit_amount %}
+                <div class="flex justify-between gap-4 text-green-800 dark:text-green-300">
+                    <dt>{% translate "Customer credit" %}</dt>
+                    <dd class="font-semibold">-{{ reservation.customer_credit_amount }} {{ reservation.currency }}</dd>
+                </div>
+                {% endif %}
+                {% if promotion_quote %}
+                <div class="flex justify-between gap-4">
+                    <dt>{% translate "Amount before coupon" %}</dt>
+                    <dd class="font-semibold text-stone-500 line-through dark:text-stone-400">{{ promotion_quote.subtotal_amount }} {{ reservation.currency }}</dd>
+                </div>
+                <div class="flex justify-between gap-4 text-green-800 dark:text-green-300">
+                    <dt>{% translate "Coupon discount" %}</dt>
+                    <dd class="font-semibold">-{{ promotion_quote.discount_amount }} {{ reservation.currency }}</dd>
+                </div>
+                {% endif %}
+                {% if checkout_adjustment %}
+                <div class="flex justify-between gap-4">
+                    <dt>{% translate "Administrative adjustment" %}</dt>
+                    <dd class="font-semibold">{{ checkout_adjustment }} {{ reservation.currency }}</dd>
+                </div>
+                {% endif %}
+                <div class="flex justify-between gap-4 border-t border-stone-200 pt-4 text-base dark:border-stone-700">
+                    <dt class="font-bold">{% translate "Pay now" %}</dt>
+                    <dd class="font-bold text-xl">{{ checkout_amount }} {{ reservation.currency }}</dd>
+                </div>
+            </dl>
+            <p class="mt-5 text-xs text-stone-500 dark:text-stone-400">{% blocktranslate with expires=reservation.offer_expires_at|date:"SHORT_DATETIME_FORMAT" %}This offer expires on {{ expires }}.{% endblocktranslate %}</p>
+            </div>
+        </aside>
+
+        <section class="ui-card p-6 sm:p-8">
+            <h2 class="ui-section-title mb-5 text-2xl">{% translate "Reservation terms" %}</h2>
+            {% if form.non_field_errors %}<div class="ui-error-text mb-4">{{ form.non_field_errors }}</div>{% endif %}
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                {{ form.terms }}
+                <section class="rounded-xl border border-stone-200 bg-stone-50 p-5 dark:border-stone-700 dark:bg-stone-900/60" aria-labelledby="reservation-promotion-heading">
+                    <label id="reservation-promotion-heading" for="{{ form.promotion_code.id_for_label }}" class="ui-label">{{ form.promotion_code.label }}</label>
+                    <div class="flex flex-col gap-3 sm:flex-row">
+                        <div class="flex-1">{{ form.promotion_code }}</div>
+                        <button type="submit" name="action" value="apply_promotion" formnovalidate class="ui-button ui-button-secondary shrink-0 px-5 py-3">
+                            {% translate "Apply coupon" %}
+                        </button>
+                    </div>
+                    {% for error in form.promotion_code.errors %}<p class="ui-error-text">{{ error }}</p>{% endfor %}
+                    {% if promotion_quote %}
+                    <div class="mt-4 flex items-start justify-between gap-4 rounded-lg border border-green-300 bg-green-50 p-4 text-sm text-green-900 dark:border-green-800 dark:bg-green-950/40 dark:text-green-100" role="status">
+                        <div>
+                            <strong>{% blocktranslate with code=promotion_quote.promotion.code %}Coupon {{ code }} applied{% endblocktranslate %}</strong>
+                            <p class="mt-1 text-green-700 dark:text-green-300">{% translate "The reservation amount has been updated." %}</p>
+                        </div>
+                        <strong class="whitespace-nowrap">-{{ promotion_quote.discount_amount }} {{ reservation.currency }}</strong>
+                    </div>
+                    {% elif promotion_error %}
+                    <p class="mt-4 rounded-lg border border-red-300 bg-red-50 p-4 text-sm text-red-800 dark:border-red-800 dark:bg-red-950/40 dark:text-red-200" role="alert">{{ promotion_error }}</p>
+                    {% endif %}
+                </section>
+                <div class="rounded-lg border border-yellow-700/30 bg-yellow-50 p-5 text-sm leading-relaxed text-yellow-950 dark:border-yellow-500/40 dark:bg-yellow-950/30 dark:text-yellow-100">
+                    <div class="mb-3 flex justify-between gap-3">
+                        <strong>{% translate "Reservation terms" %}</strong>
+                        <span>{% blocktranslate with version=terms.version %}Version {{ version }}{% endblocktranslate %}</span>
+                    </div>
+                    {{ terms.description|linebreaks }}
+                    <a href="{% url 'reservation_terms' %}" class="mt-3 inline-block font-semibold underline underline-offset-4">{% translate "Open the terms on a separate page" %}</a>
+                </div>
+                <label for="{{ form.accept_terms.id_for_label }}" class="flex cursor-pointer items-start gap-3 text-sm">
+                    {{ form.accept_terms }}
+                    <span>{{ form.accept_terms.label }}</span>
+                </label>
+                {% for error in form.accept_terms.errors %}<p class="ui-error-text">{{ error }}</p>{% endfor %}
+                <button type="submit" name="action" value="checkout" class="ui-button ui-button-primary w-full px-8 py-4 text-lg">{% translate "Continue to secure payment" %}</button>
+            </form>
+        </section>
+    </div>
+</div>
+{% endblock %}

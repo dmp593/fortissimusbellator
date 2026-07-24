@@ -1,0 +1,689 @@
+[
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 1,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "animal"
+      ],
+      "object_id": 1,
+      "label": "Bella",
+      "canonical_terms": [
+        "Bella"
+      ],
+      "aliases": "Bela\nBellinha"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 2,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "animal"
+      ],
+      "object_id": 2,
+      "label": "Max",
+      "canonical_terms": [
+        "Max"
+      ],
+      "aliases": "Maxi\nMaxinho"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 3,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "animalkind"
+      ],
+      "object_id": 1,
+      "label": "Cane",
+      "canonical_terms": [
+        "Cane",
+        "Chien",
+        "Cão",
+        "Dog",
+        "Hund",
+        "Perro"
+      ],
+      "aliases": "Dogs\nPuppy\nPuppies\nCães\nCachorro\nCachorros\nPerros\nCachorro\nCachorros\nChiens\nChiot\nChiots\nHunde\nWelpe\nWelpen\nCani\nCucciolo\nCuccioli"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 4,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "breed"
+      ],
+      "object_id": 1,
+      "label": "Berger Allemand",
+      "canonical_terms": [
+        "Berger Allemand",
+        "Deutscher Schäferhund",
+        "German Shepherd",
+        "Pastor Alemán",
+        "Pastor Alemão",
+        "Pastore Tedesco"
+      ],
+      "aliases": "GSD\nAlsatian\nPastor alemao\nPastor aleman\nBerger allemand\nSchaferhund\nPastore tedesco"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 5,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "breed"
+      ],
+      "object_id": 2,
+      "label": "Berger Allemand (Ligne de Travail)",
+      "canonical_terms": [
+        "Berger Allemand (Ligne de Travail)",
+        "Deutscher Schäferhund (Arbeitlinie)",
+        "German Shepherd (Working Line)",
+        "Pastor Alemán (Línea de Trabajo)",
+        "Pastor Alemão (Linha de Trabalho)",
+        "Pastore Tedesco (Linea da Lavoro)"
+      ],
+      "aliases": "Working line\nWorking-line GSD\nGSD working line\nLinha de trabalho\nLinea de trabajo\nLigne de travail\nArbeitslinie\nLinea da lavoro"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 6,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "breed"
+      ],
+      "object_id": 3,
+      "label": "Berger Allemand (Ligne d'Exposition)",
+      "canonical_terms": [
+        "Berger Allemand (Ligne d'Exposition)",
+        "Deutscher Schäferhund (Ausstellungslinie)",
+        "German Shepherd (Show Line)",
+        "Pastor Alemán (Línea de Exposición)",
+        "Pastor Alemão (Linha de Exposição)",
+        "Pastore Tedesco (Linea da Esposizione)"
+      ],
+      "aliases": "Show line\nShow-line GSD\nGSD show line\nLinha de exposicao\nLinea de exposicion\nLigne d'exposition\nAusstellungslinie\nLinea da esposizione"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 7,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "breed"
+      ],
+      "object_id": 4,
+      "label": "Belgian Malinois",
+      "canonical_terms": [
+        "Belgian Malinois",
+        "Belgischer Schäferhund (Malinois)",
+        "Berger Belge (Malinois)",
+        "Pastor Belga (Malinois)",
+        "Pastore Belga (Malinois)"
+      ],
+      "aliases": "Malinois\nMali\nBelgian Shepherd\nPastor Belga\nBerger Belge\nBelgischer Schaferhund\nPastore Belga"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 8,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "breed"
+      ],
+      "object_id": 5,
+      "label": "Deutscher Spitz",
+      "canonical_terms": [
+        "Deutscher Spitz",
+        "German Spitz",
+        "Spitz Alemán",
+        "Spitz Alemão",
+        "Spitz Allemand",
+        "Spitz Tedesco"
+      ],
+      "aliases": "Spitz\nGerman spitz dog\nSpitz alemao\nSpitz aleman\nSpitz allemand\nDeutscher Spitz\nSpitz tedesco"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 9,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "breed"
+      ],
+      "object_id": 6,
+      "label": "Miniatur Deutscher Spitz",
+      "canonical_terms": [
+        "Miniatur Deutscher Spitz",
+        "Miniature German Spitz",
+        "Spitz Alemán Miniatura",
+        "Spitz Alemão Miniatura",
+        "Spitz Allemand Miniature",
+        "Spitz Tedesco Miniatura"
+      ],
+      "aliases": "Miniature Spitz\nSmall German Spitz\nSpitz miniatura\nSpitz nain\nKleinspitz\nSpitz tedesco miniatura"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 10,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "breed"
+      ],
+      "object_id": 7,
+      "label": "Giant German Spitz",
+      "canonical_terms": [
+        "Giant German Spitz",
+        "Riesiger Deutscher Spitz",
+        "Spitz Alemán Gigante",
+        "Spitz Alemão Gigante",
+        "Spitz Allemand Géant",
+        "Spitz Tedesco Gigante"
+      ],
+      "aliases": "Giant Spitz\nLarge German Spitz\nSpitz gigante\nSpitz geant\nGrossspitz\nGroßspitz\nSpitz tedesco gigante"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 11,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "litter"
+      ],
+      "object_id": 1,
+      "label": "German Shepherd Spring 2024 Litter",
+      "canonical_terms": [
+        "German Shepherd Spring 2024 Litter"
+      ],
+      "aliases": "Spring 2024 litter\nGerman Shepherd spring litter\nNinhada primavera 2024\nCamada primavera 2024\nPortée printemps 2024\nFrühlingswurf 2024\nCucciolata primavera 2024"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 12,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "certification"
+      ],
+      "object_id": 1,
+      "label": "WB",
+      "canonical_terms": [
+        "WB",
+        "Wesensbeurteilung"
+      ],
+      "aliases": "What is WB?\nO que é o WB?\nExame WB\nTeste de temperamento WB"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 13,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "certification"
+      ],
+      "object_id": 2,
+      "label": "AD",
+      "canonical_terms": [
+        "AD",
+        "Ausdauerpruefung"
+      ],
+      "aliases": "What is AD?\nO que é o AD?\nExame AD\nTeste de resistência AD"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 14,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "certification"
+      ],
+      "object_id": 3,
+      "label": "BH",
+      "canonical_terms": [
+        "BH",
+        "Begleitungshund"
+      ],
+      "aliases": "What is BH?\nO que é o BH?\nExame BH\nTeste de cão de companhia BH"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 15,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "certification"
+      ],
+      "object_id": 4,
+      "label": "IGP",
+      "canonical_terms": [
+        "IGP",
+        "Internationale Gebrauchshundepruefung"
+      ],
+      "aliases": "What is IGP?\nO que é o IGP?\nProva IGP\nTítulo de trabalho IGP"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 16,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "certification"
+      ],
+      "object_id": 5,
+      "label": "IGP1",
+      "canonical_terms": [
+        "IGP1",
+        "Internationale Gebrauchshundepruefung 1"
+      ],
+      "aliases": "What is IGP1?\nO que é o IGP1?\nPrimeiro nível IGP1\nProva IGP nível 1"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 17,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "certification"
+      ],
+      "object_id": 6,
+      "label": "IGP2",
+      "canonical_terms": [
+        "IGP2",
+        "Internationale Gebrauchshundepruefung 2"
+      ],
+      "aliases": "What is IGP2?\nO que é o IGP2?\nSegundo nível IGP2\nProva IGP nível 2"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 18,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "certification"
+      ],
+      "object_id": 7,
+      "label": "IGP3",
+      "canonical_terms": [
+        "IGP3",
+        "Internationale Gebrauchshundepruefung 3"
+      ],
+      "aliases": "What is IGP3?\nO que é o IGP3?\nTerceiro nível IGP3\nProva IGP nível 3"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 19,
+    "fields": {
+      "content_type": [
+        "breeding",
+        "certification"
+      ],
+      "object_id": 8,
+      "label": "KKL",
+      "canonical_terms": [
+        "KKL",
+        "Koerklasse"
+      ],
+      "aliases": "What is KKL?\nO que é o KKL?\nCertificação KKL\nSeleção para reprodução KKL"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 20,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 1,
+      "label": "Quali razze di cani vendete?",
+      "canonical_terms": [
+        "Quali razze di cani vendete?",
+        "Que raças de cães vendem?",
+        "Quelles races de chiens vendez-vous ?",
+        "Welche Hunderassen verkaufen Sie?",
+        "What breeds of dogs do you sell?",
+        "¿Qué razas de perros venden?"
+      ],
+      "aliases": "Which breeds are available?\nWhat dogs do you breed?\nQue raças têm?\nQue cães criam?\n¿Qué razas tienen?\nQuelles races avez-vous ?\nWelche Rassen haben Sie?\nQuali razze avete?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 21,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 2,
+      "label": "Are your dogs vaccinated?",
+      "canonical_terms": [
+        "Are your dogs vaccinated?",
+        "I vostri cani sono vaccinati?",
+        "Os vossos cães são vacinados?",
+        "Sind Ihre Hunde geimpft?",
+        "Vos chiens sont-ils vaccinés ?",
+        "¿Están vacunados sus perros?"
+      ],
+      "aliases": "Are the dogs vaccinated?\nDo puppies have vaccines?\nOs cães têm vacinas?\nOs cachorros estão vacinados?\n¿Los perros están vacunados?\nLes chiens sont-ils vaccinés ?\nSind die Hunde geimpft?\nI cani sono vaccinati?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 22,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 3,
+      "label": "Can I visit your facility to see the dogs?",
+      "canonical_terms": [
+        "Can I visit your facility to see the dogs?",
+        "Kann ich Ihre Einrichtung besuchen, um die Hunde zu sehen?",
+        "Posso visitar as vossas instalações para ver os cães?",
+        "Posso visitare la vostra struttura per vedere i cani?",
+        "Puis-je visiter vos installations pour voir les chiens ?",
+        "¿Puedo visitar sus instalaciones para ver a los perros?"
+      ],
+      "aliases": "Can I visit the kennel?\nCan I see the dogs in person?\nPosso visitar o canil?\nPosso ver os cães?\n¿Puedo visitar el criadero?\nPuis-je visiter l'élevage ?\nKann ich die Zucht besuchen?\nPosso visitare l'allevamento?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 23,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 4,
+      "label": "Do you provide pedigree certificates for your dogs?",
+      "canonical_terms": [
+        "Do you provide pedigree certificates for your dogs?",
+        "Fornecem certificados de pedigree para os vossos cães?",
+        "Fornite certificati di pedigree per i vostri cani?",
+        "Fournissez-vous des certificats de pedigree pour vos chiens ?",
+        "Stellen Sie Stammbaumzertifikate für Ihre Hunde aus?",
+        "¿Proporcionan certificados de pedigrí para sus perros?"
+      ],
+      "aliases": "Do the dogs have pedigree?\nIs pedigree included?\nOs cães têm pedigree?\nO pedigree está incluído?\n¿Los perros tienen pedigrí?\nLes chiens ont-ils un pedigree ?\nHaben die Hunde einen Stammbaum?\nI cani hanno il pedigree?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 24,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 5,
+      "label": "Cosa è incluso nel prezzo di un cane?",
+      "canonical_terms": [
+        "Cosa è incluso nel prezzo di un cane?",
+        "O que está incluído no preço de um cão?",
+        "Qu'est-ce qui est inclus dans le prix d'un chien ?",
+        "Was ist im Preis eines Hundes enthalten?",
+        "What is included in the price of a dog?",
+        "¿Qué está incluido en el precio de un perro?"
+      ],
+      "aliases": "What does the price include?\nWhat comes with a puppy?\nO que inclui o preço?\nO que vem com o cachorro?\n¿Qué incluye el precio?\nQue comprend le prix ?\nWas ist im Preis enthalten?\nCosa comprende il prezzo?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 25,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 6,
+      "label": "How do pre-reservation and reservation work?",
+      "canonical_terms": [
+        "Come funzionano la pre-prenotazione e la prenotazione?",
+        "Como funcionam a pré-reserva e a reserva?",
+        "Comment fonctionnent la pré-réservation et la réservation ?",
+        "How do pre-reservation and reservation work?",
+        "Wie funktionieren Vorreservierung und Reservierung?",
+        "¿Cómo funcionan la prerreserva y la reserva?"
+      ],
+      "aliases": "How does pre-reservation work?\nHow does the reservation deposit work?\nCan I reserve a dog?\nComo funciona a pré-reserva?\nComo funciona o sinal de reserva?\n¿Cómo funciona la prerreserva?\nComment fonctionne la pré-réservation ?\nWie funktioniert die Vorreservierung?\nCome funziona la pre-prenotazione?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 26,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 7,
+      "label": "Do you ship dogs internationally?",
+      "canonical_terms": [
+        "Do you ship dogs internationally?",
+        "Expédiez-vous des chiens à l'international ?",
+        "Fazem envios de cães para o estrangeiro?",
+        "Spedite cani a livello internazionale?",
+        "Versenden Sie Hunde international?",
+        "¿Envían perros internacionalmente?"
+      ],
+      "aliases": "Do you deliver dogs abroad?\nInternational dog delivery\nEnviam cães para fora de Portugal?\nFazem entregas no estrangeiro?\n¿Envían perros al extranjero?\nLivrez-vous des chiens à l'étranger ?\nLiefern Sie Hunde ins Ausland?\nConsegnate cani all'estero?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 27,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 8,
+      "label": "Cosa dovrei preparare prima di portare un cane a casa?",
+      "canonical_terms": [
+        "Cosa dovrei preparare prima di portare un cane a casa?",
+        "O que devo preparar antes de levar um cão para casa?",
+        "Que dois-je préparer avant d'amener un chien à la maison ?",
+        "Was sollte ich vorbereiten, bevor ich einen Hund nach Hause bringe?",
+        "What should I prepare before bringing a dog home?",
+        "¿Qué debo preparar antes de llevar un perro a casa?"
+      ],
+      "aliases": "How should I prepare for a puppy?\nWhat do I need before bringing a dog home?\nComo preparo a casa para um cachorro?\nO que preciso para receber um cão?\n¿Cómo preparo la casa para un cachorro?\nComment préparer la maison pour un chiot ?\nWie bereite ich mein Zuhause auf einen Welpen vor?\nCome preparo la casa per un cucciolo?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 28,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 9,
+      "label": "Bieten Sie eine Gesundheitsgarantie für Ihre Hunde an?",
+      "canonical_terms": [
+        "Bieten Sie eine Gesundheitsgarantie für Ihre Hunde an?",
+        "Do you offer a health guarantee for your dogs?",
+        "Oferecem uma garantia de saúde para os vossos cães?",
+        "Offrez-vous une garantie de santé pour vos chiens ?",
+        "Offrite una garanzia di salute per i vostri cani?",
+        "¿Ofrecen una garantía de salud para sus perros?"
+      ],
+      "aliases": "Is there a health guarantee?\nDo puppies have a health warranty?\nExiste garantia de saúde?\nOs cachorros têm garantia?\n¿Hay garantía de salud?\nY a-t-il une garantie de santé ?\nGibt es eine Gesundheitsgarantie?\nC'è una garanzia sanitaria?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 29,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 10,
+      "label": "Can I return a dog if there are issues?",
+      "canonical_terms": [
+        "Can I return a dog if there are issues?",
+        "Kann ich einen Hund zurückgeben, wenn es Probleme gibt?",
+        "Posso devolver um cão se houver problemas?",
+        "Posso restituire un cane se ci sono problemi?",
+        "Puis-je retourner un chien s'il y a des problèmes ?",
+        "¿Puedo devolver un perro si hay problemas?"
+      ],
+      "aliases": "Can I return a puppy?\nWhat is the return policy?\nCan I get a refund?\nPosso devolver um cachorro?\nQual é a política de devolução?\n¿Puedo devolver un cachorro?\nPuis-je rendre un chiot ?\nKann ich einen Welpen zurückgeben?\nPosso restituire un cucciolo?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 30,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 11,
+      "label": "Is the pre-reservation fee refundable?",
+      "canonical_terms": [
+        "A taxa de pré-reserva é reembolsável?",
+        "Ist die Vorreservierungsgebühr erstattungsfähig?",
+        "Is the pre-reservation fee refundable?",
+        "La quota di pre-prenotazione è rimborsabile?",
+        "Les frais de pré-réservation sont-ils remboursables ?",
+        "¿Es reembolsable la tasa de prerreserva?"
+      ],
+      "aliases": "Can I get my pre-reservation fee back?\nPre-reservation refund\nA pré-reserva é devolvida?\nReembolso da pré-reserva\n¿Se devuelve la prerreserva?\nRemboursement de la pré-réservation\nErstattung der Vorreservierung\nRimborso della pre-prenotazione"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 31,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 12,
+      "label": "Can I pre-reserve a place in a litter?",
+      "canonical_terms": [
+        "Can I pre-reserve a place in a litter?",
+        "Kann ich einen Platz in einem Wurf vorreservieren?",
+        "Posso pre-prenotare un posto in una cucciolata?",
+        "Posso pré-reservar um lugar numa ninhada?",
+        "Puis-je pré-réserver une place dans une portée ?",
+        "¿Puedo prerreservar una plaza en una camada?"
+      ],
+      "aliases": "Can I reserve a litter?\nLitter waiting list\nPosso reservar uma ninhada?\nAlertas de nascimento\n¿Puedo reservar una camada?\nPuis-je réserver une portée ?\nKann ich einen Wurf reservieren?\nPosso prenotare una cucciolata?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 32,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 13,
+      "label": "How long do I have to complete a reservation after my pre-reservation is accepted?",
+      "canonical_terms": [
+        "De combien de temps est-ce que je dispose pour finaliser la réservation après l'acceptation de ma pré-réservation ?",
+        "How long do I have to complete a reservation after my pre-reservation is accepted?",
+        "Quanto tempo ho per completare la prenotazione dopo l'accettazione della pre-prenotazione?",
+        "Quanto tempo tenho para concluir a reserva depois de a pré-reserva ser aceite?",
+        "Wie lange habe ich nach Annahme meiner Vorreservierung Zeit, die Reservierung abzuschließen?",
+        "¿Cuánto tiempo tengo para completar la reserva después de que se acepte mi prerreserva?"
+      ],
+      "aliases": "How long is the reservation offer valid?\nWhat happens if I miss the reservation deadline?\nQuanto tempo tenho para pagar o sinal?\nO que acontece se o prazo expirar?\n¿Cuánto tiempo tengo para pagar la señal?\nQuel est le délai pour payer l'acompte ?\nWie lange kann ich die Anzahlung bezahlen?\nQuanto tempo ho per pagare l'acconto?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 33,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 14,
+      "label": "Can I cancel a reservation after paying the reservation deposit?",
+      "canonical_terms": [
+        "Kann ich eine Reservierung nach Zahlung der Reservierungsanzahlung stornieren?",
+        "Can I cancel a reservation after paying the reservation deposit?",
+        "Posso annullare una prenotazione dopo aver pagato l'acconto?",
+        "Posso cancelar uma reserva depois de pagar o sinal de reserva?",
+        "Puis-je annuler une réservation après avoir payé l'acompte ?",
+        "¿Puedo cancelar una reserva después de pagar la señal de reserva?"
+      ],
+      "aliases": "Can I cancel my confirmed reservation?\nWho can cancel a reservation?\nCan my reservation deposit be refunded?\nPosso cancelar a minha reserva confirmada?\nQuem pode cancelar uma reserva?\n¿Quién puede cancelar una reserva?\nQui peut annuler une réservation ?\nWer kann eine Reservierung stornieren?\nChi può annullare una prenotazione?"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 34,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 15,
+      "label": "Can a pre-reservation or reservation be moved to another dog?",
+      "canonical_terms": [
+        "Can a pre-reservation or reservation be moved to another dog?",
+        "Kann eine Vorreservierung oder Reservierung auf einen anderen Hund übertragen werden?",
+        "Uma pré-reserva ou reserva pode ser transferida para outro cão?",
+        "Une pré-réservation ou réservation peut-elle être transférée vers un autre chien ?",
+        "È possibile trasferire una pre-prenotazione o prenotazione a un altro cane?",
+        "¿Se puede transferir una prerreserva o reserva a otro perro?"
+      ],
+      "aliases": "Can I change dogs after pre-reserving?\nMove my reservation to another dog\nPosso mudar a pré-reserva para outro cão?\nTransferir reserva entre cães\n¿Puedo cambiar mi reserva a otro perro?\nTransférer ma réservation vers un autre chien\nReservierung auf einen anderen Hund übertragen\nTrasferire la prenotazione a un altro cane"
+    }
+  },
+  {
+    "model": "chat.chatsearchentry",
+    "pk": 35,
+    "fields": {
+      "content_type": [
+        "frontoffice",
+        "frequentlyaskedquestion"
+      ],
+      "object_id": 16,
+      "label": "Can the breeder create a reservation or record an offline payment?",
+      "canonical_terms": [
+        "Can the breeder create a reservation or record an offline payment?",
+        "Kann der Züchter eine Reservierung anlegen oder eine Offline-Zahlung erfassen?",
+        "O criador pode criar uma reserva ou registar um pagamento offline?",
+        "L'éleveur peut-il créer une réservation ou enregistrer un paiement hors ligne ?",
+        "L'allevatore può creare una prenotazione o registrare un pagamento offline?",
+        "¿Puede el criador crear una reserva o registrar un pago fuera de línea?"
+      ],
+      "aliases": "Can I pay the breeder directly?\nCan staff record a cash payment?\nPosso pagar diretamente ao criador?\nPagamento em numerário no local\n¿Puedo pagar directamente al criador?\nPuis-je payer directement l'éleveur ?\nKann ich direkt beim Züchter bezahlen?\nPosso pagare direttamente l'allevatore?"
+    }
+  }
+]

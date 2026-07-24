@@ -65,17 +65,27 @@ def move_aliases_to_index(apps, _schema_editor):
 def remove_index_entries(apps, _schema_editor):
     ChatSearchEntry = apps.get_model("chat", "ChatSearchEntry")
     ContentType = apps.get_model("contenttypes", "ContentType")
-    content_type_ids = ContentType.objects.filter(
-        app_label__in={"breeding", "frontoffice"},
-        model__in={
-            "animal",
-            "animalkind",
-            "breed",
-            "litter",
-            "certification",
-            "frequentlyaskedquestion",
-        },
-    ).values_list("pk", flat=True)
+
+    content_type_ids = []
+    for app_label, model_name, _label_field, _term_fields in ENTITY_FIELDS:
+        Model = apps.get_model(app_label, model_name)
+        content_type = ContentType.objects.filter(
+            app_label=app_label,
+            model=Model._meta.model_name,
+        ).first()
+        if content_type is None:
+            continue
+
+        content_type_ids.append(content_type.pk)
+        aliases_by_id = dict(
+            ChatSearchEntry.objects.filter(
+                content_type=content_type,
+            ).values_list("object_id", "aliases")
+        )
+        for instance in Model.objects.filter(pk__in=aliases_by_id).iterator():
+            instance.chat_search_aliases = aliases_by_id[instance.pk]
+            instance.save(update_fields=["chat_search_aliases"])
+
     ChatSearchEntry.objects.filter(
         content_type_id__in=content_type_ids,
     ).delete()

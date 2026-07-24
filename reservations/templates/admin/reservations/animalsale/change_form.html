@@ -1,0 +1,20 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+  {% if original and not original.voided_at %}
+    <li>
+      <a href="{% url 'admin:reservations_animalsale_cancel' original.pk %}">
+        {% translate "Cancel completed sale" %}
+      </a>
+    </li>
+  {% endif %}
+  {% if original %}
+    <li>
+      <a href="{% url 'admin:reservations_animalsalecase_change' original.sale_case_id %}">
+        {% translate "Open sale process" %}
+      </a>
+    </li>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}

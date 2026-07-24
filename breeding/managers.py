@@ -1,9 +1,21 @@
+from typing import TYPE_CHECKING
+
 from django.db import models
+
 from fortissimusbellator.managers import Manager
 
 
+if TYPE_CHECKING:
+    from .models import AnimalKind, Breed, Certification
+
+
 class GetByNameManager(Manager):
-    def get_by_natural_key(self, name: str, father: str | None = None, mother: str | None = None):
+    def get_by_natural_key(
+        self,
+        name: str,
+        father: str | None = None,
+        mother: str | None = None,
+    ):
         if father and mother:
             return self.get(name=name, father__name=father, mother__name=mother)
 
@@ -18,14 +30,18 @@ class GetByNameManager(Manager):
 
 class AnimalsForSaleManager(GetByNameManager):
     def get_queryset(self):
-        return super().get_queryset().filter(
-            active=True, for_sale=True
-        ).order_by(
-            models.Case(
-                models.When(sold_at__isnull=True, then=models.Value(0)),
-                default=models.Value(1)
-            ),
-            'order'
+        from reservations.models import AnimalSale
+
+        completed_sales = AnimalSale.objects.filter(
+            sale_case__animal_id=models.OuterRef('pk'),
+            voided_at__isnull=True,
+        )
+        return (
+            super()
+            .get_queryset()
+            .filter(active=True, for_sale=True)
+            .annotate(has_completed_sale=models.Exists(completed_sales))
+            .order_by('has_completed_sale', 'order')
         )
 
 
@@ -47,10 +63,16 @@ class BreedManager(Manager):
 class SpecificBreedManager(BreedManager):
     def get_queryset(self):
         queryset = super().get_queryset()
-        parent_breeds = queryset.filter(parent__isnull=False).values_list('parent', flat=True)
+        parent_breeds = queryset.filter(
+            parent__isnull=False,
+        ).values_list('parent', flat=True)
         return queryset.exclude(id__in=parent_breeds)
 
 
 class CertificationManager(Manager):
-    def get_by_natural_key(self, code: str, parent: str | None = None) -> 'Certification':        
+    def get_by_natural_key(
+        self,
+        code: str,
+        parent: str | None = None,
+    ) -> 'Certification':
         return self.get(code=code, parent__code=parent)

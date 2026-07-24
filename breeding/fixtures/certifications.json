@@ -5,7 +5,6 @@
         "fields": {
             "code": "WB",
             "name": "Wesensbeurteilung",
-            "chat_search_aliases": "What is WB?\nO que é o WB?\nExame WB\nTeste de temperamento WB",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -26,7 +25,6 @@
         "fields": {
             "code": "AD",
             "name": "Ausdauerpruefung",
-            "chat_search_aliases": "What is AD?\nO que é o AD?\nExame AD\nTeste de resistência AD",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -47,7 +45,6 @@
         "fields": {
             "code": "BH",
             "name": "Begleitungshund",
-            "chat_search_aliases": "What is BH?\nO que é o BH?\nExame BH\nTeste de cão de companhia BH",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -68,7 +65,6 @@
         "fields": {
             "code": "IGP",
             "name": "Internationale Gebrauchshundepruefung",
-            "chat_search_aliases": "What is IGP?\nO que é o IGP?\nProva IGP\nTítulo de trabalho IGP",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -90,7 +86,6 @@
             "code": "IGP1",
             "parent": ["IGP"],
             "name": "Internationale Gebrauchshundepruefung 1",
-            "chat_search_aliases": "What is IGP1?\nO que é o IGP1?\nPrimeiro nível IGP1\nProva IGP nível 1",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -112,7 +107,6 @@
             "code": "IGP2",
             "parent": ["IGP"],
             "name": "Internationale Gebrauchshundepruefung 2",
-            "chat_search_aliases": "What is IGP2?\nO que é o IGP2?\nSegundo nível IGP2\nProva IGP nível 2",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -134,7 +128,6 @@
             "code": "IGP3",
             "parent": ["IGP"],
             "name": "Internationale Gebrauchshundepruefung 3",
-            "chat_search_aliases": "What is IGP3?\nO que é o IGP3?\nTerceiro nível IGP3\nProva IGP nível 3",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]
@@ -155,7 +148,6 @@
         "fields": {
             "code": "KKL",
             "name": "Koerklasse",
-            "chat_search_aliases": "What is KKL?\nO que é o KKL?\nCertificação KKL\nSeleção para reprodução KKL",
             "breeds": [
                 ["German Shepherd", "Dog"],
                 ["Belgian Malinois", "Dog"]

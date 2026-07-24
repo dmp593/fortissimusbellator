@@ -5,6 +5,7 @@ from typing import Callable
 
 from django.apps import apps
 from django.conf import settings
+from django.db.models import QuerySet
 
 from .catalog import (
     current_litters,
@@ -12,13 +13,14 @@ from .catalog import (
     public_animals,
     public_breeds,
     public_certifications,
+    public_faqs,
 )
 from .domain import EntityKind
 from .matching import normalize_text
 
 
 CanonicalTermsFactory = Callable[[object], tuple[str, ...]]
-QuerySetFactory = Callable[[], object]
+QuerySetFactory = Callable[[], QuerySet]
 
 
 @dataclass(frozen=True)
@@ -40,12 +42,6 @@ class SearchEntityDefinition:
 
     def canonical_terms(self, instance):
         return self.canonical_terms_factory(instance)
-
-
-def _public_faqs():
-    from frontoffice.models import FrequentlyAskedQuestion
-
-    return FrequentlyAskedQuestion.objects.filter(active=True).order_by("order")
 
 
 def _animal_terms(instance):
@@ -116,7 +112,7 @@ SEARCHABLE_ENTITIES = (
     SearchEntityDefinition(
         kind=EntityKind.FAQ,
         model_label="frontoffice.FrequentlyAskedQuestion",
-        public_queryset_factory=_public_faqs,
+        public_queryset_factory=public_faqs,
         canonical_terms_factory=_faq_terms,
     ),
 )

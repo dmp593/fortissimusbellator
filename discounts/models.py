@@ -11,13 +11,15 @@ class Promotion(models.Model):
         FIXED = 'fixed', _('Fixed amount')
         PERCENTAGE = 'percentage', _('Percentage')
 
+    class PurchaseStage(models.TextChoices):
+        PRE_RESERVATION = 'pre_reservation', _('Pre-reservation')
+        RESERVATION = 'reservation', _('Reservation')
+        BOTH = 'both', _('Pre-reservation and reservation')
+
     class Scope(models.TextChoices):
-        ANY = 'any', _('Any pre-reservation')
-        DOGS = 'dogs', _('All dogs')
-        LITTERS = 'litters', _('All litters')
+        ANY = 'any', _('Any dog (all breeds)')
         BREEDS = 'breeds', _('Selected breeds')
         SPECIFIC_DOGS = 'specific_dogs', _('Selected dogs')
-        SPECIFIC_LITTERS = 'specific_litters', _('Selected litters')
 
     code = models.CharField(
         max_length=50,
@@ -29,6 +31,16 @@ class Promotion(models.Model):
         max_length=20,
         choices=DiscountType,
         verbose_name=_('discount type'),
+    )
+    purchase_stage = models.CharField(
+        max_length=20,
+        choices=PurchaseStage,
+        default=PurchaseStage.PRE_RESERVATION,
+        verbose_name=_('purchase stage'),
+        help_text=_(
+            'Choose whether the code can discount the pre-reservation fee, '
+            'the reservation deposit, or either purchase.'
+        ),
     )
     value = models.DecimalField(
         max_digits=9,
@@ -53,12 +65,6 @@ class Promotion(models.Model):
         blank=True,
         related_name='pre_reservation_promotions',
         verbose_name=_('dogs'),
-    )
-    litters = models.ManyToManyField(
-        'breeding.Litter',
-        blank=True,
-        related_name='pre_reservation_promotions',
-        verbose_name=_('litters'),
     )
     active = models.BooleanField(default=True, verbose_name=_('active'))
     starts_at = models.DateTimeField(
@@ -135,4 +141,3 @@ class Promotion(models.Model):
 
     def __str__(self):
         return self.code
-

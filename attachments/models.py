@@ -1,6 +1,6 @@
 import mimetypes
-import pathlib
 import logging
+import pathlib
 
 from io import BytesIO
 from uuid import uuid4
@@ -15,6 +15,30 @@ from django.utils.translation import gettext_lazy as _
 
 
 logger = logging.getLogger(__name__)
+
+
+def generate_video_thumbnail(video_path: str) -> ContentFile | None:
+    # OpenCV adds a sizeable native-library footprint. Import it only for the
+    # uncommon operation that needs it, not at every Django process startup.
+    import cv2
+
+    video = cv2.VideoCapture(video_path)
+    try:
+        success, frame = video.read()
+    finally:
+        video.release()
+
+    if not success:
+        return None
+
+    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    image = Image.fromarray(frame_rgb)
+    thumbnail = BytesIO()
+    image.save(thumbnail, format='WebP')
+    return ContentFile(
+        thumbnail.getvalue(),
+        name=f"{uuid4().hex}.webp",
+    )
 
 
 def attachment_file_upload_to(instance: 'Attachment', filename: str) -> str:
@@ -116,44 +140,30 @@ class Attachment(models.Model):
         verbose_name_plural = _('attachments')
 
     def save(self, *args, **kwargs):
-        # Save the file first to get the path
         super().save(*args, **kwargs)
 
-        # Generate thumbnail for videos if not provided
-        if self.mime_type and self.mime_type.startswith('video') and not self.thumbnail:
-            try:
-                # OpenCV adds a sizeable native-library footprint. Import it
-                # only for the uncommon operation that needs it, not at every
-                # Django process startup.
-                import cv2
+        if not (
+            self.mime_type
+            and self.mime_type.startswith('video')
+            and not self.thumbnail
+        ):
+            return
 
-                # Open the video file
-                video = cv2.VideoCapture(self.file.path)
-                success, frame = video.read()  # Read the first frame
-                video.release()
+        try:
+            thumbnail = generate_video_thumbnail(self.file.path)
+            if thumbnail is None:
+                return
 
-                if success:
-                    # Convert the frame from BGR (OpenCV) to RGB (PIL)
-                    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                    img = Image.fromarray(frame_rgb)
-
-                    # Save the frame as a thumbnail
-                    thumb_io = BytesIO()
-                    img.save(thumb_io, format='WebP')
-                    thumb_file = ContentFile(
-                        thumb_io.getvalue(),
-                        name=f"{uuid4().hex}.webp",
-                    )
-
-                    # Save the thumbnail
-                    self.thumbnail.save(thumb_file.name, thumb_file, save=False)
-                    super().save(*args, **kwargs)  # Save again to store the thumbnail
-
-            except Exception:
-                logger.exception(
-                    "Error generating thumbnail for %s",
-                    self.file.name,
-                )
+            self.thumbnail.save(thumbnail.name, thumbnail, save=False)
+            super().save(
+                using=kwargs.get('using'),
+                update_fields=('thumbnail',),
+            )
+        except Exception:
+            logger.exception(
+                "Error generating thumbnail for %s",
+                self.file.name,
+            )
 
     def __str__(self):
         return f"{self.filename}"

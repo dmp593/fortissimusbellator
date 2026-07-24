@@ -1,15 +1,23 @@
-from smtplib import SMTPException
+import logging
 
-from django.utils.translation import gettext_lazy as _
-from django.shortcuts import render, redirect
-from django.core.mail import EmailMessage
 from django.conf import settings
 from django.contrib import messages
-from django.template.loader import render_to_string
+from django.shortcuts import redirect, render
+from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
 
 from attachments.models import Attachment
+from fortissimusbellator.emails import (
+    BrandedEmailContent,
+    EmailAction,
+    EmailDetail,
+    send_branded_email,
+)
 from .models import FrequentlyAskedQuestion
 from .forms import ContactForm
+
+
+logger = logging.getLogger(__name__)
 
 
 def home(request):
@@ -32,25 +40,37 @@ def send_contact_email(form):
     phone = form.cleaned_data['phone']
     message = form.cleaned_data['message']
 
-    html_message = render_to_string(
-        'emails/contact_us.html',
-        {
-            'name': name,
-            'email': email,
-            'phone': phone,
-            'message': message,
-        }
+    content = BrandedEmailContent(
+        subject=_('Contact form submission from %(name)s') % {'name': name},
+        title=_('New contact request'),
+        preheader=_(
+            'A visitor sent a new message through the website contact form.'
+        ),
+        eyebrow=_('Website contact'),
+        intro=_(
+            'A visitor sent a new message through the Fortissimus Bellator '
+            'website.'
+        ),
+        status_label=_('Reply required'),
+        tone='warning',
+        details=(
+            EmailDetail(_('Name'), name),
+            EmailDetail(_('Email'), email),
+            EmailDetail(_('Phone'), phone),
+        ),
+        notice_title=_('Message'),
+        notice=message,
+        primary_action=EmailAction(
+            _('Reply to customer'),
+            f'mailto:{email}',
+        ),
+        internal=True,
     )
-
-    email = EmailMessage(
-        subject=_(f"Contact Form Submission from {name}"),
-        body=html_message,
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        to=settings.BUSINESS_NOTIFICATION_RECIPIENTS,
+    send_branded_email(
+        content=content,
+        language_code=get_language() or settings.LANGUAGE_CODE,
+        recipients=settings.BUSINESS_NOTIFICATION_RECIPIENTS,
     )
-
-    email.content_subtype = "html"
-    email.send(fail_silently=False)
 
 
 def contact_us(request):
@@ -66,8 +86,8 @@ def contact_us(request):
     try:
         send_contact_email(form)
         messages.success(request, _('Thank you! We will get back to you soon.'))
-    except SMTPException as e:
-        print("Error sending email:", e)
+    except Exception:
+        logger.exception('Unable to send contact form email')
         messages.error(request, _('Ups... Try again later.'))
 
     return redirect('contact_us')

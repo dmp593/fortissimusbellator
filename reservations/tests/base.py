@@ -4,7 +4,11 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 from breeding.models import Animal, AnimalKind, Breed, Litter
-from reservations.models import PreReservation, PreReservationTerms
+from reservations.models import (
+    PreReservation,
+    PreReservationTerms,
+    ReservationTerms,
+)
 from reservations.services.reservation import create_pending_reservation
 
 
@@ -27,6 +31,13 @@ class ReservationTestMixin:
                     'The pre-reservation fee is non-refundable if the customer '
                     'cancels.'
                 ),
+                'published_at': timezone.now(),
+            },
+        )
+        self.reservation_terms, _ = ReservationTerms.objects.update_or_create(
+            version='reservation-v1',
+            defaults={
+                'description': 'Reservation deposit terms.',
                 'published_at': timezone.now(),
             },
         )
@@ -53,6 +64,7 @@ class ReservationTestMixin:
             gender='F',
             active=True,
             for_sale=True,
+            price_in_euros='1500.00',
         )
         self.litter = Litter.objects.create(
             breed=self.breed,
@@ -61,7 +73,6 @@ class ReservationTestMixin:
             babies=5,
             status=Litter.LitterStatus.BORN,
             active=True,
-            pre_reservation_capacity=3,
         )
 
     def checkout_data(self, *, promotion_code=''):

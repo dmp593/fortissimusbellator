@@ -20,7 +20,6 @@ from .assistant import (
     ModelSnapshot,
     ModelState,
     ModelUnavailable,
-    local_model,
 )
 from .business import CONTACT_PHONES
 from .domain import ChatRequest, ConversationState, EntityKind
@@ -31,7 +30,7 @@ from .model_selection import (
     save_selected_model,
 )
 from .models import ChatModel
-from .service import chat_service
+from .runtime import get_chat_runtime
 
 
 logger = logging.getLogger(__name__)
@@ -42,6 +41,7 @@ ALLOWED_CONTEXT_FIELDS = {
     # Kept temporarily for pages cached before the generic animal context.
     "dog_id", "dog_name", "litter_id", "litter_name",
     "breed_id", "breed_name",
+    "certification_id", "certification_name",
 }
 
 
@@ -55,7 +55,7 @@ def model_status(request):
 
     models = [model.to_spec() for model in available_models()]
     try:
-        snapshot = local_model.snapshot()
+        snapshot = get_chat_runtime().local_model.snapshot()
     except ModelSelectionError:
         snapshot = _unconfigured_snapshot()
     context = admin.site.each_context(request)
@@ -74,6 +74,7 @@ def model_status(request):
 
 
 def _handle_model_action(request):
+    local_model = get_chat_runtime().local_model
     action = request.POST.get("action")
     if action in {"prepare", "retry"}:
         try:
@@ -175,7 +176,7 @@ def message(request):
     state = _clean_state(data.get("state"))
 
     try:
-        reply = chat_service.reply(
+        reply = get_chat_runtime().chat_service.reply(
             ChatRequest(
                 message=user_message,
                 history=history,
@@ -194,8 +195,8 @@ def message(request):
         response = JsonResponse(
             {
                 "error": _(
-                    "The assistant is being prepared for first use. "
-                    "Please try again in a few minutes."
+                    "The assistant is starting. "
+                    "Please try again shortly."
                 )
             },
             status=503,

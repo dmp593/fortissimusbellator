@@ -3,7 +3,7 @@ import polib
 from django.core.management.base import BaseCommand
 from django.conf import settings
 
-from fortissimusbellator import translator
+from fortissimusbellator.translator import translate
 
 
 class Command(BaseCommand):
@@ -82,12 +82,18 @@ class Command(BaseCommand):
                     continue
 
                 try:
-                    translated_text = translator.translate(
+                    translated_text = translate(
                         text=entry.msgid,
                         source_lang=source_lang,
                         target_lang=locale,
                         provider=provider,
                     )
+                    if not translated_text:
+                        self.stderr.write(
+                            f"Skipped untranslated entry for {locale}: "
+                            f"'{entry.msgid}'"
+                        )
+                        continue
 
                     entry.msgstr = translated_text
 

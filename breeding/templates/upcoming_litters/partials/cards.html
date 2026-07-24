@@ -12,11 +12,6 @@
             <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
         </div>
         {% endif %}
-        {% if litter.pre_reservation_enabled and litter.pre_reservation_capacity > 0 and litter.status != 'expecting' %}
-        <div class="absolute right-2 top-2 rounded-lg px-3 py-1 text-xs font-bold shadow-lg {% if litter.pre_reserved_count >= litter.pre_reservation_capacity %}bg-red-700 text-white dark:bg-red-400{% else %}bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900{% endif %}">
-            {{ litter.pre_reserved_count }}/{{ litter.pre_reservation_capacity }} {% translate "reserved" %}
-        </div>
-        {% endif %}
     </div>
 
     <!-- Litter Details -->

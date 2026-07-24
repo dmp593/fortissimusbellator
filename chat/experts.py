@@ -1,5 +1,6 @@
 """Specialized answer strategies used by the deterministic router."""
 
+import logging
 from dataclasses import dataclass
 
 from django.conf import settings
@@ -8,19 +9,17 @@ from django.template.defaultfilters import striptags
 from django.utils import formats, timezone
 from django.utils.translation import gettext as _
 
-from frontoffice.models import FrequentlyAskedQuestion
 from reservations.availability import (
     dog_unavailability_reason,
-    litter_reserved_count,
-    litter_unavailability_reason,
 )
 
 from .business import ADDRESS, CONTACT_EMAIL, CONTACT_PHONES
 from .catalog import (
     available_animals,
     current_litters,
+    public_certifications,
+    public_faqs,
     published_posts,
-    reservable_litters,
 )
 from .domain import ChatReply, ChatRequest, EntityKind, QueryAnalysis
 from .intents import (
@@ -39,7 +38,12 @@ from .intents import (
     PRICING,
     VISIT,
 )
-from .knowledge import build_knowledge_snapshot, matching_faq
+from .knowledge import (
+    build_knowledge_snapshot,
+    matching_faq,
+    relevant_faqs,
+)
+from .response_policy import has_unsupported_urls
 
 
 @dataclass(frozen=True)
@@ -159,7 +163,7 @@ class EntityExpert:
                 return self._animal_price(match.instance)
         if match.kind == EntityKind.ANIMAL_KIND:
             return None
-        if match.kind == EntityKind.CERTIFICATION:
+        if match.kind in {EntityKind.CERTIFICATION, EntityKind.FAQ}:
             return None
         if (
             match.kind == EntityKind.LITTER
@@ -190,7 +194,7 @@ class EntityExpert:
 
     @staticmethod
     def _animal_price(animal):
-        if animal.for_sale and animal.sold_at is None:
+        if animal.for_sale and not animal.is_sold:
             answer = _("%(name)s is listed for %(price)s.") % {
                 "name": animal.name,
                 "price": _price(animal.current_price_in_euros),
@@ -276,17 +280,17 @@ class EntityExpert:
         babies = litter.babies or litter.expected_babies
         if babies:
             lines.append(_("- Babies: %(value)s") % {"value": babies})
-        lines.append(_("- Pre-reservation: %(value)s") % {
+        lines.append(_("- Birth updates: %(value)s") % {
             "value": _litter_availability_detail(litter),
         })
         return "\n".join(lines)
 
     @staticmethod
     def _litter_availability(litter):
-        return _("%(name)s pre-reservation availability: %(availability)s") % {
-            "name": litter.name,
-            "availability": _litter_availability_detail(litter),
-        }
+        return _(
+            "%(name)s cannot be pre-reserved. Subscribe to its birth alert; "
+            "individual dogs can be pre-reserved after publication."
+        ) % {"name": litter.name}
 
     @staticmethod
     def _breed(breed):
@@ -306,7 +310,83 @@ class EntityExpert:
             EntityKind.LITTER: _("litter"),
             EntityKind.BREED: _("breed"),
             EntityKind.CERTIFICATION: _("certification"),
+            EntityKind.FAQ: _("frequently asked question"),
         }[match.kind]
+
+
+class CertificationExpert:
+    """Render certification facts directly from the public database."""
+
+    def answer(self, context):
+        resolution = context.analysis.entities
+        if resolution.ambiguous:
+            return None
+
+        matched = [
+            match.instance
+            for match in resolution.matches
+            if match.kind == EntityKind.CERTIFICATION
+        ]
+        if matched:
+            return ChatReply(
+                text="\n\n".join(
+                    self._certification_detail(certification)
+                    for certification in matched
+                ),
+                state=resolution.matches[0].as_state(),
+            )
+
+        if CERTIFICATIONS not in context.analysis.intents:
+            return None
+
+        certifications = list(
+            public_certifications()[:settings.CHAT_MAX_CERTIFICATIONS]
+        )
+        if not certifications:
+            return ChatReply(
+                text=_("No certifications are currently published."),
+                state=context.request.state,
+            )
+
+        lines = [_("Published certifications:")]
+        lines.extend(
+            _("- %(code)s — %(name)s.") % {
+                "code": certification.code,
+                "name": certification.name,
+            }
+            for certification in certifications
+        )
+        lines.extend(("", _(
+            "Ask about a certification code to see its details."
+        )))
+        return ChatReply(
+            text="\n".join(lines),
+            state=context.request.state,
+        )
+
+    @staticmethod
+    def _certification_detail(certification):
+        lines = [
+            _("About certification %(code)s:") % {
+                "code": certification.code,
+            },
+            _("- Name: %(value)s") % {"value": certification.name},
+        ]
+        if certification.parent:
+            lines.append(_("- Parent certification: %(value)s") % {
+                "value": (
+                    f"{certification.parent.code} — "
+                    f"{certification.parent.name}"
+                ),
+            })
+        if certification.description:
+            lines.append(_("- Description: %(value)s") % {
+                "value": _one_line(
+                    striptags(certification.description),
+                    900,
+                ),
+            })
+        return "\n".join(lines)
 
 
 class InventoryExpert:
@@ -437,7 +517,7 @@ class InventoryExpert:
             date_detail = _litter_date(litter)
             if date_detail:
                 details.append(date_detail)
-            details.append(_("pre-reservation: %(availability)s") % {
+            details.append(_("birth updates: %(availability)s") % {
                 "availability": _litter_availability_detail(litter),
             })
             lines.append("- " + "; ".join(details) + ".")
@@ -456,26 +536,14 @@ class InventoryExpert:
 
     @staticmethod
     def _available_litters(context):
-        animal_kind_id = _resolved_animal_kind_id(context.analysis)
-        litters = list(
-            reservable_litters(animal_kind_id=animal_kind_id)[
-                :settings.CHAT_MAX_KENNEL_ITEMS
-            ]
+        return ChatReply(
+            text=_(
+                'Litters cannot be pre-reserved. You can subscribe to a '
+                'litter birth alert, then pre-reserve an individual dog '
+                'after it is published.'
+            ),
+            state=context.request.state,
         )
-        if not litters:
-            return ChatReply(text=_(
-                "No born litters currently have places available for "
-                "pre-reservation."
-            ))
-
-        lines = [_('Litters currently available for pre-reservation:')]
-        for litter in litters:
-            lines.append(_("- %(name)s — %(breed)s; %(availability)s.") % {
-                "name": litter.name,
-                "breed": litter.breed,
-                "availability": _litter_availability_detail(litter),
-            })
-        return ChatReply(text="\n".join(lines), state=context.request.state)
 
     @staticmethod
     def _compose(replies, fallback_state):
@@ -508,15 +576,43 @@ class ContactExpert:
 
 class FaqExpert:
     def answer(self, context):
-        faq = matching_faq(context.request.message)
+        resolution = context.analysis.entities
+        if resolution.ambiguous:
+            return None
+
+        indexed_faqs = [
+            match.instance
+            for match in resolution.matches
+            if match.kind == EntityKind.FAQ
+        ]
+        allow_related = not (
+            context.analysis.intents - {FAQS}
+        )
+        faq = (
+            indexed_faqs[0]
+            if len(indexed_faqs) == 1
+            else matching_faq(
+                context.request.message,
+                allow_related=allow_related,
+            )
+        )
         if faq is not None:
             return ChatReply(text=faq.answer.strip(), state=context.request.state)
 
+        if allow_related:
+            related_faqs = relevant_faqs(context.request.message)
+            if related_faqs:
+                return ChatReply(
+                    text="\n\n".join(
+                        f"{related.question}\n{related.answer.strip()}"
+                        for related in related_faqs
+                    ),
+                    state=context.request.state,
+                )
+
         if FAQS not in context.analysis.intents:
             return None
-        faqs = FrequentlyAskedQuestion.objects.filter(active=True).order_by("order")[
-            :settings.CHAT_MAX_FAQS
-        ]
+        faqs = list(public_faqs()[:settings.CHAT_MAX_FAQS])
         if not faqs:
             return ChatReply(text=_(
                 "No frequently asked questions are currently listed. "
@@ -584,6 +680,11 @@ class LocalModelExpert:
             knowledge.text,
             focus,
         )
+        if has_unsupported_urls(text, knowledge.text):
+            logging.getLogger(__name__).warning(
+                "chat_model_response_rejected reason=unsupported_url"
+            )
+            return None
         return ChatReply(text=text, state=context.request.state)
 
 
@@ -629,20 +730,10 @@ def _date(value):
 
 
 def _litter_availability_detail(litter):
-    reason = litter_unavailability_reason(litter)
-    if reason:
-        return str(reason)
-
-    reserved = litter_reserved_count(litter)
-    available = max(litter.pre_reservation_capacity - reserved, 0)
     return _(
-        "%(available)d of %(capacity)d places available "
-        "(%(reserved)d already reserved)"
-    ) % {
-        "available": available,
-        "capacity": litter.pre_reservation_capacity,
-        "reserved": reserved,
-    }
+        'subscribe to receive an email when the litter is born; individual '
+        'dogs can be pre-reserved after publication'
+    )
 
 
 def _litter_date(litter):

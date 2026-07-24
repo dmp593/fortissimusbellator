@@ -15,5 +15,14 @@ urlpatterns = [
     
     path('upcoming-litters/', views.upcoming_litters, name='upcoming_litters'),
     path('upcoming-litters/<int:litter_id>/', views.litter_detail, name='litter_detail'),
-    path('upcoming-litters/<int:litter_id>/pre_reserve', views.pre_reserve_litter, name='pre_reserve_litter'),
+    path(
+        'upcoming-litters/<int:litter_id>/alerts/subscribe/',
+        views.subscribe_litter_alert,
+        name='subscribe_litter_alert',
+    ),
+    path(
+        'upcoming-litters/<int:litter_id>/alerts/unsubscribe/',
+        views.unsubscribe_litter_alert,
+        name='unsubscribe_litter_alert',
+    ),
 ]

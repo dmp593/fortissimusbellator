@@ -1,5 +1,6 @@
 from django.db import migrations, models
 import django.db.models.deletion
+import django.utils.timezone
 
 
 class Migration(migrations.Migration):
@@ -35,7 +36,10 @@ class Migration(migrations.Migration):
                         verbose_name="chat search aliases",
                     ),
                 ),
-                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "updated_at",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
                 (
                     "content_type",
                     models.ForeignKey(
@@ -49,12 +53,6 @@ class Migration(migrations.Migration):
                 "verbose_name": "chat search entry",
                 "verbose_name_plural": "chat search entries",
                 "ordering": ("label",),
-                "indexes": [
-                    models.Index(
-                        fields=["content_type", "object_id"],
-                        name="chat_search_object_idx",
-                    ),
-                ],
                 "constraints": [
                     models.UniqueConstraint(
                         fields=("content_type", "object_id"),

@@ -7,15 +7,15 @@ from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseNotAllowed, JsonResponse
 from django.urls import path, reverse
+from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import ngettext
 
 from .admin_widgets import ChatAliasTextareaWidget
-from .alias_suggestions import (
-    AliasSuggestionError,
-    alias_suggestion_service,
-)
+from .alias_suggestions import AliasSuggestionError
 from .assistant import ModelBusy, ModelPreparing, ModelUnavailable
+from .models import ChatSearchEntry
+from .runtime import get_chat_runtime
 from .search_index import aliases_for, save_aliases
 
 
@@ -58,13 +58,11 @@ class ChatAliasSuggestionsAdminMixin:
                 f"{self.admin_site.name}:{self.alias_suggestion_url_name}",
                 args=(quote(obj.pk),),
             )
+        aliases_field = ChatSearchEntry._meta.get_field("aliases")
         form.base_fields[self.alias_field_name] = forms.CharField(
             required=False,
-            label=_("chat search aliases"),
-            help_text=_(
-                "Optional alternative names or questions, one per line. "
-                "Used only by chat search."
-            ),
+            label=capfirst(aliases_field.verbose_name),
+            help_text=aliases_field.help_text,
             initial=aliases_for(obj) if obj is not None else "",
             widget=ChatAliasTextareaWidget(
                 suggestion_url=suggestion_url,
@@ -91,7 +89,13 @@ class ChatAliasSuggestionsAdminMixin:
             raise PermissionDenied
 
         try:
-            suggestions = self.get_alias_suggestion_service().suggest(instance)
+            suggestions = self.get_alias_suggestion_service().suggest(
+                instance,
+                additional_aliases=request.POST.get(
+                    'current_aliases',
+                    '',
+                )[:5000],
+            )
         except (ModelBusy, ModelPreparing, ModelUnavailable):
             logger.info(
                 "chat_alias_admin outcome=model_unavailable model=%s object_id=%s",
@@ -151,4 +155,4 @@ class ChatAliasSuggestionsAdminMixin:
 
     @staticmethod
     def get_alias_suggestion_service():
-        return alias_suggestion_service
+        return get_chat_runtime().alias_suggestion_service

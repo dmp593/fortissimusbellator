@@ -1,0 +1,9 @@
+{% load i18n %}{% translate "Hello" %} {{ user.get_full_name|default:user.username }},
+
+{% translate "Welcome to Fortissimus Bellator. Open the following address to confirm your registration and activate your account:" %}
+
+{{ activation_url }}
+
+{% translate "If you didn't request this, please ignore this email." %}
+
+{% translate "The Fortissimus Bellator Team" %}

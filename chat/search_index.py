@@ -3,6 +3,7 @@
 from dataclasses import dataclass
 
 from django.contrib.contenttypes.models import ContentType
+from django.utils import timezone
 
 from .matching import normalize_text, search_aliases
 from .models import ChatSearchEntry
@@ -69,6 +70,7 @@ def sync_search_entry(instance, *, aliases=_ALIASES_UNSET):
     defaults = {
         "label": str(instance)[:255],
         "canonical_terms": list(definition.canonical_terms(instance)),
+        "updated_at": timezone.now(),
     }
     if aliases is not _ALIASES_UNSET:
         defaults["aliases"] = _normalize_aliases(aliases)

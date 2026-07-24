@@ -1,19 +1,70 @@
 import os
 import socket
+import sys
 import time
 from io import BytesIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from unittest.mock import patch
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
 from uuid import uuid4
 
 from django.contrib.auth import get_user_model
+from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from PIL import Image
 
+from attachments.models import Attachment, generate_video_thumbnail
 from fortissimusbellator.upload_security import cleanup_stale_chunks
+
+
+class AttachmentThumbnailTests(TestCase):
+    def setUp(self):
+        self.media_directory = TemporaryDirectory()
+        self.addCleanup(self.media_directory.cleanup)
+        self.settings_override = override_settings(
+            MEDIA_ROOT=self.media_directory.name,
+        )
+        self.settings_override.enable()
+        self.addCleanup(self.settings_override.disable)
+        self.user = get_user_model().objects.create_user(
+            username="attachment-owner",
+        )
+
+    @patch("attachments.models.generate_video_thumbnail")
+    def test_video_create_persists_generated_thumbnail(self, generate_thumbnail):
+        generate_thumbnail.return_value = ContentFile(
+            b"thumbnail",
+            name="thumbnail.webp",
+        )
+
+        attachment = Attachment.objects.create(
+            file=SimpleUploadedFile(
+                "clip.mp4",
+                b"video",
+                content_type="video/mp4",
+            ),
+            content_object=self.user,
+        )
+
+        attachment.refresh_from_db()
+        self.assertTrue(attachment.thumbnail.name.endswith(".webp"))
+        generate_thumbnail.assert_called_once()
+
+    def test_video_capture_is_released_when_no_frame_can_be_read(self):
+        capture = Mock()
+        capture.read.return_value = (False, None)
+        fake_cv2 = SimpleNamespace(
+            VideoCapture=Mock(return_value=capture),
+        )
+
+        with patch.dict(sys.modules, {"cv2": fake_cv2}):
+            thumbnail = generate_video_thumbnail("/tmp/unreadable-video.mp4")
+
+        self.assertIsNone(thumbnail)
+        capture.release.assert_called_once_with()
 
 
 @override_settings(STATIC_ROOT=None)

@@ -1,30 +1,87 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
+{% load admin_urls i18n static %}
+
+{% block extrahead %}
+  {{ block.super }}
+  {{ media }}
+{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "admin/css/forms.css" %}">
+{% endblock %}
+
+{% block coltype %}colM{% endblock %}
+
+{% block bodyclass %}
+  {{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form
+{% endblock %}
 
 {% block breadcrumbs %}
 <div class="breadcrumbs">
   <a href="{% url 'admin:index' %}">{% translate "Home" %}</a>
   &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
-  &rsaquo; <a href="{% url 'admin:reservations_prereservation_changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
-  &rsaquo; <a href="{{ change_url }}">{{ reservation }}</a>
+  &rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+  &rsaquo; <a href="{{ change_url }}">{{ object|truncatewords:"18" }}</a>
   &rsaquo; {{ title }}
 </div>
 {% endblock %}
 
 {% block content %}
 <div id="content-main">
-  <p class="errornote">{{ warning }}</p>
-  <p><strong>{% translate "Reservation" %}:</strong> {{ reservation.public_id }}</p>
-  <p><strong>{% translate "Target" %}:</strong> {{ reservation.target_name }}</p>
-  <p><strong>{% translate "Customer" %}:</strong> {{ reservation.customer_email }}</p>
-  <form method="post">
+  {% if warning %}
+    <ul class="messagelist">
+      <li class="warning">{{ warning }}</li>
+    </ul>
+  {% endif %}
+
+  {% if object.pk %}
+    <fieldset class="module aligned">
+      <h2>{% translate "Details" %}</h2>
+      <div class="form-row">
+        <div>
+          <div class="flex-container">
+            <label>{% translate "Purchase" %}:</label>
+            <div class="readonly">{{ object }}</div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  {% endif %}
+
+  {% if payment %}
+    {% translate "Payment" as payment_heading %}
+    {% include "admin/reservations/includes/payment_summary.html" with summary_payment=payment summary_title=payment_heading show_provider=True only %}
+  {% endif %}
+
+  {% for payment_label, grouped_payment in payment_groups %}
+    {% include "admin/reservations/includes/payment_summary.html" with summary_payment=grouped_payment summary_title=payment_label only %}
+  {% endfor %}
+
+  <form method="post" id="{{ opts.model_name }}_action_form" novalidate>
     {% csrf_token %}
-    {% if form %}
-      {{ form.as_div }}
+    {% if errors %}
+      <p class="errornote">
+        {% blocktranslate count counter=errors|length %}
+          Please correct the error below.
+        {% plural %}
+          Please correct the errors below.
+        {% endblocktranslate %}
+      </p>
+      {{ form.non_field_errors }}
     {% endif %}
-    <div class="submit-row">
-      <input type="submit" value="{{ submit_label }}" class="default">
-      <a href="{{ change_url }}" class="closelink">{% translate "Cancel" %}</a>
+
+    <div>
+      {% for fieldset in adminform %}
+        {% include "admin/includes/fieldset.html" with heading_level=2 prefix="fieldset" id_prefix=0 id_suffix=forloop.counter0 %}
+      {% endfor %}
+
+      <div class="submit-row">
+        <input type="submit" value="{{ submit_label }}" class="default">
+        <a role="button" href="{{ change_url }}" class="closelink">
+          {% translate "Cancel" %}
+        </a>
+      </div>
     </div>
   </form>
 </div>

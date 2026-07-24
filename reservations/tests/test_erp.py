@@ -5,8 +5,12 @@ import requests
 from django.test import TestCase, override_settings
 
 from reservations.models import ERPDocument, Payment, PreReservation
-from reservations.services.erp import download_erp_pdf, process_erp_document
-from reservations.services.reservation import ensure_sale_erp_document
+from reservations.services.erp import (
+    _build_document_payload,
+    download_erp_pdf,
+    ensure_sale_erp_document,
+    process_erp_document,
+)
 from reservations.tests.base import ReservationTestMixin
 
 
@@ -19,13 +23,13 @@ class ERPWorkflowTests(ReservationTestMixin, TestCase):
     def setUp(self):
         self.create_domain_data()
         self.reservation = self.reserve(self.dog)
-        self.reservation.status = PreReservation.Status.CONFIRMED
+        self.reservation.status = PreReservation.Status.AWAITING_REVIEW
         self.reservation.save(update_fields=['status'])
-        Payment.objects.filter(reservation=self.reservation).update(
+        Payment.objects.filter(pre_reservation=self.reservation).update(
             status=Payment.Status.PAID,
             stripe_payment_intent_id='pi_paid',
         )
-        self.document = ensure_sale_erp_document(self.reservation)
+        self.document = ensure_sale_erp_document(self.reservation.payment)
 
     @staticmethod
     def print_url(*, host='files.toconline.pt'):
@@ -82,6 +86,16 @@ class ERPWorkflowTests(ReservationTestMixin, TestCase):
         self.assertEqual(body.document_type, 'FR')
         get_print_url.assert_called_once_with('erp-123')
 
+    def test_sale_document_amount_is_an_immutable_payment_snapshot(self):
+        self.assertEqual(self.document.amount, self.reservation.payment.amount)
+        Payment.objects.filter(pk=self.reservation.payment.pk).update(
+            amount='40.00',
+        )
+
+        payload = _build_document_payload(self.document)
+
+        self.assertEqual(payload['lines'][0]['unit_price'], 50.0)
+
     def test_uncertain_creation_reconciles_without_creating_a_second_document(self):
         self.document.creation_uncertain = True
         self.document.save(update_fields=['creation_uncertain'])
@@ -127,12 +141,57 @@ class ERPWorkflowTests(ReservationTestMixin, TestCase):
 
         self.reservation.refresh_from_db()
         self.reservation.payment.refresh_from_db()
-        self.assertEqual(self.reservation.status, PreReservation.Status.CONFIRMED)
+        self.assertEqual(
+            self.reservation.status,
+            PreReservation.Status.AWAITING_REVIEW,
+        )
         self.assertEqual(self.reservation.payment.status, Payment.Status.PAID)
         self.assertEqual(document.status, ERPDocument.Status.NEEDS_ATTENTION)
         self.assertTrue(document.creation_uncertain)
         self.assertIsNotNone(document.creation_started_at)
         self.assertIsNone(document.next_retry_at)
+
+    @override_settings(TOCONLINE_ENABLED=False)
+    def test_disabled_integration_is_deferred_and_can_be_integrated_later(self):
+        document = process_erp_document(self.document.pk)
+
+        self.assertEqual(document.status, ERPDocument.Status.DEFERRED)
+        self.assertEqual(document.attempt_count, 0)
+        self.assertEqual(document.last_error, '')
+        self.assertFalse(document.integration_attempts.exists())
+
+        created = {
+            'data': {
+                'id': 'erp-deferred',
+                'attributes': {'document_number': 'FR 2026/2'},
+            }
+        }
+        with self.settings(TOCONLINE_ENABLED=True), patch(
+            'toconline.services.toconline.api.sales.create_sales_document',
+            return_value=created,
+        ), patch(
+            'reservations.services.erp._download_sales_document_pdf',
+            return_value=b'%PDF-1.7\nexample',
+        ):
+            document = process_erp_document(document.pk)
+
+        self.assertEqual(document.status, ERPDocument.Status.INTEGRATED)
+        self.assertEqual(document.erp_document_id, 'erp-deferred')
+        self.assertEqual(document.attempt_count, 1)
+
+    @override_settings(TOCONLINE_ENABLED=False)
+    def test_disabling_integration_does_not_erase_a_real_failure(self):
+        self.document.status = ERPDocument.Status.NEEDS_ATTENTION
+        self.document.last_error = 'ERPIntegrationError: invalid tax code'
+        self.document.save(update_fields=['status', 'last_error'])
+
+        document = process_erp_document(self.document.pk)
+
+        self.assertEqual(document.status, ERPDocument.Status.NEEDS_ATTENTION)
+        self.assertEqual(
+            document.last_error,
+            'ERPIntegrationError: invalid tax code',
+        )
 
     def test_pdf_failure_does_not_change_integrated_sale_or_payment(self):
         self.document.status = ERPDocument.Status.INTEGRATED

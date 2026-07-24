@@ -6,12 +6,28 @@ content needed to sell dogs and manage upcoming litters.
 
 The main product areas are:
 
-- breed, dog, and litter catalogues with detail and pre-reservation flows;
+- breed, dog, and litter catalogues, with dog pre-reservation and reservation;
 - FAQs, contact information, an about page, and a kennel blog;
 - a breed-matching quiz and customer accounts;
 - multilingual content, media attachments, and Django admin management;
-- Stripe-backed dog and born-litter pre-reservations with fiscal documents;
+- Stripe-backed dog payments, discretionary refunds, and fiscal documents;
+- per-litter and breed-based birth alerts;
 - a small local sales assistant documented in [`chat/README.md`](chat/README.md).
+
+## Documentation
+
+Start with the [documentation index](docs/README.md). The maintained reference
+is split by responsibility:
+
+- [system architecture](docs/architecture.md);
+- [domain model](docs/domain-model.md);
+- [public pages and Django admin](docs/site-and-admin.md);
+- [complete commercial workflows and state machines](docs/commercial-workflows.md);
+- [pre-reservation operations](docs/pre-reservations.md);
+- [chat architecture and file-by-file guide](docs/chat.md);
+- [configuration, deployment, monitoring, and incident response](docs/operations.md);
+- [testing and maintenance](docs/testing-and-maintenance.md);
+- [business and technical glossary](docs/glossary.md).
 
 ## Local development
 
@@ -40,9 +56,20 @@ docker compose up -d
 The Compose stack runs MariaDB, Gunicorn, and one reservation reconciliation
 scheduler. Replace every default secret before exposing it outside localhost.
 
+On a direct-host deployment, run all required Django preparation steps with:
+
+```bash
+poetry run python manage.py prepare_production
+```
+
+Add `--loaddata` to load the production-safe default fixtures, or list specific
+fixtures after the option. See the operations guide for exact behavior.
+
 Pre-reservation deployment, Stripe webhook, TOConline, and reconciliation
 instructions are documented in
-[`docs/pre-reservations.md`](docs/pre-reservations.md).
+[`docs/pre-reservations.md`](docs/pre-reservations.md). The exhaustive business
+state and exception reference is
+[`docs/commercial-workflows.md`](docs/commercial-workflows.md).
 
 Admin file and EditorJS image uploads are staff-only and bounded by the
 `UPLOAD_*` and `EDITOR_*` environment settings. Remote EditorJS images accept

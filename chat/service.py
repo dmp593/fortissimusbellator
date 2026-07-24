@@ -5,11 +5,11 @@ import time
 
 from django.utils import translation
 
-from .assistant import assistant
 from .domain import ChatReply
 from .entities import EntityResolver
 from .experts import (
     BlogExpert,
+    CertificationExpert,
     ContactExpert,
     EntityExpert,
     ExpertContext,
@@ -101,10 +101,12 @@ class ChatService:
         if router is not None:
             self.router = router
             return
+        if model_assistant is None:
+            raise TypeError("ChatService requires an explicit model assistant.")
 
         resolver = EntityResolver()
         analyzer = QueryAnalyzer(resolver)
-        model_expert = LocalModelExpert(model_assistant or assistant)
+        model_expert = LocalModelExpert(model_assistant)
         self.router = ExpertRouter(
             analyzer=analyzer,
             deterministic_experts=(
@@ -112,6 +114,7 @@ class ChatService:
                 PageExpert(),
                 BlogExpert(),
                 EntityExpert(),
+                CertificationExpert(),
                 InventoryExpert(),
                 ContactExpert(),
                 FaqExpert(),
@@ -126,6 +129,3 @@ class ChatService:
         if not isinstance(response, ChatReply):
             raise TypeError("Chat experts must return a ChatReply.")
         return response
-
-
-chat_service = ChatService()

@@ -8,7 +8,6 @@ class PromotionAdminForm(forms.ModelForm):
     SCOPE_RELATION_FIELDS = {
         Promotion.Scope.BREEDS: 'breeds',
         Promotion.Scope.SPECIFIC_DOGS: 'dogs',
-        Promotion.Scope.SPECIFIC_LITTERS: 'litters',
     }
 
     class Meta:
@@ -24,7 +23,6 @@ class PromotionAdminForm(forms.ModelForm):
         relation_help_texts = {
             'breeds': _('Required only for the selected breeds scope.'),
             'dogs': _('Required only for the selected dogs scope.'),
-            'litters': _('Required only for the selected litters scope.'),
         }
         for relation, help_text in relation_help_texts.items():
             field = self.fields[relation]

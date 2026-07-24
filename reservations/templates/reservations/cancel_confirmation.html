@@ -8,11 +8,12 @@
     <section class="ui-card mx-auto max-w-2xl p-8 sm:p-12">
         <p class="mb-3 font-sans text-xs font-bold uppercase tracking-[0.24em] text-red-700 dark:text-red-300">{% translate "Final confirmation" %}</p>
         <h1 class="ui-page-title text-3xl">{% translate "Cancel this pre-reservation?" %}</h1>
-        <p class="ui-page-subtitle">{{ reservation.target_name }} · {{ reservation.target_breed }}</p>
+        <p class="ui-page-subtitle">{{ pre_reservation.target_name }} · {{ pre_reservation.target_breed }}</p>
 
         <div class="mt-8 rounded-xl border border-red-300 bg-red-50 p-5 text-sm leading-relaxed text-red-900 dark:border-red-800 dark:bg-red-950/40 dark:text-red-100" role="alert">
-            <strong class="block">{% translate "The fee will not be refunded." %}</strong>
-            <p class="mt-2">{% blocktranslate with amount=reservation.total_amount currency=reservation.currency %}You accepted that the {{ amount }} {{ currency }} pre-reservation payment is non-refundable when you cancel. Cancelling also releases the dog or litter place immediately.{% endblocktranslate %}</p>
+            <strong class="block">{% translate "Cancellation does not create an automatic refund." %}</strong>
+            <p class="mt-2">{% translate "The pre-reservation is non-refundable by nature. The breeder may separately approve a discretionary partial or full refund, but cancellation itself creates no right to one." %}</p>
+            <p class="mt-2">{% translate "Cancelling releases the dog for other customers." %}</p>
         </div>
 
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -20,7 +21,7 @@
                 {% csrf_token %}
                 <button type="submit" class="ui-button w-full bg-red-800 px-6 py-3 text-white hover:bg-red-900">{% translate "Yes, cancel and release" %}</button>
             </form>
-            <a href="{% url 'reservations:dashboard' %}" class="ui-button ui-button-secondary flex-1 px-6 py-3 text-center">{% translate "Keep reservation" %}</a>
+            <a href="{% url 'reservations:dashboard' %}" class="ui-button ui-button-secondary flex-1 px-6 py-3 text-center">{% translate "Keep it active" %}</a>
         </div>
     </section>
 </div>

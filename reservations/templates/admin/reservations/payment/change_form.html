@@ -1,0 +1,9 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+  {% if original.status == 'paid' or original.status == 'partially_refunded' %}
+    <li><a href="{% url 'admin:reservations_payment_refund' original.pk %}">{% translate "Create refund" %}</a></li>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}

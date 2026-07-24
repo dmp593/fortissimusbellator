@@ -1,23 +1,46 @@
 {% extends "admin/base_site.html" %}
-{% load i18n %}
+{% load admin_urls i18n static %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <script src="{% static 'admin/js/cancel.js' %}" async></script>
+{% endblock %}
+
+{% block bodyclass %}
+  {{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} delete-confirmation
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% translate "Home" %}</a>
+  &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
+  &rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+  &rsaquo; <a href="{{ change_url }}">{{ object|truncatewords:"18" }}</a>
+  &rsaquo; {% translate "Delete" %}
+</div>
+{% endblock %}
 
 {% block content %}
 <div id="content-main">
-  <p class="errornote">
-    {% blocktranslate count count=reservation_count %}
-      This item has {{ count }} pre-reservation in its history. It will disappear from the public website, but every reservation snapshot and payment record will remain accessible.
-    {% plural %}
-      This item has {{ count }} pre-reservations in its history. It will disappear from the public website, but every reservation snapshot and payment record will remain accessible.
-    {% endblocktranslate %}
-  </p>
+  <ul class="messagelist">
+    <li class="warning">
+      {% blocktranslate count count=reservation_count %}
+        This item has {{ count }} pre-reservation in its history. It will disappear from the public website, but every reservation snapshot and payment record will remain accessible.
+      {% plural %}
+        This item has {{ count }} pre-reservations in its history. It will disappear from the public website, but every reservation snapshot and payment record will remain accessible.
+      {% endblocktranslate %}
+    </li>
+  </ul>
   <p>{% translate "This is the second and final confirmation. This action cannot be undone." %}</p>
   <form method="post">
     {% csrf_token %}
     <input type="hidden" name="post" value="yes">
     <input type="hidden" name="confirm_reservation_history" value="yes">
-    <div class="submit-row">
-      <input type="submit" value="{% translate 'Yes, delete permanently' %}" class="deletelink">
-      <a href="{{ change_url }}" class="button cancel-link">{% translate "No, keep it" %}</a>
+    <div>
+      <input type="submit" value="{% translate 'Yes, delete permanently' %}">
+      <a role="button" href="{{ change_url }}" class="button cancel-link">
+        {% translate "No, keep it" %}
+      </a>
     </div>
   </form>
 </div>

@@ -1,0 +1,16 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+  {% if original %}
+    <li><a href="{% url 'admin:reservations_erpdocument_retry' original.pk %}">{% translate "Retry ERP" %}</a></li>
+    {% if original.status == 'integrated' %}
+      <li><a href="{% url 'admin:reservations_erpdocument_retry_pdf' original.pk %}">{% translate "Retry PDF" %}</a></li>
+      {% if original.pdf_status == 'available' %}
+        <li><a href="{% url 'reservations:download_document' original.pk %}">{% translate "Download PDF" %}</a></li>
+        <li><a href="{% url 'admin:reservations_erpdocument_resend' original.pk %}">{% translate "Resend PDF" %}</a></li>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {{ block.super }}
+{% endblock %}

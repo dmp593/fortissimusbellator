@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Litter birth alerts" %}{% endblock %}
+
+{% block content %}
+<div class="ui-page">
+    <header class="ui-page-header">
+        <p class="mb-3 font-sans text-xs font-bold uppercase tracking-[0.24em] text-yellow-800 dark:text-yellow-400">{% translate "Email preferences" %}</p>
+        <h1 class="ui-page-title">{% translate "Litter birth alerts" %}</h1>
+        <p class="ui-page-subtitle">{% translate "Choose whether to receive birth announcements for all breeds or only selected breeds. Individual litter choices always take priority." %}</p>
+    </header>
+
+    <div class="mx-auto grid max-w-5xl gap-8 lg:grid-cols-2">
+        <section class="ui-card p-6 sm:p-8">
+            <h2 class="ui-section-title mb-5 text-2xl">{% translate "General alerts" %}</h2>
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                {% if form.non_field_errors %}<div class="ui-error-text">{{ form.non_field_errors }}</div>{% endif %}
+                <fieldset>
+                    <legend class="ui-label">{{ form.scope.label }}</legend>
+                    <div class="space-y-3">
+                        {% for choice in form.scope %}
+                        <label class="flex cursor-pointer items-center gap-3 rounded-lg border border-stone-200 p-3 dark:border-stone-700">
+                            {{ choice.tag }}
+                            <span>{{ choice.choice_label }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                    {% for error in form.scope.errors %}<p class="ui-error-text">{{ error }}</p>{% endfor %}
+                </fieldset>
+
+                <fieldset>
+                    <legend class="ui-label">{{ form.breeds.label }}</legend>
+                    <div class="max-h-72 space-y-2 overflow-y-auto rounded-lg border border-stone-200 p-4 dark:border-stone-700">
+                        {% for choice in form.breeds %}
+                        <label class="flex cursor-pointer items-center gap-3">
+                            {{ choice.tag }}
+                            <span>{{ choice.choice_label }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                    {% for error in form.breeds.errors %}<p class="ui-error-text">{{ error }}</p>{% endfor %}
+                </fieldset>
+                <button type="submit" class="ui-button ui-button-primary w-full">{% translate "Save alert settings" %}</button>
+            </form>
+        </section>
+
+        <section class="ui-card p-6 sm:p-8">
+            <h2 class="ui-section-title mb-3 text-2xl">{% translate "Individual litter choices" %}</h2>
+            <p class="ui-body mb-5 text-sm">{% translate "These choices override your general setting. Open a litter to subscribe or unsubscribe." %}</p>
+            <div class="space-y-3">
+                {% for alert_override in alert_overrides %}
+                <div class="flex items-center justify-between gap-4 rounded-lg border border-stone-200 p-4 dark:border-stone-700">
+                    <div>
+                        <p class="font-semibold">{{ alert_override.litter.name }}</p>
+                        <p class="text-sm text-stone-500 dark:text-stone-400">{{ alert_override.litter.breed.name }}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm font-semibold">{% if alert_override.enabled %}{% translate "Subscribed" %}{% else %}{% translate "Muted" %}{% endif %}</p>
+                        <a href="{% url 'breeding:litter_detail' alert_override.litter_id %}" class="text-sm underline underline-offset-4">{% translate "Open litter" %}</a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="ui-body">{% translate "You have no individual litter overrides." %}</p>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

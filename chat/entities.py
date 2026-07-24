@@ -9,6 +9,7 @@ from .models import ChatSearchEntry
 from .search_index import search_terms
 from .search_registry import (
     SEARCHABLE_ENTITIES,
+    SearchEntityDefinition,
     definition_for_kind,
     definition_for_model_label,
 )
@@ -23,7 +24,7 @@ MAX_AMBIGUOUS_MATCHES = 3
 
 @dataclass(frozen=True)
 class _ScoredEntry:
-    definition: object
+    definition: SearchEntityDefinition
     entry: ChatSearchEntry
     score: float
 
@@ -44,7 +45,7 @@ class EntityResolver:
             terms = search_terms(entry)
             if not terms:
                 continue
-            score = max(phrase_score(message, term) for term in terms)
+            score = self._score(message, definition, entry, terms)
             threshold = (
                 ANIMAL_KIND_MATCH_THRESHOLD
                 if definition.kind == EntityKind.ANIMAL_KIND
@@ -68,7 +69,7 @@ class EntityResolver:
             return EntityResolution()
 
         matches.sort(key=lambda match: match.score, reverse=True)
-        exact = tuple(match for match in matches if match.score >= 0.99)
+        exact = tuple(match for match in matches if match.score == 1.0)
         if exact:
             exact = exact[:MAX_AMBIGUOUS_MATCHES]
             return EntityResolution(
@@ -122,6 +123,29 @@ class EntityResolver:
         if length <= 7:
             return 0.84
         return 0.78
+
+    @staticmethod
+    def _score(message, definition, entry, terms):
+        score = max(phrase_score(message, term) for term in terms)
+        if definition.kind != EntityKind.CERTIFICATION:
+            return score
+
+        # Certification codes are commonly only two characters long. The
+        # generic matcher deliberately ignores such short words inside longer
+        # sentences, so accept an exact code token without weakening matching
+        # for every other entity type.
+        query_words = set(words(message))
+        has_exact_short_code = False
+        for term in entry.canonical_terms:
+            term_words = words(term)
+            if (
+                len(term_words) == 1
+                and len(term_words[0]) < 3
+                and term_words[0] in query_words
+            ):
+                has_exact_short_code = True
+                break
+        return max(score, 0.99) if has_exact_short_code else score
 
     @staticmethod
     def _has_distinctive_match(message, terms):

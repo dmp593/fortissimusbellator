@@ -2,7 +2,7 @@
 {% load i18n %}
 
 <!DOCTYPE html>
-<html lang="{{ request.LANGUAGE_CODE }}">
+<html lang="{{ language_code }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,26 +10,25 @@
     {% include "accounts/components/email_styles.html" %}
 </head>
 <body>
-    <!-- Email Container -->
     <div class="email-container">
-        <!-- Header -->
         <div class="email-header">
+            <p class="email-brand">Fortissimus Bellator</p>
             <h1>{% translate "Account Activation" %}</h1>
         </div>
 
-        <!-- Body -->
         <div class="email-body">
-            <p>{% translate "Hi" %} {{ user.full_name }},</p>
+            <p>{% translate "Hello" %} {{ user.get_full_name|default:user.username }},</p>
             <p>{% translate "Welcome to Fortissimus Bellator! Please click the button below to confirm your registration and activate your account:" %}</p>
-            <a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}" class="btn">
+            <a href="{{ activation_url }}" class="btn">
                 {% translate "Activate Account" %}
             </a>
-            <p>{% translate "If you didn't request this, please ignore this email." %}</p>
+            <p class="email-muted">{% translate "If the button does not work, open this address:" %}</p>
+            <p class="email-link">{{ activation_url }}</p>
+            <p class="email-muted">{% translate "If you didn't request this, please ignore this email." %}</p>
             <p>{% translate "Thank you," %}</p>
             <p>{% translate "The Fortissimus Bellator Team" %}</p>
         </div>
 
-        <!-- Footer -->
         <div class="email-footer">
             <p>{% translate "This is an automated message. Please do not reply." %}</p>
         </div>

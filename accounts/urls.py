@@ -20,6 +20,11 @@ urlpatterns = [
         views.UserProfileView.as_view(),
         name='profile'
     ),
+    path(
+        'profile/litter-alerts/',
+        views.litter_alert_settings,
+        name='litter_alert_settings',
+    ),
 
     path(
         'change-password/',

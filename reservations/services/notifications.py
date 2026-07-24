@@ -1,153 +1,257 @@
 import logging
 
 from django.conf import settings
-from django.core.mail import EmailMessage, send_mail
-from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.translation import override
 
-from reservations.models import DocumentEmailAttempt
+from fortissimusbellator.emails import send_branded_email
+from reservations.models import (
+    AnimalSaleCase,
+    DocumentEmailAttempt,
+    PreReservation,
+)
+from reservations.services.email_messages import (
+    animal_sale_cancelled_email,
+    animal_sale_completed_email,
+    erp_needs_attention_email,
+    fiscal_document_email,
+    late_payment_refund_email,
+    payment_failed_email,
+    pre_reservation_accepted_email,
+    pre_reservation_closed_email,
+    pre_reservation_payment_requested_email,
+    pre_reservation_paid_email,
+    refund_succeeded_email,
+    reservation_cancelled_email,
+    reservation_confirmed_email,
+    reservation_payment_requested_email,
+    reservation_offer_expired_email,
+    workflow_transferred_email,
+)
 
 
 logger = logging.getLogger(__name__)
 
 
-def notify_payment_confirmed(reservation):
-    context = {'reservation': reservation}
-    with override(reservation.language_code):
-        subject = f'Pre-reservation confirmed: {reservation.target_name}'
-        body = render_to_string(
-            'reservations/emails/payment_confirmed.txt',
-            context,
-        )
-    _send_mail_safely(
-        subject=subject,
-        body=body,
-        recipients=[reservation.customer_email],
-        log_message='Unable to send customer payment confirmation email',
-        reservation=reservation,
-    )
-    _send_mail_safely(
-        subject=f'Paid pre-reservation: {reservation.target_name}',
-        body=body,
-        recipients=settings.BUSINESS_NOTIFICATION_RECIPIENTS,
-        log_message='Unable to send business payment notification email',
-        reservation=reservation,
+def notify_pre_reservation_payment_requested(pre_reservation):
+    _send_customer_and_business(
+        builder=pre_reservation_payment_requested_email,
+        source=pre_reservation,
+        workflow=pre_reservation.sale_case or pre_reservation,
+        customer_email=pre_reservation.customer_email,
+        log_name='staff pre-reservation payment request',
+        reference=pre_reservation.public_id,
     )
 
 
-def notify_reservation_cancelled(reservation, *, cancelled_by_staff: bool):
-    context = {
-        'reservation': reservation,
-        'cancelled_by_staff': cancelled_by_staff,
-    }
-    with override(reservation.language_code):
-        subject = f'Pre-reservation cancelled: {reservation.target_name}'
-        body = render_to_string(
-            'reservations/emails/reservation_cancelled.txt',
-            context,
-        )
-    _send_mail_safely(
-        subject=subject,
-        body=body,
-        recipients=[reservation.customer_email],
-        log_message='Unable to send customer cancellation email',
-        reservation=reservation,
-    )
-    _send_mail_safely(
-        subject=f'Cancelled pre-reservation: {reservation.target_name}',
-        body=body,
-        recipients=settings.BUSINESS_NOTIFICATION_RECIPIENTS,
-        log_message='Unable to send business cancellation notification email',
-        reservation=reservation,
+def notify_reservation_payment_requested(reservation):
+    workflow = _purchase_workflow(reservation)
+    _send_customer_and_business(
+        builder=reservation_payment_requested_email,
+        source=reservation,
+        workflow=workflow,
+        customer_email=workflow.customer_email,
+        log_name='staff reservation payment request',
+        reference=reservation.public_id,
     )
 
 
-def notify_late_payment_refund_queued(reservation):
-    subject = f'Payment received after closure: {reservation.target_name}'
-    body = (
-        f'Payment for pre-reservation {reservation.public_id} arrived after the '
-        'reservation had already closed. An automatic refund has been queued. '
-        'Our team can monitor the refund from the reservation admin dashboard.'
-    )
-    _send_mail_safely(
-        subject=subject,
-        body=body,
-        recipients=[reservation.customer_email],
-        log_message='Unable to send late-payment customer notification',
-        reservation=reservation,
-    )
-    _send_mail_safely(
-        subject=subject,
-        body=body,
-        recipients=settings.BUSINESS_NOTIFICATION_RECIPIENTS,
-        log_message='Unable to send late-payment business notification',
-        reservation=reservation,
-    )
-
-
-def _send_mail_safely(*, subject, body, recipients, log_message, reservation):
-    if not recipients:
+def notify_pre_reservation_paid(pre_reservation):
+    if (
+        pre_reservation.sale_case_id
+        and pre_reservation.sale_case.origin == AnimalSaleCase.Origin.ADMIN
+        and pre_reservation.status
+        in {
+            PreReservation.Status.ACCEPTED,
+            PreReservation.Status.CONVERTED_TO_RESERVATION,
+        }
+    ):
         return
-    try:
-        send_mail(
-            subject=subject,
-            message=body,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=recipients,
-            fail_silently=False,
-        )
-    except Exception:
-        logger.exception(
-            log_message,
-            extra={'reservation_id': str(reservation.public_id)},
-        )
+    _send_customer_and_business(
+        builder=pre_reservation_paid_email,
+        source=pre_reservation,
+        workflow=pre_reservation.sale_case or pre_reservation,
+        customer_email=pre_reservation.customer_email,
+        log_name='pre-reservation payment',
+        reference=pre_reservation.public_id,
+    )
+
+
+def notify_pre_reservation_accepted(pre_reservation):
+    _send_customer_and_business(
+        builder=pre_reservation_accepted_email,
+        source=pre_reservation,
+        workflow=pre_reservation.sale_case or pre_reservation,
+        customer_email=pre_reservation.customer_email,
+        log_name='pre-reservation acceptance',
+        reference=pre_reservation.public_id,
+    )
+
+
+def notify_reservation_confirmed(reservation):
+    workflow = _purchase_workflow(reservation)
+    _send_customer_and_business(
+        builder=reservation_confirmed_email,
+        source=reservation,
+        workflow=workflow,
+        customer_email=workflow.customer_email,
+        log_name='reservation confirmation',
+        reference=reservation.public_id,
+    )
+
+
+def notify_reservation_cancelled(reservation):
+    workflow = _purchase_workflow(reservation)
+    _send_customer_and_business(
+        builder=reservation_cancelled_email,
+        source=reservation,
+        workflow=workflow,
+        customer_email=workflow.customer_email,
+        log_name='reservation cancellation',
+        reference=reservation.public_id,
+    )
+
+
+def notify_pre_reservation_closed(
+    pre_reservation,
+    *,
+    rejected: bool,
+    cancelled_by_staff: bool,
+):
+    _send_customer_and_business(
+        builder=pre_reservation_closed_email,
+        source=pre_reservation,
+        workflow=pre_reservation.sale_case or pre_reservation,
+        customer_email=pre_reservation.customer_email,
+        log_name='pre-reservation closure',
+        reference=pre_reservation.public_id,
+        builder_kwargs={
+            'rejected': rejected,
+            'cancelled_by_staff': cancelled_by_staff,
+        },
+    )
+
+
+def notify_late_payment_refund_queued(purchase):
+    workflow = _purchase_workflow(purchase)
+    _send_customer_and_business(
+        builder=late_payment_refund_email,
+        source=purchase,
+        workflow=workflow,
+        customer_email=workflow.customer_email,
+        log_name='late-payment safety refund',
+        reference=purchase.public_id,
+    )
+
+
+def notify_refund_succeeded(payment_refund):
+    workflow = _purchase_workflow(payment_refund.payment.purchase)
+    _send_customer_and_business(
+        builder=refund_succeeded_email,
+        source=payment_refund,
+        workflow=workflow,
+        customer_email=workflow.customer_email,
+        log_name='successful refund',
+        reference=payment_refund.public_id,
+    )
+
+
+def notify_workflow_transferred(workflow_transfer):
+    workflow = workflow_transfer.target_case
+    _send_customer_and_business(
+        builder=workflow_transferred_email,
+        source=workflow_transfer,
+        workflow=workflow,
+        customer_email=workflow.customer_email,
+        log_name='animal workflow transfer',
+        reference=workflow_transfer.public_id,
+    )
+
+
+def notify_animal_sale_completed(animal_sale):
+    workflow = animal_sale.sale_case
+    _send_customer_and_business(
+        builder=animal_sale_completed_email,
+        source=animal_sale,
+        workflow=workflow,
+        customer_email=workflow.customer_email,
+        log_name='completed animal sale',
+        reference=animal_sale.public_id,
+    )
+
+
+def notify_animal_sale_cancelled(animal_sale):
+    workflow = animal_sale.sale_case
+    _send_customer_and_business(
+        builder=animal_sale_cancelled_email,
+        source=animal_sale,
+        workflow=workflow,
+        customer_email=workflow.customer_email,
+        log_name='cancelled animal sale',
+        reference=animal_sale.public_id,
+    )
+
+
+def notify_payment_failed(purchase, *, expired):
+    workflow = _purchase_workflow(purchase)
+    _send_customer_and_business(
+        builder=payment_failed_email,
+        source=purchase,
+        workflow=workflow,
+        customer_email=workflow.customer_email,
+        log_name='failed payment',
+        reference=purchase.public_id,
+        builder_kwargs={'expired': expired},
+    )
+
+
+def notify_reservation_offer_expired(reservation):
+    workflow = _purchase_workflow(reservation)
+    _send_customer_and_business(
+        builder=reservation_offer_expired_email,
+        source=reservation,
+        workflow=workflow,
+        customer_email=workflow.customer_email,
+        log_name='reservation offer expiry',
+        reference=reservation.public_id,
+    )
 
 
 def notify_erp_needs_attention(document):
-    try:
-        send_mail(
-            subject=f'ERP integration needs attention: {document.external_reference}',
-            message=(
-                f'Pre-reservation {document.reservation.public_id} was paid but '
-                f'its ERP document is not integrated.\n\n'
-                f'Last error: {document.last_error}'
-            ),
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=settings.BUSINESS_NOTIFICATION_RECIPIENTS,
-            fail_silently=False,
-        )
-    except Exception:
-        logger.exception(
-            'Unable to send ERP failure notification',
-            extra={'erp_document_id': document.pk},
-        )
+    content = erp_needs_attention_email(
+        document,
+        language_code=settings.LANGUAGE_CODE,
+    )
+    _send_mail_safely(
+        content=content,
+        language_code=settings.LANGUAGE_CODE,
+        recipients=settings.BUSINESS_NOTIFICATION_RECIPIENTS,
+        log_message='Unable to send ERP failure notification',
+        reference=document.external_reference,
+    )
 
 
 def send_document_email(*, document, recipient: str, triggered_by=None):
     if not document.pdf_data:
         raise ValueError('The ERP document PDF is not available.')
 
-    reservation = document.reservation
-    with override(reservation.language_code):
-        subject = f'Fiscal document for {reservation.target_name}'
-        body = render_to_string(
-            'reservations/emails/fiscal_document.txt',
-            {'reservation': reservation, 'document': document},
-        )
-    email = EmailMessage(
-        subject=subject,
-        body=body,
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        to=[recipient],
-    )
-    email.attach(
-        document.pdf_filename,
-        bytes(document.pdf_data),
-        'application/pdf',
+    workflow = _purchase_workflow(document.purchase)
+    content = fiscal_document_email(
+        document,
+        language_code=workflow.language_code,
     )
     try:
-        email.send(fail_silently=False)
+        send_branded_email(
+            content=content,
+            language_code=workflow.language_code,
+            recipients=[recipient],
+            attachments=[
+                (
+                    document.pdf_filename,
+                    bytes(document.pdf_data),
+                    'application/pdf',
+                )
+            ],
+        )
     except Exception as exc:
         DocumentEmailAttempt.objects.create(
             document=document,
@@ -165,3 +269,82 @@ def send_document_email(*, document, recipient: str, triggered_by=None):
         triggered_by=triggered_by,
         sent_at=timezone.now(),
     )
+
+
+def _send_customer_and_business(
+    *,
+    builder,
+    source,
+    workflow,
+    customer_email,
+    log_name,
+    reference,
+    builder_kwargs=None,
+):
+    builder_kwargs = builder_kwargs or {}
+    if customer_email:
+        customer_content = builder(
+            source,
+            internal=False,
+            language_code=workflow.language_code,
+            **builder_kwargs,
+        )
+        _send_mail_safely(
+            content=customer_content,
+            language_code=workflow.language_code,
+            recipients=[customer_email],
+            log_message=f'Unable to send customer {log_name} email',
+            reference=reference,
+        )
+
+    business_content = builder(
+        source,
+        internal=True,
+        language_code=settings.LANGUAGE_CODE,
+        **builder_kwargs,
+    )
+    _send_mail_safely(
+        content=business_content,
+        language_code=settings.LANGUAGE_CODE,
+        recipients=settings.BUSINESS_NOTIFICATION_RECIPIENTS,
+        log_message=f'Unable to send business {log_name} email',
+        reference=reference,
+    )
+
+
+def _send_mail_safely(
+    *,
+    content,
+    language_code,
+    recipients,
+    log_message,
+    reference,
+):
+    if not recipients:
+        return
+    try:
+        send_branded_email(
+            content=content,
+            language_code=language_code,
+            recipients=recipients,
+        )
+    except Exception:
+        logger.exception(
+            log_message,
+            extra={'workflow_reference': str(reference)},
+        )
+
+
+def _purchase_workflow(purchase):
+    if purchase is None:
+        return None
+    if purchase.__class__.__name__ == 'PreReservation':
+        return purchase.sale_case or purchase
+    workflow = getattr(purchase, 'workflow', None)
+    if workflow is not None:
+        return workflow
+    sale_case = getattr(purchase, 'sale_case', None)
+    if sale_case is not None:
+        return sale_case
+    charge = getattr(purchase, 'charge', None)
+    return charge.sale_case if charge is not None else None

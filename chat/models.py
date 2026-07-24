@@ -3,6 +3,7 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .model_catalog import ChatModelSpec, validate_model_spec
@@ -109,7 +110,7 @@ class ChatSearchEntry(models.Model):
             "Used only by chat search."
         ),
     )
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ("label",)
@@ -117,12 +118,6 @@ class ChatSearchEntry(models.Model):
             models.UniqueConstraint(
                 fields=("content_type", "object_id"),
                 name="unique_chat_search_object",
-            ),
-        )
-        indexes = (
-            models.Index(
-                fields=("content_type", "object_id"),
-                name="chat_search_object_idx",
             ),
         )
         verbose_name = _("chat search entry")

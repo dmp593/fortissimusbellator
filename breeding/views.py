@@ -6,14 +6,20 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
-from fortissimusbellator.parsers import to_int
+from fortissimusbellator.parsers import page_size, to_int
 from breeding.models import Animal, Breed, Litter
 from reservations.availability import (
     annotate_dog_availability,
-    annotate_litter_availability,
 )
 from reservations.models import PreReservation
 from reservations.views import reservation_checkout
+from breeding.services.litter_alerts import (
+    is_subscribed_to_litter,
+    set_litter_subscription,
+)
+from django.contrib import messages
+from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
 
 
 def our_dogs(request, breed_id: int | None = None):
@@ -36,76 +42,78 @@ def buy_a_dog(request):
         .select_related("breed", "breed__kind")
         .prefetch_related("animal_certifications__certification")
     )
-
-    # Filters
-    breed_filter = request.GET.get('breed')
-    gender_filter = request.GET.get('gender')
-    hair_type_filter = request.GET.get('hair_type')
-    age_filter = request.GET.get('age')
-    has_training = request.GET.get('has_training')
-    has_certifications = request.GET.get('has_certifications')
-
-    if breed_filter:
-        dogs = dogs.filter(breed_id=breed_filter)
-
-    if gender_filter:
-        dogs = dogs.filter(gender=gender_filter)
-
-    if hair_type_filter:
-        dogs = dogs.filter(hair_type=hair_type_filter)
-
-    if age_filter:
-        today = date.today()
-        today_minus_6_months = today - relativedelta(months=6)
-        today_minus_12_months = today - relativedelta(months=12)
-
-        if age_filter == 'puppy':
-            dogs = dogs.filter(birth_date__gte=today_minus_6_months)
-        elif age_filter == 'junior':
-            dogs = dogs.filter(
-                birth_date__range=(today_minus_12_months, today_minus_6_months)
-            )
-        elif age_filter == 'adult':
-            dogs = dogs.filter(birth_date__lte=today_minus_12_months)
-
-    if has_training == 'on':
-        dogs = dogs.filter(has_training=True)
-
-    if has_certifications == 'on':
-        dogs = dogs.filter(certifications__isnull=False).distinct()
-
-    # Pagination
+    filters = {
+        name: request.GET.get(name)
+        for name in (
+            'breed',
+            'gender',
+            'hair_type',
+            'age',
+            'has_training',
+            'has_certifications',
+        )
+    }
+    dogs = _filter_sale_dogs(dogs, filters)
     page = to_int(request.GET.get('page'), or_default=1)
-    per_page = to_int(request.GET.get('per_page'), or_default=12)
-
-    if per_page <= 0:
-        per_page = 1
-
+    per_page = page_size(request.GET.get('per_page'))
     paginator = Paginator(dogs, per_page)
     paginated_dogs = paginator.get_page(page)
-
     context = {
         'dogs': paginated_dogs,
-        'breeds': Breed.objects_specific.all(),  # overriding. see: context_processors.py
-        'pagination': {
-            'has_more': paginated_dogs.has_next(),  # Show "Load More" if there are more pages
-            'next_page': paginated_dogs.next_page_number() if paginated_dogs.has_next() else None,
-            'total_pages': paginator.num_pages,
-        },
-        'filters': {
-            'breed': breed_filter,
-            'gender': gender_filter,
-            'hair_type': hair_type_filter,
-            'age': age_filter,
-            'has_training': has_training,
-            'has_certifications': has_certifications,
-        },
+        'breeds': Breed.objects_specific.all(),
+        'pagination': _pagination_context(paginated_dogs, paginator),
+        'filters': filters,
     }
 
     if request.headers.get('X-Load-More'):
         return render(request, 'buy_a_dog/partials/cards.html', context)
 
     return render(request, 'buy_a_dog/index.html', context)
+
+
+def _filter_sale_dogs(dogs, filters):
+    direct_filters = {
+        'breed_id': filters['breed'],
+        'gender': filters['gender'],
+        'hair_type': filters['hair_type'],
+    }
+    for field_name, value in direct_filters.items():
+        if value:
+            dogs = dogs.filter(**{field_name: value})
+
+    dogs = _filter_dogs_by_age(dogs, filters['age'])
+    if filters['has_training'] == 'on':
+        dogs = dogs.filter(has_training=True)
+    if filters['has_certifications'] == 'on':
+        dogs = dogs.filter(certifications__isnull=False).distinct()
+    return dogs
+
+
+def _filter_dogs_by_age(dogs, age_filter):
+    if not age_filter:
+        return dogs
+
+    today = date.today()
+    six_months_ago = today - relativedelta(months=6)
+    twelve_months_ago = today - relativedelta(months=12)
+    if age_filter == 'puppy':
+        return dogs.filter(birth_date__gte=six_months_ago)
+    if age_filter == 'junior':
+        return dogs.filter(
+            birth_date__range=(twelve_months_ago, six_months_ago)
+        )
+    if age_filter == 'adult':
+        return dogs.filter(birth_date__lte=twelve_months_ago)
+    return dogs
+
+
+def _pagination_context(page, paginator):
+    has_more = page.has_next()
+    return {
+        'has_more': has_more,
+        'next_page': page.next_page_number() if has_more else None,
+        'total_pages': paginator.num_pages,
+    }
 
 
 def dog_detail(request, dog_id: int):
@@ -121,7 +129,7 @@ def dog_detail(request, dog_id: int):
 
 
 def upcoming_litters(request):
-    litters = annotate_litter_availability(Litter.litters_for_sale.all())
+    litters = Litter.litters_for_sale.all()
 
     # Filters
     breed_filter = request.GET.get('breed')
@@ -131,10 +139,7 @@ def upcoming_litters(request):
 
     # Pagination
     page = to_int(request.GET.get('page'), or_default=1)
-    per_page = to_int(request.GET.get('per_page'), or_default=12)
-
-    if per_page <= 0:
-        per_page = 1
+    per_page = page_size(request.GET.get('per_page'))
 
     paginator = Paginator(litters, per_page)
     paginated_litters = paginator.get_page(page)
@@ -161,10 +166,24 @@ def upcoming_litters(request):
 
 def litter_detail(request, litter_id: int):
     try:
-        litter = annotate_litter_availability(
-            Litter.litters_for_sale.all()
-        ).get(pk=litter_id)
-        return render(request, 'upcoming_litters/detail.html', {'litter': litter})
+        litter = Litter.litters_for_sale.select_related('breed').get(
+            pk=litter_id,
+        )
+        subscribed = (
+            request.user.is_authenticated
+            and is_subscribed_to_litter(
+                user=request.user,
+                litter=litter,
+            )
+        )
+        return render(
+            request,
+            'upcoming_litters/detail.html',
+            {
+                'litter': litter,
+                'birth_alert_subscribed': subscribed,
+            },
+        )
     except Litter.DoesNotExist:
         return redirect('breeding:upcoming_litters')
 
@@ -179,9 +198,31 @@ def pre_reserve_dog(request, dog_id: int):
 
 
 @login_required
-def pre_reserve_litter(request, litter_id: int):
-    return reservation_checkout(
-        request,
-        target_type=PreReservation.TargetType.LITTER,
-        target_id=litter_id,
+@require_POST
+def subscribe_litter_alert(request, litter_id: int):
+    litter = get_object_or_404(Litter.litters_for_sale, pk=litter_id)
+    set_litter_subscription(
+        user=request.user,
+        litter=litter,
+        enabled=True,
+        language_code=request.LANGUAGE_CODE,
     )
+    messages.success(
+        request,
+        _('You will receive an email when this litter is born.'),
+    )
+    return redirect('breeding:litter_detail', litter_id)
+
+
+@login_required
+@require_POST
+def unsubscribe_litter_alert(request, litter_id: int):
+    litter = get_object_or_404(Litter.litters_for_sale, pk=litter_id)
+    set_litter_subscription(
+        user=request.user,
+        litter=litter,
+        enabled=False,
+        language_code=request.LANGUAGE_CODE,
+    )
+    messages.success(request, _('Birth alerts for this litter were disabled.'))
+    return redirect('breeding:litter_detail', litter_id)

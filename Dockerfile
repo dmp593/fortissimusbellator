@@ -34,8 +34,6 @@ ENV PATH="/opt/venv/bin:$PATH" \
 WORKDIR /app
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends \
-        libgl1 \
-        libglib2.0-0 \
         libgomp1 \
         libmariadb3 \
     && rm -rf /var/lib/apt/lists/* \
@@ -45,11 +43,11 @@ COPY --from=python-builder /app/.venv /opt/venv
 COPY --chown=app:app . .
 COPY --from=frontend --chown=app:app /app/assets/css/styles.css /app/assets/css/styles.css
 COPY --from=frontend --chown=app:app /app/node_modules/leaflet/dist /app/node_modules/leaflet/dist
-RUN mkdir -p /app/media /app/static \
+RUN mkdir -p /app/media /app/static /app/chat-models \
     && python manage.py collectstatic --noinput \
-    && chown -R app:app /app/media /app/static
+    && chown -R app:app /app/media /app/static /app/chat-models
 USER app
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
     CMD python -c "import socket; socket.create_connection(('127.0.0.1', 8000), 3).close()"
-CMD ["gunicorn", "fortissimusbellator.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2", "--timeout", "120", "--access-logfile", "-"]
+CMD ["gunicorn", "fortissimusbellator.wsgi:application", "--bind", "0.0.0.0:8000", "--worker-class", "gthread", "--workers", "1", "--threads", "4", "--timeout", "120", "--access-logfile", "-"]

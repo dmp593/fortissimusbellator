@@ -1,0 +1,33 @@
+{% load i18n %}{{ content.title }}
+{% if content.status_label %}{{ content.status_label }}
+{% endif %}
+{% if content.recipient_name %}{% translate "Hello" %} {{ content.recipient_name }},
+
+{% endif %}{{ content.intro }}
+
+{% if content.target_name %}{% translate "Dog" %}: {{ content.target_name }}{% if content.target_breed %} · {{ content.target_breed }}{% endif %}
+{% endif %}{% for detail in content.details %}{{ detail.label }}: {{ detail.value }}
+{% endfor %}
+{% if content.notice_title %}{{ content.notice_title }}
+{% endif %}{% if content.notice %}{{ content.notice }}
+
+{% endif %}{% if content.primary_action %}{{ content.primary_action.label }}:
+{{ content.primary_action.url }}
+
+{% endif %}{% if content.secondary_action %}{{ content.secondary_action.label }}:
+{{ content.secondary_action.url }}
+
+{% endif %}{% if content.footer_note %}{{ content.footer_note }}
+
+{% endif %}{% translate "Need help?" %}
+{% blocktranslate with phone=primary_phone %}Call us on {{ phone }}{% endblocktranslate %}
+{% translate "WhatsApp" %}: {{ whatsapp_url }}
+{% translate "Email" %}: {{ contact_email }}
+{% translate "Contact us" %}: {{ contact_url }}
+{% translate "Frequently Asked Questions" %}: {{ faq_url }}
+
+Fortissimus Bellator
+{{ address }}
+{{ site_url }}
+
+{% translate "This is an automated message. You can reply to contact our team." %}

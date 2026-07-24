@@ -9,7 +9,6 @@
             "question_fr": "Quelles races de chiens vendez-vous ?",
             "question_de": "Welche Hunderassen verkaufen Sie?",
             "question_it": "Quali razze di cani vendete?",
-            "chat_search_aliases": "Which breeds are available?\nWhat dogs do you breed?\nQue raças têm?\nQue cães criam?\n¿Qué razas tienen?\nQuelles races avez-vous ?\nWelche Rassen haben Sie?\nQuali razze avete?",
 
             "answer_en": "We specialize in selling high-quality breeds such as the German Shepherd, the Belgian Shepherd Malinois and the German Spitz.",
             "answer_pt": "Especializamo-nos na venda de raças de alta qualidade, como o Pastor Alemão, o Pastor Belga Malinois e o Spitz Alemão.",
@@ -32,7 +31,6 @@
             "question_fr": "Vos chiens sont-ils vaccinés ?",
             "question_de": "Sind Ihre Hunde geimpft?",
             "question_it": "I vostri cani sono vaccinati?",
-            "chat_search_aliases": "Are the dogs vaccinated?\nDo puppies have vaccines?\nOs cães têm vacinas?\nOs cachorros estão vacinados?\n¿Los perros están vacunados?\nLes chiens sont-ils vaccinés ?\nSind die Hunde geimpft?\nI cani sono vaccinati?",
 
             "answer_en": "Yes, all our dogs are fully vaccinated and come with a health certificate from a licensed veterinarian.",
             "answer_pt": "Sim, todos os nossos cães são totalmente vacinados e vêm com um certificado de saúde emitido por um veterinário licenciado.",
@@ -55,7 +53,6 @@
             "question_fr": "Puis-je visiter vos installations pour voir les chiens ?",
             "question_de": "Kann ich Ihre Einrichtung besuchen, um die Hunde zu sehen?",
             "question_it": "Posso visitare la vostra struttura per vedere i cani?",
-            "chat_search_aliases": "Can I visit the kennel?\nCan I see the dogs in person?\nPosso visitar o canil?\nPosso ver os cães?\n¿Puedo visitar el criadero?\nPuis-je visiter l'élevage ?\nKann ich die Zucht besuchen?\nPosso visitare l'allevamento?",
 
             "answer_en": "Yes, we welcome visits! Please contact us to schedule an appointment.",
             "answer_pt": "Sim, recebemos visitas! Por favor, contacte-nos para marcar uma visita.",
@@ -78,7 +75,6 @@
             "question_fr": "Fournissez-vous des certificats de pedigree pour vos chiens ?",
             "question_de": "Stellen Sie Stammbaumzertifikate für Ihre Hunde aus?",
             "question_it": "Fornite certificati di pedigree per i vostri cani?",
-            "chat_search_aliases": "Do the dogs have pedigree?\nIs pedigree included?\nOs cães têm pedigree?\nO pedigree está incluído?\n¿Los perros tienen pedigrí?\nLes chiens ont-ils un pedigree ?\nHaben die Hunde einen Stammbaum?\nI cani hanno il pedigree?",
 
             "answer_en": "Yes, all our dogs come with official pedigree certificates.",
             "answer_pt": "Sim, todos os nossos cães vêm com certificados de pedigree oficiais.",
@@ -101,7 +97,6 @@
             "question_fr": "Qu'est-ce qui est inclus dans le prix d'un chien ?",
             "question_de": "Was ist im Preis eines Hundes enthalten?",
             "question_it": "Cosa è incluso nel prezzo di un cane?",
-            "chat_search_aliases": "What does the price include?\nWhat comes with a puppy?\nO que inclui o preço?\nO que vem com o cachorro?\n¿Qué incluye el precio?\nQue comprend le prix ?\nWas ist im Preis enthalten?\nCosa comprende il prezzo?",
 
             "answer_en": "The price includes vaccinations, a health certificate, and a starter kit with food and care instructions.",
             "answer_pt": "O preço inclui vacinas, um certificado de saúde e um kit inicial com comida e instruções de cuidados.",
@@ -118,20 +113,19 @@
         "model": "frontoffice.FrequentlyAskedQuestion",
         "pk": 6,
         "fields": {
-            "question_en": "Can I reserve a puppy before it is ready to go home?",
-            "question_pt": "Posso reservar um cachorro antes de ele estar pronto para ir para casa?",
-            "question_es": "¿Puedo reservar un cachorro antes de que esté listo para ir a casa?",
-            "question_fr": "Puis-je réserver un chiot avant qu'il ne soit prêt à rentrer à la maison ?",
-            "question_de": "Kann ich einen Welpen reservieren, bevor er bereit ist, nach Hause zu gehen?",
-            "question_it": "Posso prenotare un cucciolo prima che sia pronto per andare a casa?",
-            "chat_search_aliases": "Can I book a puppy?\nHow do reservations work?\nCan I reserve a dog?\nPosso reservar um cachorro?\nComo funcionam as reservas?\n¿Puedo reservar un cachorro?\nPuis-je réserver un chiot ?\nKann ich einen Welpen reservieren?\nPosso prenotare un cucciolo?",
+            "question_en": "How do pre-reservation and reservation work?",
+            "question_pt": "Como funcionam a pré-reserva e a reserva?",
+            "question_es": "¿Cómo funcionan la prerreserva y la reserva?",
+            "question_fr": "Comment fonctionnent la pré-réservation et la réservation ?",
+            "question_de": "Wie funktionieren Vorreservierung und Reservierung?",
+            "question_it": "Come funzionano la pre-prenotazione e la prenotazione?",
 
-            "answer_en": "Yes. When an eligible dog or a place in a born litter is available, you can complete a paid pre-reservation online. The fee is non-refundable if you cancel and is deducted in full from the final price of the dog if the purchase is completed.",
-            "answer_pt": "Sim. Quando estiver disponível um cão elegível ou um lugar numa ninhada já nascida, pode fazer uma pré-reserva paga online. O valor não é reembolsável se cancelar e é deduzido na totalidade do preço final do cão se a compra for concluída.",
-            "answer_es": "Sí. Cuando esté disponible un perro elegible o una plaza de una camada ya nacida, puede realizar una prerreserva pagada en línea. El importe no es reembolsable si cancela y se descuenta íntegramente del precio final del perro si se completa la compra.",
-            "answer_fr": "Oui. Lorsqu'un chien éligible ou une place dans une portée déjà née est disponible, vous pouvez effectuer une pré-réservation payante en ligne. Le montant n'est pas remboursable si vous annulez et est intégralement déduit du prix final du chien si l'achat est finalisé.",
-            "answer_de": "Ja. Wenn ein geeigneter Hund oder ein Platz in einem bereits geborenen Wurf verfügbar ist, können Sie online eine kostenpflichtige Vorreservierung vornehmen. Der Betrag wird bei einer Stornierung durch Sie nicht erstattet und bei abgeschlossenem Kauf vollständig vom Endpreis des Hundes abgezogen.",
-            "answer_it": "Sì. Quando è disponibile un cane idoneo o un posto in una cucciolata già nata, può effettuare online una pre-prenotazione a pagamento. L'importo non è rimborsabile in caso di annullamento e viene detratto integralmente dal prezzo finale del cane se l'acquisto viene completato.",
+            "answer_en": "You can pre-reserve an eligible, individually listed dog online. Payment blocks the dog while the breeder reviews the request, without a review deadline, but does not guarantee acceptance. If accepted, you receive a separate, time-limited offer to pay the reservation deposit. The dog is shown as Pre-reserved until that deposit is paid and Reserved afterward. The pre-reservation amount retained after any refunds is credited toward the dog price.",
+            "answer_pt": "Pode pré-reservar online um cão elegível e publicado individualmente. O pagamento bloqueia o cão enquanto o criador analisa o pedido, sem prazo para essa análise, mas não garante a aceitação. Se for aceite, recebe uma proposta separada e com prazo para pagar o sinal de reserva. O cão aparece como Pré-reservado até esse sinal ser pago e como Reservado depois. O valor da pré-reserva retido após eventuais reembolsos é descontado no preço do cão.",
+            "answer_es": "Puede prerreservar en línea un perro elegible publicado individualmente. El pago bloquea al perro mientras el criador revisa la solicitud, sin plazo para dicha revisión, pero no garantiza la aceptación. Si se acepta, recibirá una oferta separada y con plazo para pagar la señal de reserva. El perro aparece como Prerreservado hasta que se paga esa señal y como Reservado después. El importe de la prerreserva retenido tras los reembolsos se descuenta del precio del perro.",
+            "answer_fr": "Vous pouvez pré-réserver en ligne un chien éligible publié individuellement. Le paiement bloque le chien pendant l'examen de la demande par l'éleveur, sans délai pour cet examen, mais ne garantit pas l'acceptation. En cas d'acceptation, vous recevez une offre distincte et limitée dans le temps pour payer l'acompte de réservation. Le chien est indiqué comme Pré-réservé jusqu'au paiement de cet acompte, puis comme Réservé. Le montant conservé après les remboursements est déduit du prix du chien.",
+            "answer_de": "Sie können einen geeigneten, einzeln veröffentlichten Hund online vorreservieren. Die Zahlung blockiert den Hund während der Prüfung durch den Züchter, für die es keine Frist gibt, garantiert aber keine Annahme. Nach der Annahme erhalten Sie ein separates, zeitlich begrenztes Angebot zur Zahlung der Reservierungsanzahlung. Bis dahin wird der Hund als Vorreserviert und danach als Reserviert angezeigt. Der nach Erstattungen einbehaltene Vorreservierungsbetrag wird auf den Hundepreis angerechnet.",
+            "answer_it": "Può pre-prenotare online un cane idoneo pubblicato singolarmente. Il pagamento blocca il cane mentre l'allevatore valuta la richiesta, senza un termine per tale valutazione, ma non garantisce l'accettazione. Se viene accettata, riceverà un'offerta separata e con scadenza per pagare l'acconto di prenotazione. Il cane è indicato come Pre-prenotato fino al pagamento dell'acconto e come Prenotato dopo. L'importo trattenuto dopo eventuali rimborsi viene detratto dal prezzo del cane.",
 
             "order": 6,
             "active": true
@@ -147,7 +141,6 @@
             "question_fr": "Expédiez-vous des chiens à l'international ?",
             "question_de": "Versenden Sie Hunde international?",
             "question_it": "Spedite cani a livello internazionale?",
-            "chat_search_aliases": "Do you deliver dogs abroad?\nInternational dog delivery\nEnviam cães para fora de Portugal?\nFazem entregas no estrangeiro?\n¿Envían perros al extranjero?\nLivrez-vous des chiens à l'étranger ?\nLiefern Sie Hunde ins Ausland?\nConsegnate cani all'estero?",
 
             "answer_en": "Yes, we can arrange international shipping under specific conditions. Contact us for details.",
             "answer_pt": "Sim, podemos organizar envios internacionais sob condições específicas. Contacte-nos para mais informações.",
@@ -170,7 +163,6 @@
             "question_fr": "Que dois-je préparer avant d'amener un chien à la maison ?",
             "question_de": "Was sollte ich vorbereiten, bevor ich einen Hund nach Hause bringe?",
             "question_it": "Cosa dovrei preparare prima di portare un cane a casa?",
-            "chat_search_aliases": "How should I prepare for a puppy?\nWhat do I need before bringing a dog home?\nComo preparo a casa para um cachorro?\nO que preciso para receber um cão?\n¿Cómo preparo la casa para un cachorro?\nComment préparer la maison pour un chiot ?\nWie bereite ich mein Zuhause auf einen Welpen vor?\nCome preparo la casa per un cucciolo?",
 
             "answer_en": "You should prepare a safe space, food, water bowls, toys, and a comfortable bed for your new dog.",
             "answer_pt": "Deve preparar um espaço seguro, comida, taças de água, brinquedos e uma cama confortável para o seu novo cão.",
@@ -193,7 +185,6 @@
             "question_fr": "Offrez-vous une garantie de santé pour vos chiens ?",
             "question_de": "Bieten Sie eine Gesundheitsgarantie für Ihre Hunde an?",
             "question_it": "Offrite una garanzia di salute per i vostri cani?",
-            "chat_search_aliases": "Is there a health guarantee?\nDo puppies have a health warranty?\nExiste garantia de saúde?\nOs cachorros têm garantia?\n¿Hay garantía de salud?\nY a-t-il une garantie de santé ?\nGibt es eine Gesundheitsgarantie?\nC'è una garanzia sanitaria?",
 
             "answer_en": "Yes, we provide a health guarantee for all our dogs. Please contact us for the terms and conditions.",
             "answer_pt": "Sim, fornecemos uma garantia de saúde para todos os nossos cães. Contacte-nos para conhecer os termos e condições.",
@@ -216,7 +207,6 @@
             "question_fr": "Puis-je retourner un chien s'il y a des problèmes ?",
             "question_de": "Kann ich einen Hund zurückgeben, wenn es Probleme gibt?",
             "question_it": "Posso restituire un cane se ci sono problemi?",
-            "chat_search_aliases": "Can I return a puppy?\nWhat is the return policy?\nCan I get a refund?\nPosso devolver um cachorro?\nQual é a política de devolução?\n¿Puedo devolver un cachorro?\nPuis-je rendre un chiot ?\nKann ich einen Welpen zurückgeben?\nPosso restituire un cucciolo?",
 
             "answer_en": "We have a return policy in case of health issues. Please contact us within 14 days of purchase.",
             "answer_pt": "Temos uma política de devolução em caso de problemas de saúde. Por favor, contacte-nos no prazo de 14 dias após a compra.",
@@ -226,6 +216,126 @@
             "answer_it": "Abbiamo una politica di restituzione in caso di problemi di salute. Contattaci entro 14 giorni dall'acquisto.",
 
             "order": 10,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 11,
+        "fields": {
+            "question_en": "Is the pre-reservation fee refundable?",
+            "question_pt": "A taxa de pré-reserva é reembolsável?",
+            "question_es": "¿Es reembolsable la tasa de prerreserva?",
+            "question_fr": "Les frais de pré-réservation sont-ils remboursables ?",
+            "question_de": "Ist die Vorreservierungsgebühr erstattungsfähig?",
+            "question_it": "La quota di pre-prenotazione è rimborsabile?",
+            "answer_en": "The fee is non-refundable by nature when the customer cancels or abandons the process. A refund is never automatic. Depending on the circumstances, the breeder may divide the available value between no refund or a partial/full refund to the original payment method, customer credit for a future purchase, and an amount retained, taking payment processing costs into account. Customer credit is not a cash refund. Any mandatory legal rights remain unaffected.",
+            "answer_pt": "A taxa é, por natureza, não reembolsável quando o cliente cancela ou abandona o processo. O reembolso nunca é automático. Consoante as circunstâncias, o criador pode dividir o valor disponível entre ausência de reembolso ou reembolso parcial/total para o meio de pagamento original, crédito de cliente para uma compra futura e um valor retido, tendo em conta os custos de processamento do pagamento. O crédito de cliente não é um reembolso em dinheiro. Mantêm-se os direitos legais imperativos.",
+            "answer_es": "La tasa es, por naturaleza, no reembolsable cuando el cliente cancela o abandona el proceso. El reembolso nunca es automático. Según las circunstancias, el criador puede dividir el valor disponible entre ningún reembolso o un reembolso parcial/completo al medio de pago original, crédito del cliente para una compra futura y un importe retenido, teniendo en cuenta los costes de procesamiento. El crédito del cliente no es un reembolso en efectivo. Los derechos legales imperativos no se ven afectados.",
+            "answer_fr": "Les frais sont, par nature, non remboursables lorsque le client annule ou abandonne la procédure. Le remboursement n'est jamais automatique. Selon les circonstances, l'éleveur peut répartir la valeur disponible entre l'absence de remboursement ou un remboursement partiel/complet sur le moyen de paiement d'origine, un crédit client pour un achat futur et un montant conservé, en tenant compte des frais de traitement. Le crédit client n'est pas un remboursement en espèces. Les droits légaux impératifs restent inchangés.",
+            "answer_de": "Die Gebühr ist ihrer Natur nach nicht erstattungsfähig, wenn der Kunde den Vorgang storniert oder abbricht. Eine Erstattung erfolgt niemals automatisch. Je nach Umständen kann der Züchter den verfügbaren Wert zwischen keiner oder einer teilweisen/vollständigen Erstattung auf das ursprüngliche Zahlungsmittel, Kundenguthaben für einen späteren Kauf und einem einbehaltenen Betrag aufteilen und Zahlungsabwicklungskosten berücksichtigen. Kundenguthaben ist keine Barauszahlung. Zwingende gesetzliche Rechte bleiben unberührt.",
+            "answer_it": "La quota è, per sua natura, non rimborsabile quando il cliente annulla o abbandona il processo. Il rimborso non è mai automatico. In base alle circostanze, l'allevatore può suddividere il valore disponibile tra nessun rimborso o un rimborso parziale/completo sul metodo di pagamento originale, credito cliente per un acquisto futuro e un importo trattenuto, tenendo conto dei costi di elaborazione. Il credito cliente non è un rimborso in contanti. Restano invariati i diritti inderogabili previsti dalla legge.",
+            "order": 11,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 12,
+        "fields": {
+            "question_en": "Can I pre-reserve a place in a litter?",
+            "question_pt": "Posso pré-reservar um lugar numa ninhada?",
+            "question_es": "¿Puedo prerreservar una plaza en una camada?",
+            "question_fr": "Puis-je pré-réserver une place dans une portée ?",
+            "question_de": "Kann ich einen Platz in einem Wurf vorreservieren?",
+            "question_it": "Posso pre-prenotare un posto in una cucciolata?",
+            "answer_en": "No. Pre-reservations and reservations apply only to individual dogs after they are published. For a current or expected litter, sign in and subscribe to that litter's birth alert, or choose all breeds or selected breeds in your email preferences. You can unsubscribe at any time.",
+            "answer_pt": "Não. As pré-reservas e reservas aplicam-se apenas a cães individuais depois de serem publicados. Para uma ninhada atual ou esperada, inicie sessão e subscreva o alerta de nascimento dessa ninhada, ou escolha todas as raças ou raças selecionadas nas preferências de email. Pode cancelar a subscrição a qualquer momento.",
+            "answer_es": "No. Las prerreservas y reservas se aplican únicamente a perros individuales después de su publicación. Para una camada actual o esperada, inicie sesión y suscríbase a su alerta de nacimiento, o elija todas las razas o razas seleccionadas en sus preferencias de correo. Puede darse de baja en cualquier momento.",
+            "answer_fr": "Non. Les pré-réservations et réservations s'appliquent uniquement aux chiens individuels après leur publication. Pour une portée actuelle ou attendue, connectez-vous et abonnez-vous à son alerte de naissance, ou choisissez toutes les races ou certaines races dans vos préférences de courrier électronique. Vous pouvez vous désabonner à tout moment.",
+            "answer_de": "Nein. Vorreservierungen und Reservierungen gelten erst nach der Veröffentlichung für einzelne Hunde. Melden Sie sich für einen aktuellen oder erwarteten Wurf an und abonnieren Sie dessen Geburtsbenachrichtigung oder wählen Sie in den E-Mail-Einstellungen alle beziehungsweise ausgewählte Rassen. Sie können das Abonnement jederzeit beenden.",
+            "answer_it": "No. Le pre-prenotazioni e le prenotazioni si applicano solo ai singoli cani dopo la pubblicazione. Per una cucciolata attuale o prevista, acceda e si iscriva al relativo avviso di nascita, oppure scelga tutte le razze o razze selezionate nelle preferenze email. Può annullare l'iscrizione in qualsiasi momento.",
+            "order": 12,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 13,
+        "fields": {
+            "question_en": "How long do I have to complete a reservation after my pre-reservation is accepted?",
+            "question_pt": "Quanto tempo tenho para concluir a reserva depois de a pré-reserva ser aceite?",
+            "question_es": "¿Cuánto tiempo tengo para completar la reserva después de que se acepte mi prerreserva?",
+            "question_fr": "De combien de temps est-ce que je dispose pour finaliser la réservation après l'acceptation de ma pré-réservation ?",
+            "question_de": "Wie lange habe ich nach Annahme meiner Vorreservierung Zeit, die Reservierung abzuschließen?",
+            "question_it": "Quanto tempo ho per completare la prenotazione dopo l'accettazione della pre-prenotazione?",
+            "answer_en": "There is no time limit while the breeder reviews a paid pre-reservation. Once it is accepted, your dashboard and email show the deadline for paying the reservation deposit. The duration is configured per dog: it is 72 hours by default and may be between 1 and 168 hours. If you do not pay in time, the reservation offer and pre-reservation expire, the dog becomes available to others, and you must start the process again if the dog is still available. The expired records remain visible in your history.",
+            "answer_pt": "Não existe limite de tempo enquanto o criador analisa uma pré-reserva paga. Depois de esta ser aceite, o painel e o email apresentam o prazo para pagar o sinal de reserva. A duração é configurada por cão: por omissão é de 72 horas e pode variar entre 1 e 168 horas. Se não pagar dentro do prazo, a proposta de reserva e a pré-reserva expiram, o cão fica disponível para outras pessoas e terá de iniciar novamente o processo se o cão ainda estiver disponível. Os registos expirados permanecem visíveis no histórico.",
+            "answer_es": "No hay límite de tiempo mientras el criador revisa una prerreserva pagada. Una vez aceptada, el panel y el correo electrónico muestran el plazo para pagar la señal de reserva. La duración se configura por perro: es de 72 horas por defecto y puede variar entre 1 y 168 horas. Si no paga a tiempo, la oferta de reserva y la prerreserva caducan, el perro queda disponible para otras personas y deberá iniciar de nuevo el proceso si el perro sigue disponible. Los registros caducados permanecen visibles en el historial.",
+            "answer_fr": "Il n'y a pas de limite de temps pendant que l'éleveur examine une pré-réservation payée. Dès qu'elle est acceptée, votre tableau de bord et l'e-mail indiquent la date limite de paiement de l'acompte de réservation. La durée est configurée pour chaque chien : elle est de 72 heures par défaut et peut aller de 1 à 168 heures. Si vous ne payez pas à temps, l'offre de réservation et la pré-réservation expirent, le chien redevient disponible pour d'autres personnes et vous devez recommencer la procédure s'il est toujours disponible. Les enregistrements expirés restent visibles dans votre historique.",
+            "answer_de": "Während der Züchter eine bezahlte Vorreservierung prüft, gibt es keine Frist. Nach der Annahme zeigen Ihr Dashboard und die E-Mail die Frist für die Zahlung der Reservierungsanzahlung an. Die Dauer wird pro Hund festgelegt: Standardmäßig beträgt sie 72 Stunden und kann zwischen 1 und 168 Stunden liegen. Wenn Sie nicht rechtzeitig zahlen, verfallen das Reservierungsangebot und die Vorreservierung, der Hund wird für andere Personen freigegeben und Sie müssen den Vorgang erneut beginnen, sofern der Hund noch verfügbar ist. Die abgelaufenen Datensätze bleiben in Ihrem Verlauf sichtbar.",
+            "answer_it": "Non vi è alcun limite di tempo mentre l'allevatore valuta una pre-prenotazione pagata. Dopo l'accettazione, la dashboard e l'e-mail mostrano la scadenza per il pagamento dell'acconto di prenotazione. La durata è configurata per ogni cane: è di 72 ore per impostazione predefinita e può variare da 1 a 168 ore. Se non paga entro il termine, l'offerta di prenotazione e la pre-prenotazione scadono, il cane torna disponibile per altre persone e dovrà ricominciare la procedura se il cane è ancora disponibile. I record scaduti restano visibili nella cronologia.",
+            "order": 13,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 14,
+        "fields": {
+            "question_en": "Can I cancel a reservation after paying the reservation deposit?",
+            "question_pt": "Posso cancelar uma reserva depois de pagar o sinal de reserva?",
+            "question_es": "¿Puedo cancelar una reserva después de pagar la señal de reserva?",
+            "question_fr": "Puis-je annuler une réservation après avoir payé l'acompte ?",
+            "question_de": "Kann ich eine Reservierung nach Zahlung der Reservierungsanzahlung stornieren?",
+            "question_it": "Posso annullare una prenotazione dopo aver pagato l'acconto?",
+            "answer_en": "No. A customer cannot cancel an accepted or confirmed reservation directly on the website. Contact the breeder if it cannot continue. Only the breeder can cancel it and must explicitly divide the available value from the pre-reservation and reservation stages between refund to the original payment method, customer credit for a future purchase, and any amount retained. Approved refunds and credits remain visible in your history, without limiting mandatory legal rights.",
+            "answer_pt": "Não. O cliente não pode cancelar diretamente no site uma reserva aceite ou confirmada. Contacte o criador se não puder continuar. Apenas o criador a pode cancelar e tem de dividir expressamente o valor disponível das etapas de pré-reserva e reserva entre reembolso para o meio de pagamento original, crédito de cliente para uma compra futura e qualquer valor retido. Os reembolsos e créditos aprovados permanecem visíveis no histórico, sem limitar direitos legais imperativos.",
+            "answer_es": "No. El cliente no puede cancelar directamente en el sitio una reserva aceptada o confirmada. Póngase en contacto con el criador si no puede continuar. Solo el criador puede cancelarla y debe dividir expresamente el valor disponible de las etapas de prerreserva y reserva entre reembolso al medio de pago original, crédito del cliente para una compra futura y cualquier importe retenido. Los reembolsos y créditos aprobados permanecen visibles en el historial, sin limitar los derechos legales imperativos.",
+            "answer_fr": "Non. Le client ne peut pas annuler directement sur le site une réservation acceptée ou confirmée. Contactez l'éleveur si elle ne peut pas se poursuivre. Seul l'éleveur peut l'annuler et doit répartir explicitement la valeur disponible des étapes de pré-réservation et de réservation entre remboursement sur le moyen de paiement d'origine, crédit client pour un achat futur et tout montant conservé. Les remboursements et crédits approuvés restent visibles dans l'historique, sans limiter les droits légaux impératifs.",
+            "answer_de": "Nein. Ein Kunde kann eine angenommene oder bestätigte Reservierung nicht direkt auf der Website stornieren. Wenden Sie sich an den Züchter, wenn sie nicht fortgesetzt werden kann. Nur der Züchter kann sie stornieren und muss den verfügbaren Wert aus Vorreservierung und Reservierung ausdrücklich zwischen einer Erstattung auf das ursprüngliche Zahlungsmittel, Kundenguthaben für einen späteren Kauf und einem einbehaltenen Betrag aufteilen. Genehmigte Erstattungen und Guthaben bleiben im Verlauf sichtbar; zwingende gesetzliche Rechte bleiben unberührt.",
+            "answer_it": "No. Il cliente non può annullare direttamente sul sito una prenotazione accettata o confermata. Contatti l'allevatore se non può proseguire. Solo l'allevatore può annullarla e deve suddividere espressamente il valore disponibile delle fasi di pre-prenotazione e prenotazione tra rimborso sul metodo di pagamento originale, credito cliente per un acquisto futuro ed eventuale importo trattenuto. I rimborsi e i crediti approvati restano visibili nella cronologia, senza limitare i diritti inderogabili previsti dalla legge.",
+            "order": 14,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 15,
+        "fields": {
+            "question_en": "Can a pre-reservation or reservation be moved to another dog?",
+            "question_pt": "Uma pré-reserva ou reserva pode ser transferida para outro cão?",
+            "question_es": "¿Se puede transferir una prerreserva o reserva a otro perro?",
+            "question_fr": "Une pré-réservation ou réservation peut-elle être transférée vers un autre chien ?",
+            "question_de": "Kann eine Vorreservierung oder Reservierung auf einen anderen Hund übertragen werden?",
+            "question_it": "È possibile trasferire una pre-prenotazione o prenotazione a un altro cane?",
+            "answer_en": "Possibly, but only the breeder can do this after you contact them. The original and target processes remain in your history. If their amounts differ, the breeder records how the difference is paid, refunded, converted to customer credit, or retained. A transfer is never performed automatically by the website.",
+            "answer_pt": "É possível, mas apenas o criador o pode fazer depois de o contactar. Os processos de origem e de destino permanecem no histórico. Se os valores forem diferentes, o criador regista como a diferença é paga, reembolsada, convertida em crédito de cliente ou retida. A transferência nunca é efetuada automaticamente pelo site.",
+            "answer_es": "Es posible, pero solo el criador puede hacerlo después de que se ponga en contacto con él. Los procesos de origen y destino permanecen en el historial. Si los importes son diferentes, el criador registra cómo se paga, reembolsa, convierte en crédito del cliente o retiene la diferencia. El sitio web nunca realiza una transferencia automáticamente.",
+            "answer_fr": "C'est possible, mais seul l'éleveur peut le faire après que vous l'avez contacté. Les procédures d'origine et de destination restent dans l'historique. Si les montants diffèrent, l'éleveur enregistre comment la différence est payée, remboursée, convertie en crédit client ou conservée. Le site n'effectue jamais de transfert automatiquement.",
+            "answer_de": "Dies ist möglicherweise möglich, kann aber nur nach Ihrer Kontaktaufnahme vom Züchter durchgeführt werden. Ursprungs- und Zielvorgang bleiben im Verlauf erhalten. Unterscheiden sich die Beträge, erfasst der Züchter, wie die Differenz bezahlt, erstattet, in Kundenguthaben umgewandelt oder einbehalten wird. Die Website führt niemals automatisch eine Übertragung durch.",
+            "answer_it": "È possibile, ma può farlo solo l'allevatore dopo essere stato contattato. I processi di origine e destinazione restano nella cronologia. Se gli importi differiscono, l'allevatore registra come la differenza viene pagata, rimborsata, convertita in credito cliente o trattenuta. Il sito non effettua mai automaticamente un trasferimento.",
+            "order": 15,
+            "active": true
+        }
+    },
+    {
+        "model": "frontoffice.FrequentlyAskedQuestion",
+        "pk": 16,
+        "fields": {
+            "question_en": "Can the breeder create a reservation or record an offline payment?",
+            "question_pt": "O criador pode criar uma reserva ou registar um pagamento offline?",
+            "question_es": "¿Puede el criador crear una reserva o registrar un pago fuera de línea?",
+            "question_fr": "L'éleveur peut-il créer une réservation ou enregistrer un paiement hors ligne ?",
+            "question_de": "Kann der Züchter eine Reservierung anlegen oder eine Offline-Zahlung erfassen?",
+            "question_it": "L'allevatore può creare una prenotazione o registrare un pagamento offline?",
+            "answer_en": "Yes. When an arrangement is made directly with the customer, the breeder can record a pre-reservation, a direct reservation without a pre-reservation, or a final sale. Cash, bank transfer, card terminal, and other verified offline payments can be recorded, or the registered customer can be invited to pay the outstanding amount online. These records appear in the same customer history.",
+            "answer_pt": "Sim. Quando existe um acordo direto com o cliente, o criador pode registar uma pré-reserva, uma reserva direta sem pré-reserva ou a venda final. Pode registar pagamentos verificados em numerário, transferência bancária, terminal de pagamento ou outro meio offline, ou permitir que o cliente registado pague online o valor em falta. Estes registos aparecem no mesmo histórico do cliente.",
+            "answer_es": "Sí. Cuando existe un acuerdo directo con el cliente, el criador puede registrar una prerreserva, una reserva directa sin prerreserva o la venta final. Puede registrar pagos verificados en efectivo, transferencia bancaria, terminal de tarjeta u otro medio fuera de línea, o permitir que el cliente registrado pague en línea el importe pendiente. Estos registros aparecen en el mismo historial del cliente.",
+            "answer_fr": "Oui. Lorsqu'un accord est conclu directement avec le client, l'éleveur peut enregistrer une pré-réservation, une réservation directe sans pré-réservation ou la vente finale. Il peut enregistrer des paiements vérifiés en espèces, par virement, terminal de carte ou autre moyen hors ligne, ou permettre au client inscrit de payer le solde en ligne. Ces enregistrements figurent dans le même historique client.",
+            "answer_de": "Ja. Bei einer direkten Vereinbarung mit dem Kunden kann der Züchter eine Vorreservierung, eine direkte Reservierung ohne Vorreservierung oder den endgültigen Verkauf erfassen. Bestätigte Zahlungen in bar, per Überweisung, Kartenterminal oder auf anderem Offline-Weg können erfasst werden; alternativ kann der registrierte Kunde den offenen Betrag online bezahlen. Diese Datensätze erscheinen im selben Kundenverlauf.",
+            "answer_it": "Sì. Quando viene concluso un accordo diretto con il cliente, l'allevatore può registrare una pre-prenotazione, una prenotazione diretta senza pre-prenotazione o la vendita finale. Può registrare pagamenti verificati in contanti, bonifico, terminale carta o altro metodo offline, oppure consentire al cliente registrato di pagare online l'importo residuo. Questi record compaiono nella stessa cronologia del cliente.",
+            "order": 16,
             "active": true
         }
     }

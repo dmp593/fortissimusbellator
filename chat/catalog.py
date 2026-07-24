@@ -1,6 +1,6 @@
 """Public, read-only catalogue queries used by chat experts."""
 
-from django.db.models import F, Q
+from django.db.models import Q
 
 
 def public_animals():
@@ -27,14 +27,16 @@ def available_animals(*, animal_kind_id=None):
     from reservations.availability import annotate_dog_availability
 
     queryset = (
-        Animal.animals_for_sale.filter(sold_at__isnull=True)
+        Animal.animals_for_sale
         .select_related("breed", "breed__kind")
         .prefetch_related("animal_certifications__certification")
     )
     if animal_kind_id is not None:
         queryset = queryset.filter(breed__kind_id=animal_kind_id)
     return annotate_dog_availability(queryset).filter(
-        has_blocking_pre_reservation=False
+        has_completed_sale=False,
+        has_blocking_pre_reservation=False,
+        has_confirmed_reservation=False,
     )
 
 
@@ -53,23 +55,9 @@ def current_litters(*, animal_kind_id=None):
 
 
 def reservable_litters(*, animal_kind_id=None):
-    from breeding.models import Litter
-
-    return (
-        current_litters(animal_kind_id=animal_kind_id)
-        .select_related(None)
-        .select_related("breed", "breed__kind")
-        .filter(
-            pre_reservation_enabled=True,
-            status__in=(
-                Litter.LitterStatus.BORN,
-                Litter.LitterStatus.READY,
-            ),
-            babies__gt=0,
-            pre_reservation_capacity__gt=0,
-            pre_reserved_count__lt=F("pre_reservation_capacity"),
-        )
-    )
+    # Kept as a stable catalogue API for intent routing. Litter places are no
+    # longer sold; customers subscribe to birth alerts instead.
+    return current_litters(animal_kind_id=animal_kind_id).none()
 
 
 def public_breeds():
@@ -92,6 +80,12 @@ def public_certifications():
         .select_related("parent")
         .order_by("order")
     )
+
+
+def public_faqs():
+    from frontoffice.models import FrequentlyAskedQuestion
+
+    return FrequentlyAskedQuestion.objects.filter(active=True).order_by("order")
 
 
 def published_posts():

@@ -18,6 +18,7 @@
         <!-- Registration Form -->
         <form method="post" class="mt-8 space-y-6">
             {% csrf_token %}
+            {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
 
             <!-- Display non-field errors (e.g., form-wide errors) -->
             {% if form.non_field_errors %}
@@ -38,6 +39,8 @@
                     <div class="relative">
                         <input type="text" name="first_name" id="id_first_name"
                             class="ui-input pl-10"
+                            value="{{ form.first_name.value|default_if_none:'' }}"
+                            autocomplete="given-name"
                             placeholder="{% translate 'Enter your first name' %}" required>
                         <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -64,6 +67,8 @@
                     <div class="relative">
                         <input type="text" name="last_name" id="id_last_name"
                             class="ui-input pl-10"
+                            value="{{ form.last_name.value|default_if_none:'' }}"
+                            autocomplete="family-name"
                             placeholder="{% translate 'Enter your last name' %}" required>
                         <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -91,6 +96,8 @@
                 <div class="relative">
                     <input type="email" name="email" id="id_email"
                         class="ui-input pl-10"
+                        value="{{ form.email.value|default_if_none:'' }}"
+                        autocomplete="email"
                         placeholder="{% translate 'Enter your email' %}" required>
                     <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -117,6 +124,8 @@
                 <div class="relative">
                     <input type="text" name="phone" id="id_phone"
                         class="ui-input pl-10"
+                        value="{{ form.phone.value|default_if_none:'' }}"
+                        autocomplete="tel"
                         placeholder="{% translate 'Enter your phone number' %}" required>
                     <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -143,6 +152,8 @@
                 <div class="relative">
                     <input type="text" name="username" id="id_username"
                         class="ui-input pl-10"
+                        value="{{ form.username.value|default_if_none:'' }}"
+                        autocomplete="username"
                         placeholder="{% translate 'Enter your username' %}" required>
                     <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -170,6 +181,7 @@
                     <div class="relative">
                         <input type="password" name="password1" id="id_password1"
                             class="ui-input pl-10"
+                            autocomplete="new-password"
                             placeholder="{% translate 'Enter your password' %}" required>
                         <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -196,6 +208,7 @@
                     <div class="relative">
                         <input type="password" name="password2" id="id_password2"
                             class="ui-input pl-10"
+                            autocomplete="new-password"
                             placeholder="{% translate 'Confirm your password' %}" required>
                         <svg class="absolute left-3 top-3.5 w-5 h-5 text-stone-500 dark:text-stone-400"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

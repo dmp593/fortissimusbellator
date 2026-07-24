@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from modeltranslation.admin import TranslationAdmin
 
-from fortissimusbellator import translator
+from fortissimusbellator.translator import translate
 
 
 site.site_title = _('Fortissimus Bellator Site Admin')
@@ -11,104 +11,88 @@ site.site_header = _('Fortissimus Bellator Administration')
 
 
 class FieldTranslatorAdmin(TranslationAdmin):
+    translation_fields = ()
+
     def save_model(self, request, obj, form, change):
-        translation_fields = getattr(
-            self, 'translation_fields', []
-        )
-
-        cleaned_data = form.cleaned_data
-
-        for field in translation_fields:
-            field_pt = f"{field}_pt"
-            field_en = f"{field}_en"
-            field_es = f"{field}_es"
-            field_fr = f"{field}_fr"
-            field_de = f"{field}_de"
-            field_it = f"{field}_it"
-
-            if (
-                field_pt not in cleaned_data or
-                field_en not in cleaned_data or
-                field_es not in cleaned_data or
-                field_fr not in cleaned_data or
-                field_de not in cleaned_data or
-                field_it not in cleaned_data
-            ):
-                continue
-
-            field_pt_value = cleaned_data.get(field_pt)
-            field_en_value = cleaned_data.get(field_en)
-            field_es_value = cleaned_data.get(field_es)
-            field_fr_value = cleaned_data.get(field_fr)
-            field_de_value = cleaned_data.get(field_de)
-            field_it_value = cleaned_data.get(field_it)
-
-            # Translate missing fields
-
-            # either from EN to PT, or from PT to EN
-            if not field_pt_value and field_en_value:
-                field_pt_value = translator.translate(
-                    text=field_en_value,
-                    source_lang="en",
-                    target_lang="pt-pt",
-                    provider="deepl"  # deepl has better PT-PT support
-                )
-
-                if not field_pt_value:
-                    # fallback to google if deepl fails
-                    # probably due to tokens limits (free tier)
-                    field_pt_value = translator.translate(
-                        text=field_en_value,
-                        source_lang="en",
-                        target_lang="pt",
-                        provider="google"
-                    )
-                setattr(obj, field_pt, field_pt_value)
-
-            if not field_en_value and field_pt_value:
-                field_en_value = translator.translate(
-                    text=field_pt_value,
-                    source_lang="pt",
-                    target_lang="en",
-                    provider="google"
-                )
-                setattr(obj, field_en, field_en_value)
-
-            # the other languages are always from EN
-            if not field_es_value and field_en_value:
-                field_es_value = translator.translate(
-                    text=field_en_value,
-                    source_lang="en",
-                    target_lang="es",
-                    provider="google"
-                )
-                setattr(obj, field_es, field_es_value)
-
-            if not field_fr_value and field_en_value:
-                field_fr_value = translator.translate(
-                    text=field_en_value,
-                    source_lang="en",
-                    target_lang="fr",
-                    provider="google"
-                )
-                setattr(obj, field_fr, field_fr_value)
-
-            if not field_de_value and field_en_value:
-                field_de_value = translator.translate(
-                    text=field_en_value,
-                    source_lang="en",
-                    target_lang="de",
-                    provider="google"
-                )
-                setattr(obj, field_de, field_de_value)
-
-            if not field_it_value and field_en_value:
-                field_it_value = translator.translate(
-                    text=field_en_value,
-                    source_lang="en",
-                    target_lang="it",
-                    provider="google"
-                )
-                setattr(obj, field_it, field_it_value)
+        for field in self.translation_fields:
+            self._fill_missing_translations(
+                obj,
+                field,
+                form.cleaned_data,
+            )
 
         super().save_model(request, obj, form, change)
+
+    def _fill_missing_translations(self, obj, field, cleaned_data):
+        languages = ("pt", "en", "es", "fr", "de", "it")
+        field_names = {
+            language: f"{field}_{language}"
+            for language in languages
+        }
+        if not all(name in cleaned_data for name in field_names.values()):
+            return
+
+        values = {
+            language: cleaned_data.get(name)
+            for language, name in field_names.items()
+        }
+        if not values["pt"] and values["en"]:
+            values["pt"] = self._translate_to_portuguese(values["en"])
+            self._set_translation(obj, field_names["pt"], values["pt"])
+
+        if not values["en"] and values["pt"]:
+            values["en"] = self._translate(
+                values["pt"],
+                source_lang="pt",
+                target_lang="en",
+            )
+            self._set_translation(obj, field_names["en"], values["en"])
+
+        if not values["en"]:
+            return
+        for language in ("es", "fr", "de", "it"):
+            if values[language]:
+                continue
+            translated = self._translate(
+                values["en"],
+                source_lang="en",
+                target_lang=language,
+            )
+            self._set_translation(
+                obj,
+                field_names[language],
+                translated,
+            )
+
+    def _translate_to_portuguese(self, text):
+        translated = self._translate(
+            text,
+            source_lang="en",
+            target_lang="pt-pt",
+            provider="deepl",
+        )
+        return translated or self._translate(
+            text,
+            source_lang="en",
+            target_lang="pt",
+        )
+
+    @staticmethod
+    def _translate(
+        text,
+        *,
+        source_lang,
+        target_lang,
+        provider="google",
+    ):
+        return translate(
+            text=text,
+            source_lang=source_lang,
+            target_lang=target_lang,
+            provider=provider,
+        )
+
+    @staticmethod
+    def _set_translation(obj, field_name, value):
+        if value:
+            setattr(obj, field_name, value)

@@ -7,28 +7,62 @@
 <div class="ui-page">
     <section class="ui-card mx-auto max-w-2xl p-8 text-center sm:p-12">
         <div class="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-green-100 text-3xl text-green-800 dark:bg-green-950 dark:text-green-200">✓</div>
-        <h1 class="ui-page-title text-3xl">{% translate "Pre-reservation confirmed" %}</h1>
-        <p class="ui-page-subtitle">{% blocktranslate with name=reservation.target_name %}Your place for {{ name }} is secured.{% endblocktranslate %}</p>
+        {% if reservation %}
+        <h1 class="ui-page-title text-3xl">{% translate "Reservation confirmed" %}</h1>
+        <p class="ui-page-subtitle">{% blocktranslate with name=sale_case.target_name %}{{ name }} is now reserved for you.{% endblocktranslate %}</p>
+        {% else %}
+        <h1 class="ui-page-title text-3xl">{% translate "Pre-reservation payment received" %}</h1>
+        <p class="ui-page-subtitle">{% blocktranslate with name=sale_case.target_name %}Your pre-reservation for {{ name }} is awaiting breeder review.{% endblocktranslate %}</p>
+        {% endif %}
+
+        {% if sale_case.animal.cover %}
+        <img src="{{ sale_case.animal.cover.file.url }}" alt="{{ sale_case.target_name }}" class="mx-auto mt-8 aspect-[4/3] w-full rounded-xl object-cover grayscale brightness-75 saturate-50" loading="lazy">
+        {% else %}
+        <div class="ui-muted-surface mt-8 flex h-64 items-center justify-center">
+            <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+        </div>
+        {% endif %}
 
         <div class="ui-muted-surface my-8 p-5 text-left">
             <div class="flex justify-between gap-4">
-                <span>{% translate "Amount paid" %}</span>
-                <strong>{{ reservation.total_amount }} {{ reservation.currency }}</strong>
+                <span>{% translate "Amount paid now" %}</span>
+                <strong>{{ purchase.payment.amount }} {{ purchase.payment.currency }}</strong>
             </div>
+            {% if reservation %}
+            <div class="mt-3 flex justify-between gap-4">
+                <span>{% translate "Pre-reservation credit" %}</span>
+                <strong>{{ reservation.pre_reservation_credit_amount }} {{ reservation.currency }}</strong>
+            </div>
+            {% if reservation.customer_credit_amount %}
+            <div class="mt-3 flex justify-between gap-4">
+                <span>{% translate "Customer credit" %}</span>
+                <strong>{{ reservation.customer_credit_amount }} {{ reservation.currency }}</strong>
+            </div>
+            {% endif %}
             {% if reservation.promotion_code %}
             <div class="mt-3 flex justify-between gap-4 text-green-800 dark:text-green-300">
                 <span>{{ reservation.promotion_code }}</span>
                 <strong>-{{ reservation.discount_amount }} {{ reservation.currency }}</strong>
             </div>
             {% endif %}
+            <div class="mt-3 flex justify-between gap-4">
+                <span>{% translate "Total reservation deposit" %}</span>
+                <strong>{{ reservation.deposit_target_amount }} {{ reservation.currency }}</strong>
+            </div>
+            {% elif pre_reservation.promotion_code %}
+            <div class="mt-3 flex justify-between gap-4 text-green-800 dark:text-green-300">
+                <span>{{ pre_reservation.promotion_code }}</span>
+                <strong>-{{ pre_reservation.discount_amount }} {{ pre_reservation.currency }}</strong>
+            </div>
+            {% endif %}
         </div>
 
         {% if document.pdf_status == 'available' %}
         <a href="{% url 'reservations:download_document' document.pk %}" class="ui-button ui-button-primary w-full">{% translate "Download fiscal document" %}</a>
-        {% elif document %}
+        {% elif document and toconline_enabled %}
         <p class="rounded-lg bg-yellow-50 p-4 text-sm text-yellow-900 dark:bg-yellow-950/30 dark:text-yellow-100">{% translate "Payment is confirmed. Your fiscal document is being prepared and will appear in your dashboard." %}</p>
-        {% elif reservation.payment.amount == 0 %}
-        <p class="rounded-lg bg-stone-100 p-4 text-sm text-stone-700 dark:bg-stone-800 dark:text-stone-200">{% translate "No fiscal document is required for this zero-value reservation." %}</p>
+        {% elif purchase.payment.amount == 0 %}
+        <p class="rounded-lg bg-stone-100 p-4 text-sm text-stone-700 dark:bg-stone-800 dark:text-stone-200">{% translate "No fiscal document is required for this zero-value payment." %}</p>
         {% endif %}
 
         <a href="{% url 'reservations:dashboard' %}" class="ui-button ui-button-quiet mt-5 w-full">{% translate "Open my reservations" %}</a>

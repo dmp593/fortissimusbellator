@@ -1,0 +1,20 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+  {% if original and original.status != 'void' %}
+    {% if original.amount_due > 0 %}
+      <li>
+        <a href="{% url 'admin:reservations_charge_record_payment' original.pk %}">
+          {% translate "Record manual payment" %}
+        </a>
+      </li>
+    {% endif %}
+    <li>
+      <a href="{% url 'admin:reservations_charge_adjust' original.pk %}">
+        {% translate "Adjust charge" %}
+      </a>
+    </li>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}

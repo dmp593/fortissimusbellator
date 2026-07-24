@@ -1,0 +1,48 @@
+.workflow-badge {
+  --workflow-color: #0369a1;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 1.75rem;
+  max-width: 100%;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--workflow-color) 32%, var(--hairline-color));
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, var(--workflow-color) 10%, var(--body-bg));
+  color: var(--body-fg);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.workflow-badge__dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--workflow-color);
+  box-shadow: 0 0 0 0.16rem
+    color-mix(in srgb, var(--workflow-color) 16%, transparent);
+}
+
+.workflow-badge--success {
+  --workflow-color: #15803d;
+}
+
+.workflow-badge--warning {
+  --workflow-color: #a16207;
+}
+
+.workflow-badge--danger {
+  --workflow-color: #b91c1c;
+}
+
+.workflow-badge--neutral {
+  --workflow-color: #78716c;
+}
+
+.workflow-badge--info {
+  --workflow-color: #0369a1;
+}

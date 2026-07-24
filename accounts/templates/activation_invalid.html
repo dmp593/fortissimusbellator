@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<main class="ui-page">
+    <section class="ui-card mx-auto max-w-lg p-8 text-center">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-yellow-800 dark:text-yellow-400">
+            {% translate "Account activation" %}
+        </p>
+        <h1 class="ui-section-title mt-3">{% translate "This activation link is invalid or has expired." %}</h1>
+        <p class="mt-4 text-stone-600 dark:text-stone-300">
+            {% translate "Request a new activation email to continue." %}
+        </p>
+        <a href="{% url 'resend_activation_email' %}" class="ui-button ui-button-primary mt-8 inline-flex px-6 py-3">
+            {% translate "Request a new email" %}
+        </a>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% load i18n %}
+
+{% translate "Unknown" as unknown_value %}
+<fieldset class="module aligned">
+  <h2>
+    {{ summary_title }}
+    {% if show_provider %} · {{ summary_payment.get_provider_display }}{% endif %}
+  </h2>
+  <div class="form-row">
+    <div>
+      <div class="flex-container">
+        <label>{% translate "Charged" %}:</label>
+        <div class="readonly">
+          {{ summary_payment.amount }} {{ summary_payment.currency }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div>
+      <div class="flex-container">
+        <label>{% translate "Already committed/refunded" %}:</label>
+        <div class="readonly">
+          {{ summary_payment.committed_refund_amount }}
+          {{ summary_payment.currency }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div>
+      <div class="flex-container">
+        <label>{% translate "Available to refund" %}:</label>
+        <div class="readonly">
+          {{ summary_payment.refundable_amount }}
+          {{ summary_payment.currency }}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if summary_payment.provider == "stripe" %}
+    <div class="form-row">
+      <div>
+        <div class="flex-container">
+          <label>{% translate "Stripe fee" %}:</label>
+          <div class="readonly">
+            {% if summary_payment.provider_fee_amount is None %}
+              {{ unknown_value }}
+            {% else %}
+              {{ summary_payment.provider_fee_amount }}
+            {% endif %}
+            {{ summary_payment.currency }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div>
+        <div class="flex-container">
+          <label>{% translate "Stripe net retained" %}:</label>
+          <div class="readonly">
+            {% if summary_payment.provider_net_amount is None %}
+              {{ unknown_value }}
+            {% else %}
+              {{ summary_payment.provider_net_amount }}
+            {% endif %}
+            {{ summary_payment.currency }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</fieldset>

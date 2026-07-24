@@ -10,7 +10,13 @@ from django.db import transaction
 from django.utils import timezone
 
 from reservations.exceptions import ERPIntegrationError
-from reservations.models import ERPDocument, ERPIntegrationAttempt
+from reservations.models import (
+    Charge,
+    ERPDocument,
+    ERPIntegrationAttempt,
+    Payment,
+    PaymentRefund,
+)
 from reservations.services.notifications import (
     notify_erp_needs_attention,
     send_document_email,
@@ -25,19 +31,99 @@ class ERPDocumentCreationUncertainError(ERPIntegrationError):
     """The financial create request may have succeeded without returning an ID."""
 
 
+def ensure_sale_erp_document(source: Payment | Charge) -> ERPDocument | None:
+    payment = source if isinstance(source, Payment) else None
+    charge = source.charge if payment and source.charge_id else source
+    if not isinstance(charge, Charge):
+        charge = None
+    amount = (
+        charge.gross_payment_amount
+        if charge
+        else (payment.amount if payment else 0)
+    )
+    if amount <= 0:
+        return None
+    currency = charge.currency if charge else payment.currency
+    lookup = (
+        {'charge': charge, 'kind': ERPDocument.Kind.SALE}
+        if charge
+        else {'payment': payment, 'kind': ERPDocument.Kind.SALE}
+    )
+    document, _ = ERPDocument.objects.get_or_create(
+        **lookup,
+        defaults={
+            'payment': payment,
+            'charge': charge,
+            'amount': amount,
+            'currency': currency,
+            'status': (
+                ERPDocument.Status.PENDING
+                if settings.TOCONLINE_ENABLED
+                else ERPDocument.Status.DEFERRED
+            ),
+            'external_reference': (
+                _charge_external_reference(charge)
+                if charge
+                else _payment_external_reference(payment)
+            ),
+        },
+    )
+    if payment and document.payment_id is None:
+        document.payment = payment
+        document.save(update_fields=['payment', 'updated_at'])
+    update_fields = []
+    if document.amount <= 0:
+        document.amount = amount
+        update_fields.append('amount')
+    if not document.currency:
+        document.currency = currency
+        update_fields.append('currency')
+    if update_fields:
+        document.save(update_fields=[*update_fields, 'updated_at'])
+    return document
+
+
+def ensure_refund_erp_document(payment_refund: PaymentRefund) -> ERPDocument:
+    payment = payment_refund.payment
+    return ERPDocument.objects.get_or_create(
+        refund=payment_refund,
+        defaults={
+            'payment': payment,
+            'charge': payment.charge,
+            'kind': ERPDocument.Kind.CREDIT_NOTE,
+            'amount': payment_refund.amount,
+            'currency': payment.currency,
+            'status': (
+                ERPDocument.Status.PENDING
+                if settings.TOCONLINE_ENABLED
+                else ERPDocument.Status.DEFERRED
+            ),
+            'external_reference': (
+                f'{_financial_external_reference(payment)}'
+                f'-RF-{payment_refund.public_id}'
+            ),
+        },
+    )[0]
+
+
 def process_erp_document(
     document_id: int,
     *,
     trigger=ERPIntegrationAttempt.Trigger.AUTOMATIC,
     triggered_by=None,
 ):
+    if not settings.TOCONLINE_ENABLED:
+        return _defer_document(document_id)
+
     document = _claim_document(document_id, trigger=trigger)
     if document is None:
         return ERPDocument.objects.get(pk=document_id)
     document = (
         ERPDocument.objects.select_related(
-            'reservation',
-            'reservation__payment',
+            'payment__pre_reservation',
+            'payment__animal_reservation__pre_reservation',
+            'charge__sale_case',
+            'refund',
         ).get(pk=document_id)
     )
     if document.status == ERPDocument.Status.INTEGRATED:
@@ -85,6 +171,31 @@ def process_erp_document(
 
 
 @transaction.atomic
+def _defer_document(document_id: int):
+    document = ERPDocument.objects.select_for_update().get(pk=document_id)
+    if document.status not in {
+        ERPDocument.Status.DEFERRED,
+        ERPDocument.Status.PENDING,
+        ERPDocument.Status.PROCESSING,
+    }:
+        return document
+    document.status = ERPDocument.Status.DEFERRED
+    document.processing_started_at = None
+    document.next_retry_at = None
+    document.last_error = ''
+    document.save(
+        update_fields=[
+            'status',
+            'processing_started_at',
+            'next_retry_at',
+            'last_error',
+            'updated_at',
+        ]
+    )
+    return document
+
+
+@transaction.atomic
 def _claim_document(document_id: int, *, trigger):
     document = ERPDocument.objects.select_for_update().get(pk=document_id)
     if document.status == ERPDocument.Status.INTEGRATED:
@@ -120,9 +231,6 @@ def _claim_document(document_id: int, *, trigger):
 
 
 def _reconcile_or_create(document: ERPDocument):
-    if not settings.TOCONLINE_ENABLED:
-        raise ValueError('TOConline integration is disabled.')
-
     from toconline.api import models
     from toconline.services import toconline
 
@@ -208,20 +316,32 @@ def _mark_creation_started(document_id: int):
 
 
 def _build_document_payload(document: ERPDocument):
-    reservation = document.reservation
-    payment = reservation.payment
+    payment = document.payment
+    charge = document.charge or (payment.charge if payment else None)
+    workflow = _document_workflow(document)
     accounting_timestamp = (
-        payment.refunded_at
+        document.refund.succeeded_at
         if document.kind == ERPDocument.Kind.CREDIT_NOTE
-        else payment.paid_at
-    ) or reservation.confirmed_at or reservation.created_at
+        else (
+            _charge_settlement_timestamp(charge)
+            if charge
+            else (payment.paid_at if payment else None)
+        )
+    ) or (charge.created_at if charge else None) or workflow.created_at
+    document_amount = (
+        document.amount
+        or (
+            document.refund.amount
+            if document.kind == ERPDocument.Kind.CREDIT_NOTE
+            else (charge.gross_payment_amount if charge else payment.amount)
+        )
+    )
+    purchase_label = _charge_label(charge, payment)
     line = {
         'item_type': 'Service',
-        'description': (
-            f'Non-refundable pre-reservation fee - {reservation.target_name}'
-        ),
+        'description': f'{purchase_label} - {workflow.target_name}',
         'quantity': 1,
-        'unit_price': float(reservation.total_amount),
+        'unit_price': float(document_amount),
     }
     if settings.TOCONLINE_TAX_CODE:
         line['tax_code'] = settings.TOCONLINE_TAX_CODE
@@ -231,17 +351,19 @@ def _build_document_payload(document: ERPDocument):
     payload = {
         'document_type': 'FR',
         'date': timezone.localdate(accounting_timestamp).isoformat(),
-        'customer_business_name': reservation.customer_name,
-        'customer_address_detail': reservation.billing_address,
-        'customer_postcode': reservation.billing_postcode,
-        'customer_city': reservation.billing_city,
-        'customer_country': reservation.billing_country,
-        'customer_tax_registration_number': reservation.customer_tax_number,
-        'currency_iso_code': reservation.currency,
+        'customer_business_name': workflow.customer_name,
+        'customer_address_detail': workflow.billing_address,
+        'customer_postcode': workflow.billing_postcode,
+        'customer_city': workflow.billing_city,
+        'customer_country': workflow.billing_country,
+        'customer_tax_registration_number': (
+            workflow.customer_tax_number
+        ),
+        'currency_iso_code': document.currency,
         'external_reference': document.external_reference,
         'notes': (
-            f'Pre-reservation {reservation.public_id}. '
-            'Non-refundable when cancelled by the customer.'
+            f'{purchase_label} for dog {workflow.target_name}. '
+            f'Charge {charge.pk if charge else "legacy"}.'
         ),
         'vat_included_prices': True,
         'finalize': 1,
@@ -251,7 +373,10 @@ def _build_document_payload(document: ERPDocument):
         payload['payment_mechanism'] = settings.TOCONLINE_PAYMENT_MECHANISM
 
     if document.kind == ERPDocument.Kind.CREDIT_NOTE:
-        sale = reservation.erp_documents.get(kind=ERPDocument.Kind.SALE)
+        if charge:
+            sale = charge.erp_documents.get(kind=ERPDocument.Kind.SALE)
+        else:
+            sale = payment.erp_documents.get(kind=ERPDocument.Kind.SALE)
         if not sale.erp_document_id:
             raise ERPIntegrationError(
                 'The original ERP sale must be integrated before its credit note.'
@@ -326,7 +451,11 @@ def _record_integration_failure(document_id: int, exc: Exception, *, trigger):
 
 
 def download_erp_pdf(document_id: int):
-    document = ERPDocument.objects.select_related('reservation').get(pk=document_id)
+    document = ERPDocument.objects.select_related(
+        'payment__pre_reservation',
+        'payment__animal_reservation__pre_reservation',
+        'charge__sale_case',
+    ).get(pk=document_id)
     if document.status != ERPDocument.Status.INTEGRATED:
         raise ERPIntegrationError('The ERP sale is not integrated yet.')
 
@@ -421,20 +550,25 @@ def _is_trusted_download_host(host: str) -> bool:
 
 
 def ensure_erp_pdf_and_email(document_id: int, *, triggered_by=None):
-    document = ERPDocument.objects.select_related('reservation').get(pk=document_id)
+    document = ERPDocument.objects.select_related(
+        'payment__pre_reservation',
+        'payment__animal_reservation__pre_reservation',
+        'charge__sale_case',
+    ).get(pk=document_id)
+    pre_reservation = _document_workflow(document)
     if document.pdf_status != ERPDocument.PDFStatus.AVAILABLE:
         document = download_erp_pdf(document_id)
     if (
         document.pdf_status == ERPDocument.PDFStatus.AVAILABLE
         and not document.email_attempts.filter(
             status='sent',
-            recipient=document.reservation.customer_email,
+            recipient=pre_reservation.customer_email,
         ).exists()
     ):
         try:
             send_document_email(
                 document=document,
-                recipient=document.reservation.customer_email,
+                recipient=pre_reservation.customer_email,
                 triggered_by=triggered_by,
             )
         except Exception:
@@ -521,3 +655,63 @@ def _safe_error(exc: Exception | None) -> str:
     if exc is None:
         return ''
     return f'{exc.__class__.__name__}: {str(exc)}'[:2000]
+
+
+def _payment_external_reference(payment: Payment) -> str:
+    prefix = 'PRE' if payment.pre_reservation_id else 'RES'
+    return f'{prefix}-{payment.purchase.public_id}'
+
+
+def _charge_external_reference(charge: Charge) -> str:
+    prefixes = {
+        Charge.Stage.PRE_RESERVATION: 'PRE',
+        Charge.Stage.RESERVATION: 'RES',
+        Charge.Stage.SALE: 'SALE',
+    }
+    return f'{prefixes[charge.stage]}-CHG-{charge.public_id}'
+
+
+def _financial_external_reference(payment: Payment) -> str:
+    if payment.charge_id:
+        return _charge_external_reference(payment.charge)
+    return _payment_external_reference(payment)
+
+
+def _charge_label(charge, payment):
+    if charge:
+        return {
+            Charge.Stage.PRE_RESERVATION: 'Pre-reservation fee',
+            Charge.Stage.RESERVATION: 'Reservation deposit',
+            Charge.Stage.SALE: 'Final animal sale balance',
+        }[charge.stage]
+    return (
+        'Pre-reservation fee'
+        if payment.pre_reservation_id
+        else 'Reservation deposit'
+    )
+
+
+def _charge_settlement_timestamp(charge):
+    return (
+        charge.payments.filter(
+            status__in=(
+                Payment.Status.PAID,
+                Payment.Status.PARTIALLY_REFUNDED,
+                Payment.Status.REFUNDED,
+            ),
+            paid_at__isnull=False,
+        )
+        .order_by('-paid_at', '-pk')
+        .values_list('paid_at', flat=True)
+        .first()
+    )
+
+
+def _document_workflow(document: ERPDocument):
+    if document.charge_id:
+        return document.charge.sale_case
+    payment = document.payment
+    if payment.pre_reservation_id:
+        return payment.pre_reservation
+    reservation = payment.animal_reservation
+    return reservation.pre_reservation or reservation.sale_case

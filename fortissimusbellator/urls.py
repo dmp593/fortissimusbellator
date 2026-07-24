@@ -19,13 +19,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.conf.urls.i18n import i18n_patterns
-from django.utils.translation import gettext_lazy as _
 
 
 from fortissimusbellator import admin
 from fortissimusbellator.health import liveness, readiness
 from chat.views import model_status as chat_model_status
-from reservations.views import pre_reservation_terms, stripe_webhook
+from reservations.views import (
+    pre_reservation_terms,
+    reservation_terms,
+    stripe_webhook,
+)
 from .views import FileUploadView, EditorJsImageUploadByFileView, EditorJsImageUploadByUrlView
 
 urlpatterns = [
@@ -44,6 +47,11 @@ urlpatterns += i18n_patterns(
         'pre-reservation-terms/',
         pre_reservation_terms,
         name='pre_reservation_terms',
+    ),
+    path(
+        'reservation-terms/',
+        reservation_terms,
+        name='reservation_terms',
     ),
     path('', include('frontoffice.urls')),
     path('', include('breeding.urls')),

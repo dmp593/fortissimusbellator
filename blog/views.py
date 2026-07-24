@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 
-from fortissimusbellator.parsers import to_int
+from fortissimusbellator.parsers import page_size, to_int
 from blog.models import Post
 
 
@@ -10,10 +10,7 @@ def post_list(request):
 
     # Pagination
     page = to_int(request.GET.get('page'), or_default=1)
-    per_page = to_int(request.GET.get('per_page'), or_default=12)
-
-    if per_page <= 0:
-        per_page = 1
+    per_page = page_size(request.GET.get('per_page'))
 
     paginator = Paginator(posts, per_page)
     paginated_posts = paginator.get_page(page)

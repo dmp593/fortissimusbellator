@@ -5,7 +5,8 @@ import pathlib
 from uuid import uuid4
 
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.translation import gettext_lazy as _
@@ -30,6 +31,28 @@ HAIR_TYPE_CHOICES = (
 
 
 User = get_user_model()
+
+
+def _cover_attachment(instance):
+    prefetched_files = getattr(
+        instance,
+        '_prefetched_objects_cache',
+        {},
+    ).get('files')
+    if prefetched_files is not None:
+        return next(
+            (
+                attachment
+                for attachment in prefetched_files
+                if attachment.mime_type.startswith('image/')
+            ),
+            None,
+        )
+    return (
+        instance.files.filter(mime_type__startswith='image/')
+        .order_by('order')
+        .first()
+    )
 
 
 def breed_cover_upload_to(instance: 'Breed', filename: str) -> str:
@@ -316,22 +339,6 @@ class Animal(models.Model):
         verbose_name=_('discount in euros'),
     )
 
-    sold_at = models.DateField(
-        null=True,
-        blank=True,
-        verbose_name=_('sold at')
-    )
-
-    sold_to = models.ForeignKey(
-        to=User,
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-        verbose_name=_('sold to'),
-        related_name='animals',
-        related_query_name='animal'
-    )
-
     active = models.BooleanField(
         default=True,
         verbose_name=_('active')
@@ -366,6 +373,34 @@ class Animal(models.Model):
         help_text=_('Non-refundable pre-reservation fee in euros.'),
     )
 
+    reservation_deposit_percentage = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=decimal.Decimal('50.00'),
+        validators=[
+            MinValueValidator(decimal.Decimal('0.01')),
+            MaxValueValidator(decimal.Decimal('100.00')),
+        ],
+        verbose_name=_('reservation deposit percentage'),
+        help_text=_(
+            'Percentage of the dog price that must have been paid when the '
+            'reservation is confirmed.'
+        ),
+    )
+
+    reservation_offer_hours = models.PositiveSmallIntegerField(
+        default=72,
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(7 * 24),
+        ],
+        verbose_name=_('reservation offer validity in hours'),
+        help_text=_(
+            'Hours available to pay the reservation deposit after the breeder '
+            'accepts the pre-reservation. Minimum 1 hour, maximum 7 days.'
+        ),
+    )
+
     order = models.IntegerField(
         default=999,
         verbose_name=_('order'),
@@ -392,8 +427,20 @@ class Animal(models.Model):
         return self.price_in_euros - self.discount_in_euros
 
     @property
+    def is_sold(self):
+        annotated_value = getattr(self, 'has_completed_sale', None)
+        if annotated_value is not None:
+            return annotated_value
+        if not self.pk:
+            return False
+        return self.sale_cases.filter(
+            sale__isnull=False,
+            sale__voided_at__isnull=True,
+        ).exists()
+
+    @property
     def cover(self):
-        return self.files.filter(mime_type__startswith='image/').order_by('order').first()
+        return _cover_attachment(self)
 
     objects = managers.GetByNameManager()
 
@@ -411,6 +458,44 @@ class Animal(models.Model):
         verbose_name = _('animal')
         verbose_name_plural = _('animals')
         ordering = ['order',]
+        constraints = [
+            models.CheckConstraint(
+                condition=(
+                    models.Q(discount_in_euros__isnull=True)
+                    | models.Q(
+                        price_in_euros__isnull=False,
+                        discount_in_euros__lte=models.F('price_in_euros'),
+                    )
+                ),
+                name='animal_discount_lte_price',
+            ),
+        ]
+
+    def clean(self):
+        super().clean()
+        if (
+            self.discount_in_euros is not None
+            and self.price_in_euros is None
+        ):
+            raise ValidationError(
+                {
+                    'discount_in_euros': _(
+                        'A discount requires a published price.'
+                    )
+                }
+            )
+        if (
+            self.discount_in_euros is not None
+            and self.price_in_euros is not None
+            and self.discount_in_euros > self.price_in_euros
+        ):
+            raise ValidationError(
+                {
+                    'discount_in_euros': _(
+                        'The discount cannot exceed the published price.'
+                    )
+                }
+            )
 
     def __str__(self):
         return f"{self.name}"
@@ -513,26 +598,33 @@ class Litter(models.Model):
         verbose_name=_('active')
     )
 
-    pre_reservation_enabled = models.BooleanField(
+    offspring_pre_reservation_enabled = models.BooleanField(
         default=True,
-        verbose_name=_('available for pre-reservation'),
+        verbose_name=_('generated dogs available for pre-reservation'),
     )
 
-    pre_reservation_fee = models.DecimalField(
+    offspring_pre_reservation_fee = models.DecimalField(
         max_digits=7,
         decimal_places=2,
         default=decimal.Decimal('50.00'),
         validators=[MinValueValidator(decimal.Decimal('0.50'))],
-        verbose_name=_('pre-reservation fee'),
-        help_text=_('Non-refundable pre-reservation fee in euros.'),
+        verbose_name=_('generated dogs pre-reservation fee'),
+        help_text=_(
+            'Non-refundable pre-reservation fee copied to generated dogs.'
+        ),
     )
 
-    pre_reservation_capacity = models.PositiveIntegerField(
-        default=0,
-        verbose_name=_('pre-reservation capacity'),
+    offspring_reservation_deposit_percentage = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=decimal.Decimal('50.00'),
+        validators=[
+            MinValueValidator(decimal.Decimal('0.01')),
+            MaxValueValidator(decimal.Decimal('100.00')),
+        ],
+        verbose_name=_('generated dogs reservation deposit percentage'),
         help_text=_(
-            'Number of born babies offered for pre-reservation. '
-            'Use zero to offer no places.'
+            'Reservation deposit percentage copied to generated dogs.'
         ),
     )
 
@@ -553,7 +645,7 @@ class Litter(models.Model):
 
     @property
     def cover(self):
-        return self.files.filter(mime_type__startswith='image/').order_by('order').first()
+        return _cover_attachment(self)
 
     objects = managers.GetByNameManager()
     litters_for_sale = managers.GetByNameManager(active=True)
@@ -562,25 +654,156 @@ class Litter(models.Model):
         verbose_name = _('litter')
         verbose_name_plural = _('litters')
         ordering = ['order',]
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class LitterAlertPreference(models.Model):
+    class Scope(models.TextChoices):
+        NONE = 'none', _('No general alerts')
+        ALL = 'all', _('All breeds')
+        SELECTED_BREEDS = 'selected_breeds', _('Selected breeds')
+
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name='litter_alert_preference',
+        verbose_name=_('user'),
+    )
+    scope = models.CharField(
+        max_length=20,
+        choices=Scope,
+        default=Scope.NONE,
+        verbose_name=_('general litter alerts'),
+    )
+    breeds = models.ManyToManyField(
+        Breed,
+        blank=True,
+        related_name='alert_preferences',
+        verbose_name=_('breeds'),
+    )
+    language_code = models.CharField(max_length=10, default='en')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('litter alert preference')
+        verbose_name_plural = _('litter alert preferences')
+
+    def __str__(self):
+        return f'{self.user} - {self.get_scope_display()}'
+
+
+class LitterAlertOverride(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='litter_alert_overrides',
+        verbose_name=_('user'),
+    )
+    litter = models.ForeignKey(
+        Litter,
+        on_delete=models.CASCADE,
+        related_name='alert_overrides',
+        verbose_name=_('litter'),
+    )
+    enabled = models.BooleanField(
+        default=True,
+        verbose_name=_('subscribed'),
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('litter alert override')
+        verbose_name_plural = _('litter alert overrides')
         constraints = [
-            models.CheckConstraint(
-                condition=(
-                    models.Q(pre_reservation_capacity=0)
-                    | models.Q(
-                        babies__isnull=False,
-                        pre_reservation_capacity__lte=models.F('babies'),
-                    )
-                ),
-                name='litter_reservation_capacity_lte_babies',
-            ),
-            models.CheckConstraint(
-                condition=(
-                    ~models.Q(status='expecting')
-                    | models.Q(pre_reservation_capacity=0)
-                ),
-                name='expecting_litter_reservation_capacity_zero',
+            models.UniqueConstraint(
+                fields=['user', 'litter'],
+                name='one_litter_alert_override_per_user',
             ),
         ]
 
     def __str__(self):
-        return f"{self.name}"
+        return f'{self.user} - {self.litter} - {self.enabled}'
+
+
+class LitterBirthAnnouncement(models.Model):
+    litter = models.OneToOneField(
+        Litter,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='birth_announcement',
+        verbose_name=_('litter'),
+    )
+    litter_name = models.CharField(max_length=150)
+    breed_name = models.CharField(max_length=150)
+    babies = models.PositiveIntegerField()
+    birth_date = models.DateField()
+    announced_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-announced_at']
+        verbose_name = _('litter birth announcement')
+        verbose_name_plural = _('litter birth announcements')
+
+    def __str__(self):
+        return f'{self.litter_name} - {self.babies}'
+
+
+class LitterBirthNotification(models.Model):
+    class Status(models.TextChoices):
+        PENDING = 'pending', _('Pending')
+        PROCESSING = 'processing', _('Processing')
+        SENT = 'sent', _('Sent')
+        FAILED = 'failed', _('Failed')
+        CANCELLED = 'cancelled', _('Cancelled')
+
+    announcement = models.ForeignKey(
+        LitterBirthAnnouncement,
+        on_delete=models.CASCADE,
+        related_name='notifications',
+    )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='litter_birth_notifications',
+    )
+    recipient = models.EmailField()
+    language_code = models.CharField(max_length=10, default='en')
+    status = models.CharField(
+        max_length=20,
+        choices=Status,
+        default=Status.PENDING,
+        db_index=True,
+    )
+    attempt_count = models.PositiveIntegerField(default=0)
+    processing_started_at = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+    next_retry_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        db_index=True,
+    )
+    last_error = models.TextField(blank=True)
+    sent_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['created_at']
+        verbose_name = _('litter birth notification')
+        verbose_name_plural = _('litter birth notifications')
+        constraints = [
+            models.UniqueConstraint(
+                fields=['announcement', 'user'],
+                name='one_birth_notification_per_user',
+            ),
+        ]
+
+    def __str__(self):
+        return f'{self.announcement} - {self.recipient}'

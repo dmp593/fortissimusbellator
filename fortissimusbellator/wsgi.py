@@ -13,4 +13,14 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fortissimusbellator.settings')
 
-application = get_wsgi_application()
+
+def _build_application():
+    django_application = get_wsgi_application()
+
+    from chat.runtime import get_chat_runtime
+
+    get_chat_runtime().warm_up()
+    return django_application
+
+
+application = _build_application()

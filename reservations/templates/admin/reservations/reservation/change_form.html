@@ -1,0 +1,15 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+  {% if original.sale_case %}
+    <li><a href="{% url 'admin:reservations_animalsalecase_change' original.sale_case.pk %}">{% translate "Open sale process" %}</a></li>
+  {% endif %}
+  {% if original.charge %}
+    <li><a href="{% url 'admin:reservations_charge_change' original.charge.pk %}">{% translate "Open charge" %}</a></li>
+  {% endif %}
+  {% if original.status == 'offered' or original.status == 'pending_payment' or original.status == 'payment_failed' or original.status == 'confirmed' %}
+    <li><a class="deletelink" href="{% url 'admin:reservations_reservation_cancel' original.pk %}">{% translate "Cancel reservation" %}</a></li>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}

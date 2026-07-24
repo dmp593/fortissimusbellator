@@ -7,14 +7,25 @@
 <div class="ui-page">
     <section class="ui-card mx-auto max-w-2xl p-8 text-center sm:p-12">
         <h1 class="ui-page-title text-3xl">{% translate "Payment was not completed" %}</h1>
-        <p class="ui-page-subtitle">{% translate "Your place remains temporarily held. Continue payment or cancel to release it for someone else." %}</p>
+        {% if reservation %}
+        <p class="ui-page-subtitle">
+            {% if pre_reservation %}
+            {% translate "Your accepted pre-reservation remains held until the reservation offer expires. You can continue payment without creating a new reservation." %}
+            {% else %}
+            {% translate "Your reservation offer remains held until it expires. You can continue payment without creating another process." %}
+            {% endif %}
+        </p>
+        <a href="{% url 'reservations:reservation_checkout' reservation.public_id %}" class="ui-button ui-button-primary mt-8 w-full text-center">{% translate "Continue reservation payment" %}</a>
+        {% else %}
+        <p class="ui-page-subtitle">{% translate "Your dog remains temporarily held. Continue payment or cancel to release it for someone else." %}</p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-            <form method="post" action="{% url 'reservations:retry_payment' reservation.public_id %}" class="flex-1">
+            <form method="post" action="{% url 'reservations:retry_pre_reservation_payment' pre_reservation.public_id %}" class="flex-1">
                 {% csrf_token %}
-                <button type="submit" class="ui-button ui-button-primary w-full">{% translate "Continue payment" %}</button>
+                <button type="submit" class="ui-button ui-button-primary w-full">{% translate "Continue pre-reservation payment" %}</button>
             </form>
-            <a href="{% url 'reservations:cancel' reservation.public_id %}" class="ui-button ui-button-secondary flex-1 text-center">{% translate "Cancel and release" %}</a>
+            <a href="{% url 'reservations:cancel_pre_reservation' pre_reservation.public_id %}" class="ui-button ui-button-secondary flex-1 text-center">{% translate "Cancel and release" %}</a>
         </div>
+        {% endif %}
     </section>
 </div>
 {% endblock %}

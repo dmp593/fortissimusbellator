@@ -1,0 +1,205 @@
+{% load i18n %}
+<!doctype html>
+<html lang="{{ language_code }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+    <title>{{ content.subject }}</title>
+    <style>
+        @media only screen and (max-width: 680px) {
+            .email-shell { width: 100% !important; }
+            .email-pad { padding-left: 22px !important; padding-right: 22px !important; }
+            .email-button { display: block !important; text-align: center !important; }
+            .email-contact-cell { display: block !important; width: 100% !important; padding-bottom: 14px !important; }
+        }
+    </style>
+</head>
+<body style="margin:0; padding:0; background:#e7e2d8; color:#292524; font-family:Arial, Helvetica, sans-serif;">
+    <div style="display:none; max-height:0; overflow:hidden; opacity:0; color:transparent;">
+        {{ content.preheader }}
+    </div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%; background:#e7e2d8;">
+        <tr>
+            <td align="center" style="padding:28px 12px;">
+                <table role="presentation" width="640" cellspacing="0" cellpadding="0" border="0" class="email-shell" style="width:640px; max-width:640px; background:#fffdf8; border-collapse:separate; border-spacing:0; border-radius:18px; overflow:hidden; box-shadow:0 14px 40px rgba(28,25,23,.16);">
+                    <tr>
+                        <td style="height:6px; background:#d7a91e; font-size:0; line-height:0;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="email-pad" style="background:#1c1917; padding:28px 38px 32px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td valign="middle" style="width:58px;">
+                                        <table role="presentation" width="48" height="48" cellspacing="0" cellpadding="0" border="0" style="width:48px; height:48px; border:2px solid #d7a91e; border-radius:50%;">
+                                            <tr>
+                                                <td align="center" valign="middle" style="color:#f4d45f; font-family:Georgia, 'Times New Roman', serif; font-size:18px; font-weight:bold;">FB</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td valign="middle">
+                                        <p style="margin:0; color:#f4d45f; font-size:11px; font-weight:bold; letter-spacing:2.4px; text-transform:uppercase;">Fortissimus Bellator</p>
+                                        <p style="margin:5px 0 0; color:#d6d3d1; font-size:12px; line-height:1.4;">{% translate "Responsible breeding. Personal guidance." %}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin:28px 0 8px; color:#d7a91e; font-size:11px; font-weight:bold; letter-spacing:2px; text-transform:uppercase;">{{ content.eyebrow }}</p>
+                            <h1 style="margin:0; color:#fafaf9; font-family:Georgia, 'Times New Roman', serif; font-size:34px; line-height:1.15; font-weight:bold;">{{ content.title }}</h1>
+                            {% if content.status_label %}
+                            <span style="display:inline-block; margin-top:18px; padding:7px 12px; border-radius:999px; font-size:12px; font-weight:bold; letter-spacing:.5px; text-transform:uppercase;{% if content.tone == 'success' %} background:#dcfce7; color:#166534;{% elif content.tone == 'warning' %} background:#fef3c7; color:#92400e;{% elif content.tone == 'danger' %} background:#fee2e2; color:#991b1b;{% elif content.tone == 'info' %} background:#dbeafe; color:#1e40af;{% else %} background:#e7e5e4; color:#44403c;{% endif %}">{{ content.status_label }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    {% if content.target_image_url %}
+                    <tr>
+                        <td style="background:#292524;">
+                            {% if content.target_url %}<a href="{{ content.target_url }}" style="text-decoration:none;">{% endif %}
+                            <img src="{{ content.target_image_url }}" width="640" alt="{{ content.target_name }}" style="display:block; width:100%; max-width:640px; height:auto; max-height:320px; object-fit:cover; border:0;">
+                            {% if content.target_url %}</a>{% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    <tr>
+                        <td class="email-pad" style="padding:34px 38px 12px;">
+                            {% if content.internal %}
+                            <p style="margin:0 0 18px; padding:10px 13px; background:#fef3c7; border-left:4px solid #d7a91e; color:#78350f; font-size:13px; font-weight:bold; line-height:1.5;">{% translate "Internal commercial notification" %}</p>
+                            {% elif content.recipient_name %}
+                            <p style="margin:0 0 16px; color:#292524; font-size:16px; line-height:1.65;">{% translate "Hello" %} {{ content.recipient_name }},</p>
+                            {% endif %}
+                            <p style="margin:0; color:#44403c; font-size:17px; line-height:1.7;">{{ content.intro }}</p>
+                        </td>
+                    </tr>
+
+                    {% if content.target_name %}
+                    <tr>
+                        <td class="email-pad" style="padding:18px 38px 0;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%; background:#f5f1e8; border:1px solid #ded7ca; border-radius:12px;">
+                                <tr>
+                                    <td style="padding:18px 20px;">
+                                        <p style="margin:0 0 4px; color:#78716c; font-size:11px; font-weight:bold; letter-spacing:1.5px; text-transform:uppercase;">{% translate "Dog" %}</p>
+                                        {% if content.target_url %}
+                                        <a href="{{ content.target_url }}" style="color:#292524; font-family:Georgia, 'Times New Roman', serif; font-size:23px; font-weight:bold; text-decoration:underline; text-decoration-color:#d7a91e; text-underline-offset:4px;">{{ content.target_name }}</a>
+                                        {% else %}
+                                        <p style="margin:0; color:#292524; font-family:Georgia, 'Times New Roman', serif; font-size:23px; font-weight:bold;">{{ content.target_name }}</p>
+                                        {% endif %}
+                                        {% if content.target_breed %}<p style="margin:5px 0 0; color:#57534e; font-size:14px;">{{ content.target_breed }}</p>{% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    {% if content.details %}
+                    <tr>
+                        <td class="email-pad" style="padding:18px 38px 0;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%; border:1px solid #ded7ca; border-radius:12px; overflow:hidden;">
+                                {% for detail in content.details %}
+                                <tr>
+                                    <td style="padding:13px 18px;{% if not forloop.first %} border-top:1px solid #e7e2d8;{% endif %} color:#78716c; font-size:13px; line-height:1.45;">{{ detail.label }}</td>
+                                    <td align="right" style="padding:13px 18px;{% if not forloop.first %} border-top:1px solid #e7e2d8;{% endif %}{% if detail.highlight %} color:#166534;{% else %} color:#292524;{% endif %} font-size:14px; font-weight:bold; line-height:1.45;">{{ detail.value }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    {% if content.notice or content.notice_title %}
+                    <tr>
+                        <td class="email-pad" style="padding:18px 38px 0;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%; background:#f5f1e8; border-left:4px solid #d7a91e; border-radius:8px;">
+                                <tr>
+                                    <td style="padding:17px 18px;">
+                                        {% if content.notice_title %}<p style="margin:0 0 6px; color:#292524; font-size:14px; font-weight:bold;">{{ content.notice_title }}</p>{% endif %}
+                                        {% if content.notice %}<p style="margin:0; color:#57534e; font-size:14px; line-height:1.6;">{{ content.notice }}</p>{% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    {% if content.primary_action %}
+                    <tr>
+                        <td class="email-pad" style="padding:25px 38px 6px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td style="background:#1c1917; border-radius:9px;">
+                                        <a href="{{ content.primary_action.url }}" class="email-button" style="display:inline-block; padding:14px 22px; color:#ffffff; font-size:15px; font-weight:bold; line-height:1.2; text-decoration:none;">{{ content.primary_action.label }}</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    {% if content.secondary_action %}
+                    <tr>
+                        <td class="email-pad" style="padding:10px 38px 0;">
+                            <a href="{{ content.secondary_action.url }}" style="color:#854d0e; font-size:14px; font-weight:bold; text-decoration:underline; text-underline-offset:3px;">{{ content.secondary_action.label }}</a>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    {% if content.footer_note %}
+                    <tr>
+                        <td class="email-pad" style="padding:22px 38px 0;">
+                            <p style="margin:0; color:#78716c; font-size:13px; line-height:1.6;">{{ content.footer_note }}</p>
+                        </td>
+                    </tr>
+                    {% endif %}
+
+                    <tr>
+                        <td class="email-pad" style="padding:30px 38px 34px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%; background:#292524; border-radius:12px;">
+                                <tr>
+                                    <td colspan="2" style="padding:18px 20px 12px; color:#f4d45f; font-family:Georgia, 'Times New Roman', serif; font-size:18px; font-weight:bold;">{% translate "Need help?" %}</td>
+                                </tr>
+                                <tr>
+                                    <td class="email-contact-cell" width="50%" valign="top" style="padding:0 10px 18px 20px;">
+                                        <p style="margin:0 0 6px; color:#a8a29e; font-size:11px; font-weight:bold; letter-spacing:1px; text-transform:uppercase;">{% translate "Talk to us" %}</p>
+                                        <a href="{{ primary_phone_url }}" style="display:block; margin-bottom:5px; color:#fafaf9; font-size:14px; text-decoration:none;">{{ primary_phone }}</a>
+                                        <a href="{{ secondary_phone_url }}" style="display:block; color:#fafaf9; font-size:14px; text-decoration:none;">{{ secondary_phone }}</a>
+                                    </td>
+                                    <td class="email-contact-cell" width="50%" valign="top" style="padding:0 20px 18px 10px;">
+                                        <p style="margin:0 0 6px; color:#a8a29e; font-size:11px; font-weight:bold; letter-spacing:1px; text-transform:uppercase;">{% translate "Write to us" %}</p>
+                                        <a href="{{ whatsapp_url }}" style="display:block; margin-bottom:5px; color:#f4d45f; font-size:14px; font-weight:bold; text-decoration:none;">{% translate "Chat on WhatsApp" %}</a>
+                                        <a href="mailto:{{ contact_email }}" style="display:block; color:#fafaf9; font-size:13px; text-decoration:none;">{{ contact_email }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="padding:0 20px 18px;">
+                                        <a href="{{ contact_url }}" style="color:#d6d3d1; font-size:13px; text-decoration:underline;">{% translate "Open the contact page" %}</a>
+                                        <span style="color:#78716c;"> &nbsp;·&nbsp; </span>
+                                        <a href="{{ faq_url }}" style="color:#d6d3d1; font-size:13px; text-decoration:underline;">{% translate "View FAQs" %}</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="email-pad" style="background:#1c1917; padding:22px 38px 25px; border-top:1px solid #44403c;">
+                            <p style="margin:0 0 8px; color:#f4d45f; font-size:12px; font-weight:bold; letter-spacing:1.5px; text-transform:uppercase;">Fortissimus Bellator</p>
+                            <p style="margin:0 0 10px; color:#a8a29e; font-size:12px; line-height:1.55;">{{ address }}</p>
+                            <p style="margin:0 0 14px; color:#d6d3d1; font-size:12px;">
+                                <a href="{{ site_url }}" style="color:#d6d3d1;">{% translate "Website" %}</a>
+                                <span style="color:#57534e;"> &nbsp;·&nbsp; </span>
+                                <a href="{{ facebook_url }}" style="color:#d6d3d1;">Facebook</a>
+                                <span style="color:#57534e;"> &nbsp;·&nbsp; </span>
+                                <a href="{{ instagram_url }}" style="color:#d6d3d1;">Instagram</a>
+                            </p>
+                            <p style="margin:0; color:#78716c; font-size:11px; line-height:1.5;">© {{ current_year }} Fortissimus Bellator. {% translate "All rights reserved" %}.</p>
+                            <p style="margin:7px 0 0; color:#78716c; font-size:11px; line-height:1.5;">{% translate "This is an automated message. You can reply to contact our team." %}</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

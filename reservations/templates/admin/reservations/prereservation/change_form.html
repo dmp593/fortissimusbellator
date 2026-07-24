@@ -3,26 +3,18 @@
 
 {% block object-tools-items %}
   {% if original %}
-    {% if original.payment.amount > 0 and original.payment.status == 'paid' or original.payment.amount > 0 and original.payment.status == 'refund_pending' or original.payment.amount > 0 and original.payment.status == 'refund_failed' or original.payment.amount > 0 and original.payment.status == 'refunded' %}
-      <li><a href="{% url 'admin:reservations_prereservation_retry_erp' original.pk %}">{% translate "Retry ERP" %}</a></li>
+    {% if original.sale_case %}
+      <li><a href="{% url 'admin:reservations_animalsalecase_change' original.sale_case.pk %}">{% translate "Open sale process" %}</a></li>
     {% endif %}
-    {% for document in original.admin_erp_documents %}
-      {% if document.kind == 'sale' and document.status == 'integrated' %}
-        <li><a href="{% url 'admin:reservations_prereservation_retry_pdf' original.pk %}">{% translate "Retry PDF" %}</a></li>
-        {% if document.pdf_status == 'available' %}
-          <li><a href="{% url 'reservations:download_document' document.pk %}">{% translate "Download PDF" %}</a></li>
-          <li><a href="{% url 'admin:reservations_prereservation_resend_pdf' original.pk %}">{% translate "Resend PDF" %}</a></li>
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-    {% if original.payment.status == 'refund_pending' or original.payment.status == 'refund_failed' %}
-      <li><a href="{% url 'admin:reservations_prereservation_retry_refund' original.pk %}">{% translate "Retry refund" %}</a></li>
+    {% if original.charge %}
+      <li><a href="{% url 'admin:reservations_charge_change' original.charge.pk %}">{% translate "Open charge" %}</a></li>
     {% endif %}
-    {% if original.status == 'confirmed' %}
-      <li><a href="{% url 'admin:reservations_prereservation_fulfill' original.pk %}">{% translate "Mark fulfilled" %}</a></li>
+    {% if original.status == 'awaiting_review' %}
+      <li><a href="{% url 'admin:reservations_prereservation_accept' original.pk %}">{% translate "Accept" %}</a></li>
+      <li><a class="deletelink" href="{% url 'admin:reservations_prereservation_reject' original.pk %}">{% translate "Do not accept" %}</a></li>
     {% endif %}
-    {% if original.status == 'pending_payment' or original.status == 'confirmed' or original.status == 'fulfilled' %}
-      <li><a href="{% url 'admin:reservations_prereservation_cancel' original.pk %}" class="deletelink">{% translate "Cancel reservation" %}</a></li>
+    {% if original.status == 'pending_payment' or original.status == 'awaiting_review' or original.status == 'accepted' %}
+      <li><a class="deletelink" href="{% url 'admin:reservations_prereservation_cancel' original.pk %}">{% translate "Cancel" %}</a></li>
     {% endif %}
   {% endif %}
   {{ block.super }}

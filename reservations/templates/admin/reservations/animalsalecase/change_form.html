@@ -1,0 +1,48 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+  {% if original %}
+    {% for charge in original.charges.all %}
+      <li>
+        <a href="{% url 'admin:reservations_charge_change' charge.pk %}">
+          {% blocktranslate with stage=charge.get_stage_display %}Manage {{ stage }} amount and payments{% endblocktranslate %}
+        </a>
+      </li>
+    {% endfor %}
+    {% if original.pre_reservation %}
+      <li>
+        <a href="{% url 'admin:reservations_prereservation_change' original.pre_reservation.pk %}">
+          {% translate "Open pre-reservation record" %}
+        </a>
+      </li>
+    {% endif %}
+    {% if original.reservation %}
+      <li>
+        <a href="{% url 'admin:reservations_reservation_change' original.reservation.pk %}">
+          {% translate "Open reservation record" %}
+        </a>
+      </li>
+    {% endif %}
+    {% if original.sale %}
+      <li>
+        <a href="{% url 'admin:reservations_animalsale_change' original.sale.pk %}">
+          {% translate "Open final sale record" %}
+        </a>
+      </li>
+    {% endif %}
+    {% if original.status == 'pre_reservation' or original.status == 'reservation' %}
+      <li>
+        <a href="{% url 'admin:reservations_animalsalecase_transfer' original.pk %}">
+          {% translate "Transfer to another dog" %}
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'admin:reservations_animalsalecase_complete_sale' original.pk %}">
+          {% translate "Complete final sale" %}
+        </a>
+      </li>
+    {% endif %}
+  {% endif %}
+  {{ block.super }}
+{% endblock %}

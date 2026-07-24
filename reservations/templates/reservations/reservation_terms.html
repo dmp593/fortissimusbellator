@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Reservation terms" %}{% endblock %}
+
+{% block content %}
+<main class="ui-page">
+    <header class="ui-page-header">
+        <p class="mb-3 font-sans text-xs font-bold uppercase tracking-[0.24em] text-yellow-800 dark:text-yellow-400">{% translate "Reservations" %}</p>
+        <h1 class="ui-page-title">{% translate "Reservation terms" %}</h1>
+        <p class="ui-page-subtitle">{% blocktranslate with version=terms.version %}Current version: {{ version }}{% endblocktranslate %}</p>
+    </header>
+    <article class="ui-card mx-auto max-w-3xl p-6 sm:p-10">
+        <div class="ui-body space-y-4">{{ terms.description|linebreaks }}</div>
+        <p class="mt-8 border-t border-stone-200 pt-5 text-sm text-stone-500 dark:border-stone-700 dark:text-stone-400">{% blocktranslate with published_at=terms.published_at|date:"SHORT_DATETIME_FORMAT" %}Published on {{ published_at }}{% endblocktranslate %}</p>
+    </article>
+</main>
+{% endblock %}

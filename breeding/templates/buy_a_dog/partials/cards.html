@@ -1,25 +1,31 @@
 {% load i18n %}
 
 {% for dog in dogs %}
-<article class="ui-card ui-card-interactive relative flex flex-col overflow-hidden">
+<article class="ui-card relative flex flex-col overflow-hidden{% if not dog.has_blocking_pre_reservation and not dog.has_confirmed_reservation %} ui-card-interactive{% endif %}">
     <!-- Dog Image -->
     <div class="relative">
         {% if dog.cover %}
-        <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="w-full h-80 object-cover" loading="lazy">
+        <img src="{{ dog.cover.file.url }}" alt="{{ dog.name }}" class="h-80 w-full object-cover{% if dog.is_sold or dog.has_blocking_pre_reservation or dog.has_confirmed_reservation %} grayscale brightness-75 saturate-50{% endif %}" loading="lazy">
         {% else %}
-        <div class="w-full h-80 bg-stone-200 dark:bg-stone-700 flex items-center justify-center">
+        <div class="flex h-80 w-full items-center justify-center bg-stone-200 dark:bg-stone-700{% if dog.is_sold or dog.has_blocking_pre_reservation or dog.has_confirmed_reservation %} grayscale brightness-75 saturate-50{% endif %}">
             <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
         </div>
         {% endif %}
 
         <!-- Badges -->
-        {% if dog.sold_at %}
+        {% if dog.is_sold %}
         <div class="absolute top-2 right-2 bg-red-700 dark:bg-red-400 text-white text-xs font-bold px-3 py-1 rounded-lg shadow-lg">
             {% translate "Sold" %}
         </div>
-        {% elif dog.has_blocking_pre_reservation %}
-        <div class="absolute top-2 right-2 rounded-lg bg-stone-900 px-3 py-1 text-xs font-bold text-white shadow-lg dark:bg-stone-100 dark:text-stone-900">
+        {% elif dog.has_confirmed_reservation %}
+        <div class="absolute inset-0 bg-stone-950/20" aria-hidden="true"></div>
+        <div role="status" class="absolute right-3 top-3 border border-white/70 bg-stone-950/80 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
             {% translate "Reserved" %}
+        </div>
+        {% elif dog.has_blocking_pre_reservation %}
+        <div class="absolute inset-0 bg-stone-950/20" aria-hidden="true"></div>
+        <div role="status" class="absolute right-3 top-3 border border-white/70 bg-stone-950/80 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+            {% translate "Pre-reserved" %}
         </div>
         {% elif dog.discount_in_euros %}
         <div class="absolute top-2 right-2 bg-yellow-800 dark:bg-yellow-400 text-white text-xs font-bold px-3 py-1 rounded-lg shadow-lg">
@@ -87,11 +93,7 @@
         <div class="mt-auto">
             <!-- Price / Sold Message -->
             <div class="mt-4">
-                {% if dog.sold_at %}
-                <p class="text-lg font-bold text-red-800 italic dark:text-red-400">
-                    {% translate "Sold" %}
-                </p>
-                {% elif dog.price_in_euros %}
+                {% if not dog.is_sold and dog.price_in_euros %}
                 <p class="text-lg font-bold text-stone-700 dark:text-stone-300">
                     {% if dog.discount_in_euros %}
                     <span class="line-through text-stone-700 dark:text-stone-300">{{ dog.price_in_euros }}€</span>
@@ -100,7 +102,7 @@
                     {{ dog.price_in_euros }}€
                     {% endif %}
                 </p>
-                {% else %}
+                {% elif not dog.is_sold %}
                 <p class="text-lg font-bold italic text-yellow-800 dark:text-yellow-400">
                     <span>{% translate "Call for Pricing" %}</span>
                 </p>

@@ -46,6 +46,7 @@ env = environ.Env(
     EMAIL_USE_SSL=(bool, False),
 
     DEFAULT_FROM_EMAIL=(str, 'no-reply@fortissimusbellator.pt'),
+    PUBLIC_SITE_URL=(str, ''),
 
     RECIPIENT_LIST_ON_CONTACT_US_REQUEST=(
         list, ['geral@fortissimusbellator.pt', 'luiscosta2001@gmail.com']
@@ -56,7 +57,9 @@ env = environ.Env(
 
     RESERVATION_CHECKOUT_MINUTES=(int, 10),
     RESERVATION_ERP_MAX_AUTOMATIC_ATTEMPTS=(int, 3),
+    RESERVATION_REFUND_MAX_AUTOMATIC_ATTEMPTS=(int, 5),
     RESERVATION_PDF_MAX_BYTES=(int, 15 * 1024 * 1024),
+    LITTER_ALERT_MAX_AUTOMATIC_ATTEMPTS=(int, 5),
 
     TOCONLINE_ENABLED=(bool, False),
     TOCONLINE_BASE_URL=(str, 'https://api10.toconline.pt'),
@@ -90,7 +93,7 @@ env = environ.Env(
     CHAT_MODEL_DIR=(str, str(BASE_DIR / '.models')),
     CHAT_MODEL_AUTO_DOWNLOAD=(bool, True),
     CHAT_MODEL_DOWNLOAD_TIMEOUT=(int, 60),
-    CHAT_MODEL_MAX_DOWNLOAD_BYTES=(int, 850_000_000),
+    CHAT_MODEL_MAX_DOWNLOAD_BYTES=(int, 1_350_000_000),
     CHAT_CONTEXT_SIZE=(int, 2048),
     CHAT_MAX_OUTPUT_TOKENS=(int, 192),
     CHAT_THREADS=(int, 2),
@@ -141,7 +144,13 @@ RESERVATION_CHECKOUT_MINUTES = env('RESERVATION_CHECKOUT_MINUTES')
 RESERVATION_ERP_MAX_AUTOMATIC_ATTEMPTS = env(
     'RESERVATION_ERP_MAX_AUTOMATIC_ATTEMPTS'
 )
+RESERVATION_REFUND_MAX_AUTOMATIC_ATTEMPTS = env(
+    'RESERVATION_REFUND_MAX_AUTOMATIC_ATTEMPTS'
+)
 RESERVATION_PDF_MAX_BYTES = env('RESERVATION_PDF_MAX_BYTES')
+LITTER_ALERT_MAX_AUTOMATIC_ATTEMPTS = env(
+    'LITTER_ALERT_MAX_AUTOMATIC_ATTEMPTS'
+)
 
 TOCONLINE_ENABLED = env('TOCONLINE_ENABLED')
 TOCONLINE_BASE_URL = env('TOCONLINE_BASE_URL')
@@ -294,6 +303,9 @@ WSGI_APPLICATION = 'fortissimusbellator.wsgi.application'
 SITE_ID = 1
 SITE_DOMAIN = 'fortissimusbellator.pt'
 SITE_NAME = 'Fortissimus Bellator'
+PUBLIC_SITE_URL = (
+    env('PUBLIC_SITE_URL') or f'https://{SITE_DOMAIN}'
+).rstrip('/')
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

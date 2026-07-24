@@ -145,7 +145,10 @@ def wait_for_media_ready(creation_id, access_token, timeout=25):
     """
     Optional: Poll the container until ready (recommended for reliability).
     """
-    status_url = f"https://graph.facebook.com/{GRAPH_VERSION}/{creation_id}"
+    status_url = (
+        f"https://graph.facebook.com/"
+        f"{settings.FACEBOOK_GRAPH_VERSION}/{creation_id}"
+    )
     start = time.time()
 
     while (time.time() - start) < timeout:

@@ -1,0 +1,268 @@
+{% load i18n %}
+
+<article class="ui-card overflow-hidden">
+    <div class="relative">
+        {% if sale_case.animal.cover %}
+        <img
+            src="{{ sale_case.animal.cover.file.url }}"
+            alt="{{ sale_case.target_name }}"
+            class="h-64 w-full object-cover{% if sale_case.has_completed_sale or sale_case.status == 'pre_reservation' or sale_case.status == 'reservation' %} grayscale brightness-75 saturate-50{% endif %}"
+            loading="lazy"
+        >
+        {% else %}
+        <div class="ui-muted-surface flex h-64 items-center justify-center rounded-none">
+            <span class="text-stone-500 dark:text-stone-400">{% translate "No Image Available" %}</span>
+        </div>
+        {% endif %}
+
+        {% if sale_case.has_completed_sale %}
+        <span class="absolute right-3 top-3 rounded bg-red-700 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white dark:bg-red-400">{% translate "Sold" %}</span>
+        {% elif sale_case.reservation_stage.status == 'confirmed' %}
+        <span class="absolute right-3 top-3 border border-white/70 bg-stone-950/80 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">{% translate "Reserved" %}</span>
+        {% elif sale_case.status == 'pre_reservation' or sale_case.status == 'reservation' %}
+        <span class="absolute right-3 top-3 border border-white/70 bg-stone-950/80 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">{% translate "Pre-reserved" %}</span>
+        {% else %}
+        <span class="absolute right-3 top-3 rounded bg-stone-900/85 px-3 py-1 text-xs font-bold text-white">{{ sale_case.get_status_display }}</span>
+        {% endif %}
+    </div>
+
+    <header class="border-b border-stone-200 bg-gradient-to-r from-stone-50 to-white p-6 dark:border-stone-700 dark:from-stone-900 dark:to-stone-800">
+        <p class="mb-1 text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">{% translate "Dog" %}</p>
+        <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white">
+            {% if sale_case.animal and sale_case.target_is_public %}
+            <a href="{% url 'breeding:dog_detail' sale_case.animal_id %}" class="underline decoration-stone-300 underline-offset-4 transition hover:decoration-stone-700 dark:decoration-stone-600 dark:hover:decoration-stone-200">{{ sale_case.target_name }}</a>
+            {% else %}
+            {{ sale_case.target_name }}
+            {% endif %}
+        </h3>
+        <p class="mt-1 text-sm text-stone-600 dark:text-stone-300">{{ sale_case.target_breed }}</p>
+
+        {% if sale_case.target_deleted_at %}
+        <p class="mt-4 rounded-lg bg-stone-200 p-3 text-sm text-stone-700 dark:bg-stone-700 dark:text-stone-200">{% translate "This listing was deleted, but your purchase history is preserved." %}</p>
+        {% elif sale_case.animal and not sale_case.target_is_public and not sale_case.has_completed_sale %}
+        <p class="mt-4 rounded-lg bg-stone-200 p-3 text-sm text-stone-700 dark:bg-stone-700 dark:text-stone-200">{% translate "This listing is no longer public. Your purchase history remains available here." %}</p>
+        {% endif %}
+    </header>
+
+    <div class="space-y-6 p-6">
+        {% if sale_case.pre_reservation_stage %}
+        <section aria-labelledby="pre-stage-{{ sale_case.pk }}">
+            <div class="mb-3 flex items-center justify-between gap-3">
+                <h4 id="pre-stage-{{ sale_case.pk }}" class="font-serif text-lg font-bold">{% translate "1. Pre-reservation" %}</h4>
+                <span class="text-sm font-semibold">{{ sale_case.pre_reservation_stage.get_status_display }}</span>
+            </div>
+            {% with charge=sale_case.pre_reservation_charge %}
+            <dl class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Total" %}</dt>
+                    <dd class="mt-1 font-semibold">{{ charge.total_amount }} {{ charge.currency }}</dd>
+                </div>
+                <div>
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Settled" %}</dt>
+                    <dd class="mt-1 font-semibold">{{ charge.settled_amount }} {{ charge.currency }}</dd>
+                </div>
+                {% if charge.amount_due %}
+                <div class="col-span-2">
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Outstanding" %}</dt>
+                    <dd class="mt-1 font-semibold">{{ charge.amount_due }} {{ charge.currency }}</dd>
+                </div>
+                {% endif %}
+                {% if charge.promotion_code %}
+                <div class="col-span-2 rounded-lg bg-green-50 p-3 dark:bg-green-950/30">
+                    <dt class="text-green-700 dark:text-green-300">{% translate "Promotion" %}</dt>
+                    <dd class="mt-1 font-semibold text-green-900 dark:text-green-100">{{ charge.promotion_code }} · -{{ charge.promotion_discount_amount }} {{ charge.currency }}</dd>
+                </div>
+                {% endif %}
+            </dl>
+            {% for payment in charge.payments.all %}
+            <div class="mt-3 rounded-lg border border-stone-200 p-3 text-sm dark:border-stone-700">
+                <div class="flex justify-between gap-3">
+                    <span>{{ payment.get_provider_display }} · {{ payment.get_status_display }}</span>
+                    <strong>{{ payment.amount }} {{ payment.currency }}</strong>
+                </div>
+                {% for refund in payment.refunds.all %}
+                <div class="mt-2 flex justify-between gap-3 border-t border-stone-200 pt-2 text-stone-600 dark:border-stone-700 dark:text-stone-300">
+                    <span>{% translate "Refund" %} · {{ refund.get_status_display }}</span>
+                    <strong>-{{ refund.amount }} {{ payment.currency }}</strong>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            {% endwith %}
+        </section>
+        {% endif %}
+
+        {% if sale_case.reservation_stage %}
+        <section class="{% if sale_case.pre_reservation_stage %}border-t border-stone-200 pt-5 dark:border-stone-700{% endif %}" aria-labelledby="reservation-stage-{{ sale_case.pk }}">
+            <div class="mb-3 flex items-center justify-between gap-3">
+                <h4 id="reservation-stage-{{ sale_case.pk }}" class="font-serif text-lg font-bold">
+                    {% if sale_case.pre_reservation_stage %}{% translate "2. Reservation deposit" %}{% else %}{% translate "Reservation deposit" %}{% endif %}
+                </h4>
+                <span class="text-sm font-semibold">{{ sale_case.reservation_stage.get_status_display }}</span>
+            </div>
+            {% with charge=sale_case.reservation_charge %}
+            <dl class="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Deposit target" %}</dt>
+                    <dd class="mt-1 font-semibold">{{ sale_case.reservation_stage.deposit_target_amount }} {{ charge.currency }}</dd>
+                </div>
+                <div>
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Settled" %}</dt>
+                    <dd class="mt-1 font-semibold">{{ charge.settled_amount }} {{ charge.currency }}</dd>
+                </div>
+                {% if sale_case.reservation_stage.pre_reservation_credit_amount %}
+                <div>
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Pre-reservation credit" %}</dt>
+                    <dd class="mt-1 font-semibold">-{{ sale_case.reservation_stage.pre_reservation_credit_amount }} {{ charge.currency }}</dd>
+                </div>
+                {% endif %}
+                {% if sale_case.reservation_stage.customer_credit_amount %}
+                <div>
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Customer credit" %}</dt>
+                    <dd class="mt-1 font-semibold">-{{ sale_case.reservation_stage.customer_credit_amount }} {{ charge.currency }}</dd>
+                </div>
+                {% endif %}
+                {% if charge.amount_due %}
+                <div>
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Outstanding" %}</dt>
+                    <dd class="mt-1 font-semibold">{{ charge.amount_due }} {{ charge.currency }}</dd>
+                </div>
+                {% endif %}
+                {% if sale_case.reservation_stage.offer_expires_at %}
+                <div>
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Offer expires" %}</dt>
+                    <dd class="mt-1 font-semibold">{{ sale_case.reservation_stage.offer_expires_at|date:"SHORT_DATETIME_FORMAT" }}</dd>
+                </div>
+                {% endif %}
+                {% if charge.promotion_code %}
+                <div class="col-span-2 rounded-lg bg-green-50 p-3 dark:bg-green-950/30">
+                    <dt class="text-green-700 dark:text-green-300">{% translate "Reservation promotion" %}</dt>
+                    <dd class="mt-1 font-semibold text-green-900 dark:text-green-100">{{ charge.promotion_code }} · -{{ charge.promotion_discount_amount }} {{ charge.currency }}</dd>
+                </div>
+                {% endif %}
+            </dl>
+            {% for payment in charge.payments.all %}
+            <div class="mt-3 rounded-lg border border-stone-200 p-3 text-sm dark:border-stone-700">
+                <div class="flex justify-between gap-3">
+                    <span>{{ payment.get_provider_display }} · {{ payment.get_status_display }}</span>
+                    <strong>{{ payment.amount }} {{ payment.currency }}</strong>
+                </div>
+                {% for refund in payment.refunds.all %}
+                <div class="mt-2 flex justify-between gap-3 border-t border-stone-200 pt-2 text-stone-600 dark:border-stone-700 dark:text-stone-300">
+                    <span>{% translate "Refund" %} · {{ refund.get_status_display }}</span>
+                    <strong>-{{ refund.amount }} {{ payment.currency }}</strong>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            {% endwith %}
+        </section>
+        {% elif sale_case.pre_reservation_stage.status == 'awaiting_review' %}
+        <div class="rounded-lg border border-yellow-700/30 bg-yellow-50 p-4 text-sm text-yellow-950 dark:border-yellow-500/40 dark:bg-yellow-950/30 dark:text-yellow-100">
+            <strong>{% translate "Awaiting breeder review" %}</strong>
+            <p class="mt-1">{% translate "Only an accepted pre-reservation can proceed to the reservation deposit." %}</p>
+        </div>
+        {% endif %}
+
+        {% if sale_case.final_sale_stage %}
+        <section class="border-t border-stone-200 pt-5 dark:border-stone-700">
+            <div class="mb-3 flex items-center justify-between gap-3">
+                <h4 class="font-serif text-lg font-bold">{% translate "Final sale" %}</h4>
+                <span class="text-sm font-semibold">
+                    {% if sale_case.final_sale_stage.voided_at %}
+                    {% translate "Cancelled" %}
+                    {% else %}
+                    {% translate "Completed" %}
+                    {% endif %}
+                </span>
+            </div>
+            <dl class="grid grid-cols-2 gap-4 text-sm">
+                {% if sale_case.final_sale_stage.final_price is not None %}
+                <div>
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Final agreed price" %}</dt>
+                    <dd class="mt-1 font-semibold">{{ sale_case.final_sale_stage.final_price }} {{ sale_case.currency }}</dd>
+                </div>
+                {% endif %}
+                <div>
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Sold at" %}</dt>
+                    <dd class="mt-1 font-semibold">{{ sale_case.final_sale_stage.sold_at|date:"SHORT_DATE_FORMAT" }}</dd>
+                </div>
+                {% if sale_case.final_sale_stage.void_reason %}
+                <div class="col-span-2">
+                    <dt class="text-stone-500 dark:text-stone-400">{% translate "Cancellation reason" %}</dt>
+                    <dd class="mt-1 font-semibold">{{ sale_case.final_sale_stage.void_reason }}</dd>
+                </div>
+                {% endif %}
+            </dl>
+        </section>
+        {% endif %}
+
+        {% for closure in sale_case.closures.all %}
+        <section class="rounded-lg border border-stone-300 bg-stone-50 p-4 text-sm dark:border-stone-700 dark:bg-stone-900/50">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <strong>{{ closure.get_kind_display }}</strong>
+                    <p class="mt-1 text-stone-600 dark:text-stone-300">{{ closure.reason }}</p>
+                </div>
+                <span>{{ closure.created_at|date:"SHORT_DATETIME_FORMAT" }}</span>
+            </div>
+            <dl class="mt-3 grid grid-cols-3 gap-3 text-xs">
+                <div><dt>{% translate "Refund" %}</dt><dd class="font-semibold">{{ closure.refund_amount }} {{ sale_case.currency }}</dd></div>
+                <div><dt>{% translate "Credit" %}</dt><dd class="font-semibold">{{ closure.credit_amount }} {{ sale_case.currency }}</dd></div>
+                <div><dt>{% translate "Retained" %}</dt><dd class="font-semibold">{{ closure.retained_amount }} {{ sale_case.currency }}</dd></div>
+            </dl>
+        </section>
+        {% endfor %}
+
+        {% for transfer in sale_case.outgoing_transfers.all %}
+        <p class="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900 dark:border-blue-900 dark:bg-blue-950/30 dark:text-blue-100">
+            {% blocktranslate with dog=transfer.target_case.target_name %}This process was transferred to {{ dog }}.{% endblocktranslate %}
+        </p>
+        {% endfor %}
+        {% if sale_case.incoming_transfer %}
+        <p class="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900 dark:border-blue-900 dark:bg-blue-950/30 dark:text-blue-100">
+            {% blocktranslate with dog=sale_case.incoming_transfer.source_case.target_name %}This process received value transferred from {{ dog }}.{% endblocktranslate %}
+        </p>
+        {% endif %}
+
+        {% if toconline_enabled or sale_case.has_customer_fiscal_documents %}
+        <section class="space-y-3 border-t border-stone-200 pt-5 dark:border-stone-700">
+            <h4 class="font-serif text-lg font-bold">{% translate "Fiscal documents" %}</h4>
+            {% for charge in sale_case.charges.all %}
+                {% for document in charge.erp_documents.all %}
+                    {% if toconline_enabled or document.status == 'integrated' or document.pdf_status == 'available' %}
+                    {% include "reservations/partials/fiscal_document.html" with document=document %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        {% if sale_case.reservation_stage %}
+        <p class="text-xs leading-relaxed text-stone-500 dark:text-stone-400">{% translate "Reservation refunds are not automatic. Any refund, credit, or retained amount decided by the breeder appears separately in your history." %}</p>
+        {% elif sale_case.pre_reservation_stage %}
+        <p class="text-xs leading-relaxed text-stone-500 dark:text-stone-400">{% translate "The pre-reservation is non-refundable by nature. A refund or customer credit only exists when the breeder expressly records one." %}</p>
+        {% endif %}
+
+        {% if sale_case.pre_reservation_stage.status == 'pending_payment' %}
+        <div class="flex flex-col gap-3 sm:flex-row">
+            <form method="post" action="{% url 'reservations:retry_pre_reservation_payment' sale_case.pre_reservation_stage.public_id %}" class="flex-1">
+                {% csrf_token %}
+                <button type="submit" class="ui-button ui-button-primary w-full px-4 py-2">{% translate "Continue pre-reservation payment" %}</button>
+            </form>
+            <a href="{% url 'reservations:cancel_pre_reservation' sale_case.pre_reservation_stage.public_id %}" class="ui-button ui-button-secondary flex-1 px-4 py-2 text-center">{% translate "Cancel and release" %}</a>
+        </div>
+        {% elif sale_case.pre_reservation_stage.status == 'payment_failed' or sale_case.pre_reservation_stage.status == 'expired' %}
+            {% if sale_case.animal and sale_case.target_is_public and sale_case.animal.pre_reservation_enabled %}
+            <form method="post" action="{% url 'reservations:retry_pre_reservation_payment' sale_case.pre_reservation_stage.public_id %}">
+                {% csrf_token %}
+                <button type="submit" class="ui-button ui-button-primary w-full px-4 py-2">{% translate "Try payment again" %}</button>
+            </form>
+            {% endif %}
+        {% elif sale_case.pre_reservation_stage.status == 'awaiting_review' %}
+        <a href="{% url 'reservations:cancel_pre_reservation' sale_case.pre_reservation_stage.public_id %}" class="ui-button ui-button-secondary block w-full px-4 py-2 text-center">{% translate "Cancel pre-reservation" %}</a>
+        {% elif sale_case.reservation_stage.status == 'offered' or sale_case.reservation_stage.status == 'payment_failed' or sale_case.reservation_stage.status == 'pending_payment' %}
+        <a href="{% url 'reservations:reservation_checkout' sale_case.reservation_stage.public_id %}" class="ui-button ui-button-primary block w-full px-4 py-2 text-center">{% translate "Continue to reservation deposit" %}</a>
+        {% endif %}
+    </div>
+</article>

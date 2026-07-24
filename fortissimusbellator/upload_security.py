@@ -152,51 +152,71 @@ def fetch_remote_image(url):
     current_url = url
     for _redirect in range(settings.EDITOR_REMOTE_MAX_REDIRECTS + 1):
         validate_public_url(current_url)
-        try:
-            response = requests.get(
-                current_url,
-                stream=True,
-                allow_redirects=False,
-                timeout=(5, settings.EDITOR_REMOTE_READ_TIMEOUT),
-                headers={"User-Agent": "FortissimusBellator/1.0"},
-            )
-        except requests.RequestException as exc:
-            raise RemoteImageUnavailable("The remote image could not be reached.") from exc
-
+        response = _request_remote_image(current_url)
         with response:
-            if 300 <= response.status_code < 400:
-                location = response.headers.get("Location")
-                if not location:
-                    raise RemoteImageUnavailable("The remote redirect is invalid.")
-                current_url = urljoin(current_url, location)
+            redirect_url = _remote_redirect_url(response, current_url)
+            if redirect_url:
+                current_url = redirect_url
                 continue
-            try:
-                response.raise_for_status()
-            except requests.RequestException as exc:
-                raise RemoteImageUnavailable(
-                    "The remote server rejected the image request."
-                ) from exc
+            _validate_remote_response(response)
+            content = _read_remote_content(response)
 
-            content_length = response.headers.get("Content-Length")
-            try:
-                announced_size = int(content_length) if content_length else 0
-            except ValueError:
-                announced_size = 0
-            if announced_size > settings.EDITOR_IMAGE_MAX_BYTES:
-                raise UploadRejected("The remote image is too large.")
-
-            content = bytearray()
-            for chunk in response.iter_content(chunk_size=64 * 1024):
-                if not chunk:
-                    continue
-                content.extend(chunk)
-                if len(content) > settings.EDITOR_IMAGE_MAX_BYTES:
-                    raise UploadRejected("The remote image is too large.")
-
-        extension = validate_image(bytes(content))
-        return _save_editor_image(bytes(content), extension)
+        extension = validate_image(content)
+        return _save_editor_image(content, extension)
 
     raise RemoteImageUnavailable("The remote image redirected too many times.")
+
+
+def _request_remote_image(url):
+    try:
+        return requests.get(
+            url,
+            stream=True,
+            allow_redirects=False,
+            timeout=(5, settings.EDITOR_REMOTE_READ_TIMEOUT),
+            headers={"User-Agent": "FortissimusBellator/1.0"},
+        )
+    except requests.RequestException as exc:
+        raise RemoteImageUnavailable(
+            "The remote image could not be reached."
+        ) from exc
+
+
+def _remote_redirect_url(response, current_url):
+    if not 300 <= response.status_code < 400:
+        return None
+    location = response.headers.get("Location")
+    if not location:
+        raise RemoteImageUnavailable("The remote redirect is invalid.")
+    return urljoin(current_url, location)
+
+
+def _validate_remote_response(response):
+    try:
+        response.raise_for_status()
+    except requests.RequestException as exc:
+        raise RemoteImageUnavailable(
+            "The remote server rejected the image request."
+        ) from exc
+
+    content_length = response.headers.get("Content-Length")
+    try:
+        announced_size = int(content_length) if content_length else 0
+    except ValueError:
+        announced_size = 0
+    if announced_size > settings.EDITOR_IMAGE_MAX_BYTES:
+        raise UploadRejected("The remote image is too large.")
+
+
+def _read_remote_content(response):
+    content = bytearray()
+    for chunk in response.iter_content(chunk_size=64 * 1024):
+        if not chunk:
+            continue
+        content.extend(chunk)
+        if len(content) > settings.EDITOR_IMAGE_MAX_BYTES:
+            raise UploadRejected("The remote image is too large.")
+    return bytes(content)
 
 
 def validate_public_url(url):

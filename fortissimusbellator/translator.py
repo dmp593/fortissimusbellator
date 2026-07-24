@@ -1,83 +1,69 @@
+"""Synchronous, request-local adapters for optional translation providers."""
+
 import asyncio
 import logging
 
 from django.conf import settings
 from django.utils.translation import get_language
 
-from deepl import DeepLClient
-from googletrans import Translator
 
-
-__google_translator = Translator()
-__deepl_client = DeepLClient(settings.DEEPL_AUTH_KEY)
-
-
-def __get_event_loop():
-    loop = None
-
-    try:
-        loop = asyncio.get_event_loop()
-    except RuntimeError as e:
-        if str(e).startswith('There is no current event loop in thread'):
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-
-    return loop
-
-
-def __google_translate(
-    text: str,
-    src: str | None = None,
-    dst: str | None = None
-) -> str | None:
-    loop = __get_event_loop()
-
-    if not loop:
-        return None
-
-    return loop.run_until_complete(
-        __google_translator.translate(
-            text,
-            src=src,
-            dest=dst or get_language()
-        )
-    )
-
-
-def __deepl_translate(
-    text: str,
-    source_lang: str | None = None,
-    target_lang: str | None = None
-):
-    __deepl_client.translate_text(
-        text,
-        source_lang=source_lang,
-        target_lang=target_lang or get_language()
-    )
-
-
-__translation_providers__ = {
-    "google": __google_translate,
-    "deepl": __deepl_translate
-}
+logger = logging.getLogger(__name__)
 
 
 def translate(
     text: str,
     source_lang: str | None = None,
     target_lang: str | None = None,
-    provider: str = "deepl"
+    provider: str = "deepl",
 ) -> str | None:
-    if provider not in __translation_providers__:
-        logging.error("Unsupported translation provider: %s", provider)
-        return None
-
+    """Translate text without retaining provider clients between calls."""
+    target_lang = target_lang or get_language() or "en"
     try:
-        text_result = __translation_providers__[provider](
-            text, source_lang, target_lang
+        if provider == "google":
+            return _translate_with_google(text, source_lang, target_lang)
+        if provider == "deepl":
+            return _translate_with_deepl(text, source_lang, target_lang)
+    except Exception:
+        logger.exception(
+            "translation_failed provider=%s source=%s target=%s",
+            provider,
+            source_lang or "auto",
+            target_lang,
         )
-
-        return text_result.text
-    except Exception as ex:  # pylint: disable=bare-except
-        logging.error("Translate error: %s", ex)
         return None
+
+    logger.error("translation_provider_unsupported provider=%s", provider)
+    return None
+
+
+def _translate_with_google(text, source_lang, target_lang):
+    async def request_translation():
+        from googletrans import Translator
+
+        async with Translator() as client:
+            result = await client.translate(
+                text,
+                src=source_lang or "auto",
+                dest=target_lang,
+            )
+            return result.text
+
+    return asyncio.run(request_translation())
+
+
+def _translate_with_deepl(text, source_lang, target_lang):
+    if not settings.DEEPL_AUTH_KEY:
+        raise RuntimeError("DeepL is not configured.")
+
+    from deepl import DeepLClient
+
+    client = DeepLClient(settings.DEEPL_AUTH_KEY)
+    try:
+        result = client.translate_text(
+            text,
+            source_lang=source_lang.upper() if source_lang else None,
+            target_lang=target_lang.upper(),
+        )
+        return result.text
+    finally:
+        client.close()

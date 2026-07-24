@@ -1,8 +1,0 @@
-Your pre-reservation for {{ reservation.target_name }} has been confirmed.
-
-Amount paid: {{ reservation.total_amount }} {{ reservation.currency }}
-{% if reservation.promotion_code %}Promotion: {{ reservation.promotion_code }} (-{{ reservation.discount_amount }} {{ reservation.currency }})
-{% endif %}
-The pre-reservation fee is non-refundable if you choose to cancel.
-
-{% if reservation.payment.amount == 0 %}No fiscal document is required for this zero-value reservation.{% else %}Your fiscal document will be available from your reservations dashboard as soon as the accounting integration completes.{% endif %}

@@ -8,8 +8,43 @@
     <header class="ui-page-header">
         <p class="mb-3 font-sans text-xs font-bold uppercase tracking-[0.24em] text-yellow-800 dark:text-yellow-400">{% translate "Private dashboard" %}</p>
         <h1 class="ui-page-title">{% translate "My Reservations" %}</h1>
-        <p class="ui-page-subtitle">{% translate "Track payments, reservation status, promotions, and fiscal documents." %}</p>
+        <p class="ui-page-subtitle">{% translate "Track pre-reservation review, reservation deposits, refunds, customer credit, promotions, and fiscal documents." %}</p>
     </header>
+
+    {% if customer_credits %}
+    <section class="mb-16" aria-labelledby="customer-credit-heading">
+        <div class="mb-6 flex items-end justify-between gap-4">
+            <div>
+                <p class="mb-2 font-sans text-xs font-bold uppercase tracking-[0.2em] text-yellow-800 dark:text-yellow-400">{% translate "Financial history" %}</p>
+                <h2 id="customer-credit-heading" class="ui-section-title text-2xl">{% translate "Customer credit" %}</h2>
+            </div>
+            <span class="text-sm text-stone-500 dark:text-stone-400">{{ customer_credits|length }}</span>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+            {% for credit in customer_credits %}
+            <article class="ui-card p-5">
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <p class="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">{{ credit.get_status_display }}</p>
+                        <p class="mt-2 font-serif text-2xl font-bold text-stone-900 dark:text-white">{{ credit.available_amount }} {{ credit.currency }}</p>
+                        <p class="mt-1 text-xs text-stone-500 dark:text-stone-400">
+                            {% blocktranslate with original=credit.amount currency=credit.currency %}Original credit: {{ original }} {{ currency }}{% endblocktranslate %}
+                        </p>
+                    </div>
+                    <span class="rounded-full border border-yellow-700/30 bg-yellow-50 px-3 py-1 text-xs font-bold text-yellow-900 dark:border-yellow-500/40 dark:bg-yellow-950/30 dark:text-yellow-100">{% translate "Credit" %}</span>
+                </div>
+                <p class="mt-4 text-sm leading-relaxed text-stone-600 dark:text-stone-300">{{ credit.reason }}</p>
+                {% if credit.source_sale_case %}
+                <p class="mt-3 text-xs text-stone-500 dark:text-stone-400">
+                    {% blocktranslate with dog=credit.source_sale_case.target_name %}Created from the {{ dog }} process.{% endblocktranslate %}
+                </p>
+                {% endif %}
+                <p class="mt-3 text-xs text-stone-500 dark:text-stone-400">{% translate "Customer credit is applied by the breeder to a future eligible process; it is not a cash refund." %}</p>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
 
     <section class="mb-16">
         <div class="mb-6 flex items-end justify-between gap-4">
@@ -18,11 +53,11 @@
         </div>
         <div class="grid gap-6 lg:grid-cols-2">
             {% for reservation in active_reservations %}
-                {% include "reservations/partials/reservation_card.html" with reservation=reservation %}
+                {% include "reservations/partials/sale_case_card.html" with sale_case=reservation %}
             {% empty %}
             <div class="ui-card ui-empty-state p-8">
                 <h3 class="font-serif text-xl font-bold">{% translate "No active reservations" %}</h3>
-                <p class="ui-body mt-2 text-sm">{% translate "Available dogs and born litters can be pre-reserved from their detail pages." %}</p>
+                <p class="ui-body mt-2 text-sm">{% translate "Available dogs can be pre-reserved from their detail pages." %}</p>
             </div>
             {% endfor %}
         </div>
@@ -35,14 +70,13 @@
         </div>
         <div class="grid gap-6 lg:grid-cols-2">
             {% for reservation in reservation_history %}
-                {% include "reservations/partials/reservation_card.html" with reservation=reservation %}
+                {% include "reservations/partials/sale_case_card.html" with sale_case=reservation %}
             {% empty %}
             <div class="ui-card ui-empty-state p-8">
-                <p class="ui-body">{% translate "Your completed and cancelled reservations will remain available here." %}</p>
+                <p class="ui-body">{% translate "Failed, expired, rejected, and cancelled purchases remain available here." %}</p>
             </div>
             {% endfor %}
         </div>
     </section>
 </div>
 {% endblock %}
-

@@ -1,0 +1,13 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block object-tools-items %}
+  {% if original and not original.is_sold %}
+    <li>
+      <a href="{% url 'admin:reservations_animalsalecase_add' %}?animal={{ original.pk }}&amp;start_stage=sale">
+        {% translate "Register direct final sale" %}
+      </a>
+    </li>
+  {% endif %}
+  {{ block.super }}
+{% endblock %}

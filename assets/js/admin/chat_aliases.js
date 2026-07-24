@@ -60,9 +60,13 @@
             method: "POST",
             credentials: "same-origin",
             headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
               "X-CSRFToken": csrfToken,
               "X-Requested-With": "XMLHttpRequest",
             },
+            body: new URLSearchParams({
+              current_aliases: textarea.value,
+            }),
           });
           const data = await response.json();
           if (!response.ok) {

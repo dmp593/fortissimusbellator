@@ -16,10 +16,12 @@ from .business import (
 from .catalog import (
     public_breeds,
     public_certifications,
+    public_faqs,
     published_posts,
 )
 from .intents import is_blog_query, is_certification_query
 from .matching import (
+    AMBIGUITY_MARGIN,
     normalize_text,
     phrase_score,
     same_word,
@@ -83,18 +85,10 @@ def build_knowledge_snapshot(query, page_context):
     if certification_section:
         sections.append(certification_section)
 
-    try:
-        faq_section = _faqs(query)
-    except DatabaseError:
-        logger.warning("Chat knowledge database query failed", exc_info=True)
-    else:
-        if faq_section:
-            sections.append(faq_section)
-
     return KnowledgeSnapshot(
         text="\n\n".join(sections)[:settings.CHAT_KNOWLEDGE_MAX_CHARS],
         has_query_facts=bool(
-            blog_section or certification_section or faq_section
+            blog_section or certification_section
         ),
     )
 
@@ -132,19 +126,6 @@ def _page_context(context):
         if key in labels and value
     ]
     return "Current page:\n" + "\n".join(facts) if facts else ""
-
-
-def _faqs(query):
-    faqs = relevant_faqs(query)
-    if not faqs:
-        return ""
-
-    lines = ["Relevant FAQs:"]
-    for faq in faqs:
-        lines.append(
-            f"- Q: {faq.question}\n  A: {_one_line(faq.answer, 400)}"
-        )
-    return "\n".join(lines)
 
 
 def _blog_posts(query):
@@ -253,40 +234,49 @@ def _has_distinctive_certification_match(query, candidates):
 
 
 def relevant_faqs(query):
-    """Return FAQs whose meaningful words match, including small typos."""
-    from frontoffice.models import FrequentlyAskedQuestion
-
+    """Return FAQs matched by their active question or a strong full alias."""
     query_words = _meaningful_words(query)
     if not query_words:
         return []
 
-    faqs = list(
-        FrequentlyAskedQuestion.objects.filter(active=True).order_by("order")
-    )
-    aliases_by_id = alias_terms_by_id(
-        FrequentlyAskedQuestion,
-        (faq.pk for faq in faqs),
+    faqs = list(public_faqs())
+    aliases_by_id = (
+        alias_terms_by_id(
+            faqs[0].__class__,
+            (faq.pk for faq in faqs),
+        )
+        if faqs else {}
     )
     ranked = []
     for faq in faqs:
         aliases = aliases_by_id.get(faq.pk, ())
-        question_words = _meaningful_words(" ".join((faq.question, *aliases)))
+        question_words = _meaningful_words(faq.question)
         matched_words = [
             query_word for query_word in query_words
             if any(same_word(query_word, question_word)
                    for question_word in question_words)
         ]
-        score = len(matched_words)
+        alias_score = max(
+            (
+                phrase_score(query, alias)
+                for alias in aliases
+            ),
+            default=0.0,
+        )
         has_distinctive_match = any(len(word) >= 5 for word in matched_words)
-        if score >= 2 or has_distinctive_match:
-            ranked.append((score, faq))
+        if (
+            len(matched_words) >= 2
+            or has_distinctive_match
+            or alias_score >= 0.82
+        ):
+            ranked.append((len(matched_words) + alias_score, faq))
 
     ranked.sort(key=lambda item: item[0], reverse=True)
     return [faq for _score, faq in ranked[:settings.CHAT_MAX_FAQS]]
 
 
-def matching_faq(query):
-    """Return only a near-verbatim FAQ match safe for a direct answer."""
+def matching_faq(query, *, allow_related=True):
+    """Return one unambiguous related FAQ for a verbatim direct answer."""
     faqs = relevant_faqs(query)
     aliases_by_id = (
         alias_terms_by_id(
@@ -312,9 +302,20 @@ def matching_faq(query):
         key=lambda item: item[0],
         reverse=True,
     )
-    if not ranked or ranked[0][0] < 0.82:
+    if not ranked:
         return None
-    return ranked[0][1]
+    if len(ranked) == 1:
+        score, faq = ranked[0]
+        return faq if allow_related or score >= 0.82 else None
+
+    best_score, best_faq = ranked[0]
+    second_score = ranked[1][0]
+    if (
+        best_score < 0.82
+        or best_score - second_score <= AMBIGUITY_MARGIN
+    ):
+        return None
+    return best_faq
 
 
 def _meaningful_words(value):

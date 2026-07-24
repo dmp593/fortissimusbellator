@@ -1,32 +1,42 @@
-from django.core.mail import send_mail
+import logging
+
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, get_user_model
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.password_validation import password_validators_help_texts
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
+from django.db import transaction
+from django.utils.http import (
+    url_has_allowed_host_and_scheme,
+    urlsafe_base64_decode,
+)
+from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
-from django.template.loader import render_to_string
 from django.contrib import messages
 from django.views.generic import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.http import require_http_methods
 
 
 from django.urls import reverse_lazy
 
 
+from .emails import send_activation_email
 from .models import Profile
-from .forms import UserCreationForm, UserProfileForm
+from .forms import (
+    LitterAlertPreferenceForm,
+    UserCreationForm,
+    UserProfileForm,
+)
+from breeding.services.litter_alerts import get_or_create_alert_preference
 
 
 User = get_user_model()
+logger = logging.getLogger(__name__)
 
 
 class LoginView(auth_views.LoginView):
@@ -39,8 +49,27 @@ class LogoutView(auth_views.LogoutView):
 
 class PasswordResetView(auth_views.PasswordResetView):
     template_name = 'password/password_reset_form.html'
+    email_template_name = 'password/password_reset_email.txt'
     html_email_template_name = 'password/password_reset_email.html'
+    subject_template_name = 'password/password_reset_subject.txt'
+    from_email = settings.DEFAULT_FROM_EMAIL
     success_url = reverse_lazy('password_reset_done')
+
+    def form_valid(self, form):
+        form.save(
+            domain_override=self.request.get_host(),
+            use_https=self.request.is_secure(),
+            token_generator=self.token_generator,
+            from_email=self.from_email,
+            email_template_name=self.email_template_name,
+            subject_template_name=self.subject_template_name,
+            request=self.request,
+            html_email_template_name=self.html_email_template_name,
+            extra_email_context={
+                'language_code': self.request.LANGUAGE_CODE,
+            },
+        )
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class PasswordResetDoneView(auth_views.PasswordResetDoneView):
@@ -56,82 +85,74 @@ class PasswordResetCompleteView(auth_views.PasswordResetCompleteView):
     template_name = 'password/password_reset_complete.html'
 
 
+@require_http_methods(['GET', 'POST'])
 def register(request):
+    next_url = _safe_next_url(request)
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False  # User is inactive until email confirmation
-            user.save()
-
-            # Create a Profile instance for the user
-            Profile.objects.create(user=user, phone=form.cleaned_data.get('phone'))
-
-            # Send activation email
-            current_site = get_current_site(request)
-
-            uid = urlsafe_base64_encode(force_bytes(user.pk))
-            token = default_token_generator.make_token(user)
-
-            message = render_to_string('email_activate_account.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': uid,
-                'token': token,
-            })
-
-            send_mail(
-                subject=_('Activate your account'),
-                message=request.get_host() + reverse(
-                    "activate",
-                    kwargs={
-                        'uidb64': uid, 'token': token
-                    }
-                ),
-                html_message=message,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[user.email]
-            )
-            
+            with transaction.atomic():
+                user = form.save(commit=False)
+                user.is_active = False
+                user.save()
+                Profile.objects.create(
+                    user=user,
+                    phone=form.cleaned_data['phone'],
+                )
+            try:
+                send_activation_email(
+                    request=request,
+                    user=user,
+                    next_url=next_url,
+                )
+            except Exception:
+                logger.exception(
+                    'Unable to send account activation email',
+                    extra={'user_id': user.pk},
+                )
+                messages.error(
+                    request,
+                    _(
+                        'Your account was created, but the activation email '
+                        'could not be sent. Please request it again.'
+                    ),
+                )
+                return redirect('resend_activation_email')
             return redirect('email_confirmation_sent')
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(
+        request,
+        'register.html',
+        {'form': form, 'next': next_url},
+    )
 
 
+@require_http_methods(['GET', 'POST'])
 def resend_activation_email(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        try:
-            user = User.objects.get(email=email, is_active=False)
-            # Resend the activation email
-            current_site = get_current_site(request)
-
-            uid = urlsafe_base64_encode(force_bytes(user.pk))
-            token = default_token_generator.make_token(user)
-
-            message = render_to_string('email_activate_account.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': uid,
-                'token': token,
-            })
-
-            send_mail(
-                subject=_('Activate your account'),
-                message=request.get_host() + reverse(
-                    "activate",
-                    kwargs={
-                        'uidb64': uid, 'token': token
-                    }
-                ),
-                html_message=message,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[user.email]
-            )
-            return redirect('email_confirmation_sent')
-        except User.DoesNotExist:
-            return render(request, 'resend_activation_email.html', {'error': 'No inactive user found with this email.'})
+        email = request.POST.get('email', '').strip()
+        user = (
+            User.objects.filter(email__iexact=email, is_active=False)
+            .order_by('pk')
+            .first()
+        )
+        if user is not None:
+            try:
+                send_activation_email(request=request, user=user)
+            except Exception:
+                logger.exception(
+                    'Unable to resend account activation email',
+                    extra={'user_id': user.pk},
+                )
+        messages.success(
+            request,
+            _(
+                'If an inactive account exists for this address, a new '
+                'activation email has been sent.'
+            ),
+        )
+        return redirect('email_confirmation_sent')
     return render(request, 'resend_activation_email.html')
 
 
@@ -144,11 +165,10 @@ def activate(request, uidb64, token):
 
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
-        user.save()
+        user.save(update_fields=['is_active'])
         login(request, user)
-        return redirect('welcome')
-    else:
-        return HttpResponse('Activation link is invalid!')
+        return redirect(_safe_next_url(request) or 'welcome')
+    return render(request, 'activation_invalid.html', status=400)
 
 
 def email_confirmation_sent(request):
@@ -201,3 +221,52 @@ class ChangePasswordView(auth_views.PasswordChangeView):
     def form_invalid(self, form):
         messages.error(self.request, _('Error changing password.'))
         return super().form_invalid(form)
+
+
+@login_required
+def litter_alert_settings(request):
+    preference = get_or_create_alert_preference(
+        request.user,
+        language_code=request.LANGUAGE_CODE,
+    )
+    form = LitterAlertPreferenceForm(
+        request.POST or None,
+        instance=preference,
+    )
+    if request.method == 'POST' and form.is_valid():
+        preference = form.save(commit=False)
+        preference.language_code = request.LANGUAGE_CODE
+        preference.save()
+        form.save_m2m()
+        messages.success(request, _('Litter alert settings saved.'))
+        return redirect('litter_alert_settings')
+
+    overrides = (
+        request.user.litter_alert_overrides.select_related(
+            'litter',
+            'litter__breed',
+        )
+        .filter(litter__active=True)
+        .order_by('litter__name')
+    )
+    return render(
+        request,
+        'accounts/litter_alert_settings.html',
+        {
+            'form': form,
+            'alert_overrides': overrides,
+        },
+    )
+
+
+def _safe_next_url(request):
+    next_url = request.POST.get('next') or request.GET.get('next') or ''
+    if not next_url:
+        return ''
+    if not url_has_allowed_host_and_scheme(
+        next_url,
+        allowed_hosts={request.get_host()},
+        require_https=request.is_secure(),
+    ):
+        return ''
+    return next_url
