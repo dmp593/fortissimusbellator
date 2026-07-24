@@ -1,8 +1,9 @@
 import decimal
 from datetime import timedelta
 
+from django.contrib.staticfiles import finders
 from django.db.models.deletion import ProtectedError
-from django.test import TestCase, override_settings
+from django.test import SimpleTestCase, TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 
@@ -17,6 +18,13 @@ from reservations.services.reservation import (
     start_reservation_payment,
 )
 from reservations.tests.base import ReservationTestMixin, TEST_STORAGES
+
+
+class PromotionStaticFilesTests(SimpleTestCase):
+    def test_admin_javascript_is_available(self):
+        self.assertIsNotNone(
+            finders.find('discounts/admin/promotion_scope.js'),
+        )
 
 
 @override_settings(STATIC_ROOT=None, STORAGES=TEST_STORAGES)

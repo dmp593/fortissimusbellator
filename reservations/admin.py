@@ -12,9 +12,8 @@ from django.template.response import TemplateResponse
 from django.urls import path, reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from modeltranslation.admin import TranslationAdmin
-
 from breeding.models import Animal
+from fortissimusbellator.admin import FieldTranslatorAdmin
 from reservations.availability import available_dogs_for_new_sale_process
 from reservations.exceptions import (
     ERPIntegrationError,
@@ -60,7 +59,6 @@ from reservations.services.closures import (
 )
 from reservations.services.erp import (
     download_erp_pdf,
-    ensure_sale_erp_document,
     ensure_erp_pdf_and_email,
     process_erp_document,
 )
@@ -291,7 +289,8 @@ class ImmutableWorkflowAdmin(admin.ModelAdmin):
         return actions
 
 
-class PublishedTermsAdmin(TranslationAdmin):
+class PublishedTermsAdmin(FieldTranslatorAdmin):
+    translation_fields = ('description',)
     list_display = ('version', 'published_at', 'used')
     search_fields = ('version',)
     ordering = ('-published_at', '-pk')

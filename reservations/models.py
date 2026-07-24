@@ -1259,6 +1259,8 @@ class Payment(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        verbose_name = _('payment')
+        verbose_name_plural = _('payments')
         constraints = [
             models.CheckConstraint(
                 condition=Q(amount__gte=0),
@@ -2075,6 +2077,8 @@ class ERPIntegrationAttempt(models.Model):
 
     class Meta:
         ordering = ['-started_at']
+        verbose_name = _('ERP integration attempt')
+        verbose_name_plural = _('ERP integration attempts')
 
 
 class DocumentEmailAttempt(models.Model):
@@ -2101,6 +2105,8 @@ class DocumentEmailAttempt(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        verbose_name = _('document email attempt')
+        verbose_name_plural = _('document email attempts')
 
 
 class ProcessedStripeEvent(models.Model):
@@ -2117,6 +2123,8 @@ class ProcessedStripeEvent(models.Model):
 
     class Meta:
         ordering = ['-processed_at']
+        verbose_name = _('processed Stripe event')
+        verbose_name_plural = _('processed Stripe events')
 
     def __str__(self):
         return f'{self.event_type}: {self.event_id}'

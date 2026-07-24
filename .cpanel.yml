@@ -4,10 +4,10 @@ deployment:
     - export PATH=/home/fortissi/virtualenv/fortissimusbellator/3.12/bin:$PATH
     - export FORTISSIMUS_BELLATOR=/home/fortissi/fortissimusbellator
     - export MANAGE_PY=$FORTISSIMUS_BELLATOR/manage.py
-    - export DJ=python3.12_bin $MANAGE_PY
+    - export PYTHON=python3.12_bin
 
-    - $DJ migrate --noinput
-    - $DJ compilemessages --ignore=.git --ignore=.models --ignore=.venv --ignore=media --ignore=node_modules --ignore=static
-    - $DJ collectstatic --noinput
-    - $DJ loaddata animalskinds breeds certifications faqs blog/categories quiz/quiz chat_models
-    - $DJ rebuild_chat_search_index
+    - $PYTHON $MANAGE_PY migrate --noinput
+    - $PYTHON $MANAGE_PY compilemessages --ignore=.git --ignore=.models --ignore=.venv --ignore=media --ignore=node_modules --ignore=static
+    - $PYTHON $MANAGE_PY collectstatic --noinput
+    - $PYTHON $MANAGE_PY loaddata animalskinds breeds certifications faqs blog/categories quiz/quiz chat_models
+    - $PYTHON $MANAGE_PY rebuild_chat_search_index

@@ -6888,3 +6888,24 @@ msgstr ""
 
 msgid "Enter the country calling code, for example +351."
 msgstr "Introduza o indicativo do país, por exemplo +351."
+
+msgid "payments"
+msgstr "pagamentos"
+
+msgid "ERP integration attempt"
+msgstr "tentativa de integração ERP"
+
+msgid "ERP integration attempts"
+msgstr "tentativas de integração ERP"
+
+msgid "document email attempt"
+msgstr "tentativa de envio de documento"
+
+msgid "document email attempts"
+msgstr "tentativas de envio de documentos"
+
+msgid "processed Stripe event"
+msgstr "evento Stripe processado"
+
+msgid "processed Stripe events"
+msgstr "eventos Stripe processados"

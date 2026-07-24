@@ -576,7 +576,7 @@ GitHub.sublime-settings
 
 
 .backup/
-static/
+/static/
 
 .env.*
 !.env.example

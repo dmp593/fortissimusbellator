@@ -1,34 +1,145 @@
 from datetime import timedelta
+from types import SimpleNamespace
+from unittest.mock import patch
 
+from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.translation import override
 
 from reservations.exceptions import ReservationUnavailable
-from reservations.models import PreReservation, PreReservationTerms
+from reservations.models import (
+    PreReservation,
+    PreReservationTerms,
+    DocumentEmailAttempt,
+    ERPIntegrationAttempt,
+    Payment,
+    ProcessedStripeEvent,
+    ReservationTerms,
+)
 from reservations.tests.base import ReservationTestMixin, TEST_STORAGES
 
 
-class PreReservationTermsFixtureTests(TestCase):
-    fixtures = ('pre_reservation_terms_v1',)
+class TermsFixtureTests(TestCase):
+    fixtures = ('pre_reservation_terms_v3', 'reservation_terms_v2')
 
-    def test_fixture_installs_the_published_v1_terms(self):
-        terms = PreReservationTerms.objects.current()
-
-        self.assertIsNotNone(terms)
-        self.assertEqual(terms.version, 'pre-reservation-v1')
-        self.assertIn('non-refundable', terms.description_en)
-        self.assertIn(
-            'deducted in full from the final price of the dog',
-            terms.description_en,
+    def test_fixtures_install_published_terms_for_both_stages(self):
+        pre_reservation_terms = PreReservationTerms.objects.get(
+            version='pre-reservation-v3',
         )
-        self.assertIn('não é reembolsável', terms.description_pt)
-        self.assertIn(
-            'deduzido na totalidade do preço final do cão',
-            terms.description_pt,
+        reservation_terms = ReservationTerms.objects.get(
+            version='reservation-v2',
         )
 
+        self.assertIsNotNone(pre_reservation_terms.published_at)
+        self.assertIn('non-refundable', pre_reservation_terms.description_en)
+        self.assertIn(
+            'credited toward the reservation deposit',
+            pre_reservation_terms.description_en,
+        )
+        self.assertIn('não reembolsável', pre_reservation_terms.description_pt)
+        self.assertIn(
+            'sinal de reserva',
+            pre_reservation_terms.description_pt,
+        )
+        self.assertIsNotNone(reservation_terms.published_at)
+        self.assertIn('customer credit', reservation_terms.description_en)
+        self.assertIn('crédito de cliente', reservation_terms.description_pt)
+
+
+class TermsAdminTranslationTests(TestCase):
+    def _save_terms_with_missing_translations(self, model, *, version):
+        model_admin = admin.site._registry[model]
+        terms = model(version=version, description_en='English terms')
+        cleaned_data = {
+            'description_pt': '',
+            'description_en': 'English terms',
+            'description_es': '',
+            'description_fr': '',
+            'description_de': '',
+            'description_it': '',
+        }
+        translations = {
+            'pt-pt': 'Termos em português',
+            'es': 'Términos en español',
+            'fr': 'Conditions en français',
+            'de': 'Bedingungen auf Deutsch',
+            'it': 'Termini in italiano',
+        }
+
+        with patch.object(
+            model_admin,
+            '_translate',
+            side_effect=lambda _text, **values: translations[
+                values['target_lang']
+            ],
+        ):
+            model_admin.save_model(
+                request=SimpleNamespace(),
+                obj=terms,
+                form=SimpleNamespace(cleaned_data=cleaned_data),
+                change=False,
+            )
+
+        terms.refresh_from_db()
+        return terms
+
+    def test_pre_reservation_terms_fill_missing_translations_on_admin_save(self):
+        terms = self._save_terms_with_missing_translations(
+            PreReservationTerms,
+            version='admin-pre-reservation-terms',
+        )
+
+        self.assertEqual(terms.description_en, 'English terms')
+        self.assertEqual(terms.description_pt, 'Termos em português')
+        self.assertEqual(terms.description_es, 'Términos en español')
+        self.assertEqual(terms.description_fr, 'Conditions en français')
+        self.assertEqual(terms.description_de, 'Bedingungen auf Deutsch')
+        self.assertEqual(terms.description_it, 'Termini in italiano')
+
+    def test_reservation_terms_fill_missing_translations_on_admin_save(self):
+        terms = self._save_terms_with_missing_translations(
+            ReservationTerms,
+            version='admin-reservation-terms',
+        )
+
+        self.assertEqual(terms.description_en, 'English terms')
+        self.assertEqual(terms.description_pt, 'Termos em português')
+        self.assertEqual(terms.description_es, 'Términos en español')
+        self.assertEqual(terms.description_fr, 'Conditions en français')
+        self.assertEqual(terms.description_de, 'Bedingungen auf Deutsch')
+        self.assertEqual(terms.description_it, 'Termini in italiano')
+
+
+class AdminLabelTranslationTests(TestCase):
+    def test_reservation_admin_labels_are_translated_in_portuguese(self):
+        with override('pt'):
+            self.assertEqual(
+                str(
+                    admin.site._registry[
+                        PreReservationTerms
+                    ].model._meta.verbose_name
+                ),
+                'termos de pré-reserva',
+            )
+            self.assertEqual(
+                str(Payment._meta.verbose_name_plural),
+                'pagamentos',
+            )
+            self.assertEqual(
+                str(ERPIntegrationAttempt._meta.verbose_name_plural),
+                'tentativas de integração ERP',
+            )
+            self.assertEqual(
+                str(DocumentEmailAttempt._meta.verbose_name_plural),
+                'tentativas de envio de documentos',
+            )
+            self.assertEqual(
+                str(ProcessedStripeEvent._meta.verbose_name_plural),
+                'eventos Stripe processados',
+            )
 
 @override_settings(STATIC_ROOT=None, STORAGES=TEST_STORAGES)
 class PreReservationTermsTests(ReservationTestMixin, TestCase):
