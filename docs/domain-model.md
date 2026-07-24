@@ -223,9 +223,10 @@ It stores:
   currency snapshots;
 - creator and closure timestamps.
 
-A conditional unique constraint allows only one active pre-reservation or
-reservation sale case per animal. Historical closed, sold, and transferred
-cases remain.
+A conditional unique constraint allows only one blocking pre-reservation,
+reservation, or completed sale case per animal. Cancelled sales become closed
+after their `AnimalSale` is voided; historical closed and transferred cases
+remain without blocking the animal.
 
 ### `Charge`
 

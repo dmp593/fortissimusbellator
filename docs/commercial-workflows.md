@@ -99,6 +99,14 @@ eligibility. This permits a direct reservation for a dog whose online
 pre-reservation switch is disabled, or whose public price is on request, as
 long as staff enters the commercial amount.
 
+Dogs held by an active pre-reservation or reservation, and dogs with a
+completed non-voided sale, are omitted from every new-process and transfer
+target selector. A stale or forged admin submission is still rejected by the
+transactional service and database constraint. Rejection never cancels,
+transfers, or changes the existing customer's process. Staff must explicitly
+cancel the existing process, or use the dedicated same-customer transfer
+workflow to move that process to another available dog.
+
 ## Inventory blocking
 
 ### Pre-reservation states

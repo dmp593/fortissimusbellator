@@ -340,6 +340,8 @@ class AnimalAdmin(
     def sale_summary(self, obj):
         if not obj or not obj.pk:
             return '-'
+        from reservations.models import AnimalSaleCase
+
         completed_sale_case = (
             obj.sale_cases.filter(
                 sale__isnull=False,
@@ -355,8 +357,8 @@ class AnimalAdmin(
         ):
             active_case = obj.sale_cases.filter(
                 status__in=(
-                    'pre_reservation',
-                    'reservation',
+                    AnimalSaleCase.Status.PRE_RESERVATION,
+                    AnimalSaleCase.Status.RESERVATION,
                 ),
             ).first()
             if active_case is None:
