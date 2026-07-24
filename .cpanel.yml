@@ -1,8 +1,13 @@
 ---
 deployment:
   tasks:
-    - /home/fortissi/virtualenv/fortissimusbellator/3.12/bin/python3.12_bin /home/fortissi/fortissimusbellator/manage.py migrate --noinput
-    - /home/fortissi/virtualenv/fortissimusbellator/3.12/bin/python3.12_bin /home/fortissi/fortissimusbellator/manage.py compilemessages --ignore=.git --ignore=.models --ignore=.venv --ignore=media --ignore=node_modules --ignore=static
-    - /home/fortissi/virtualenv/fortissimusbellator/3.12/bin/python3.12_bin /home/fortissi/fortissimusbellator/manage.py collectstatic --noinput
-    - /home/fortissi/virtualenv/fortissimusbellator/3.12/bin/python3.12_bin /home/fortissi/fortissimusbellator/manage.py loaddata animalskinds breeds certifications faqs blog/categories quiz/quiz chat_models
-    - /home/fortissi/virtualenv/fortissimusbellator/3.12/bin/python3.12_bin /home/fortissi/fortissimusbellator/manage.py rebuild_chat_search_index
+    - export PATH=/home/fortissi/virtualenv/fortissimusbellator/3.12/bin:$PATH
+    - export FORTISSIMUS_BELLATOR=/home/fortissi/fortissimusbellator
+    - export MANAGE_PY=$FORTISSIMUS_BELLATOR/manage.py
+    - export DJ=python3.12_bin $MANAGE_PY
+
+    - $DJ migrate --noinput
+    - $DJ compilemessages --ignore=.git --ignore=.models --ignore=.venv --ignore=media --ignore=node_modules --ignore=static
+    - $DJ collectstatic --noinput
+    - $DJ loaddata animalskinds breeds certifications faqs blog/categories quiz/quiz chat_models
+    - $DJ rebuild_chat_search_index
