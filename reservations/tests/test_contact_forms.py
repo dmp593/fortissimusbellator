@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase
 from django.utils import timezone
 
-from reservations.forms import PreReservationCheckoutForm
+from reservations.forms import AdminSaleProcessForm, PreReservationCheckoutForm
 from reservations.models import PreReservationTerms
 
 
@@ -21,6 +21,9 @@ class PreReservationContactFormTests(SimpleTestCase):
             'email': 'customer@example.com',
             'phone_0': '+44',
             'phone_1': '7911 123456',
+            'billing_address': 'Example Street 1',
+            'billing_postcode': 'SW1A 1AA',
+            'billing_city': 'London',
             'billing_country': 'GB',
             'accept_non_refundable': 'on',
         }
@@ -53,3 +56,42 @@ class PreReservationContactFormTests(SimpleTestCase):
 
         self.assertFalse(form.is_valid())
         self.assertIn('phone', form.errors)
+
+    def test_contact_and_billing_details_are_required_for_sale_workflows(self):
+        required_fields = {
+            'email': 'customer_email',
+            'phone': 'customer_phone',
+            'billing_address': 'billing_address',
+            'billing_postcode': 'billing_postcode',
+            'billing_city': 'billing_city',
+            'billing_country': 'billing_country',
+        }
+
+        for field_name, admin_field_name in required_fields.items():
+            with self.subTest(form='pre-reservation', field=field_name):
+                self.assertTrue(
+                    PreReservationCheckoutForm.base_fields[field_name].required
+                )
+            with self.subTest(form='admin sale', field=field_name):
+                self.assertTrue(
+                    AdminSaleProcessForm.base_fields[
+                        admin_field_name
+                    ].required
+                )
+
+        self.assertFalse(
+            PreReservationCheckoutForm.base_fields['tax_number'].required
+        )
+        self.assertFalse(
+            AdminSaleProcessForm.base_fields['customer_tax_number'].required
+        )
+
+    def test_admin_sale_rejects_invalid_country_code(self):
+        form = AdminSaleProcessForm(
+            data={
+                'billing_country': 'Portugal',
+            },
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertIn('billing_country', form.errors)

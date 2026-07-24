@@ -38,21 +38,22 @@ class PreReservationCheckoutForm(forms.Form):
     )
     billing_address = forms.CharField(
         max_length=255,
-        required=False,
+        required=True,
         label=_('Billing address'),
     )
     billing_postcode = forms.CharField(
         max_length=20,
-        required=False,
+        required=True,
         label=_('Postcode'),
     )
     billing_city = forms.CharField(
         max_length=100,
-        required=False,
+        required=True,
         label=_('City'),
     )
     billing_country = forms.CharField(
         max_length=2,
+        required=True,
         initial='PT',
         label=_('Country code'),
         help_text=_('Two-letter country code, for example PT.'),
@@ -365,11 +366,11 @@ class AdminSaleProcessForm(forms.Form):
     )
     customer_name = forms.CharField(max_length=150, label=_('Customer name'))
     customer_email = forms.EmailField(
-        required=False,
+        required=True,
         label=_('Customer email'),
     )
     customer_phone = InternationalPhoneField(
-        required=False,
+        required=True,
         label=_('Customer phone'),
     )
     customer_tax_number = forms.CharField(
@@ -379,21 +380,22 @@ class AdminSaleProcessForm(forms.Form):
     )
     billing_address = forms.CharField(
         max_length=255,
-        required=False,
+        required=True,
         label=_('Billing address'),
     )
     billing_postcode = forms.CharField(
         max_length=20,
-        required=False,
+        required=True,
         label=_('Postcode'),
     )
     billing_city = forms.CharField(
         max_length=100,
-        required=False,
+        required=True,
         label=_('City'),
     )
     billing_country = forms.CharField(
         max_length=2,
+        required=True,
         initial='PT',
         label=_('Country code'),
     )
@@ -595,6 +597,14 @@ class AdminSaleProcessForm(forms.Form):
         if credit and user and credit.user_id and credit.user_id != user.pk:
             self.add_error('credit', _('This credit belongs to another customer.'))
         return data
+
+    def clean_billing_country(self):
+        country = self.cleaned_data['billing_country'].strip().upper()
+        if len(country) != 2 or not country.isalpha():
+            raise forms.ValidationError(
+                _('Enter a valid two-letter country code.')
+            )
+        return country
 
     @property
     def customer_data(self):
