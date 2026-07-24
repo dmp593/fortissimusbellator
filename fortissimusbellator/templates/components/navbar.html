@@ -185,10 +185,6 @@
             <a href="{% url 'about_us' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "About Us" %}</a>
             <a href="{% url 'faqs' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "FAQs" %}</a>
             <a href="{% url 'contact_us' %}" class="text-xs block px-3 py-2 hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Contact Us" %}</a>
-            {% if user.is_authenticated %}
-            <a href="{% url 'reservations:dashboard' %}" class="text-xs block px-3 py-2 font-semibold hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "My Reservations" %}</a>
-            <a href="{% url 'litter_alert_settings' %}" class="text-xs block px-3 py-2 font-semibold hover:bg-stone-100 dark:hover:bg-stone-700 transition-colors duration-200">{% trans "Litter alerts" %}</a>
-            {% endif %}
         </div>
     </div>
 </nav>
