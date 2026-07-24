@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fortissimus Bellator 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-24 08:57+0000\n"
+"POT-Creation-Date: 2026-07-24 15:18+0000\n"
 "PO-Revision-Date: 2026-07-22 10:50+0000\n"
 "Last-Translator: Daniel Pinto <dmp593@gmail.com>\n"
 "Language-Team: Italian\n"
@@ -21,115 +21,131 @@ msgstr ""
 msgid "Activate your Fortissimus Bellator account"
 msgstr "Attiva il tuo account Fortissimus Bellator"
 
-#: accounts/forms.py:16 accounts/forms.py:22
+#: accounts/forms.py:17 accounts/forms.py:23
 msgid "Required."
 msgstr "Necessario."
 
-#: accounts/forms.py:28 accounts/forms.py:74
+#: accounts/forms.py:29 accounts/forms.py:76
 msgid "Required. Enter a valid email address."
 msgstr "Necessario. Inserisci un indirizzo email valido."
 
-#: accounts/forms.py:34
-msgid "Required. Enter your phone number."
-msgstr "Necessario. Inserisci il tuo numero di telefono."
+#: accounts/forms.py:35 accounts/forms.py:88
+msgid "Required. Enter the country calling code and phone number."
+msgstr ""
+"Obbligatorio. Inserisci il prefisso internazionale e il numero di telefono."
 
-#: accounts/forms.py:53 accounts/forms.py:108
+#: accounts/forms.py:55 accounts/forms.py:117
 msgid "An account with this email address already exists."
 msgstr "Un account con questo indirizzo email esiste già."
 
-#: accounts/forms.py:62
+#: accounts/forms.py:64
 msgid "Required. Enter your first name."
 msgstr "Necessario. Inserisci il tuo nome."
 
-#: accounts/forms.py:68
+#: accounts/forms.py:70
 msgid "Required. Enter your last name."
 msgstr "Necessario. Inserisci il tuo cognome."
 
-#: accounts/forms.py:80
+#: accounts/forms.py:82
 msgid "Required. Enter a unique username."
 msgstr "Necessario. Inserisci un nome utente univoco."
 
-#: accounts/forms.py:119
+#: accounts/forms.py:128
 msgid "An account with this username already exists."
 msgstr "Un account con questo nome utente esiste già."
 
-#: accounts/forms.py:146
+#: accounts/forms.py:153 accounts/templates/accounts/profile_form.html:180
+#: accounts/templates/password/password_reset_form.html:20
+#: accounts/templates/register.html:94
+#: fortissimusbellator/templates/emails/branded.txt:25
+#: frontoffice/templates/contact_us.html:76 frontoffice/views.py:58
+#: reservations/forms.py:26
+msgid "Email"
+msgstr "E-mail"
+
+#: accounts/forms.py:158 accounts/templates/accounts/profile_form.html:187
+#: accounts/templates/password/password_reset_form.html:26
+#: accounts/templates/register.html:102
+msgid "Enter your email"
+msgstr "Inserisci la tua email"
+
+#: accounts/forms.py:172
 msgid "Breeds"
 msgstr "Razze"
 
-#: accounts/forms.py:165
+#: accounts/forms.py:191
 msgid "Choose at least one breed for selected-breed alerts."
 msgstr ""
 "Seleziona almeno una razza per le notifiche relative alla razza selezionata."
 
-#: accounts/models.py:29 breeding/models.py:676 breeding/models.py:707
+#: accounts/models.py:34 breeding/models.py:679 breeding/models.py:710
 msgid "user"
 msgstr "utente"
 
-#: accounts/models.py:35
+#: accounts/models.py:40
 msgid "birthdate"
 msgstr "Data di nascita"
 
-#: accounts/models.py:42
+#: accounts/models.py:47
 msgid "fiscal number"
 msgstr "codice fiscale"
 
-#: accounts/models.py:47
+#: accounts/models.py:53
 msgid "phone number"
 msgstr "numero di telefono"
 
-#: accounts/models.py:54
+#: accounts/models.py:60
 msgid "profile picture"
 msgstr "immagine del profilo"
 
-#: accounts/models.py:75
+#: accounts/models.py:81
 msgid "Street Address 1"
 msgstr "Indirizzo stradale 1"
 
-#: accounts/models.py:81
+#: accounts/models.py:87
 msgid "Street Address 2"
 msgstr "Indirizzo stradale 2"
 
-#: accounts/models.py:86 reservations/forms.py:44 reservations/forms.py:358
+#: accounts/models.py:92 reservations/forms.py:52 reservations/forms.py:393
 msgid "City"
 msgstr "Città"
 
-#: accounts/models.py:91
+#: accounts/models.py:97
 msgid "State/Province"
 msgstr "Stato/Provincia"
 
-#: accounts/models.py:96
+#: accounts/models.py:102
 msgid "Postal Code"
 msgstr "Codice Postale"
 
-#: accounts/models.py:104
+#: accounts/models.py:110
 msgid "Billing"
 msgstr "Fatturazione"
 
-#: accounts/models.py:105
+#: accounts/models.py:111
 msgid "Shipping"
 msgstr "Spedizione"
 
-#: accounts/models.py:108
+#: accounts/models.py:114
 msgid "Address Type"
 msgstr "Tipo di indirizzo"
 
-#: accounts/models.py:116
+#: accounts/models.py:122
 #: fortissimusbellator/templates/components/navbar.html:121
 #: fortissimusbellator/templates/components/navbar.html:133
 msgid "Profile"
 msgstr "Profilo"
 
-#: accounts/models.py:121
+#: accounts/models.py:127
 msgid "Is Default"
 msgstr "È predefinito"
 
-#: accounts/models.py:125
+#: accounts/models.py:131
 #: fortissimusbellator/templates/components/footer.html:8
 msgid "Address"
 msgstr "Indirizzo"
 
-#: accounts/models.py:126
+#: accounts/models.py:132
 msgid "Addresses"
 msgstr "Indirizzi"
 
@@ -147,8 +163,8 @@ msgid ""
 "Welcome to Fortissimus Bellator. Open the following address to confirm your "
 "registration and activate your account:"
 msgstr ""
-"Benvenuto su Fortissimus Bellator. Apri il seguente indirizzo per confermare"
-" la tua registrazione e attivare il tuo account:"
+"Benvenuto su Fortissimus Bellator. Apri il seguente indirizzo per confermare "
+"la tua registrazione e attivare il tuo account:"
 
 #: accounts/templates/accounts/emails/account_activation.txt:7
 #: accounts/templates/email_activate_account.html:27
@@ -258,7 +274,7 @@ msgid "Manage your Profile"
 msgstr "Gestisci il tuo profilo"
 
 #: accounts/templates/accounts/profile_form.html:43
-#: accounts/templates/accounts/profile_form.html:303
+#: accounts/templates/accounts/profile_form.html:298
 msgid "Remove profile picture"
 msgstr "Rimuovi l'immagine del profilo"
 
@@ -314,46 +330,24 @@ msgstr "Numero fiscale"
 msgid "Enter your Fiscal Number"
 msgstr "Inserisci il tuo codice fiscale"
 
-#: accounts/templates/accounts/profile_form.html:180
-#: accounts/templates/password/password_reset_form.html:20
-#: accounts/templates/register.html:94
-#: accounts/templates/resend_activation_email.html:15
-#: fortissimusbellator/templates/emails/branded.txt:25
-#: frontoffice/templates/contact_us.html:74 frontoffice/views.py:58
-#: reservations/forms.py:24
-msgid "Email"
-msgstr "E-mail"
-
-#: accounts/templates/accounts/profile_form.html:185
-#: accounts/templates/password/password_reset_form.html:26
-#: accounts/templates/register.html:101
-#: accounts/templates/resend_activation_email.html:20
-msgid "Enter your email"
-msgstr "Inserisci la tua email"
-
-#: accounts/templates/accounts/profile_form.html:206
-#: accounts/templates/register.html:122
-#: frontoffice/templates/contact_us.html:55 frontoffice/views.py:59
-#: reservations/forms.py:25
+#: accounts/templates/accounts/profile_form.html:208
+#: accounts/templates/register.html:123 frontoffice/forms.py:30
+#: frontoffice/templates/contact_us.html:57 frontoffice/views.py:59
+#: reservations/forms.py:28
 msgid "Phone"
 msgstr "Telefono"
 
-#: accounts/templates/accounts/profile_form.html:211
-#: accounts/templates/register.html:129
-msgid "Enter your phone number"
-msgstr "Inserisci il tuo numero di telefono"
-
-#: accounts/templates/accounts/profile_form.html:232
-#: accounts/templates/login.html:23 accounts/templates/register.html:150
+#: accounts/templates/accounts/profile_form.html:227
+#: accounts/templates/login.html:23 accounts/templates/register.html:142
 msgid "Username"
 msgstr "Nome utente"
 
-#: accounts/templates/accounts/profile_form.html:237
-#: accounts/templates/login.html:30 accounts/templates/register.html:157
+#: accounts/templates/accounts/profile_form.html:232
+#: accounts/templates/login.html:30 accounts/templates/register.html:149
 msgid "Enter your username"
 msgstr "Inserisci il tuo nome utente"
 
-#: accounts/templates/accounts/profile_form.html:263
+#: accounts/templates/accounts/profile_form.html:258
 msgid "Update Profile"
 msgstr "Aggiorna profilo"
 
@@ -414,8 +408,8 @@ msgid ""
 "If the address belongs to an inactive account, an activation email has been "
 "sent. Please check your inbox and follow the instructions."
 msgstr ""
-"Se l'indirizzo appartiene a un account inattivo, è stata inviata un'email di"
-" attivazione. Controlla la tua casella di posta e segui le istruzioni."
+"Se l'indirizzo appartiene a un account inattivo, è stata inviata un'email di "
+"attivazione. Controlla la tua casella di posta e segui le istruzioni."
 
 #: accounts/templates/email_confirmation_sent.html:15
 msgid "If you don't see the email, please check your spam folder."
@@ -434,11 +428,11 @@ msgstr "Torna all'accesso"
 msgid "Login"
 msgstr "Login"
 
-#: accounts/templates/login.html:40 accounts/templates/register.html:179
+#: accounts/templates/login.html:40 accounts/templates/register.html:171
 msgid "Password"
 msgstr "Password"
 
-#: accounts/templates/login.html:46 accounts/templates/register.html:185
+#: accounts/templates/login.html:46 accounts/templates/register.html:177
 msgid "Enter your password"
 msgstr "Inserisci la tua password"
 
@@ -497,11 +491,11 @@ msgstr "Reimpostazione password inviata"
 #: accounts/templates/password/password_reset_done.html:12
 msgid ""
 "We've emailed you instructions for setting your password. If you don't "
-"receive an email, please make sure you've entered the address you registered"
-" with."
+"receive an email, please make sure you've entered the address you registered "
+"with."
 msgstr ""
-"Ti abbiamo inviato via email le istruzioni per impostare la password. Se non"
-" ricevi un'e-mail, assicurati di aver inserito l'indirizzo con cui ti sei "
+"Ti abbiamo inviato via email le istruzioni per impostare la password. Se non "
+"ricevi un'e-mail, assicurati di aver inserito l'indirizzo con cui ti sei "
 "registrato."
 
 #: accounts/templates/password/password_reset_done.html:16
@@ -553,23 +547,23 @@ msgid "Join Fortissimus Bellator to manage your dogs and purchases."
 msgstr ""
 "Unisciti a Fortissimus Bellator per gestire i tuoi cani e i tuoi acquisti."
 
-#: accounts/templates/register.html:206
+#: accounts/templates/register.html:198
 msgid "Confirm Password"
 msgstr "Conferma password"
 
-#: accounts/templates/register.html:212
+#: accounts/templates/register.html:204
 msgid "Confirm your password"
 msgstr "Conferma la tua password"
 
-#: accounts/templates/register.html:239
+#: accounts/templates/register.html:231
 msgid "Register"
 msgstr "Registro"
 
-#: accounts/templates/register.html:246
+#: accounts/templates/register.html:238
 msgid "Already have an account?"
 msgstr "Hai già un account?"
 
-#: accounts/templates/register.html:247
+#: accounts/templates/register.html:239
 msgid "Login here"
 msgstr "Accedi qui"
 
@@ -692,15 +686,15 @@ msgstr ""
 "Unisciti a noi nella nostra missione di allevare e addestrare cani "
 "eccezionali. Esplora, connettiti e partecipa al viaggio."
 
-#: accounts/views.py:116
+#: accounts/views.py:117
 msgid ""
-"Your account was created, but the activation email could not be sent. Please"
-" request it again."
+"Your account was created, but the activation email could not be sent. Please "
+"request it again."
 msgstr ""
 "Il tuo account è stato creato, ma l'email di attivazione non è stata "
 "inviata. Per favore, richiedila di nuovo."
 
-#: accounts/views.py:151
+#: accounts/views.py:159
 msgid ""
 "If an inactive account exists for this address, a new activation email has "
 "been sent."
@@ -708,23 +702,23 @@ msgstr ""
 "Se esiste un account inattivo per questo indirizzo, è stata inviata una "
 "nuova email di attivazione."
 
-#: accounts/views.py:195
+#: accounts/views.py:207
 msgid "Profile saved."
 msgstr "Profilo salvato."
 
-#: accounts/views.py:199
+#: accounts/views.py:211
 msgid "Error saving profile."
 msgstr "Errore durante il salvataggio del profilo."
 
-#: accounts/views.py:218
+#: accounts/views.py:230
 msgid "Password changed successfully."
 msgstr "La password è stata modificata con successo."
 
-#: accounts/views.py:222
+#: accounts/views.py:234
 msgid "Error changing password."
 msgstr "Errore durante la modifica della password."
 
-#: accounts/views.py:241
+#: accounts/views.py:253
 msgid "Litter alert settings saved."
 msgstr "Impostazioni allerta cucciolato salvate."
 
@@ -737,8 +731,8 @@ msgid "thumbnail"
 msgstr "miniatura"
 
 #: attachments/models.py:98 breeding/models.py:113 breeding/models.py:173
-#: breeding/models.py:262 breeding/models.py:530 reservations/models.py:28
-#: reservations/models.py:60
+#: breeding/models.py:262 breeding/models.py:529 reservations/models.py:30
+#: reservations/models.py:62
 msgid "description"
 msgstr "descrizione"
 
@@ -752,7 +746,7 @@ msgstr "Tipo MIME"
 
 #: attachments/models.py:117 blog/models.py:84 blog/models.py:162
 #: breeding/models.py:76 breeding/models.py:139 breeding/models.py:195
-#: breeding/models.py:234 breeding/models.py:422 breeding/models.py:637
+#: breeding/models.py:234 breeding/models.py:409 breeding/models.py:640
 #: frontoffice/models.py:47 quiz/models.py:16 quiz/models.py:51
 msgid "order"
 msgstr "ordine"
@@ -774,7 +768,7 @@ msgid "liked at"
 msgstr "mi è piaciuto a"
 
 #: blog/models.py:66 breeding/models.py:71 breeding/models.py:101
-#: breeding/models.py:168 breeding/models.py:257 breeding/models.py:525
+#: breeding/models.py:168 breeding/models.py:257 breeding/models.py:524
 msgid "name"
 msgstr "nome"
 
@@ -784,7 +778,7 @@ msgid "parent"
 msgstr "genitore"
 
 #: blog/models.py:79 blog/models.py:157 breeding/models.py:134
-#: breeding/models.py:360 breeding/models.py:602 discounts/models.py:69
+#: breeding/models.py:347 breeding/models.py:605 discounts/models.py:69
 #: frontoffice/models.py:42
 msgid "active"
 msgstr "attivo"
@@ -813,7 +807,7 @@ msgstr "copertina"
 msgid "content"
 msgstr "contenuto"
 
-#: blog/models.py:141 breeding/models.py:432 breeding/models.py:647
+#: blog/models.py:141 breeding/models.py:419 breeding/models.py:650
 #: tags/models.py:57
 msgid "tags"
 msgstr "tag"
@@ -822,7 +816,7 @@ msgstr "tag"
 msgid "likes"
 msgstr "piace"
 
-#: blog/models.py:151 reservations/models.py:33 reservations/models.py:65
+#: blog/models.py:151 reservations/models.py:35 reservations/models.py:67
 msgid "published at"
 msgstr "pubblicato a"
 
@@ -919,21 +913,42 @@ msgstr ""
 msgid "Read"
 msgstr "Leggere"
 
-#: breeding/admin.py:22
+#: breeding/admin.py:25 breeding/admin.py:335
+#, fuzzy
+#| msgid "financial state"
+msgid "sale state"
+msgstr "stato finanziario"
+
+#: breeding/admin.py:30 breeding/admin.py:337
+#, fuzzy
+#| msgid "Not started"
+msgid "Not sold"
+msgstr "Non iniziato"
+
+#: breeding/admin.py:31 breeding/admin.py:337
+#: breeding/templates/buy_a_dog/detail.html:36
+#: breeding/templates/buy_a_dog/partials/cards.html:18
+#: reservations/admin.py:1852 reservations/models.py:91
+#: reservations/services/email_messages.py:859
+#: reservations/templates/reservations/partials/sale_case_card.html:19
+msgid "Sold"
+msgstr "Venduto"
+
+#: breeding/admin.py:42
 msgid "Publish selected animals to Social Media"
 msgstr "Pubblica animali selezionati sui social media"
 
-#: breeding/admin.py:39
+#: breeding/admin.py:59
 msgid "Create animals from selected litters"
 msgstr "Crea animali da cucciolate selezionate"
 
-#: breeding/admin.py:50
+#: breeding/admin.py:70
 #, python-format
 msgid "Litter \"%(litter_name)s\" has no actual babies born to create."
 msgstr ""
 "La cucciolata \"%(litter_name)s\" non ha cuccioli nati realmente da creare."
 
-#: breeding/admin.py:61
+#: breeding/admin.py:81
 #, python-format
 msgid ""
 "Litter \"%(litter_name)s\" needs an actual birth date before its babies can "
@@ -942,7 +957,7 @@ msgstr ""
 "La cucciolata \"%(litter_name)s\" necessita di una data di nascita reale "
 "prima che i suoi cuccioli possano essere creati."
 
-#: breeding/admin.py:74
+#: breeding/admin.py:94
 #, python-format
 msgid ""
 "Litter \"%(litter_name)s\" has no remaining babies to create: "
@@ -951,19 +966,55 @@ msgstr ""
 "La cucciolata \"%(litter_name)s\" non ha più cuccioli da creare: "
 "%(existing_count)d già creato."
 
-#: breeding/admin.py:114
+#: breeding/admin.py:134
 #, python-brace-format
 msgid "Offspring {offspring_number} from litter {litter_name}"
 msgstr "Prole {offspring_number} dalla cucciolata {litter_name}"
 
-#: breeding/admin.py:160
+#: breeding/admin.py:180
 #, python-format
-msgid "Created %(babies_count)d remaining babies for litter \"%(litter_name)s\"."
+msgid ""
+"Created %(babies_count)d remaining babies for litter \"%(litter_name)s\"."
 msgstr ""
 "Creati %(babies_count)d cuccioli rimanenti per la cucciolata "
 "\"%(litter_name)s\"."
 
-#: breeding/admin.py:440
+#: breeding/admin.py:339
+#, fuzzy
+#| msgid "Commercial amount"
+msgid "commercial sale"
+msgstr "Importo commerciale"
+
+#: breeding/admin.py:365 reservations/services/admin_workflows.py:363
+#: reservations/services/admin_workflows.py:584
+#: reservations/services/admin_workflows.py:669
+msgid "This dog is already held by another process."
+msgstr "Questo cane è già prenotato da un altro processo."
+
+#: breeding/admin.py:373
+#: reservations/templates/admin/reservations/animalsale/change_form.html:15
+#: reservations/templates/admin/reservations/prereservation/change_form.html:7
+#: reservations/templates/admin/reservations/reservation/change_form.html:6
+msgid "Open sale process"
+msgstr "Apri il processo di vendita"
+
+#: breeding/admin.py:383
+#, fuzzy
+#| msgid "Direct final sale"
+msgid "Register a direct final sale"
+msgstr "Vendita finale diretta"
+
+#: breeding/admin.py:389
+msgid "Final price not recorded (legacy sale)"
+msgstr ""
+
+#: breeding/admin.py:398
+#, fuzzy
+#| msgid "Open sale process"
+msgid "Open sale record"
+msgstr "Apri il processo di vendita"
+
+#: breeding/admin.py:538
 msgid "Retry selected birth notifications"
 msgstr "Riprova le notifiche di nascita selezionate"
 
@@ -986,10 +1037,6 @@ msgid ""
 msgstr ""
 "Il prezzo e le impostazioni di pagamento non possono essere modificati "
 "mentre questo cucciolo ha una pre-prenotazione o una prenotazione attiva."
-
-#: breeding/forms.py:82
-msgid "This dog is reserved by a different customer."
-msgstr "Questo cane è riservato da un cliente diverso."
 
 #: breeding/models.py:20 breeding/templates/buy_a_dog/detail.html:91
 #: breeding/templates/buy_a_dog/index.html:76
@@ -1016,6 +1063,7 @@ msgstr "Femmina"
 #: breeding/templates/components/lineage_tree.html:146
 #: breeding/templates/components/lineage_tree.html:171
 #: breeding/templates/our_dogs/index.html:47 chat/admin.py:51
+#: reservations/templates/admin/reservations/includes/payment_summary.html:3
 msgid "Unknown"
 msgstr "Sconosciuto"
 
@@ -1055,13 +1103,13 @@ msgstr ""
 "Solo le razze presenti vengono visualizzate al di fuori dei filtri, ad "
 "esempio nella home page e nella navigazione"
 
-#: breeding/models.py:148 breeding/models.py:250 breeding/models.py:518
-#: chat/experts.py:311 quiz/models.py:73 reservations/models.py:139
-#: reservations/models.py:593
+#: breeding/models.py:148 breeding/models.py:250 breeding/models.py:517
+#: chat/experts.py:311 quiz/models.py:73 reservations/models.py:143
+#: reservations/models.py:601
 msgid "breed"
 msgstr "razza"
 
-#: breeding/models.py:149 breeding/models.py:190 breeding/models.py:688
+#: breeding/models.py:149 breeding/models.py:190 breeding/models.py:691
 #: discounts/models.py:61 quiz/models.py:46
 msgid "breeds"
 msgstr "razze"
@@ -1074,11 +1122,11 @@ msgstr "codice"
 msgid "certification"
 msgstr "certificazione"
 
-#: breeding/models.py:202 breeding/models.py:317
+#: breeding/models.py:202 breeding/models.py:320
 msgid "certifications"
 msgstr "certificazioni"
 
-#: breeding/models.py:213 breeding/models.py:462
+#: breeding/models.py:213 breeding/models.py:461
 msgid "animal"
 msgstr "animale"
 
@@ -1094,7 +1142,7 @@ msgstr "certificazione degli animali"
 msgid "animal certifications"
 msgstr "certificazioni animali"
 
-#: breeding/models.py:266 breeding/models.py:572
+#: breeding/models.py:266 breeding/models.py:575
 msgid "birth date"
 msgstr "Data di nascita"
 
@@ -1106,267 +1154,261 @@ msgstr "genere"
 msgid "hair type"
 msgstr "tipo di capelli"
 
-#: breeding/models.py:287 breeding/models.py:537
+#: breeding/models.py:288 breeding/models.py:537
 msgid "father"
 msgstr "padre"
 
-#: breeding/models.py:297 breeding/models.py:546
+#: breeding/models.py:299 breeding/models.py:548
 msgid "mother"
 msgstr "madre"
 
-#: breeding/models.py:307 breeding/models.py:658 breeding/models.py:713
-#: breeding/models.py:743 chat/experts.py:310 reservations/models.py:557
+#: breeding/models.py:310 breeding/models.py:661 breeding/models.py:716
+#: breeding/models.py:746 chat/experts.py:310 reservations/models.py:565
 msgid "litter"
 msgstr "rifiuti"
 
-#: breeding/models.py:328
+#: breeding/models.py:331
 msgid "price in euros"
 msgstr "prezzo in euro"
 
-#: breeding/models.py:339
+#: breeding/models.py:342
 msgid "discount in euros"
 msgstr "sconto in euro"
 
-#: breeding/models.py:345 reservations/models.py:1800
-msgid "sold at"
-msgstr "venduto a"
-
-#: breeding/models.py:353
-msgid "sold to"
-msgstr "venduto a"
-
-#: breeding/models.py:365
+#: breeding/models.py:352
 msgid "has training"
 msgstr "ha una formazione"
 
-#: breeding/models.py:370
+#: breeding/models.py:357
 msgid "for breeding"
 msgstr "per l'allevamento"
 
-#: breeding/models.py:375
+#: breeding/models.py:362
 msgid "for sale"
 msgstr "in vendita"
 
-#: breeding/models.py:380
+#: breeding/models.py:367
 msgid "available for pre-reservation"
 msgstr "disponibile per la pre-prenotazione"
 
-#: breeding/models.py:388
+#: breeding/models.py:375
 msgid "pre-reservation fee"
 msgstr "quota di pre-prenotazione"
 
-#: breeding/models.py:389
+#: breeding/models.py:376
 msgid "Non-refundable pre-reservation fee in euros."
 msgstr "Quota di pre-prenotazione non rimborsabile in euro."
 
-#: breeding/models.py:400
+#: breeding/models.py:387
 msgid "reservation deposit percentage"
 msgstr "percentuale del deposito di prenotazione"
 
-#: breeding/models.py:402
+#: breeding/models.py:389
 msgid ""
-"Percentage of the dog price that must have been paid when the reservation is"
-" confirmed."
+"Percentage of the dog price that must have been paid when the reservation is "
+"confirmed."
 msgstr ""
 "Percentuale del prezzo del cucciolo che deve essere stata pagata al momento "
 "della conferma della prenotazione."
 
-#: breeding/models.py:413
+#: breeding/models.py:400
 msgid "reservation offer validity in hours"
 msgstr "validità dell'offerta di prenotazione in ore"
 
-#: breeding/models.py:415
+#: breeding/models.py:402
 msgid ""
-"Hours available to pay the reservation deposit after the breeder accepts the"
-" pre-reservation. Minimum 1 hour, maximum 7 days."
+"Hours available to pay the reservation deposit after the breeder accepts the "
+"pre-reservation. Minimum 1 hour, maximum 7 days."
 msgstr ""
-"Ore disponibili per pagare il deposito di prenotazione dopo che l'allevatore"
-" ha accettato la pre-prenotazione. Minimo 1 ora, massimo 7 giorni."
+"Ore disponibili per pagare il deposito di prenotazione dopo che l'allevatore "
+"ha accettato la pre-prenotazione. Minimo 1 ora, massimo 7 giorni."
 
-#: breeding/models.py:427 breeding/models.py:642
+#: breeding/models.py:414 breeding/models.py:645
 msgid "files"
 msgstr "file"
 
-#: breeding/models.py:463
+#: breeding/models.py:462
 msgid "animals"
 msgstr "animali"
 
-#: breeding/models.py:487
+#: breeding/models.py:486
 msgid "A discount requires a published price."
 msgstr "Uno sconto richiede un prezzo pubblicato."
 
-#: breeding/models.py:499
+#: breeding/models.py:498
 msgid "The discount cannot exceed the published price."
 msgstr "Lo sconto non può superare il prezzo pubblicato."
 
-#: breeding/models.py:510
+#: breeding/models.py:509
 msgid "Expecting"
 msgstr "Aspettando"
 
-#: breeding/models.py:511 breeding/services/litter_alerts.py:378
+#: breeding/models.py:510 breeding/services/litter_alerts.py:378
 msgid "Born"
 msgstr "Nato"
 
-#: breeding/models.py:512
+#: breeding/models.py:511
 msgid "Ready for new homes"
 msgstr "Pronti per nuove case"
 
-#: breeding/models.py:513
+#: breeding/models.py:512
 msgid "All babies placed"
 msgstr "Tutti i bambini sistemati"
 
-#: breeding/models.py:552
+#: breeding/models.py:555
 msgid "expected birth date"
 msgstr "data di nascita prevista"
 
-#: breeding/models.py:558
+#: breeding/models.py:561
 msgid "expected ready date"
 msgstr "data di preparazione prevista"
 
-#: breeding/models.py:561
+#: breeding/models.py:564
 msgid "Expected date when babies will be ready for new homes"
 msgstr "Data prevista in cui i bambini saranno pronti per le nuove case"
 
-#: breeding/models.py:565
+#: breeding/models.py:568
 msgid "expected babies"
 msgstr "bambini attesi"
 
-#: breeding/models.py:568
+#: breeding/models.py:571
 msgid "Expected number of babies in this litter"
 msgstr "Numero previsto di bambini in questa cucciolata"
 
-#: breeding/models.py:575
+#: breeding/models.py:578
 msgid "Actual date when the litter was born"
 msgstr "Data effettiva di nascita della cucciolata"
 
-#: breeding/models.py:579
+#: breeding/models.py:582
 msgid "ready date"
 msgstr "data pronta"
 
-#: breeding/models.py:582
+#: breeding/models.py:585
 msgid "Actual date when babies were ready for new homes"
 msgstr "Data effettiva in cui i bambini erano pronti per le nuove case"
 
-#: breeding/models.py:586
+#: breeding/models.py:589
 msgid "babies"
 msgstr "bambini"
 
-#: breeding/models.py:589
+#: breeding/models.py:592
 msgid "Actual number of babies born"
 msgstr "Numero effettivo di bambini nati"
 
-#: breeding/models.py:596 reservations/admin.py:547 reservations/admin.py:1027
-#: reservations/admin.py:1232 reservations/admin.py:1454
-#: reservations/models.py:121 reservations/models.py:260
-#: reservations/models.py:572 reservations/models.py:907
+#: breeding/models.py:599 reservations/admin.py:660 reservations/admin.py:1143
+#: reservations/admin.py:1351 reservations/admin.py:1576
+#: reservations/admin.py:1848 reservations/models.py:124
+#: reservations/models.py:268 reservations/models.py:580
+#: reservations/models.py:918
 msgid "status"
 msgstr "stato"
 
-#: breeding/models.py:597
+#: breeding/models.py:600
 msgid "Current stage of the litter lifecycle"
 msgstr "Fase attuale del ciclo di vita dei rifiuti"
 
-#: breeding/models.py:607
+#: breeding/models.py:610
 msgid "generated dogs available for pre-reservation"
 msgstr "cuccioli generati disponibili per la pre-prenotazione"
 
-#: breeding/models.py:615
+#: breeding/models.py:618
 msgid "generated dogs pre-reservation fee"
 msgstr "quota di pre-prenotazione per cuccioli generati"
 
-#: breeding/models.py:617
+#: breeding/models.py:620
 msgid "Non-refundable pre-reservation fee copied to generated dogs."
 msgstr ""
 "Quota di pre-prenotazione non rimborsabile copiata sui cuccioli generati."
 
-#: breeding/models.py:629
+#: breeding/models.py:632
 msgid "generated dogs reservation deposit percentage"
 msgstr "percentuale del deposito di prenotazione per i cuccioli generati"
 
-#: breeding/models.py:631
+#: breeding/models.py:634
 msgid "Reservation deposit percentage copied to generated dogs."
 msgstr ""
 "Percentuale del deposito di prenotazione copiata sui cuccioli generati."
 
-#: breeding/models.py:659
+#: breeding/models.py:662
 msgid "litters"
 msgstr "cucciolate"
 
-#: breeding/models.py:668
+#: breeding/models.py:671
 msgid "No general alerts"
 msgstr "Nessun avviso generale"
 
-#: breeding/models.py:669
+#: breeding/models.py:672
 msgid "All breeds"
 msgstr "Tutte le razze"
 
-#: breeding/models.py:670 discounts/models.py:21
+#: breeding/models.py:673 discounts/models.py:21
 msgid "Selected breeds"
 msgstr "Razze selezionate"
 
-#: breeding/models.py:682
+#: breeding/models.py:685
 msgid "general litter alerts"
 msgstr "Avvisi generali sui cuccioli"
 
-#: breeding/models.py:695
+#: breeding/models.py:698
 msgid "litter alert preference"
 msgstr "Preferenza per gli avvisi sui cuccioli"
 
-#: breeding/models.py:696
+#: breeding/models.py:699
 msgid "litter alert preferences"
 msgstr "Preferenze per gli avvisi sui cuccioli"
 
-#: breeding/models.py:717
+#: breeding/models.py:720
 msgid "subscribed"
 msgstr "Iscritto"
 
-#: breeding/models.py:723
+#: breeding/models.py:726
 msgid "litter alert override"
 msgstr "Eccezione agli avvisi sui cuccioli"
 
-#: breeding/models.py:724
+#: breeding/models.py:727
 msgid "litter alert overrides"
 msgstr "Eccezioni agli avvisi sui cuccioli"
 
-#: breeding/models.py:753
+#: breeding/models.py:756
 msgid "litter birth announcement"
 msgstr "Annuncio della nascita di un cucciolo"
 
-#: breeding/models.py:754
+#: breeding/models.py:757
 msgid "litter birth announcements"
 msgstr "Annunci di nascita di cucciolata"
 
-#: breeding/models.py:762 reservations/models.py:1146
-#: reservations/models.py:1343 reservations/models.py:1833
-#: reservations/models.py:1841
+#: breeding/models.py:765 reservations/models.py:1157
+#: reservations/models.py:1356 reservations/models.py:1909
+#: reservations/models.py:1917
 msgid "Pending"
 msgstr "In attesa"
 
-#: breeding/models.py:763 reservations/models.py:1344
-#: reservations/models.py:1834
+#: breeding/models.py:766 reservations/models.py:1357
+#: reservations/models.py:1910
 msgid "Processing"
 msgstr "In elaborazione"
 
-#: breeding/models.py:764 reservations/models.py:2008
+#: breeding/models.py:767 reservations/models.py:2086
 msgid "Sent"
 msgstr "Inviato"
 
-#: breeding/models.py:765 chat/assistant.py:69 reservations/models.py:1148
-#: reservations/models.py:1346 reservations/models.py:1843
-#: reservations/models.py:1982 reservations/models.py:2009
+#: breeding/models.py:768 chat/assistant.py:69 reservations/models.py:1159
+#: reservations/models.py:1359 reservations/models.py:1919
+#: reservations/models.py:2058 reservations/models.py:2087
 msgid "Failed"
 msgstr "Non riuscito"
 
-#: breeding/models.py:766 reservations/admin.py:107 reservations/admin.py:142
-#: reservations/models.py:1475
+#: breeding/models.py:769 reservations/admin.py:188 reservations/admin.py:223
+#: reservations/admin.py:1851 reservations/models.py:1488
+#: reservations/templates/reservations/partials/sale_case_card.html:173
 msgid "Cancelled"
 msgstr "Annullato"
 
-#: breeding/models.py:803
+#: breeding/models.py:806
 msgid "litter birth notification"
 msgstr "Notifica di nascita di cucciolata"
 
-#: breeding/models.py:804
+#: breeding/models.py:807
 msgid "litter birth notifications"
 msgstr "Notifiche di nascita di cucciolata"
 
@@ -1393,7 +1435,7 @@ msgid "Birth announcement"
 msgstr "Annuncio di nascita"
 
 #: breeding/services/litter_alerts.py:381
-#: breeding/templates/buy_a_dog/detail.html:142 reservations/models.py:487
+#: breeding/templates/buy_a_dog/detail.html:142 reservations/models.py:495
 msgid "Litter"
 msgstr "Cucciolata"
 
@@ -1439,6 +1481,12 @@ msgstr ""
 "Può interrompere gli avvisi per questa cucciolata dalla relativa pagina o "
 "gestire tutti gli avvisi di nascita dal Suo profilo."
 
+#: breeding/templates/admin/breeding/animal/change_form.html:8
+#, fuzzy
+#| msgid "Direct final sale"
+msgid "Register direct final sale"
+msgstr "Vendita finale diretta"
+
 #: breeding/templates/buy_a_dog/detail.html:29
 #: breeding/templates/buy_a_dog/partials/cards.html:11
 #: breeding/templates/components/pre_reserve.html:22
@@ -1450,16 +1498,9 @@ msgstr ""
 msgid "No Image Available"
 msgstr "Nessuna immagine disponibile"
 
-#: breeding/templates/buy_a_dog/detail.html:36
-#: breeding/templates/buy_a_dog/partials/cards.html:18
-#: reservations/models.py:88 reservations/services/email_messages.py:859
-#: reservations/templates/reservations/partials/sale_case_card.html:19
-msgid "Sold"
-msgstr "Venduto"
-
 #: breeding/templates/buy_a_dog/detail.html:41
 #: breeding/templates/buy_a_dog/partials/cards.html:23
-#: reservations/admin.py:141 reservations/models.py:859
+#: reservations/admin.py:222 reservations/models.py:870
 #: reservations/services/email_messages.py:443
 #: reservations/templates/reservations/partials/sale_case_card.html:21
 msgid "Reserved"
@@ -1488,7 +1529,8 @@ msgid "Certifications"
 msgstr "Certificazioni"
 
 #: breeding/templates/buy_a_dog/detail.html:84
-#: breeding/templates/upcoming_litters/detail.html:54
+#: breeding/templates/upcoming_litters/detail.html:54 reservations/admin.py:143
+#: reservations/templates/admin/reservations/action_confirmation.html:40
 msgid "Details"
 msgstr "Dettagli"
 
@@ -1708,52 +1750,52 @@ msgstr ""
 "L'allevatore esamina la richiesta prima che possa essere pagato un deposito "
 "di prenotazione."
 
-#: breeding/templates/components/pre_reserve.html:97
+#: breeding/templates/components/pre_reserve.html:103
 #: reservations/templates/reservations/reservation_checkout.html:87
 msgid "Apply coupon"
 msgstr "Applica coupon"
 
-#: breeding/templates/components/pre_reserve.html:104
+#: breeding/templates/components/pre_reserve.html:110
 #: reservations/templates/reservations/reservation_checkout.html:94
 #, python-format
 msgid "Coupon %(code)s applied"
 msgstr "Coupon %(code)s applicato"
 
-#: breeding/templates/components/pre_reserve.html:105
+#: breeding/templates/components/pre_reserve.html:111
 msgid "The final amount has been updated above."
 msgstr "L'importo finale è stato aggiornato sopra."
 
-#: breeding/templates/components/pre_reserve.html:119
+#: breeding/templates/components/pre_reserve.html:125
 #: reservations/templates/reservations/pre_reservation_terms.html:4
 #: reservations/templates/reservations/pre_reservation_terms.html:12
 msgid "Pre-reservation terms"
 msgstr "Termini di pre-prenotazione"
 
-#: breeding/templates/components/pre_reserve.html:120
+#: breeding/templates/components/pre_reserve.html:126
 #: reservations/templates/reservations/reservation_checkout.html:106
 #, python-format
 msgid "Version %(version)s"
 msgstr "Versione %(version)s"
 
-#: breeding/templates/components/pre_reserve.html:124
+#: breeding/templates/components/pre_reserve.html:130
 #: reservations/templates/reservations/reservation_checkout.html:109
 msgid "Open the terms on a separate page"
 msgstr "Apri i termini in una pagina separata"
 
-#: breeding/templates/components/pre_reserve.html:138
+#: breeding/templates/components/pre_reserve.html:144
 #: reservations/templates/reservations/reservation_checkout.html:116
 msgid "Continue to secure payment"
 msgstr "Procedi per il pagamento sicuro"
 
-#: breeding/templates/components/pre_reserve.html:143
+#: breeding/templates/components/pre_reserve.html:149
 msgid "Call us"
 msgstr "Chiama ci"
 
-#: breeding/templates/components/pre_reserve.html:144
+#: breeding/templates/components/pre_reserve.html:150
 #: fortissimusbellator/templates/emails/branded.txt:26
-#: reservations/services/email_messages.py:1355
-#: reservations/services/email_messages.py:1382
-#: reservations/services/email_messages.py:1404
+#: reservations/services/email_messages.py:1420
+#: reservations/services/email_messages.py:1447
+#: reservations/services/email_messages.py:1469
 msgid "Contact us"
 msgstr "Ci contatti"
 
@@ -1912,7 +1954,7 @@ msgstr ""
 msgid "Not ready"
 msgstr "Non pronto"
 
-#: chat/assistant.py:64 reservations/admin.py:1053
+#: chat/assistant.py:64 reservations/admin.py:1169
 msgid "Missing"
 msgstr "Mancante"
 
@@ -2197,8 +2239,8 @@ msgid ""
 "then pre-reserve an individual dog after it is published."
 msgstr ""
 "I cuccioli non possono essere prenotati in anticipo. Puoi iscriverti a un "
-"avviso di nascita del cucciolo, quindi prenotare in anticipo un singolo cane"
-" dopo la pubblicazione."
+"avviso di nascita del cucciolo, quindi prenotare in anticipo un singolo cane "
+"dopo la pubblicazione."
 
 #: chat/experts.py:564
 #, python-format
@@ -2237,8 +2279,8 @@ msgstr "Fammi una di queste domande per vedere la risposta."
 #: chat/experts.py:633
 msgid ""
 "I can only answer using information published by Fortissimus Bellator. I do "
-"not have information about that. You can ask about animals, litters, prices,"
-" blog posts, visits, certifications, or contact details."
+"not have information about that. You can ask about animals, litters, prices, "
+"blog posts, visits, certifications, or contact details."
 msgstr ""
 "Posso rispondere solo usando informazioni pubblicate da Fortissimus "
 "Bellator. Non ho informazioni al riguardo. Puoi chiedere di animali, "
@@ -2371,7 +2413,8 @@ msgid "Local chat model status"
 msgstr "Stato del modello locale della chat"
 
 #: chat/templates/admin/chat/model_status.html:22
-#: reservations/templates/admin/reservations/action_confirmation.html:6
+#: reservations/templates/admin/reservations/action_confirmation.html:22
+#: reservations/templates/admin/reservations/confirm_target_delete.html:15
 msgid "Home"
 msgstr "Pagina iniziale"
 
@@ -2446,7 +2489,7 @@ msgid "Download progress"
 msgstr "Avanzamento del download"
 
 #: chat/templates/admin/chat/model_status.html:125
-#: reservations/services/email_messages.py:1132
+#: reservations/services/email_messages.py:1197
 msgid "Last error"
 msgstr "Ultimo errore"
 
@@ -2640,14 +2683,14 @@ msgid ""
 msgstr ""
 "L’assistente è temporaneamente non disponibile. Contattaci al %(phones)s."
 
-#: discounts/admin.py:43 reservations/admin.py:235
+#: discounts/admin.py:43 reservations/admin.py:317
 msgid "used"
 msgstr "utilizzato"
 
 #: discounts/forms.py:20
 msgid ""
-"Global scopes need no selection. For a selected scope, use only the matching"
-" field shown below."
+"Global scopes need no selection. For a selected scope, use only the matching "
+"field shown below."
 msgstr ""
 "Gli ambiti globali non richiedono selezione. Per un ambito selezionato, "
 "utilizza solo il campo corrispondente mostrato di seguito."
@@ -2664,7 +2707,7 @@ msgstr "Richiesto solo per l'ambito cani selezionato."
 msgid "Select at least one item for this promotion scope."
 msgstr "Seleziona almeno un elemento per questo ambito promozione."
 
-#: discounts/models.py:11 reservations/models.py:1338
+#: discounts/models.py:11 reservations/models.py:1351
 msgid "Fixed amount"
 msgstr "Importo fisso"
 
@@ -2672,18 +2715,18 @@ msgstr "Importo fisso"
 msgid "Percentage"
 msgstr "Percentuale"
 
-#: discounts/models.py:15 reservations/forms.py:314 reservations/models.py:86
-#: reservations/models.py:232 reservations/services/email_messages.py:52
+#: discounts/models.py:15 reservations/forms.py:350 reservations/models.py:89
+#: reservations/models.py:240 reservations/services/email_messages.py:52
 #: reservations/services/email_messages.py:222
 #: reservations/services/email_messages.py:560
 msgid "Pre-reservation"
 msgstr "Pre-prenotazione"
 
-#: discounts/models.py:16 reservations/models.py:87 reservations/models.py:233
+#: discounts/models.py:16 reservations/models.py:90 reservations/models.py:241
 #: reservations/services/email_messages.py:131
 #: reservations/services/email_messages.py:442
 #: reservations/services/email_messages.py:497
-#: reservations/services/email_messages.py:1082
+#: reservations/services/email_messages.py:1147
 msgid "Reservation"
 msgstr "Prenotazione"
 
@@ -2761,8 +2804,8 @@ msgstr "massimo numero di riscatti per utente"
 msgid "Leave empty for unlimited redemptions per user."
 msgstr "Lascia vuoto per un numero illimitato di riscatti per utente."
 
-#: discounts/models.py:97 reservations/models.py:273
-#: reservations/models.py:565 reservations/models.py:900
+#: discounts/models.py:97 reservations/models.py:281 reservations/models.py:573
+#: reservations/models.py:911
 msgid "promotion"
 msgstr "promozione"
 
@@ -2826,6 +2869,48 @@ msgstr "Amministratore del sito Fortissimus Bellator"
 #: fortissimusbellator/admin.py:10
 msgid "Fortissimus Bellator Administration"
 msgstr "Amministrazione di Fortissimus Bellator"
+
+#: fortissimusbellator/contact_details.py:31
+msgid "Enter a valid country calling code, for example +351."
+msgstr "Inserisci un prefisso internazionale valido, ad esempio +351."
+
+#: fortissimusbellator/contact_details.py:36
+#: fortissimusbellator/contact_details.py:44
+#: fortissimusbellator/form_fields.py:101
+msgid "Enter a valid phone number."
+msgstr "Inserisci un numero di telefono valido."
+
+#: fortissimusbellator/contact_details.py:53
+msgid "Enter a valid phone number for this country calling code."
+msgstr ""
+"Inserisci un numero di telefono valido per questo prefisso internazionale."
+
+#: fortissimusbellator/contact_details.py:90
+msgid "Enter the phone number in international format."
+msgstr "Inserisci il numero di telefono in formato internazionale."
+
+#: fortissimusbellator/form_fields.py:21
+msgid "Country calling code"
+msgstr "Prefisso internazionale"
+
+#: fortissimusbellator/form_fields.py:32
+msgid "Phone number"
+msgstr "Numero di telefono"
+
+#: fortissimusbellator/form_fields.py:37
+msgid "912 345 678"
+msgstr "912 345 678"
+
+#: fortissimusbellator/form_fields.py:67 reservations/forms.py:30
+msgid ""
+"Enter the country calling code separately, for example +351 and 912 345 678."
+msgstr ""
+"Inserisci separatamente il prefisso internazionale, ad esempio +351, e il "
+"numero 912 345 678."
+
+#: fortissimusbellator/form_fields.py:93
+msgid "Enter the country calling code, for example +351."
+msgstr "Inserisci il prefisso internazionale, ad esempio +351."
 
 #: fortissimusbellator/settings.py:347
 #: fortissimusbellator/templates/components/navbar.html:71
@@ -2968,8 +3053,8 @@ msgstr "Ti stai chiedendo quale razza è giusta per te?"
 #: fortissimusbellator/templates/components/quiz_cta.html:6
 msgid "Take our quick quiz to discover the ideal breed for your lifestyle."
 msgstr ""
-"Rispondi al nostro rapido quiz per scoprire la razza ideale per il tuo stile"
-" di vita."
+"Rispondi al nostro rapido quiz per scoprire la razza ideale per il tuo stile "
+"di vita."
 
 #: fortissimusbellator/templates/components/quiz_cta.html:9
 msgid "Start Quiz"
@@ -2989,8 +3074,8 @@ msgid "Internal commercial notification"
 msgstr "Notifica commerciale interna"
 
 #: fortissimusbellator/templates/emails/branded.html:82
-#: fortissimusbellator/templates/emails/branded.txt:8
-#: reservations/forms.py:322 reservations/models.py:486
+#: fortissimusbellator/templates/emails/branded.txt:8 reservations/forms.py:358
+#: reservations/models.py:494
 #: reservations/templates/reservations/partials/sale_case_card.html:30
 msgid "Dog"
 msgstr "Cane"
@@ -3032,21 +3117,20 @@ msgstr "Chiamaci al %(phone)s"
 msgid "WhatsApp"
 msgstr "WhatsApp"
 
-#: fortissimusbellator/templates/emails/branded.txt:27
-#: frontoffice/models.py:52 frontoffice/templates/faqs.html:11
+#: fortissimusbellator/templates/emails/branded.txt:27 frontoffice/models.py:52
+#: frontoffice/templates/faqs.html:11
 msgid "Frequently Asked Questions"
 msgstr "Domande frequenti"
 
-#: frontoffice/forms.py:12 frontoffice/templates/contact_us.html:41
+#: frontoffice/forms.py:14 frontoffice/templates/contact_us.html:43
 msgid "Your Name"
 msgstr "Il tuo nome"
 
-#: frontoffice/forms.py:20 frontoffice/forms.py:28
-#: frontoffice/templates/contact_us.html:78
+#: frontoffice/forms.py:24 frontoffice/templates/contact_us.html:82
 msgid "Your Email"
 msgstr "La tua e-mail"
 
-#: frontoffice/forms.py:36 frontoffice/templates/contact_us.html:96
+#: frontoffice/forms.py:36 frontoffice/templates/contact_us.html:100
 msgid "Your Message"
 msgstr "Il tuo messaggio"
 
@@ -3091,18 +3175,18 @@ msgid ""
 "highest standards of health, temperament, and performance."
 msgstr ""
 "Noi di Fortissimus Bellator siamo appassionati di allevamento e "
-"addestramento di cani di alta qualità che eccellono sia nel lavoro che nella"
-" compagnia. Il nostro viaggio è iniziato con un profondo rispetto per "
-"l'intelligenza, la lealtà e la versatilità dei cani. Nel corso degli anni ci"
-" siamo dedicati alla produzione di cani che soddisfano i più alti standard "
-"di salute, temperamento e prestazioni."
+"addestramento di cani di alta qualità che eccellono sia nel lavoro che nella "
+"compagnia. Il nostro viaggio è iniziato con un profondo rispetto per "
+"l'intelligenza, la lealtà e la versatilità dei cani. Nel corso degli anni ci "
+"siamo dedicati alla produzione di cani che soddisfano i più alti standard di "
+"salute, temperamento e prestazioni."
 
 #: frontoffice/templates/about_us.html:39
 msgid ""
 "Whether it's for police work, service roles, or as beloved family pets, "
-"every dog we breed is raised with care, trained with expertise, and nurtured"
-" to reach their full potential. We believe in the power of a well-trained "
-"dog to make a difference in the lives of individuals and communities."
+"every dog we breed is raised with care, trained with expertise, and nurtured "
+"to reach their full potential. We believe in the power of a well-trained dog "
+"to make a difference in the lives of individuals and communities."
 msgstr ""
 "Che si tratti di lavoro di polizia, ruoli di servizio o come amati animali "
 "domestici, ogni cane che alleviamo viene allevato con cura, addestrato con "
@@ -3137,8 +3221,8 @@ msgid ""
 "We strive for excellence in every aspect of breeding, training, and care, "
 "ensuring our dogs are the best they can be."
 msgstr ""
-"Puntiamo all'eccellenza in ogni aspetto dell'allevamento, dell'addestramento"
-" e della cura, assicurando che i nostri cani siano il meglio che possono "
+"Puntiamo all'eccellenza in ogni aspetto dell'allevamento, dell'addestramento "
+"e della cura, assicurando che i nostri cani siano il meglio che possono "
 "essere."
 
 #: frontoffice/templates/about_us.html:70
@@ -3187,8 +3271,8 @@ msgid ""
 "Our dogs undergo rigorous training tailored to their roles, whether for "
 "police work, service, or as family companions."
 msgstr ""
-"I nostri cani vengono sottoposti a un addestramento rigoroso su misura per i"
-" loro ruoli, sia che si tratti di lavoro di polizia, di servizio o di "
+"I nostri cani vengono sottoposti a un addestramento rigoroso su misura per i "
+"loro ruoli, sia che si tratti di lavoro di polizia, di servizio o di "
 "compagni di famiglia."
 
 #: frontoffice/templates/about_us.html:130
@@ -3200,8 +3284,8 @@ msgid ""
 " We prioritize the health and well-being of our dogs, ensuring they are "
 "physically and mentally fit for their roles."
 msgstr ""
-"Diamo priorità alla salute e al benessere dei nostri cani, assicurandoci che"
-" siano fisicamente e mentalmente adatti ai loro ruoli."
+"Diamo priorità alla salute e al benessere dei nostri cani, assicurandoci che "
+"siano fisicamente e mentalmente adatti ai loro ruoli."
 
 #: frontoffice/templates/about_us.html:138
 msgid "Lifelong Support"
@@ -3223,54 +3307,43 @@ msgstr "Hai domande o vuoi saperne di più? Contattaci!"
 msgid "Name"
 msgstr "Nome"
 
-#: frontoffice/templates/contact_us.html:59
-msgid "Your Phone"
-msgstr "Il tuo telefono"
-
-#: frontoffice/templates/contact_us.html:60
-msgid ""
-"Please include your country code. Example for Portugal: (+351) 912 345 678"
-msgstr ""
-"Per favore includi il codice del tuo paese. Esempio per il Portogallo: "
-"(+351) 912 345 678"
-
-#: frontoffice/templates/contact_us.html:92 frontoffice/views.py:61
+#: frontoffice/templates/contact_us.html:96 frontoffice/views.py:61
 msgid "Message"
 msgstr "Messaggio"
 
-#: frontoffice/templates/contact_us.html:110
+#: frontoffice/templates/contact_us.html:114
 msgid "This site is protected by reCAPTCHA and the Google"
 msgstr "Questo sito è protetto da reCAPTCHA e si applicano le"
 
-#: frontoffice/templates/contact_us.html:111
+#: frontoffice/templates/contact_us.html:115
 msgid "Privacy Policy"
 msgstr "Norme sulla privacy"
 
-#: frontoffice/templates/contact_us.html:112
+#: frontoffice/templates/contact_us.html:116
 msgid "and"
 msgstr "e i"
 
-#: frontoffice/templates/contact_us.html:113
+#: frontoffice/templates/contact_us.html:117
 msgid "Terms of Service"
 msgstr "Termini di servizio"
 
-#: frontoffice/templates/contact_us.html:114
+#: frontoffice/templates/contact_us.html:118
 msgid "apply."
 msgstr "di Google."
 
-#: frontoffice/templates/contact_us.html:127
+#: frontoffice/templates/contact_us.html:131
 msgid "Send Message"
 msgstr "Invia messaggio"
 
-#: frontoffice/templates/contact_us.html:135
+#: frontoffice/templates/contact_us.html:139
 msgid "Our Location"
 msgstr "La nostra posizione"
 
-#: frontoffice/templates/contact_us.html:138
+#: frontoffice/templates/contact_us.html:142
 msgid "Visit us at our facility in Leiria, Portugal."
 msgstr "Venite a trovarci presso la nostra struttura a Leiria, in Portogallo."
 
-#: frontoffice/templates/contact_us.html:145
+#: frontoffice/templates/contact_us.html:149
 msgid "View Larger Map"
 msgstr "Visualizza la mappa ingrandita"
 
@@ -3323,8 +3396,7 @@ msgid ""
 "ensure they become well-balanced companions in loving homes."
 msgstr ""
 "Ognuna delle nostre razze viene accuratamente selezionata e allevata con "
-"dedizione per garantire che diventino compagni equilibrati in case "
-"amorevoli."
+"dedizione per garantire che diventino compagni equilibrati in case amorevoli."
 
 #: frontoffice/templates/home/index.html:63
 msgid "Responsible Ownership"
@@ -3444,45 +3516,59 @@ msgstr "Ripeti il ​​quiz"
 msgid "The quiz is not fully configured yet."
 msgstr "Il quiz non è ancora completamente configurato."
 
-#: reservations/admin.py:98 reservations/admin.py:135
+#: reservations/admin.py:101
+#: reservations/templates/admin/reservations/action_confirmation.html:44
+msgid "Purchase"
+msgstr "Acquista"
+
+#: reservations/admin.py:110 reservations/services/email_messages.py:1397
+msgid "Customer"
+msgstr "Cliente"
+
+#: reservations/admin.py:127 reservations/services/email_messages.py:1085
+#: reservations/templates/admin/reservations/action_confirmation.html:53
+msgid "Payment"
+msgstr "Pagamento"
+
+#: reservations/admin.py:179 reservations/admin.py:216
 msgid "workflow"
 msgstr "workflow"
 
-#: reservations/admin.py:103 reservations/models.py:490
-#: reservations/models.py:857 reservations/services/email_messages.py:53
+#: reservations/admin.py:184 reservations/models.py:498
+#: reservations/models.py:868 reservations/services/email_messages.py:53
 msgid "Awaiting payment"
 msgstr "In attesa di pagamento"
 
-#: reservations/admin.py:104 reservations/services/email_messages.py:223
+#: reservations/admin.py:185 reservations/services/email_messages.py:223
 #: reservations/templates/reservations/partials/sale_case_card.html:162
 msgid "Awaiting breeder review"
 msgstr "In attesa della valutazione dell'allevatore"
 
-#: reservations/admin.py:105
+#: reservations/admin.py:186
 msgid "Approved"
 msgstr "Approvato"
 
-#: reservations/admin.py:106
+#: reservations/admin.py:187
 msgid "Rejected"
 msgstr "Rifiutato"
 
-#: reservations/admin.py:108 reservations/admin.py:143
+#: reservations/admin.py:189 reservations/admin.py:224
 msgid "Failed or expired"
 msgstr "Fallito o scaduto"
 
-#: reservations/admin.py:140 reservations/models.py:856
+#: reservations/admin.py:221 reservations/models.py:867
 msgid "Awaiting customer"
 msgstr "In attesa del cliente"
 
-#: reservations/admin.py:355
+#: reservations/admin.py:462
 msgid "The administrative sale process was created."
 msgstr "Il processo di vendita amministrativa è stato creato."
 
-#: reservations/admin.py:365
+#: reservations/admin.py:472
 msgid "Start animal sale process"
 msgstr "Avvia il processo di vendita degli animali"
 
-#: reservations/admin.py:367
+#: reservations/admin.py:474
 msgid ""
 "Choose the real starting stage and payment method. The system will preserve "
 "all resulting financial records."
@@ -3490,47 +3576,46 @@ msgstr ""
 "Scegli la fase iniziale reale e il metodo di pagamento. Il sistema "
 "conserverà tutti i registri finanziari risultanti."
 
-#: reservations/admin.py:370
+#: reservations/admin.py:477
 msgid "Create process"
 msgstr "Crea processo"
 
-#: reservations/admin.py:374
+#: reservations/admin.py:482
 msgid "New animal sale process"
 msgstr "Nuovo processo di vendita animale"
 
-#: reservations/admin.py:430
+#: reservations/admin.py:538
 msgid "The workflow was transferred to the target dog."
 msgstr "Il flusso di lavoro è stato trasferito al cane target."
 
-#: reservations/admin.py:440
-#: reservations/templates/admin/reservations/animalsalecase/change_form.html:30
+#: reservations/admin.py:548
+#: reservations/templates/admin/reservations/animalsalecase/change_form.html:37
 msgid "Transfer to another dog"
 msgstr "Trasferimento a un altro cane"
 
-#: reservations/admin.py:442
+#: reservations/admin.py:550
 msgid ""
 "The split must equal the available value. Promotions are not copied. Any "
 "target difference is handled separately."
 msgstr ""
 "La spartizione deve essere uguale al valore disponibile. Le promozioni non "
-"vengono copiate. Qualsiasi differenza sul target viene gestita "
-"separatamente."
+"vengono copiate. Qualsiasi differenza sul target viene gestita separatamente."
 
-#: reservations/admin.py:445
+#: reservations/admin.py:553
 msgid "Transfer workflow"
 msgstr "Flusso di lavoro di trasferimento"
 
-#: reservations/admin.py:478
+#: reservations/admin.py:586
 msgid "The dog was marked as sold with an audited final price."
 msgstr ""
 "Il cane è stato contrassegnato come venduto con un prezzo finale verificato."
 
-#: reservations/admin.py:488
-#: reservations/templates/admin/reservations/animalsalecase/change_form.html:35
+#: reservations/admin.py:596
+#: reservations/templates/admin/reservations/animalsalecase/change_form.html:42
 msgid "Complete final sale"
 msgstr "Completare la vendita finale"
 
-#: reservations/admin.py:490
+#: reservations/admin.py:598
 msgid ""
 "The asking price is not changed. The final agreed price is recorded "
 "separately and the dog will be marked as sold."
@@ -3538,96 +3623,96 @@ msgstr ""
 "Il prezzo di richiesta non viene modificato. Il prezzo finale concordato "
 "viene registrato separatamente e il cane verrà contrassegnato come venduto."
 
-#: reservations/admin.py:493
+#: reservations/admin.py:601
 msgid "Complete sale"
 msgstr "Completa la vendita"
 
-#: reservations/admin.py:539 reservations/admin.py:1023
-#: reservations/admin.py:1228 reservations/admin.py:1450
-#: reservations/admin.py:1517 reservations/admin.py:1569
-#: reservations/admin.py:1596 reservations/admin.py:1621
-#: reservations/admin.py:1782
+#: reservations/admin.py:652 reservations/admin.py:1139
+#: reservations/admin.py:1347 reservations/admin.py:1572
+#: reservations/admin.py:1639 reservations/admin.py:1691
+#: reservations/admin.py:1718 reservations/admin.py:1844
+#: reservations/admin.py:2014
 msgid "reference"
 msgstr "riferimento"
 
-#: reservations/admin.py:543 reservations/admin.py:1251
-#: reservations/admin.py:1521 reservations/models.py:99
-#: reservations/models.py:536 reservations/models.py:1568
+#: reservations/admin.py:656 reservations/admin.py:1370
+#: reservations/admin.py:1643 reservations/models.py:102
+#: reservations/models.py:544 reservations/models.py:1582
 msgid "customer"
 msgstr "cliente"
 
-#: reservations/admin.py:561
+#: reservations/admin.py:674
 msgid "financial state"
 msgstr "stato finanziario"
 
-#: reservations/admin.py:610
+#: reservations/admin.py:723
 msgid "Lifecycle"
 msgstr "Ciclo di vita"
 
-#: reservations/admin.py:629
+#: reservations/admin.py:742
 msgid "Dog snapshot"
 msgstr "Scatto del cane"
 
-#: reservations/admin.py:646
+#: reservations/admin.py:759
 msgid "Customer and billing"
 msgstr "Cliente e fatturazione"
 
-#: reservations/admin.py:663
+#: reservations/admin.py:776
 msgid "Pre-reservation payment snapshot"
 msgstr "Screenshot del pagamento della pre-prenotazione"
 
-#: reservations/admin.py:727
+#: reservations/admin.py:840
 msgid "Accept selected paid pre-reservations"
 msgstr "Accetta le pre-prenotazioni pagate selezionate"
 
-#: reservations/admin.py:747
+#: reservations/admin.py:860
 #, python-format
 msgid "%(count)d pre-reservations accepted."
 msgstr "Pre-prenotazione(i) accettata(e): %(count)d."
 
-#: reservations/admin.py:758
+#: reservations/admin.py:871
 msgid "This pre-reservation is not awaiting review."
 msgstr "Questa pre-prenotazione non è in attesa di revisione."
 
-#: reservations/admin.py:775
+#: reservations/admin.py:888
 msgid "The pre-reservation was accepted."
 msgstr "La pre-prenotazione è stata accettata."
 
-#: reservations/admin.py:782 reservations/admin.py:786
+#: reservations/admin.py:895 reservations/admin.py:899
 msgid "Accept pre-reservation"
 msgstr "Accetta pre-prenotazione"
 
-#: reservations/admin.py:784
+#: reservations/admin.py:897
 msgid "The customer will be allowed to pay the reservation deposit."
 msgstr "Al cliente verrà permesso di pagare il deposito di prenotazione."
 
-#: reservations/admin.py:795 reservations/services/reservation.py:741
+#: reservations/admin.py:908 reservations/services/reservation.py:741
 msgid "Only pre-reservations awaiting review can be rejected."
 msgstr ""
 "Solo le pre-prenotazioni in attesa di revisione possono essere rifiutate."
 
-#: reservations/admin.py:816 reservations/admin.py:2106
-#: reservations/admin.py:2113
+#: reservations/admin.py:929 reservations/admin.py:2344
+#: reservations/admin.py:2351
 msgid "Pre-reservation payment"
 msgstr "Pagamento pre-prenotazione"
 
-#: reservations/admin.py:876
+#: reservations/admin.py:989
 msgid "The pre-reservation was closed and the refund decision was recorded."
 msgstr ""
 "La pre-prenotazione è stata chiusa e la decisione di rimborso è stata "
 "registrata."
 
-#: reservations/admin.py:886
+#: reservations/admin.py:999
 msgid "Do not accept pre-reservation"
 msgstr "Non accettare pre-prenotazione"
 
-#: reservations/admin.py:888 reservations/admin.py:897
+#: reservations/admin.py:1001 reservations/admin.py:1010
 #: reservations/templates/reservations/cancel_confirmation.html:4
-#: reservations/templates/reservations/partials/sale_case_card.html:249
+#: reservations/templates/reservations/partials/sale_case_card.html:263
 msgid "Cancel pre-reservation"
 msgstr "Annulla pre-prenotazione"
 
-#: reservations/admin.py:891
+#: reservations/admin.py:1004
 msgid ""
 "No refund is automatic. Split the available value between refund, customer "
 "credit, and the amount retained."
@@ -3635,39 +3720,39 @@ msgstr ""
 "Il rimborso non è automatico. Suddividi il valore disponibile tra rimborso, "
 "credito al cliente e importo trattenuto."
 
-#: reservations/admin.py:895
+#: reservations/admin.py:1008
 #: reservations/templates/admin/reservations/prereservation/change_form.html:14
 msgid "Do not accept"
 msgstr "Non accettare"
 
-#: reservations/admin.py:1008
+#: reservations/admin.py:1124
 msgid "The failed unpaid attempt was deleted."
-msgstr ""
-"Il tentativo di pagamento non riuscito e non pagato è stato eliminato."
+msgstr "Il tentativo di pagamento non riuscito e non pagato è stato eliminato."
 
-#: reservations/admin.py:1046 reservations/admin.py:1255
+#: reservations/admin.py:1162 reservations/admin.py:1374
+#: reservations/models.py:1262
 msgid "payment"
 msgstr "pagamento"
 
-#: reservations/admin.py:1055 reservations/models.py:982
-#: reservations/models.py:1174
+#: reservations/admin.py:1171 reservations/models.py:993
+#: reservations/models.py:1185
 msgid "reservation"
 msgstr "prenotazione"
 
-#: reservations/admin.py:1063
+#: reservations/admin.py:1179
 msgid "ERP"
 msgstr "ERP"
 
-#: reservations/admin.py:1195
+#: reservations/admin.py:1311
 msgid "The reservation was cancelled."
 msgstr "La prenotazione è stata annullata."
 
-#: reservations/admin.py:1209 reservations/admin.py:1214
+#: reservations/admin.py:1325 reservations/admin.py:1330
 #: reservations/templates/admin/reservations/reservation/change_form.html:12
 msgid "Cancel reservation"
 msgstr "Annulla prenotazione"
 
-#: reservations/admin.py:1211
+#: reservations/admin.py:1327
 msgid ""
 "Cancellation can refund, convert to customer credit, or retain part or all "
 "of the available value."
@@ -3675,25 +3760,25 @@ msgstr ""
 "L'annullamento può prevedere un rimborso, la conversione in credito cliente "
 "o il mantenimento di una parte o della totalità del valore disponibile."
 
-#: reservations/admin.py:1247 reservations/models.py:107
-#: reservations/models.py:549
+#: reservations/admin.py:1366 reservations/models.py:110
+#: reservations/models.py:557
 msgid "dog"
 msgstr "cane"
 
-#: reservations/admin.py:1262
+#: reservations/admin.py:1381
 msgid "Not started"
 msgstr "Non iniziato"
 
-#: reservations/admin.py:1347
+#: reservations/admin.py:1466
 msgid "The manual payment was recorded."
 msgstr "Il pagamento manuale è stato registrato."
 
-#: reservations/admin.py:1358
+#: reservations/admin.py:1477
 #: reservations/templates/admin/reservations/charge/change_form.html:9
 msgid "Record manual payment"
 msgstr "Registra pagamento manuale"
 
-#: reservations/admin.py:1360
+#: reservations/admin.py:1479
 msgid ""
 "Only confirm money that was actually received outside Stripe. This entry is "
 "immutable."
@@ -3701,65 +3786,88 @@ msgstr ""
 "Conferma solo i fondi effettivamente ricevuti al di fuori di Stripe. Questa "
 "voce è immutabile."
 
-#: reservations/admin.py:1363
+#: reservations/admin.py:1482
 msgid "Record payment"
 msgstr "Registra il pagamento"
 
-#: reservations/admin.py:1394
+#: reservations/admin.py:1513
 msgid "The financial adjustment was recorded."
 msgstr "L'aggiornamento finanziario è stato registrato."
 
-#: reservations/admin.py:1405
+#: reservations/admin.py:1524
 #: reservations/templates/admin/reservations/charge/change_form.html:15
 msgid "Adjust charge"
 msgstr "Regola l'addebito"
 
-#: reservations/admin.py:1407
+#: reservations/admin.py:1526
 msgid ""
 "This creates an immutable adjustment. It does not overwrite the original "
 "price or payment history."
 msgstr ""
-"Questo crea un'aggiornamento immutabile. Non sovrascrive il prezzo originale"
-" o la cronologia dei pagamenti."
+"Questo crea un'aggiornamento immutabile. Non sovrascrive il prezzo originale "
+"o la cronologia dei pagamenti."
 
-#: reservations/admin.py:1410
+#: reservations/admin.py:1529
 msgid "Record adjustment"
 msgstr "Registra l'aggiornamento"
 
-#: reservations/admin.py:1467
+#: reservations/admin.py:1589
 msgid "total"
 msgstr "totale"
 
-#: reservations/admin.py:1471
+#: reservations/admin.py:1593
 msgid "settled"
 msgstr "saldata"
 
-#: reservations/admin.py:1475
+#: reservations/admin.py:1597
 msgid "outstanding"
 msgstr "da saldare"
 
-#: reservations/admin.py:1525
+#: reservations/admin.py:1647
 msgid "available"
 msgstr "disponibile"
 
-#: reservations/admin.py:1678
+#: reservations/admin.py:1806
+#, fuzzy
+#| msgid ""
+#| "The pre-reservation process was closed and its financial outcome is "
+#| "recorded."
+msgid "The sale was cancelled and its financial outcome was recorded."
+msgstr ""
+"Il processo di pre-prenotazione è stato chiuso e il suo esito finanziario è "
+"registrato."
+
+#: reservations/admin.py:1821 reservations/admin.py:1827
+#: reservations/templates/admin/reservations/animalsale/change_form.html:8
+#, fuzzy
+#| msgid "Complete sale"
+msgid "Cancel completed sale"
+msgstr "Completa la vendita"
+
+#: reservations/admin.py:1823
+msgid ""
+"The sale record will remain immutable. The dog will be released and the "
+"refund, customer credit, and retained amount decision will be recorded."
+msgstr ""
+
+#: reservations/admin.py:1907
 msgid "Refund reason"
 msgstr "Motivo del rimborso"
 
-#: reservations/admin.py:1687
+#: reservations/admin.py:1916
 msgid "Choose a refund amount."
 msgstr "Scegli un importo per il rimborso."
 
-#: reservations/admin.py:1694
+#: reservations/admin.py:1923
 msgid "The refund request was recorded."
 msgstr "La richiesta di rimborso è stata registrata."
 
-#: reservations/admin.py:1708 reservations/admin.py:1713
+#: reservations/admin.py:1937 reservations/admin.py:1942
 #: reservations/templates/admin/reservations/payment/change_form.html:6
 msgid "Create refund"
 msgstr "Crea rimborso"
 
-#: reservations/admin.py:1710
+#: reservations/admin.py:1939
 msgid ""
 "Refunds are sent to Stripe immediately and cannot be undone from this "
 "website."
@@ -3767,100 +3875,99 @@ msgstr ""
 "I rimborsi vengono inviati a Stripe immediatamente e non possono essere "
 "annullati da questo sito."
 
-#: reservations/admin.py:1724
+#: reservations/admin.py:1956
 msgid "purchase"
 msgstr "acquisto"
 
-#: reservations/admin.py:1761
+#: reservations/admin.py:1993
 msgid "Retry selected refunds"
 msgstr "Riprova i rimborsi selezionati"
 
-#: reservations/admin.py:1786
+#: reservations/admin.py:2018
 msgid "credit note"
 msgstr "nota di credito"
 
-#: reservations/admin.py:1835
+#: reservations/admin.py:2067
 msgid "Retry selected ERP integrations"
 msgstr "Riprova le integrazioni ERP selezionate"
 
-#: reservations/admin.py:1849
+#: reservations/admin.py:2081
 msgid "Retry selected PDF downloads"
 msgstr "Riprova i download PDF selezionati"
 
-#: reservations/admin.py:1884
+#: reservations/admin.py:2116
 msgid "Retry ERP integration"
 msgstr "Riprova l'integrazione ERP"
 
-#: reservations/admin.py:1886
+#: reservations/admin.py:2118
 msgid ""
 "The existing external reference will be reconciled before any new fiscal "
 "document is created."
 msgstr ""
-"Il riferimento esterno esistente verrà riconciliato prima della creazione di"
-" qualsiasi nuovo documento fiscale."
+"Il riferimento esterno esistente verrà riconciliato prima della creazione di "
+"qualsiasi nuovo documento fiscale."
 
-#: reservations/admin.py:1889
+#: reservations/admin.py:2121
 #: reservations/templates/admin/reservations/erpdocument/change_form.html:6
 msgid "Retry ERP"
 msgstr "Riprova ERP"
 
-#: reservations/admin.py:1915
+#: reservations/admin.py:2147
 msgid "Retry fiscal PDF download"
 msgstr "Riprova il download del PDF fiscale"
 
-#: reservations/admin.py:1917
+#: reservations/admin.py:2149
 msgid ""
-"This retries only the PDF download. It does not create a new fiscal "
-"document."
+"This retries only the PDF download. It does not create a new fiscal document."
 msgstr ""
 "Questa operazione riprova solo il download del PDF. Non crea un nuovo "
 "documento fiscale."
 
-#: reservations/admin.py:1920
+#: reservations/admin.py:2152
 #: reservations/templates/admin/reservations/erpdocument/change_form.html:8
 #: reservations/templates/reservations/partials/fiscal_document.html:13
 msgid "Retry PDF"
 msgstr "Riprova PDF"
 
-#: reservations/admin.py:1956
+#: reservations/admin.py:2188
 msgid "The fiscal document was emailed."
 msgstr "Il documento fiscale è stato inviato via email."
 
-#: reservations/admin.py:1970
+#: reservations/admin.py:2202
 msgid "Resend fiscal document"
 msgstr "Rinvia documento fiscale"
 
-#: reservations/admin.py:1971
+#: reservations/admin.py:2203
 msgid "Confirm the recipient before sending the PDF."
 msgstr "Conferma il destinatario prima di inviare il PDF."
 
-#: reservations/admin.py:1972
+#: reservations/admin.py:2204
 msgid "Send PDF"
 msgstr "Invia PDF"
 
-#: reservations/admin.py:2070 reservations/admin.py:2154
+#: reservations/admin.py:2308 reservations/admin.py:2407
 msgid "There is no payment to refund."
 msgstr "Non ci sono pagamenti da rimborsare."
 
-#: reservations/admin.py:2091 reservations/admin.py:2097
+#: reservations/admin.py:2329 reservations/admin.py:2335
 msgid "Reservation deposit payment"
 msgstr "Pagamento deposito pre-prenotazione"
 
-#: reservations/admin.py:2126
+#: reservations/admin.py:2379
 #, python-format
 msgid "%(stage)s · %(provider)s"
 msgstr "%(stage)s · %(provider)s"
 
-#: reservations/admin.py:2186 reservations/services/closures.py:174
+#: reservations/admin.py:2439 reservations/services/closures.py:174
 #: reservations/services/payment.py:872
 msgid "Choose a valid refund calculation."
 msgstr "Scegli un calcolo del rimborso valido."
 
-#: reservations/admin.py:2190 reservations/services/payment.py:876
+#: reservations/admin.py:2443 reservations/services/payment.py:876
 msgid "The selected refund does not leave an amount to return."
 msgstr "Il rimborso selezionato non lascia un importo da restituire."
 
-#: reservations/admin.py:2221 reservations/services/closures.py:177
+#: reservations/admin.py:2474 reservations/services/closures.py:177
 #: reservations/services/payment.py:880
 msgid "The refund cannot exceed the uncommitted payment amount."
 msgstr ""
@@ -3870,30 +3977,35 @@ msgstr ""
 msgid "Confirm deletion of an item with reservation history"
 msgstr "Confermare cancellazione di un articolo con storico prenotazioni"
 
-#: reservations/availability.py:174
+#: reservations/apps.py:8
+#: reservations/templates/reservations/reservation_terms.html:9
+msgid "Reservations"
+msgstr "Prenotazioni"
+
+#: reservations/availability.py:197
 msgid "This dog is not available for pre-reservation."
 msgstr "Questo cane non è disponibile per pre-prenotazione."
 
-#: reservations/availability.py:180
+#: reservations/availability.py:203
 msgid "Dogs without a published price cannot be pre-reserved."
 msgstr "I cani senza un prezzo pubblicato non possono essere pre-prenotati."
 
-#: reservations/availability.py:190
+#: reservations/availability.py:213
 #: reservations/services/admin_workflows.py:106
 #: reservations/services/reservation.py:382
 #: reservations/services/reservation.py:1347
 msgid "This dog is no longer available."
 msgstr "Questo cane non è più disponibile."
 
-#: reservations/availability.py:195
+#: reservations/availability.py:218
 msgid "This dog is already reserved."
 msgstr "Questo cane è già prenotato."
 
-#: reservations/availability.py:200
+#: reservations/availability.py:223
 msgid "This dog is already pre-reserved."
 msgstr "Questo cane è già prenotato in anticipo."
 
-#: reservations/availability.py:207
+#: reservations/availability.py:230
 msgid ""
 "Litters cannot be pre-reserved. Subscribe to birth updates and pre-reserve "
 "an individual dog after it is published."
@@ -3901,35 +4013,35 @@ msgstr ""
 "I cuccioli non possono essere prenotati in anticipo. Iscriviti agli "
 "aggiornamenti delle nascite e prenota un singolo cane dopo la pubblicazione."
 
-#: reservations/forms.py:23
+#: reservations/forms.py:25
 msgid "Full name"
 msgstr "Nome completo"
 
-#: reservations/forms.py:29 reservations/forms.py:343
+#: reservations/forms.py:37 reservations/forms.py:378
 msgid "Tax number"
 msgstr "Codice fiscale"
 
-#: reservations/forms.py:34 reservations/forms.py:348
+#: reservations/forms.py:42 reservations/forms.py:383
 msgid "Billing address"
 msgstr "Indirizzo di fatturazione"
 
-#: reservations/forms.py:39 reservations/forms.py:353
+#: reservations/forms.py:47 reservations/forms.py:388
 msgid "Postcode"
 msgstr "CAP"
 
-#: reservations/forms.py:49 reservations/forms.py:363
+#: reservations/forms.py:57 reservations/forms.py:398
 msgid "Country code"
 msgstr "Codice paese a due lettere"
 
-#: reservations/forms.py:50
+#: reservations/forms.py:58
 msgid "Two-letter country code, for example PT."
 msgstr "Codice paese a due lettere, ad esempio PT."
 
-#: reservations/forms.py:55 reservations/forms.py:103
+#: reservations/forms.py:63 reservations/forms.py:114
 msgid "Promotion code"
 msgstr "Codice promozionale"
 
-#: reservations/forms.py:60
+#: reservations/forms.py:68
 msgid ""
 "I have read and accept the pre-reservation terms, including that the fee is "
 "non-refundable if I cancel."
@@ -3937,70 +4049,71 @@ msgstr ""
 "Ho letto e accetto i termini di pre-prenotazione, incluso il fatto che la "
 "quota non è rimborsabile in caso di cancellazione da parte mia."
 
-#: reservations/forms.py:82
+#: reservations/forms.py:93
 msgid "Enter a valid two-letter country code."
 msgstr "Inserisci un codice paese valido a due lettere."
 
-#: reservations/forms.py:93 reservations/services/reservation.py:371
+#: reservations/forms.py:104 reservations/services/reservation.py:371
 msgid "The pre-reservation terms were updated. Review them again."
 msgstr "I termini di pre-prenotazione sono stati aggiornati. Rileggili."
 
-#: reservations/forms.py:108
+#: reservations/forms.py:119
 msgid ""
 "I have read and accept the reservation terms and the stated deposit amount."
 msgstr ""
 "Ho letto e accetto i termini di prenotazione e l'importo di deposito "
 "indicato."
 
-#: reservations/forms.py:130 reservations/services/reservation.py:984
+#: reservations/forms.py:141 reservations/services/reservation.py:984
 msgid "The reservation terms were updated. Review them again."
 msgstr "I termini di prenotazione sono stati aggiornati. Rileggili."
 
-#: reservations/forms.py:138
+#: reservations/forms.py:149
+#: reservations/templates/reservations/partials/sale_case_card.html:192
 msgid "Cancellation reason"
 msgstr "Motivo della cancellazione"
 
-#: reservations/forms.py:141
+#: reservations/forms.py:152
 msgid "I confirm that this pre-reservation must be cancelled."
 msgstr "Confermo che questa pre-prenotazione deve essere annullata."
 
-#: reservations/forms.py:149
+#: reservations/forms.py:160
 msgid "Internal review note"
 msgstr "Nota interna di revisione"
 
-#: reservations/forms.py:153
+#: reservations/forms.py:164
 msgid ""
-"I confirm that this pre-reservation is accepted and the customer may pay the"
-" reservation deposit."
+"I confirm that this pre-reservation is accepted and the customer may pay the "
+"reservation deposit."
 msgstr ""
 "Confermo che questa pre-prenotazione è accettata e il cliente può pagare il "
 "deposito di prenotazione."
 
-#: reservations/forms.py:165
+#: reservations/forms.py:176
 msgid "Reason shown to the customer"
 msgstr "Motivo mostrato al cliente"
 
-#: reservations/forms.py:169
+#: reservations/forms.py:180
 msgid "No refund"
 msgstr "Nessun rimborso"
 
-#: reservations/forms.py:172
+#: reservations/forms.py:183
 msgid "Refund an additional fixed amount"
 msgstr "Rimborsa un importo fisso aggiuntivo"
 
-#: reservations/forms.py:176
+#: reservations/forms.py:187
 msgid "Refund up to a total percentage of the payment"
 msgstr "Rimborsa fino a una percentuale totale del pagamento"
 
-#: reservations/forms.py:180
+#: reservations/forms.py:191
 msgid "Refund the full remaining amount"
 msgstr "Rimborsa l'intero importo residuo"
 
-#: reservations/forms.py:184
+#: reservations/forms.py:195
 msgid "Refund decision"
 msgstr "Decisione di rimborso"
 
-#: reservations/forms.py:186
+#: reservations/forms.py:197
 msgid ""
 "No refund is the default. Percentage means the desired total refunded "
 "percentage, including earlier partial refunds."
@@ -4008,19 +4121,19 @@ msgstr ""
 "Il nessun rimborso è la predefinita. La percentuale indica la percentuale "
 "totale desiderata da rimborsare, inclusi i rimborsi parziali precedenti."
 
-#: reservations/forms.py:195
+#: reservations/forms.py:206
 msgid "Additional refund amount"
 msgstr "Importo aggiuntivo di rimborso"
 
-#: reservations/forms.py:203
+#: reservations/forms.py:214
 msgid "Target total refund percentage"
 msgstr "Percentuale totale di rimborso target"
 
-#: reservations/forms.py:211
+#: reservations/forms.py:222
 msgid "Convert to customer credit"
 msgstr "Converti in credito cliente"
 
-#: reservations/forms.py:213
+#: reservations/forms.py:224
 msgid ""
 "Any available value not refunded or converted to credit is retained by the "
 "business."
@@ -4028,33 +4141,33 @@ msgstr ""
 "Qualsiasi valore disponibile non rimborsato o convertito in credito è "
 "trattenuto dall'azienda."
 
-#: reservations/forms.py:220
+#: reservations/forms.py:231
 msgid ""
-"I acknowledge that this refund may exceed the Stripe net amount retained and"
-" that the business will absorb processing costs."
+"I acknowledge that this refund may exceed the Stripe net amount retained and "
+"that the business will absorb processing costs."
 msgstr ""
 "Riconosco che questo rimborso potrebbe superare l'importo netto trattenuto "
 "da Stripe e che l'azienda assorbirà i costi di elaborazione."
 
-#: reservations/forms.py:225
+#: reservations/forms.py:236
 msgid "I confirm this closure and refund decision."
 msgstr "Confermo questa decisione di chiusura e rimborso."
 
-#: reservations/forms.py:235 reservations/services/closures.py:147
+#: reservations/forms.py:246 reservations/services/closures.py:147
 #: reservations/services/payment.py:853
 msgid "Enter the refund amount."
 msgstr "Inserisci l'importo del rimborso."
 
-#: reservations/forms.py:242 reservations/services/closures.py:154
+#: reservations/forms.py:253 reservations/services/closures.py:154
 #: reservations/services/payment.py:858
 msgid "Enter the target refund percentage."
 msgstr "Inserisci la percentuale di rimborso target."
 
-#: reservations/forms.py:251
+#: reservations/forms.py:262
 msgid "Refund decision for both reservation payments"
 msgstr "Decisione di rimborso per entrambi i pagamenti di prenotazione"
 
-#: reservations/forms.py:254
+#: reservations/forms.py:265
 msgid ""
 "No refund is the default. A percentage is applied to both the pre-"
 "reservation payment and the reservation deposit payment. A fixed amount is "
@@ -4066,128 +4179,165 @@ msgstr ""
 "rimborsato un importo fisso dal deposito di prenotazione prima, poi dal "
 "pagamento pre-prenotazione."
 
-#: reservations/forms.py:260
+#: reservations/forms.py:271
 msgid "Additional refund amount across both payments"
 msgstr "Importo di rimborso aggiuntivo su entrambi i pagamenti"
 
-#: reservations/forms.py:263
+#: reservations/forms.py:274
 msgid "Target refunded percentage of both payments"
 msgstr "Percentuale di rimborso target su entrambi i pagamenti"
 
-#: reservations/forms.py:266
+#: reservations/forms.py:277
 msgid "Convert value from both stages to customer credit"
 msgstr "Converti il valore di entrambe le fasi in credito per il cliente"
 
-#: reservations/forms.py:271
+#: reservations/forms.py:285
+#, fuzzy
+#| msgid "Refund decision for both reservation payments"
+msgid "Refund decision for the complete sale"
+msgstr "Decisione di rimborso per entrambi i pagamenti di prenotazione"
+
+#: reservations/forms.py:288
+msgid ""
+"No refund is the default. The calculation considers every payment recorded "
+"in the pre-reservation, reservation and final sale stages."
+msgstr ""
+
+#: reservations/forms.py:293
+#, fuzzy
+#| msgid "Additional refund amount across both payments"
+msgid "Additional refund amount across the complete sale"
+msgstr "Importo di rimborso aggiuntivo su entrambi i pagamenti"
+
+#: reservations/forms.py:296
+#, fuzzy
+#| msgid "Target refunded percentage of both payments"
+msgid "Target refunded percentage of the complete sale"
+msgstr "Percentuale di rimborso target su entrambi i pagamenti"
+
+#: reservations/forms.py:299
+#, fuzzy
+#| msgid "Convert value from both stages to customer credit"
+msgid "Convert value from the complete sale to customer credit"
+msgstr "Converti il valore di entrambe le fasi in credito per il cliente"
+
+#: reservations/forms.py:302
+#, fuzzy
+#| msgid "I confirm that this pre-reservation must be cancelled."
+msgid "I confirm that this completed sale must be cancelled."
+msgstr "Confermo che questa pre-prenotazione deve essere annullata."
+
+#: reservations/forms.py:307
 msgid "Recipient email"
 msgstr "Indirizzo email del destinatario"
 
-#: reservations/forms.py:273
+#: reservations/forms.py:309
 msgid "I confirm that this fiscal document may be emailed."
 msgstr "Confermo che questo documento fiscale può essere inviato via email."
 
-#: reservations/forms.py:279
+#: reservations/forms.py:315
 msgid "I confirm that this operation should be retried now."
 msgstr "Confermo che questa operazione deve essere ripetuta ora."
 
-#: reservations/forms.py:284 reservations/models.py:1138
+#: reservations/forms.py:320 reservations/models.py:1149
 msgid "Cash"
 msgstr "Contanti"
 
-#: reservations/forms.py:285 reservations/models.py:1139
+#: reservations/forms.py:321 reservations/models.py:1150
 msgid "Bank transfer"
 msgstr "Bonifico bancario"
 
-#: reservations/forms.py:286 reservations/models.py:1140
+#: reservations/forms.py:322 reservations/models.py:1151
 msgid "Card terminal"
 msgstr "Terminale carta"
 
-#: reservations/forms.py:287 reservations/models.py:1141
+#: reservations/forms.py:323 reservations/models.py:1152
 msgid "Other"
 msgstr "Altro"
 
-#: reservations/forms.py:290
+#: reservations/forms.py:326
 msgid "Customer pays online with Stripe"
 msgstr "Il cliente paga online con Stripe"
 
-#: reservations/forms.py:294 reservations/forms.py:301
+#: reservations/forms.py:330 reservations/forms.py:337
 msgid "No payment required (complimentary)"
 msgstr "Nessun pagamento richiesto (omaggio)"
 
-#: reservations/forms.py:315
+#: reservations/forms.py:351
 msgid "Direct reservation"
 msgstr "Prenotazione diretta"
 
-#: reservations/forms.py:316
+#: reservations/forms.py:352
 msgid "Direct final sale"
 msgstr "Vendita finale diretta"
 
-#: reservations/forms.py:318
+#: reservations/forms.py:354
 msgid "Start at"
 msgstr "Inizia da"
 
-#: reservations/forms.py:327
+#: reservations/forms.py:363
 msgid "Registered customer"
 msgstr "Cliente registrato"
 
-#: reservations/forms.py:328
+#: reservations/forms.py:364
 msgid "Required when the customer will pay online."
 msgstr "Obbligatorio quando il cliente paga online."
 
-#: reservations/forms.py:330
+#: reservations/forms.py:366
 msgid "Customer name"
 msgstr "Nome del cliente"
 
-#: reservations/forms.py:333 reservations/services/email_messages.py:1333
+#: reservations/forms.py:369 reservations/services/email_messages.py:1398
 msgid "Customer email"
 msgstr "Email del cliente"
 
-#: reservations/forms.py:338 reservations/services/email_messages.py:1337
+#: reservations/forms.py:373 reservations/services/email_messages.py:1402
 msgid "Customer phone"
 msgstr "Telefono del cliente"
 
-#: reservations/forms.py:368
+#: reservations/forms.py:403
 msgid "Language code"
 msgstr "Codice lingua"
 
-#: reservations/forms.py:374
+#: reservations/forms.py:409
 msgid "Commercial amount"
 msgstr "Importo commerciale"
 
-#: reservations/forms.py:376
+#: reservations/forms.py:411
 msgid ""
 "Pre-reservation fee, reservation deposit, or final sale price. Enter zero "
 "and choose the complimentary option when no payment is due."
 msgstr ""
 "Costo di pre-prenotazione, deposito di prenotazione o prezzo finale di "
-"vendita. Inserisci zero e scegli l’opzione omaggio quando non è dovuto alcun"
-" pagamento."
+"vendita. Inserisci zero e scegli l’opzione omaggio quando non è dovuto alcun "
+"pagamento."
 
-#: reservations/forms.py:383 reservations/forms.py:590
+#: reservations/forms.py:418 reservations/forms.py:626
 #: reservations/services/email_messages.py:422
 #: reservations/services/email_messages.py:607
 msgid "Payment method"
 msgstr "Metodo di pagamento"
 
-#: reservations/forms.py:388
+#: reservations/forms.py:423
 msgid ""
 "I confirm that the customer accepted the current terms outside the website."
 msgstr ""
 "Confermo che il cliente ha accettato i termini attuali al di fuori del sito "
 "web."
 
-#: reservations/forms.py:397
+#: reservations/forms.py:432
 msgid "Online payment validity in hours"
 msgstr "Validità del pagamento online in ore"
 
-#: reservations/forms.py:403 reservations/forms.py:751
+#: reservations/forms.py:438 reservations/forms.py:788
 #: reservations/services/email_messages.py:841
-#: reservations/templates/reservations/partials/sale_case_card.html:179
+#: reservations/services/email_messages.py:893
+#: reservations/templates/reservations/partials/sale_case_card.html:187
 msgid "Sold at"
 msgstr "Venduto il"
 
-#: reservations/forms.py:408 reservations/services/email_messages.py:299
-#: reservations/services/email_messages.py:1258
+#: reservations/forms.py:443 reservations/services/email_messages.py:299
+#: reservations/services/email_messages.py:1323
 #: reservations/templates/reservations/dashboard.html:19
 #: reservations/templates/reservations/partials/sale_case_card.html:121
 #: reservations/templates/reservations/payment_success.html:38
@@ -4195,104 +4345,103 @@ msgstr "Venduto il"
 msgid "Customer credit"
 msgstr "Credito cliente"
 
-#: reservations/forms.py:416
+#: reservations/forms.py:451
 msgid "Credit to apply"
 msgstr "Credito da applicare"
 
-#: reservations/forms.py:421 reservations/forms.py:595
-#: reservations/forms.py:693 reservations/forms.py:769
+#: reservations/forms.py:456 reservations/forms.py:631
+#: reservations/forms.py:729 reservations/forms.py:806
 msgid "Payment reference"
 msgstr "Riferimento pagamento"
 
-#: reservations/forms.py:426 reservations/forms.py:698
-#: reservations/forms.py:774
+#: reservations/forms.py:461 reservations/forms.py:734
+#: reservations/forms.py:811
 msgid "Payment note"
 msgstr "Nota di pagamento"
 
-#: reservations/forms.py:428
+#: reservations/forms.py:463
 msgid ""
 "Required for complimentary and other settlement methods so the commercial "
 "decision remains auditable."
 msgstr ""
-"Obbligatorio per omaggi e altri metodi di regolamento, affinché la decisione"
-" commerciale resti verificabile."
+"Obbligatorio per omaggi e altri metodi di regolamento, affinché la decisione "
+"commerciale resti verificabile."
 
-#: reservations/forms.py:435 reservations/forms.py:782
+#: reservations/forms.py:470 reservations/forms.py:819
 msgid "Sale notes"
 msgstr "Note di vendita"
 
-#: reservations/forms.py:438
+#: reservations/forms.py:473
 msgid "I confirm this administrative sale workflow."
 msgstr "Confermo questo flusso di lavoro amministrativo per la vendita."
 
-#: reservations/forms.py:468
+#: reservations/forms.py:504
 msgid "A registered customer is required for online payment."
 msgstr "È richiesto un cliente registrato per il pagamento online."
 
-#: reservations/forms.py:473
+#: reservations/forms.py:509
 msgid "Enter an email for an unregistered customer."
 msgstr "Inserisci un indirizzo email per un cliente non registrato."
 
-#: reservations/forms.py:482
+#: reservations/forms.py:518
 msgid "Offline pre-reservations and reservations require terms acceptance."
 msgstr ""
 "Pre-prenotazioni e prenotazioni offline richiedono l'accettazione dei "
 "termini."
 
-#: reservations/forms.py:489
+#: reservations/forms.py:525
 msgid "Use a reservation when the customer still needs to pay online."
 msgstr "Usare una prenotazione quando il cliente deve ancora pagare online."
 
-#: reservations/forms.py:494
+#: reservations/forms.py:530
 msgid "Enter the sale date."
 msgstr "Inserisci la data della vendita."
 
-#: reservations/forms.py:511
+#: reservations/forms.py:547
 msgid ""
-"A complimentary process cannot leave an amount due. Enter zero, apply enough"
-" customer credit, or use an audited adjustment on an existing charge."
+"A complimentary process cannot leave an amount due. Enter zero, apply enough "
+"customer credit, or use an audited adjustment on an existing charge."
 msgstr ""
 "Un processo omaggio non può lasciare un importo dovuto. Inserisci zero, "
-"applica credito cliente sufficiente oppure usa una rettifica tracciata su un"
-" addebito esistente."
+"applica credito cliente sufficiente oppure usa una rettifica tracciata su un "
+"addebito esistente."
 
-#: reservations/forms.py:526
+#: reservations/forms.py:562
 msgid "Choose the complimentary option when no payment was received."
 msgstr "Scegli l’opzione omaggio quando non è stato ricevuto alcun pagamento."
 
-#: reservations/forms.py:540 reservations/forms.py:848
+#: reservations/forms.py:576 reservations/forms.py:885
 msgid "Explain this settlement method so the decision remains auditable."
 msgstr ""
-"Spiega questo metodo di regolamento affinché la decisione resti "
-"verificabile."
+"Spiega questo metodo di regolamento affinché la decisione resti verificabile."
 
-#: reservations/forms.py:552
+#: reservations/forms.py:588
 msgid ""
 "A pre-reservation requires a published dog price so its future reservation "
 "deposit can be calculated. Start a direct reservation instead and enter the "
 "agreed amount."
 msgstr ""
-"Una pre-prenotazione richiede un prezzo pubblicato del cane per calcolare il"
-" futuro deposito di prenotazione. Avvia invece una prenotazione diretta e "
+"Una pre-prenotazione richiede un prezzo pubblicato del cane per calcolare il "
+"futuro deposito di prenotazione. Avvia invece una prenotazione diretta e "
 "inserisci l’importo concordato."
 
-#: reservations/forms.py:558
+#: reservations/forms.py:594
 msgid "Choose the credit to apply."
 msgstr "Seleziona il credito da applicare."
 
-#: reservations/forms.py:560
+#: reservations/forms.py:596
 msgid "This credit belongs to another customer."
 msgstr "Questo credito appartiene a un altro cliente."
 
-#: reservations/forms.py:586 reservations/services/email_messages.py:600
+#: reservations/forms.py:622 reservations/services/email_messages.py:600
 msgid "Amount received"
 msgstr "Importo ricevuto"
 
-#: reservations/forms.py:600
+#: reservations/forms.py:636
 msgid "Note"
 msgstr "Nota"
 
-#: reservations/forms.py:605 reservations/forms.py:643
+#: reservations/forms.py:641 reservations/forms.py:679
 msgid ""
 "I confirm that the customer accepted the current stage terms outside the "
 "website."
@@ -4300,71 +4449,72 @@ msgstr ""
 "Confermo che il cliente ha accettato i termini della fase attuale fuori dal "
 "sito."
 
-#: reservations/forms.py:610
+#: reservations/forms.py:646
 msgid "I confirm that this payment was received."
 msgstr "Confermo che questo pagamento è stato ricevuto."
 
-#: reservations/forms.py:628
+#: reservations/forms.py:664
 msgid "Adjustment type"
 msgstr "Tipo di rettifica"
 
-#: reservations/forms.py:633
+#: reservations/forms.py:669
 msgid "Signed amount"
 msgstr "Importo firmato"
 
-#: reservations/forms.py:634
+#: reservations/forms.py:670
 msgid "Use a negative value for a discount or waiver."
 msgstr "Utilizzare un valore negativo per uno sconto o una rinuncia."
 
-#: reservations/forms.py:638 reservations/services/email_messages.py:481
+#: reservations/forms.py:674 reservations/services/email_messages.py:481
 #: reservations/services/email_messages.py:534
 #: reservations/services/email_messages.py:687
 #: reservations/services/email_messages.py:775
+#: reservations/services/email_messages.py:911
 msgid "Reason"
 msgstr "Motivo"
 
-#: reservations/forms.py:647
+#: reservations/forms.py:683
 msgid ""
-"Required when this adjustment settles a stage whose terms are still awaiting"
-" customer acceptance."
+"Required when this adjustment settles a stage whose terms are still awaiting "
+"customer acceptance."
 msgstr ""
 "Obbligatorio quando questa rettifica salda una fase i cui termini sono "
 "ancora in attesa dell’accettazione del cliente."
 
-#: reservations/forms.py:652
+#: reservations/forms.py:688
 msgid "I confirm this immutable financial adjustment."
 msgstr "Confermo questa rettifica finanziaria immutabile."
 
-#: reservations/forms.py:659
+#: reservations/forms.py:695
 msgid "Target dog"
 msgstr "Cane target"
 
-#: reservations/forms.py:666
+#: reservations/forms.py:702
 msgid "Target stage amount override"
 msgstr "Sovrascrittura importo fase target"
 
-#: reservations/forms.py:672
+#: reservations/forms.py:708
 msgid "Convert to transferable credit"
 msgstr "Converti in credito trasferibile"
 
-#: reservations/forms.py:678 reservations/services/email_messages.py:701
+#: reservations/forms.py:714 reservations/services/email_messages.py:701
 #: reservations/services/email_messages.py:747
-#: reservations/services/email_messages.py:1253
+#: reservations/services/email_messages.py:1318
 #: reservations/templates/reservations/partials/sale_case_card.html:85
 #: reservations/templates/reservations/partials/sale_case_card.html:152
-#: reservations/templates/reservations/partials/sale_case_card.html:196
+#: reservations/templates/reservations/partials/sale_case_card.html:210
 msgid "Refund"
 msgstr "Rimborso"
 
-#: reservations/forms.py:684
+#: reservations/forms.py:720
 msgid "Retain"
 msgstr "Mantieni"
 
-#: reservations/forms.py:688
+#: reservations/forms.py:724
 msgid "How to settle a target difference"
 msgstr "Come regolare una differenza target"
 
-#: reservations/forms.py:703
+#: reservations/forms.py:739
 msgid ""
 "I confirm that the customer accepted the current target-stage terms outside "
 "the website."
@@ -4372,19 +4522,19 @@ msgstr ""
 "Confermo che il cliente ha accettato i termini della fase target attuale al "
 "di fuori del sito web."
 
-#: reservations/forms.py:707
+#: reservations/forms.py:743
 msgid ""
-"This is only needed when the source process has no valid terms acceptance to"
-" carry to the target dog."
+"This is only needed when the source process has no valid terms acceptance to "
+"carry to the target dog."
 msgstr ""
 "Questo è necessario solo quando il processo di origine non ha una validità "
 "di accettazione dei termini da trasferire al cane target."
 
-#: reservations/forms.py:713
+#: reservations/forms.py:749
 msgid "Reason shown in the history"
 msgstr "Motivo mostrato nella cronologia"
 
-#: reservations/forms.py:718
+#: reservations/forms.py:754
 msgid ""
 "I acknowledge that a Stripe refund may make the business absorb processing "
 "costs."
@@ -4392,35 +4542,35 @@ msgstr ""
 "Riconosco che un rimborso Stripe potrebbe far assorbire al business i costi "
 "di elaborazione."
 
-#: reservations/forms.py:723
+#: reservations/forms.py:759
 msgid "I confirm this animal transfer and financial split."
 msgstr "Confermo questo trasferimento animale e la divisione finanziaria."
 
-#: reservations/forms.py:742
+#: reservations/forms.py:779
 msgid "Final sale price"
 msgstr "Prezzo finale di vendita"
 
-#: reservations/forms.py:746
+#: reservations/forms.py:783
 msgid "Final balance payment method"
 msgstr "Metodo di pagamento per il saldo finale"
 
-#: reservations/forms.py:756
+#: reservations/forms.py:793
 msgid "Additional customer credit"
 msgstr "Crediti aggiuntivi per il cliente"
 
-#: reservations/forms.py:764
+#: reservations/forms.py:801
 msgid "Additional credit to apply"
 msgstr "Crediti aggiuntivi da applicare"
 
-#: reservations/forms.py:776
+#: reservations/forms.py:813
 msgid "Required for complimentary and other settlement methods."
 msgstr "Obbligatorio per omaggi e altri metodi di regolamento."
 
-#: reservations/forms.py:784
+#: reservations/forms.py:821
 msgid "I confirm the final animal sale."
 msgstr "Confermo la vendita finale dell'animale."
 
-#: reservations/forms.py:833
+#: reservations/forms.py:870
 msgid ""
 "A complimentary completion cannot leave a final balance due. Enter a "
 "matching final price, apply enough customer credit, or resolve the balance "
@@ -4430,265 +4580,271 @@ msgstr ""
 "un prezzo finale corrispondente, applica credito cliente sufficiente oppure "
 "regola prima il saldo."
 
-#: reservations/models.py:27 reservations/models.py:59
+#: reservations/models.py:29 reservations/models.py:61
 msgid "version"
 msgstr "versione"
 
-#: reservations/models.py:40 reservations/models.py:41
+#: reservations/models.py:42 reservations/models.py:43
 msgid "pre-reservation terms"
 msgstr "termini di pre-prenotazione"
 
-#: reservations/models.py:72 reservations/models.py:73
+#: reservations/models.py:74 reservations/models.py:75
 msgid "reservation terms"
 msgstr "termini di prenotazione"
 
-#: reservations/models.py:81
+#: reservations/models.py:83
 msgid "Online"
 msgstr "Online"
 
-#: reservations/models.py:82
+#: reservations/models.py:84
 msgid "Created by staff"
 msgstr "Creato dal personale"
 
-#: reservations/models.py:83 reservations/models.py:90
-#: reservations/models.py:506 reservations/models.py:862
-#: reservations/models.py:1478 reservations/services/email_messages.py:794
+#: reservations/models.py:85 reservations/models.py:93
+#: reservations/models.py:514 reservations/models.py:873
+#: reservations/models.py:1492 reservations/services/email_messages.py:794
 msgid "Transferred"
 msgstr "Trasferito"
 
-#: reservations/models.py:89
+#: reservations/models.py:86
+msgid "Imported legacy sale"
+msgstr ""
+
+#: reservations/models.py:92
 msgid "Closed"
 msgstr "Chiuso"
 
-#: reservations/models.py:114
+#: reservations/models.py:117
 msgid "origin"
 msgstr "Origine"
 
-#: reservations/models.py:138 reservations/models.py:592
+#: reservations/models.py:142 reservations/models.py:600
 msgid "target name"
 msgstr "Nome del cane"
 
-#: reservations/models.py:147 reservations/models.py:628
+#: reservations/models.py:151 reservations/models.py:639
 msgid "dog price snapshot"
 msgstr "Scatto del prezzo del cane"
 
-#: reservations/models.py:154 reservations/models.py:635
+#: reservations/models.py:158 reservations/models.py:646
 msgid "reservation deposit percentage snapshot"
 msgstr "istantanea percentuale deposito di prenotazione"
 
-#: reservations/models.py:161 reservations/models.py:642
+#: reservations/models.py:165 reservations/models.py:653
 msgid "reservation deposit target snapshot"
 msgstr "istantanea target deposito di prenotazione"
 
-#: reservations/models.py:181 reservations/models.py:297
+#: reservations/models.py:189 reservations/models.py:305
 msgid "created by"
 msgstr "creato da"
 
-#: reservations/models.py:189
+#: reservations/models.py:197
 msgid "animal sale process"
 msgstr "processo di vendita animale"
 
-#: reservations/models.py:190
+#: reservations/models.py:198
 msgid "animal sale processes"
 msgstr "processi di vendita animale"
 
-#: reservations/models.py:234 reservations/services/email_messages.py:858
+#: reservations/models.py:242 reservations/services/email_messages.py:858
+#: reservations/services/email_messages.py:927
 #: reservations/templates/reservations/partials/sale_case_card.html:170
 msgid "Final sale"
 msgstr "Vendita finale"
 
-#: reservations/models.py:237
+#: reservations/models.py:245
 msgid "Open"
 msgstr "Aperto"
 
-#: reservations/models.py:238
+#: reservations/models.py:246
 msgid "Partially paid"
 msgstr "Parzialmente pagato"
 
-#: reservations/models.py:239 reservations/models.py:1147
+#: reservations/models.py:247 reservations/models.py:1158
 msgid "Paid"
 msgstr "Pagato"
 
-#: reservations/models.py:240 reservations/models.py:1559
+#: reservations/models.py:248 reservations/models.py:1573
 msgid "Void"
 msgstr "Annullato"
 
-#: reservations/models.py:247 reservations/models.py:520
-#: reservations/models.py:876
+#: reservations/models.py:255 reservations/models.py:528
+#: reservations/models.py:887
 msgid "sale process"
 msgstr "processo di vendita"
 
-#: reservations/models.py:253
+#: reservations/models.py:261
 msgid "stage"
 msgstr "fase"
 
-#: reservations/models.py:265
+#: reservations/models.py:273
 msgid "subtotal"
 msgstr "totale parziale"
 
-#: reservations/models.py:279
+#: reservations/models.py:287
 msgid "promotion discount"
 msgstr "sconto promozionale"
 
-#: reservations/models.py:306 reservations/models.py:528
-#: reservations/models.py:884 reservations/models.py:1158
+#: reservations/models.py:314 reservations/models.py:536
+#: reservations/models.py:895 reservations/models.py:1169
 msgid "charge"
 msgstr "addebito"
 
-#: reservations/models.py:307
+#: reservations/models.py:315
 msgid "charges"
 msgstr "addebiti"
 
-#: reservations/models.py:421
+#: reservations/models.py:429
 msgid "Manual discount"
 msgstr "Sconto manuale"
 
-#: reservations/models.py:422
+#: reservations/models.py:430
 msgid "Surcharge"
 msgstr "Supplemento"
 
-#: reservations/models.py:423
+#: reservations/models.py:431
 msgid "Waiver"
 msgstr "Rinuncia"
 
-#: reservations/models.py:424
+#: reservations/models.py:432
 msgid "Correction"
 msgstr "Correzione"
 
-#: reservations/models.py:435
+#: reservations/models.py:443
 msgid "Use a negative value to reduce the amount due."
 msgstr "Utilizzare un valore negativo per ridurre l'importo da pagare."
 
-#: reservations/models.py:449
+#: reservations/models.py:457
 msgid "charge adjustment"
 msgstr "aggiustamento di addebito"
 
-#: reservations/models.py:450
+#: reservations/models.py:458
 msgid "charge adjustments"
 msgstr "aggiustamenti di addebito"
 
-#: reservations/models.py:491
+#: reservations/models.py:499
 msgid "Awaiting review"
 msgstr "In attesa di revisione"
 
-#: reservations/models.py:492
+#: reservations/models.py:500
 msgid "Accepted"
 msgstr "Accettato"
 
-#: reservations/models.py:493 reservations/models.py:1476
+#: reservations/models.py:501 reservations/models.py:1490
 #: reservations/services/email_messages.py:562
 msgid "Not accepted"
 msgstr "Non accettato"
 
-#: reservations/models.py:494 reservations/models.py:858
-#: reservations/services/email_messages.py:1021
+#: reservations/models.py:502 reservations/models.py:869
+#: reservations/services/email_messages.py:1086
 msgid "Payment failed"
 msgstr "Pagamento fallito"
 
-#: reservations/models.py:495 reservations/models.py:860
-#: reservations/models.py:1477 reservations/services/email_messages.py:1021
-#: reservations/services/email_messages.py:1083
+#: reservations/models.py:503 reservations/models.py:871
+#: reservations/models.py:1491 reservations/services/email_messages.py:1086
+#: reservations/services/email_messages.py:1148
 msgid "Expired"
 msgstr "Scaduto"
 
-#: reservations/models.py:496 reservations/services/email_messages.py:567
+#: reservations/models.py:504 reservations/services/email_messages.py:567
 msgid "Cancelled by customer"
 msgstr "Annullato dal cliente"
 
-#: reservations/models.py:497 reservations/models.py:861
+#: reservations/models.py:505 reservations/models.py:872
 #: reservations/services/email_messages.py:498
 #: reservations/services/email_messages.py:565
+#: reservations/services/email_messages.py:928
 msgid "Cancelled by staff"
 msgstr "Annullato dal personale"
 
-#: reservations/models.py:500 reservations/services/email_messages.py:1077
+#: reservations/models.py:508 reservations/services/email_messages.py:1142
 msgid "Reservation offer expired"
 msgstr "Offerta di prenotazione scaduta"
 
-#: reservations/models.py:504
+#: reservations/models.py:512
 msgid "Converted to reservation"
 msgstr "Convertito in prenotazione"
 
-#: reservations/models.py:509 reservations/models.py:865
+#: reservations/models.py:517 reservations/models.py:876
 msgid "Accepted online by customer"
 msgstr "Accettato online dal cliente"
 
-#: reservations/models.py:510 reservations/models.py:866
+#: reservations/models.py:518 reservations/models.py:877
 msgid "Acceptance recorded by staff"
 msgstr "Accettazione registrata dal personale"
 
-#: reservations/models.py:511 reservations/models.py:867
+#: reservations/models.py:519 reservations/models.py:878
 msgid "Awaiting customer acceptance"
 msgstr "In attesa dell'accettazione del cliente"
 
-#: reservations/models.py:541
+#: reservations/models.py:549
 msgid "target type"
 msgstr "tipo di target"
 
-#: reservations/models.py:652 reservations/models.py:957
+#: reservations/models.py:663 reservations/models.py:968
 msgid "accepted terms"
 msgstr "termini accettati"
 
-#: reservations/models.py:658 reservations/models.py:964
+#: reservations/models.py:669 reservations/models.py:975
 msgid "terms acceptance source"
 msgstr "fonte di accettazione dei termini"
 
-#: reservations/models.py:687 reservations/models.py:892
-#: reservations/models.py:1166
+#: reservations/models.py:698 reservations/models.py:903
+#: reservations/models.py:1177
 msgid "pre-reservation"
 msgstr "pre-prenotazione"
 
-#: reservations/models.py:688
+#: reservations/models.py:699
 msgid "pre-reservations"
 msgstr "pre-prenotazioni"
 
-#: reservations/models.py:766
+#: reservations/models.py:777
 msgid "A pre-reservation must target exactly one dog or litter."
 msgstr ""
 "Una pre-prenotazione deve riguardare esattamente un cane o una cucciolata."
 
-#: reservations/models.py:772
+#: reservations/models.py:783
 msgid "Total must equal fee minus discount."
 msgstr "Il totale deve essere uguale alla tariffa meno lo sconto."
 
-#: reservations/models.py:784
+#: reservations/models.py:795
 msgid ""
-"Pending customer terms cannot already have an accepted version or acceptance"
-" date."
+"Pending customer terms cannot already have an accepted version or acceptance "
+"date."
 msgstr ""
-"I termini del cliente in attesa non possono avere già una versione accettata"
-" o una data di accettazione."
+"I termini del cliente in attesa non possono avere già una versione accettata "
+"o una data di accettazione."
 
-#: reservations/models.py:797
+#: reservations/models.py:808
 msgid "Accepted pre-reservation terms require a version and date."
 msgstr ""
 "I termini di pre-prenotazione accettati richiedono una versione e una data."
 
-#: reservations/models.py:913
+#: reservations/models.py:924
 msgid "pre-reservation credit"
 msgstr "credito per pre-prenotazione"
 
-#: reservations/models.py:919 reservations/models.py:1614
+#: reservations/models.py:930 reservations/models.py:1628
 msgid "customer credit"
 msgstr "credito cliente"
 
-#: reservations/models.py:924
+#: reservations/models.py:935
 msgid "reservation deposit target"
 msgstr "obiettivo del deposito di prenotazione"
 
-#: reservations/models.py:930
+#: reservations/models.py:941
 msgid "reservation discount"
 msgstr "sconto sulla prenotazione"
 
-#: reservations/models.py:935
+#: reservations/models.py:946
 msgid "reservation payment amount"
 msgstr "importo del pagamento della prenotazione"
 
-#: reservations/models.py:983
+#: reservations/models.py:994
 msgid "reservations"
 msgstr "prenotazioni"
 
-#: reservations/models.py:1054
+#: reservations/models.py:1065
 msgid ""
 "Payment must equal the deposit target minus the pre-reservation credit and "
 "reservation discount."
@@ -4696,178 +4852,250 @@ msgstr ""
 "Il pagamento deve essere uguale all'obiettivo del deposito meno il credito "
 "per pre-prenotazione e lo sconto sulla prenotazione."
 
-#: reservations/models.py:1142
+#: reservations/models.py:1153
 msgid "Complimentary"
 msgstr "Complimentary"
 
-#: reservations/models.py:1145
+#: reservations/models.py:1156
 msgid "Initializing"
 msgstr "Inizializzazione"
 
-#: reservations/models.py:1149
+#: reservations/models.py:1160
 msgid "Partially refunded"
 msgstr "Parzialmente rimborsato"
 
-#: reservations/models.py:1150
+#: reservations/models.py:1161
 msgid "Refunded"
 msgstr "Rimborsato"
 
-#: reservations/models.py:1339
+#: reservations/models.py:1263
+msgid "payments"
+msgstr "pagamenti"
+
+#: reservations/models.py:1352
 msgid "Target percentage"
 msgstr "Percentuale target"
 
-#: reservations/models.py:1340
+#: reservations/models.py:1353
 msgid "Full remaining amount"
 msgstr "Importo residuo completo"
 
-#: reservations/models.py:1345
+#: reservations/models.py:1358
 msgid "Succeeded"
 msgstr "Riuscito"
 
-#: reservations/models.py:1349
+#: reservations/models.py:1362
 msgid "Stripe"
 msgstr "Stripe"
 
-#: reservations/models.py:1350
+#: reservations/models.py:1363
 msgid "Recorded manually"
 msgstr "Registrato manualmente"
 
-#: reservations/models.py:1393
+#: reservations/models.py:1406
 msgid "Stripe fee snapshot"
 msgstr "Snapshot della commissione Stripe"
 
-#: reservations/models.py:1400
+#: reservations/models.py:1413
 msgid "Stripe net amount snapshot"
 msgstr "Snapshot dell'importo netto Stripe"
 
-#: reservations/models.py:1404
+#: reservations/models.py:1417
 msgid "processing cost loss acknowledged"
 msgstr "perdita di costo di elaborazione riconosciuta"
 
-#: reservations/models.py:1437
+#: reservations/models.py:1450
 msgid "payment refund"
 msgstr "rimborso pagamento"
 
-#: reservations/models.py:1438
+#: reservations/models.py:1451
 msgid "payment refunds"
 msgstr "rimborso pagamenti"
 
-#: reservations/models.py:1491
+#: reservations/models.py:1489 reservations/services/email_messages.py:922
+#, fuzzy
+#| msgid "Cancelled"
+msgid "Sale cancelled"
+msgstr "Annullato"
+
+#: reservations/models.py:1505
 msgid "available paid value"
 msgstr "valore disponibile per il pagamento"
 
-#: reservations/models.py:1520
+#: reservations/models.py:1534
 msgid "workflow closure"
 msgstr "chiusura del flusso di lavoro"
 
-#: reservations/models.py:1521
+#: reservations/models.py:1535
 msgid "workflow closures"
 msgstr "chiusure dei flussi di lavoro"
 
-#: reservations/models.py:1557
+#: reservations/models.py:1571
 #: reservations/templates/reservations/dashboard.html:51
 msgid "Active"
 msgstr "Attivo"
 
-#: reservations/models.py:1558
+#: reservations/models.py:1572
 msgid "Exhausted"
 msgstr "Esaurito"
 
-#: reservations/models.py:1615
+#: reservations/models.py:1629
 msgid "customer credits"
 msgstr "crediti dei clienti"
 
-#: reservations/models.py:1687
+#: reservations/models.py:1701
 msgid "credit allocation"
 msgstr "allocazione dei crediti"
 
-#: reservations/models.py:1688
+#: reservations/models.py:1702
 msgid "credit allocations"
 msgstr "allocazioni dei crediti"
 
-#: reservations/models.py:1745
+#: reservations/models.py:1759
 msgid "animal workflow transfer"
 msgstr "trasferimento del flusso di lavoro degli animali"
 
-#: reservations/models.py:1746
+#: reservations/models.py:1760
 msgid "animal workflow transfers"
 msgstr "trasferimenti del flusso di lavoro degli animali"
 
-#: reservations/models.py:1798
+#: reservations/models.py:1799
+#, fuzzy
+#| msgid "Commercial amount"
+msgid "Commercial workflow"
+msgstr "Importo commerciale"
+
+#: reservations/models.py:1800
+msgid "Imported legacy record"
+msgstr ""
+
+#: reservations/models.py:1826
 msgid "final sale price"
 msgstr "prezzo finale di vendita"
 
-#: reservations/models.py:1813
+#: reservations/models.py:1828
+msgid "sold at"
+msgstr "venduto a"
+
+#: reservations/models.py:1841
+#, fuzzy
+#| msgid "liked at"
+msgid "voided at"
+msgstr "mi è piaciuto a"
+
+#: reservations/models.py:1849
+#, fuzzy
+#| msgid "liked by"
+msgid "voided by"
+msgstr "piaciuto a"
+
+#: reservations/models.py:1851
+#, fuzzy
+#| msgid "Refund reason"
+msgid "void reason"
+msgstr "Motivo del rimborso"
+
+#: reservations/models.py:1856
 msgid "animal sale"
 msgstr "vendita di animali"
 
-#: reservations/models.py:1814
+#: reservations/models.py:1857
 msgid "animal sales"
 msgstr "vendita animali"
 
-#: reservations/models.py:1828
+#: reservations/models.py:1898
+#, fuzzy
+#| msgid "Unknown"
+msgid "unknown"
+msgstr "Sconosciuto"
+
+#: reservations/models.py:1904
 msgid "Sale document"
 msgstr "Documento di vendita"
 
-#: reservations/models.py:1829
+#: reservations/models.py:1905
 msgid "Credit note"
 msgstr "Nota di credito"
 
-#: reservations/models.py:1832
+#: reservations/models.py:1908
 msgid "Integration deferred"
 msgstr "Integrazione rinviata"
 
-#: reservations/models.py:1835
+#: reservations/models.py:1911
 msgid "Integrated"
 msgstr "Integrato"
 
-#: reservations/models.py:1836
+#: reservations/models.py:1912
 msgid "Retryable failure"
 msgstr "Fallita in modo ripetibile"
 
-#: reservations/models.py:1837
+#: reservations/models.py:1913
 msgid "Needs attention"
 msgstr "Richiede attenzione"
 
-#: reservations/models.py:1840
+#: reservations/models.py:1916
 msgid "Not requested"
 msgstr "Non richiesto"
 
-#: reservations/models.py:1842
+#: reservations/models.py:1918
 msgid "Available"
 msgstr "Disponibile"
 
-#: reservations/models.py:1890
+#: reservations/models.py:1966
 msgid "fiscal document amount"
 msgstr "importo documento fiscale"
 
-#: reservations/models.py:1935
+#: reservations/models.py:2011
 msgid "ERP document"
 msgstr "documento ERP"
 
-#: reservations/models.py:1936
+#: reservations/models.py:2012
 msgid "ERP documents"
 msgstr "documenti ERP"
 
-#: reservations/models.py:1975
+#: reservations/models.py:2051
 msgid "Automatic"
 msgstr "Automatico"
 
-#: reservations/models.py:1976
+#: reservations/models.py:2052
 msgid "Payment success page"
 msgstr "Pagamento riuscito"
 
-#: reservations/models.py:1977
+#: reservations/models.py:2053
 msgid "Administrator"
 msgstr "Amministratore"
 
-#: reservations/models.py:1980
+#: reservations/models.py:2056
 msgid "Success"
 msgstr "Riuscito"
 
-#: reservations/models.py:1981
+#: reservations/models.py:2057
 msgid "Reconciled existing document"
 msgstr "Documento esistente riconciliato"
+
+#: reservations/models.py:2080
+msgid "ERP integration attempt"
+msgstr "tentativo di integrazione ERP"
+
+#: reservations/models.py:2081
+msgid "ERP integration attempts"
+msgstr "tentativi di integrazione ERP"
+
+#: reservations/models.py:2108
+msgid "document email attempt"
+msgstr "tentativo di invio del documento"
+
+#: reservations/models.py:2109
+msgid "document email attempts"
+msgstr "tentativi di invio dei documenti"
+
+#: reservations/models.py:2126
+msgid "processed Stripe event"
+msgstr "evento Stripe elaborato"
+
+#: reservations/models.py:2127
+msgid "processed Stripe events"
+msgstr "eventi Stripe elaborati"
 
 #: reservations/services/admin_workflows.py:118
 msgid "Published terms are required."
@@ -4914,11 +5142,11 @@ msgstr "L'importo della pre-prenotazione non può essere negativo."
 #: reservations/services/admin_workflows.py:274
 msgid ""
 "A pre-reservation requires a published dog price so the future reservation "
-"deposit can be calculated. Create a direct reservation instead and enter the"
-" agreed amount."
+"deposit can be calculated. Create a direct reservation instead and enter the "
+"agreed amount."
 msgstr ""
-"Una pre-prenotazione richiede un prezzo pubblicato del cane per calcolare il"
-" futuro deposito di prenotazione. Crea invece una prenotazione diretta e "
+"Una pre-prenotazione richiede un prezzo pubblicato del cane per calcolare il "
+"futuro deposito di prenotazione. Crea invece una prenotazione diretta e "
 "inserisci l’importo concordato."
 
 #: reservations/services/admin_workflows.py:291
@@ -4937,11 +5165,6 @@ msgstr ""
 "Sono richiesti termini di prenotazione pubblicati perché una pre-"
 "prenotazione pagata creata dallo staff viene accettata automaticamente."
 
-#: reservations/services/admin_workflows.py:363
-#: reservations/services/admin_workflows.py:584
-msgid "This dog is already held by another process."
-msgstr "Questo cane è già prenotato da un altro processo."
-
 #: reservations/services/admin_workflows.py:481
 msgid "The reservation amount cannot be negative."
 msgstr "L'importo della prenotazione non può essere negativo."
@@ -4953,7 +5176,7 @@ msgstr ""
 "prenotazione."
 
 #: reservations/services/admin_workflows.py:488
-#: reservations/services/admin_workflows.py:764
+#: reservations/services/admin_workflows.py:770
 msgid "Choose the customer credit to apply."
 msgstr "Scegliere il credito del cliente da applicare."
 
@@ -4963,8 +5186,8 @@ msgstr "Il credito selezionato appartiene a un altro cliente."
 
 #: reservations/services/admin_workflows.py:513
 msgid ""
-"Record the customer terms acceptance before recording an offline reservation"
-" payment."
+"Record the customer terms acceptance before recording an offline reservation "
+"payment."
 msgstr ""
 "Registrare l'accettazione dei termini del cliente prima di registrare un "
 "pagamento offline di prenotazione."
@@ -4977,21 +5200,20 @@ msgstr "La validità della prenotazione deve essere compresa tra 1 e 168 ore."
 msgid "Applied to a direct reservation by staff."
 msgstr "Applicato a una prenotazione diretta da parte dello staff."
 
-#: reservations/services/admin_workflows.py:703
+#: reservations/services/admin_workflows.py:709
 msgid "Only an active sale process can be completed."
 msgstr "Solo un processo di vendita attivo può essere completato."
 
-#: reservations/services/admin_workflows.py:711
+#: reservations/services/admin_workflows.py:717
 msgid "Close or reconcile active online payments before completing the sale."
 msgstr ""
-"Chiudi o riconcilia i pagamenti online attivi prima di completare la "
-"vendita."
+"Chiudi o riconcilia i pagamenti online attivi prima di completare la vendita."
 
-#: reservations/services/admin_workflows.py:742
+#: reservations/services/admin_workflows.py:748
 msgid "The final sale price cannot be negative."
 msgstr "Il prezzo finale della vendita non può essere negativo."
 
-#: reservations/services/admin_workflows.py:753
+#: reservations/services/admin_workflows.py:759
 msgid ""
 "The value already settled exceeds the final sale price. Resolve the excess "
 "as a refund or customer credit first."
@@ -4999,15 +5221,27 @@ msgstr ""
 "Il valore già saldato supera il prezzo finale della vendita. Risolvi "
 "l'eccedenza come rimborso o credito al cliente prima."
 
-#: reservations/services/admin_workflows.py:761
+#: reservations/services/admin_workflows.py:767
 msgid "Customer credit cannot exceed the final outstanding balance."
 msgstr "Il credito del cliente non può superare l'importo residuo finale."
 
-#: reservations/services/admin_workflows.py:779
+#: reservations/services/admin_workflows.py:785
 msgid "Applied to the final animal sale."
 msgstr "Applicato alla vendita finale dell'animale."
 
-#: reservations/services/admin_workflows.py:950
+#: reservations/services/admin_workflows.py:849
+#, fuzzy
+#| msgid "This reservation is already closed."
+msgid "This sale is already cancelled."
+msgstr "Questa prenotazione è già chiusa."
+
+#: reservations/services/admin_workflows.py:852
+#, fuzzy
+#| msgid "Only an active sale process can be completed."
+msgid "Only a completed sale can be cancelled."
+msgstr "Solo un processo di vendita attivo può essere completato."
+
+#: reservations/services/admin_workflows.py:1039
 msgid ""
 "Record the customer acceptance of the current pre-reservation terms before "
 "settling this stage."
@@ -5015,7 +5249,7 @@ msgstr ""
 "Registra l’accettazione da parte del cliente dei termini attuali di pre-"
 "prenotazione prima di saldare questa fase."
 
-#: reservations/services/admin_workflows.py:979
+#: reservations/services/admin_workflows.py:1068
 msgid ""
 "Record the customer acceptance of the current reservation terms before "
 "settling this stage."
@@ -5078,8 +5312,9 @@ msgstr "Importo dovuto"
 #: reservations/services/email_messages.py:613
 #: reservations/services/email_messages.py:778
 #: reservations/services/email_messages.py:844
-#: reservations/services/email_messages.py:976
-#: reservations/services/email_messages.py:1067
+#: reservations/services/email_messages.py:896
+#: reservations/services/email_messages.py:1041
+#: reservations/services/email_messages.py:1132
 msgid "Reference"
 msgstr "Riferimento"
 
@@ -5093,8 +5328,7 @@ msgid "Complete your pre-reservation"
 msgstr "Completa la tua pre-prenotazione"
 
 #: reservations/services/email_messages.py:49
-msgid ""
-"The breeder created a pre-reservation for you to review and pay online."
+msgid "The breeder created a pre-reservation for you to review and pay online."
 msgstr ""
 "L’allevatore ha creato una pre-prenotazione da verificare e pagare online."
 
@@ -5109,11 +5343,11 @@ msgstr ""
 #: reservations/services/email_messages.py:62
 #, python-format
 msgid ""
-"The breeder created a pre-reservation for %(name)s. Review the current terms"
-" and complete the secure online payment from your account."
+"The breeder created a pre-reservation for %(name)s. Review the current terms "
+"and complete the secure online payment from your account."
 msgstr ""
-"L’allevatore ha creato una pre-prenotazione per %(name)s. Verifica i termini"
-" attuali e completa il pagamento online sicuro dal tuo conto."
+"L’allevatore ha creato una pre-prenotazione per %(name)s. Verifica i termini "
+"attuali e completa il pagamento online sicuro dal tuo conto."
 
 #: reservations/services/email_messages.py:69
 msgid "No duplicate process will be created"
@@ -5121,8 +5355,8 @@ msgstr "Non verrà creato un processo duplicato"
 
 #: reservations/services/email_messages.py:71
 msgid ""
-"The dog is already held by this process. Continuing from the link below uses"
-" the same pre-reservation and records your terms acceptance."
+"The dog is already held by this process. Continuing from the link below uses "
+"the same pre-reservation and records your terms acceptance."
 msgstr ""
 "Il cane è già trattenuto da questo processo. Proseguendo dal link qui sotto "
 "verrà usata la stessa pre-prenotazione e registrata l’accettazione dei "
@@ -5135,7 +5369,7 @@ msgstr "Legga i termini della pre-prenotazione"
 
 #: reservations/services/email_messages.py:114
 #: reservations/services/email_messages.py:330
-#: reservations/services/email_messages.py:981
+#: reservations/services/email_messages.py:1046
 msgid "Offer valid until"
 msgstr "Offerta valida fino al"
 
@@ -5153,8 +5387,8 @@ msgid ""
 "The breeder created a reservation offer for you to review and complete "
 "online."
 msgstr ""
-"L’allevatore ha creato un’offerta di prenotazione da verificare e completare"
-" online."
+"L’allevatore ha creato un’offerta di prenotazione da verificare e completare "
+"online."
 
 #: reservations/services/email_messages.py:132
 #: reservations/services/email_messages.py:350
@@ -5189,8 +5423,7 @@ msgid ""
 "changes to Reserved only after the reservation is fully settled."
 msgstr ""
 "Il cane resta pre-prenotato finché questa offerta è attiva. Lo stato "
-"pubblico passa a Prenotato solo quando la prenotazione è interamente "
-"saldata."
+"pubblico passa a Prenotato solo quando la prenotazione è interamente saldata."
 
 #: reservations/services/email_messages.py:163
 #: reservations/services/email_messages.py:382
@@ -5217,8 +5450,7 @@ msgid "Pre-reservation payment received"
 msgstr "Pagamento della pre-prenotazione ricevuto"
 
 #: reservations/services/email_messages.py:219
-msgid ""
-"Your payment was received and the breeder will now review your request."
+msgid "Your payment was received and the breeder will now review your request."
 msgstr ""
 "Il Suo pagamento è stato ricevuto e l'allevatore esaminerà ora la Sua "
 "richiesta."
@@ -5250,8 +5482,8 @@ msgid ""
 "Review the customer and record the decision in the administration area. "
 "There is no automatic deadline for this review."
 msgstr ""
-"Rivedere il cliente e registrare la decisione nell'area amministrazione. Non"
-" c'è una scadenza automatica per questa revisione."
+"Rivedere il cliente e registrare la decisione nell'area amministrazione. Non "
+"c'è una scadenza automatica per questa revisione."
 
 #: reservations/services/email_messages.py:251
 msgid ""
@@ -5311,8 +5543,8 @@ msgstr ""
 #: reservations/services/email_messages.py:359
 #, python-format
 msgid ""
-"The breeder accepted your pre-reservation for %(name)s. You can now complete"
-" the reservation deposit."
+"The breeder accepted your pre-reservation for %(name)s. You can now complete "
+"the reservation deposit."
 msgstr ""
 "L'allevatore ha accettato la Sua pre-prenotazione per %(name)s. Ora può "
 "completare l'acconto di prenotazione."
@@ -5320,8 +5552,8 @@ msgstr ""
 #: reservations/services/email_messages.py:367
 msgid ""
 "The offer expires automatically at the date shown above. If payment is not "
-"completed in time, both the reservation offer and the pre-reservation expire"
-" and the dog becomes available again."
+"completed in time, both the reservation offer and the pre-reservation expire "
+"and the dog becomes available again."
 msgstr ""
 "L'offerta scade automaticamente alla data indicata. Se il pagamento non "
 "viene completato in tempo, sia l'offerta di prenotazione che la pre-"
@@ -5402,6 +5634,7 @@ msgstr "Il nostro team ha annullato la Sua prenotazione per %(name)s."
 
 #: reservations/services/email_messages.py:509
 #: reservations/services/email_messages.py:578
+#: reservations/services/email_messages.py:939
 msgid "Financial outcome"
 msgstr "Esito finanziario"
 
@@ -5425,8 +5658,7 @@ msgstr "Pre-prenotazione annullata: %(name)s"
 
 #: reservations/services/email_messages.py:557
 msgid ""
-"The pre-reservation process was closed and its financial outcome is "
-"recorded."
+"The pre-reservation process was closed and its financial outcome is recorded."
 msgstr ""
 "Il processo di pre-prenotazione è stato chiuso e il suo esito finanziario è "
 "registrato."
@@ -5441,8 +5673,7 @@ msgid "Late payment received"
 msgstr "Ricevuto pagamento in ritardo"
 
 #: reservations/services/email_messages.py:625
-msgid ""
-"A full safety refund was queued because the process had already closed."
+msgid "A full safety refund was queued because the process had already closed."
 msgstr ""
 "È stato disposto un rimborso integrale a Sua tutela perché il processo era "
 "già chiuso."
@@ -5466,8 +5697,8 @@ msgstr ""
 #: reservations/services/email_messages.py:638
 #, python-format
 msgid ""
-"We received a payment after your process for %(name)s had already closed. To"
-" protect you, we immediately queued a full refund."
+"We received a payment after your process for %(name)s had already closed. To "
+"protect you, we immediately queued a full refund."
 msgstr ""
 "Abbiamo ricevuto un pagamento dopo che il Suo processo per %(name)s era già "
 "stato chiuso. Per tutelarLa, abbiamo immediatamente disposto un rimborso "
@@ -5513,7 +5744,7 @@ msgid "The approved refund was completed successfully."
 msgstr "Il rimborso approvato è stato completato con successo."
 
 #: reservations/services/email_messages.py:702
-#: reservations/templates/reservations/partials/sale_case_card.html:171
+#: reservations/templates/reservations/partials/sale_case_card.html:175
 msgid "Completed"
 msgstr "Completato"
 
@@ -5548,8 +5779,8 @@ msgid "Transferred value"
 msgstr "Valore trasferito"
 
 #: reservations/services/email_messages.py:754
-#: reservations/services/email_messages.py:1263
-#: reservations/templates/reservations/partials/sale_case_card.html:198
+#: reservations/services/email_messages.py:1328
+#: reservations/templates/reservations/partials/sale_case_card.html:212
 msgid "Retained"
 msgstr "Trattenuto"
 
@@ -5569,8 +5800,7 @@ msgid "Process transferred"
 msgstr "Processo trasferito"
 
 #: reservations/services/email_messages.py:790
-msgid ""
-"Your commercial process and the agreed value were moved to another dog."
+msgid "Your commercial process and the agreed value were moved to another dog."
 msgstr ""
 "Il suo processo commerciale e il valore concordato sono stati trasferiti a "
 "un altro cane."
@@ -5582,8 +5812,7 @@ msgstr "Cambio di cane"
 #: reservations/services/email_messages.py:798
 #, python-format
 msgid "The commercial process was transferred from %(source)s to %(target)s."
-msgstr ""
-"Il processo commerciale è stato trasferito da %(source)s a %(target)s."
+msgstr "Il processo commerciale è stato trasferito da %(source)s a %(target)s."
 
 #: reservations/services/email_messages.py:803
 #, python-format
@@ -5607,7 +5836,8 @@ msgstr ""
 "importi trattenuti e qualsiasi differenza ancora da pagare."
 
 #: reservations/services/email_messages.py:833
-#: reservations/templates/reservations/partials/sale_case_card.html:175
+#: reservations/services/email_messages.py:902
+#: reservations/templates/reservations/partials/sale_case_card.html:182
 msgid "Final agreed price"
 msgstr "Prezzo finale concordato"
 
@@ -5649,127 +5879,152 @@ msgstr ""
 "Pagamenti, crediti, rimborsi e documenti fiscali disponibili rimangono "
 "accessibili dalla Sua dashboard delle prenotazioni."
 
-#: reservations/services/email_messages.py:893
-#: reservations/services/email_messages.py:1120
+#: reservations/services/email_messages.py:919
+#, fuzzy, python-format
+#| msgid "Sale completed: %(name)s"
+msgid "Sale cancelled: %(name)s"
+msgstr "Vendita completata: %(name)s"
+
+#: reservations/services/email_messages.py:924
+#, fuzzy
+#| msgid ""
+#| "The reservation was cancelled and the financial decision is recorded in "
+#| "the history."
+msgid ""
+"The sale was cancelled and its financial outcome remains recorded in the "
+"history."
+msgstr ""
+"La prenotazione è stata annullata e la decisione finanziaria è registrata "
+"nella cronologia."
+
+#: reservations/services/email_messages.py:931
+#, fuzzy
+#| msgid "The animal sale was marked as completed."
+msgid "The animal sale was cancelled by staff."
+msgstr "La vendita dell'animale è stata contrassegnata come completata."
+
+#: reservations/services/email_messages.py:934
+#, fuzzy, python-format
+#| msgid "Our team cancelled your reservation for %(name)s."
+msgid "Our team cancelled the sale of %(name)s."
+msgstr "Il nostro team ha annullato la Sua prenotazione per %(name)s."
+
+#: reservations/services/email_messages.py:958
+#: reservations/services/email_messages.py:1185
 msgid "Document type"
 msgstr "Tipo di documento"
 
-#: reservations/services/email_messages.py:897
-#: reservations/services/email_messages.py:1124
+#: reservations/services/email_messages.py:962
+#: reservations/services/email_messages.py:1189
 msgid "Document amount"
 msgstr "Importo del documento"
 
-#: reservations/services/email_messages.py:902
-#: reservations/services/email_messages.py:1116
+#: reservations/services/email_messages.py:967
+#: reservations/services/email_messages.py:1181
 msgid "Document reference"
 msgstr "Riferimento documento"
 
-#: reservations/services/email_messages.py:909
+#: reservations/services/email_messages.py:974
 msgid "Document number"
 msgstr "Numero documento"
 
-#: reservations/services/email_messages.py:918
+#: reservations/services/email_messages.py:983
 #, python-format
 msgid "Fiscal document for %(name)s"
 msgstr "Documento fiscale per %(name)s"
 
-#: reservations/services/email_messages.py:921
+#: reservations/services/email_messages.py:986
 msgid "Your fiscal document"
 msgstr "Il Suo documento fiscale"
 
-#: reservations/services/email_messages.py:923
+#: reservations/services/email_messages.py:988
 msgid "The fiscal document is attached to this email as a PDF."
 msgstr "Il documento fiscale è allegato a questa email in formato PDF."
 
-#: reservations/services/email_messages.py:925
+#: reservations/services/email_messages.py:990
 msgid "Fiscal documentation"
 msgstr "Documentazione fiscale"
 
-#: reservations/services/email_messages.py:926
+#: reservations/services/email_messages.py:991
 msgid "PDF attached"
 msgstr "PDF allegato"
 
-#: reservations/services/email_messages.py:929
+#: reservations/services/email_messages.py:994
 msgid "The requested fiscal document is attached as a PDF."
 msgstr "Il documento fiscale richiesto è allegato in formato PDF."
 
-#: reservations/services/email_messages.py:932
+#: reservations/services/email_messages.py:997
 #, python-format
 msgid "Your fiscal document for %(name)s is attached to this email as a PDF."
 msgstr ""
 "Il Suo documento fiscale per %(name)s è allegato a questa email in formato "
 "PDF."
 
-#: reservations/services/email_messages.py:938
+#: reservations/services/email_messages.py:1003
 msgid "Keep this document"
 msgstr "Conservi questo documento"
 
-#: reservations/services/email_messages.py:940
+#: reservations/services/email_messages.py:1005
 msgid ""
 "You can download the document again from your reservations dashboard "
 "whenever it remains available."
 msgstr ""
-"Può scaricare nuovamente il documento dalla Sua dashboard delle prenotazioni"
-" finché rimane disponibile."
+"Può scaricare nuovamente il documento dalla Sua dashboard delle prenotazioni "
+"finché rimane disponibile."
 
-#: reservations/services/email_messages.py:946
+#: reservations/services/email_messages.py:1011
 msgid ""
 "For your security, confirm that the attached PDF and the reference above "
 "match your transaction."
 msgstr ""
-"Per la Sua sicurezza, confermi che il PDF allegato e il riferimento indicato"
-" corrispondano alla Sua transazione."
+"Per la Sua sicurezza, confermi che il PDF allegato e il riferimento indicato "
+"corrispondano alla Sua transazione."
 
-#: reservations/services/email_messages.py:966
+#: reservations/services/email_messages.py:1031
 msgid "Attempted amount"
 msgstr "Importo tentato"
 
-#: reservations/services/email_messages.py:989
+#: reservations/services/email_messages.py:1054
 msgid ""
 "The dog remains held for you until the reservation offer deadline. You can "
 "safely start a new payment attempt from the checkout page."
 msgstr ""
 "Il cane rimane temporaneamente bloccato per Lei fino alla scadenza "
-"dell'offerta di prenotazione. Può avviare un nuovo tentativo di pagamento in"
-" sicurezza dalla pagina di pagamento."
+"dell'offerta di prenotazione. Può avviare un nuovo tentativo di pagamento in "
+"sicurezza dalla pagina di pagamento."
 
-#: reservations/services/email_messages.py:1000
+#: reservations/services/email_messages.py:1065
 msgid ""
-"The temporary hold was released. You may try again from the dog page or your"
-" history if the dog is still available."
+"The temporary hold was released. You may try again from the dog page or your "
+"history if the dog is still available."
 msgstr ""
 "Il blocco temporaneo è stato rimosso. Può riprovare dalla pagina del cane o "
 "dalla Sua cronologia se il cane è ancora disponibile."
 
-#: reservations/services/email_messages.py:1008
+#: reservations/services/email_messages.py:1073
 #, python-format
 msgid "Payment not completed: %(name)s"
 msgstr "Pagamento non completato: %(name)s"
 
-#: reservations/services/email_messages.py:1012
+#: reservations/services/email_messages.py:1077
 msgid "Payment link expired"
 msgstr "Link di pagamento scaduto"
 
-#: reservations/services/email_messages.py:1014
+#: reservations/services/email_messages.py:1079
 #: reservations/templates/reservations/payment_cancelled.html:9
 msgid "Payment was not completed"
 msgstr "Il pagamento non è stato completato"
 
-#: reservations/services/email_messages.py:1017
+#: reservations/services/email_messages.py:1082
 msgid "No successful charge was confirmed for this payment attempt."
 msgstr ""
 "Non è stato confermato alcun addebito per questo tentativo di pagamento."
 
-#: reservations/services/email_messages.py:1020
-#: reservations/templates/admin/reservations/action_confirmation.html:19
-msgid "Payment"
-msgstr "Pagamento"
-
-#: reservations/services/email_messages.py:1025
+#: reservations/services/email_messages.py:1090
 msgid "A payment attempt ended without a confirmed charge."
 msgstr "Un tentativo di pagamento è terminato senza un addebito confermato."
 
-#: reservations/services/email_messages.py:1029
+#: reservations/services/email_messages.py:1094
 #, python-format
 msgid ""
 "We could not confirm a successful payment for %(name)s. No completed charge "
@@ -5778,35 +6033,34 @@ msgstr ""
 "Non siamo riusciti a confermare un pagamento riuscito per %(name)s. Nessun "
 "addebito completato è stato registrato per questo tentativo."
 
-#: reservations/services/email_messages.py:1035
+#: reservations/services/email_messages.py:1100
 msgid "What you can do"
 msgstr "Cosa può fare"
 
-#: reservations/services/email_messages.py:1038
+#: reservations/services/email_messages.py:1103
 msgid "Review the process and payment attempt in the administration area."
 msgstr ""
 "Rivedi il processo e il tentativo di pagamento nell'area amministrativa."
 
-#: reservations/services/email_messages.py:1064
+#: reservations/services/email_messages.py:1129
 msgid "Offer expired at"
 msgstr "Offerta scaduta il"
 
-#: reservations/services/email_messages.py:1074
+#: reservations/services/email_messages.py:1139
 #, python-format
 msgid "Reservation offer expired: %(name)s"
 msgstr "Offerta di prenotazione scaduta: %(name)s"
 
-#: reservations/services/email_messages.py:1079
+#: reservations/services/email_messages.py:1144
 msgid "The reservation deposit was not completed before the deadline."
-msgstr ""
-"L'acconto di prenotazione non è stato completato prima della scadenza."
+msgstr "L'acconto di prenotazione non è stato completato prima della scadenza."
 
-#: reservations/services/email_messages.py:1087
+#: reservations/services/email_messages.py:1152
 msgid "The reservation offer expired before payment was completed."
 msgstr ""
 "L'offerta di prenotazione è scaduta prima che il pagamento fosse completato."
 
-#: reservations/services/email_messages.py:1092
+#: reservations/services/email_messages.py:1157
 #, python-format
 msgid ""
 "The deadline to reserve %(name)s passed before the deposit was completed."
@@ -5814,50 +6068,49 @@ msgstr ""
 "La scadenza per riservare %(name)s è passata prima del completamento del "
 "deposito."
 
-#: reservations/services/email_messages.py:1098
+#: reservations/services/email_messages.py:1163
 msgid "The dog is available again"
 msgstr "Il cane è di nuovo disponibile"
 
-#: reservations/services/email_messages.py:1100
+#: reservations/services/email_messages.py:1165
 msgid ""
-"The reservation offer and its pre-reservation were closed. To proceed again,"
-" a new pre-reservation process must be started if the dog is still "
-"available."
+"The reservation offer and its pre-reservation were closed. To proceed again, "
+"a new pre-reservation process must be started if the dog is still available."
 msgstr ""
 "L'offerta di prenotazione e la relativa pre-prenotazione sono state chiuse. "
-"Per procedere nuovamente, è necessario avviare una nuova pre-prenotazione se"
-" il cane è ancora disponibile."
+"Per procedere nuovamente, è necessario avviare una nuova pre-prenotazione se "
+"il cane è ancora disponibile."
 
-#: reservations/services/email_messages.py:1128
+#: reservations/services/email_messages.py:1193
 msgid "Attempts"
 msgstr "Tentativi"
 
-#: reservations/services/email_messages.py:1133
+#: reservations/services/email_messages.py:1198
 msgid "Unknown error"
 msgstr "Errore sconosciuto"
 
-#: reservations/services/email_messages.py:1140
+#: reservations/services/email_messages.py:1205
 #, python-format
 msgid "ERP integration needs attention: %(reference)s"
 msgstr "L'integrazione con ERP richiede attenzione: %(reference)s"
 
-#: reservations/services/email_messages.py:1143
+#: reservations/services/email_messages.py:1208
 msgid "ERP integration needs attention"
 msgstr "L'integrazione con ERP richiede attenzione"
 
-#: reservations/services/email_messages.py:1145
+#: reservations/services/email_messages.py:1210
 msgid "A paid transaction still needs fiscal integration."
 msgstr "Una transazione pagata necessita ancora di integrazione fiscale."
 
-#: reservations/services/email_messages.py:1147
+#: reservations/services/email_messages.py:1212
 msgid "Accounting integration"
 msgstr "Integrazione contabile"
 
-#: reservations/services/email_messages.py:1148
+#: reservations/services/email_messages.py:1213
 msgid "Requires attention"
 msgstr "Richiede attenzione"
 
-#: reservations/services/email_messages.py:1151
+#: reservations/services/email_messages.py:1216
 msgid ""
 "A settled transaction could not be integrated with the ERP after the "
 "configured automatic attempts."
@@ -5865,11 +6118,11 @@ msgstr ""
 "Una transazione saldata non è stata integrata con l'ERP dopo i tentativi "
 "automatici configurati."
 
-#: reservations/services/email_messages.py:1155
+#: reservations/services/email_messages.py:1220
 msgid "Manual review required"
 msgstr "Revisione manuale richiesta"
 
-#: reservations/services/email_messages.py:1157
+#: reservations/services/email_messages.py:1222
 msgid ""
 "Check whether the document already exists in TOConline before retrying, "
 "especially when the creation result is uncertain."
@@ -5877,11 +6130,11 @@ msgstr ""
 "Controllare se il documento esiste già in TOConline prima di riprovare, "
 "specialmente quando il risultato della creazione è incerto."
 
-#: reservations/services/email_messages.py:1162
+#: reservations/services/email_messages.py:1227
 msgid "Open ERP document in administration"
 msgstr "Apri documento ERP nell'amministrazione"
 
-#: reservations/services/email_messages.py:1272
+#: reservations/services/email_messages.py:1337
 msgid ""
 "Any approved refund or customer credit will appear separately in the "
 "reservations history."
@@ -5889,7 +6142,7 @@ msgstr ""
 "Qualsiasi rimborso approvato o credito cliente apparirà separatamente nella "
 "cronologia delle prenotazioni."
 
-#: reservations/services/email_messages.py:1279
+#: reservations/services/email_messages.py:1344
 msgid ""
 "The approved refund is processed separately and may take several business "
 "days to reach the original payment method."
@@ -5897,7 +6150,7 @@ msgstr ""
 "Il rimborso approvato viene elaborato separatamente e potrebbe volerci "
 "diversi giorni lavorativi per raggiungere il metodo di pagamento originale."
 
-#: reservations/services/email_messages.py:1286
+#: reservations/services/email_messages.py:1351
 msgid ""
 "The customer credit is available for a future commercial process with "
 "Fortissimus Bellator."
@@ -5905,7 +6158,7 @@ msgstr ""
 "Il credito cliente è disponibile per un futuro processo commerciale con "
 "Fortissimus Bellator."
 
-#: reservations/services/email_messages.py:1293
+#: reservations/services/email_messages.py:1358
 msgid ""
 "The retained amount is recorded in the process history and is not scheduled "
 "for refund."
@@ -5913,58 +6166,54 @@ msgstr ""
 "L'importo trattenuto viene registrato nella cronologia del processo e non è "
 "programmato per il rimborso."
 
-#: reservations/services/email_messages.py:1298
+#: reservations/services/email_messages.py:1363
 msgid "No paid value required a refund, customer credit or retention."
 msgstr ""
 "Nessun importo pagato ha richiesto rimborso, credito cliente o trattenuta."
 
-#: reservations/services/email_messages.py:1311
+#: reservations/services/email_messages.py:1376
 msgid "The breeder did not accept the pre-reservation."
 msgstr "L'allevatore non ha accettato la pre-prenotazione."
 
-#: reservations/services/email_messages.py:1313
+#: reservations/services/email_messages.py:1378
 msgid "The breeder cancelled the pre-reservation."
 msgstr "L'allevatore ha annullato la pre-prenotazione."
 
-#: reservations/services/email_messages.py:1314
+#: reservations/services/email_messages.py:1379
 msgid "The customer cancelled the pre-reservation."
 msgstr "Il cliente ha annullato la pre-prenotazione."
 
-#: reservations/services/email_messages.py:1317
+#: reservations/services/email_messages.py:1382
 #, python-format
 msgid "The breeder did not accept your pre-reservation for %(name)s."
 msgstr "L'allevatore non ha accettato la Sua pre-prenotazione per %(name)s."
 
-#: reservations/services/email_messages.py:1321
+#: reservations/services/email_messages.py:1386
 #, python-format
 msgid "Our team cancelled your pre-reservation for %(name)s."
 msgstr "Il nostro team ha annullato la Sua pre-prenotazione per %(name)s."
 
-#: reservations/services/email_messages.py:1324
+#: reservations/services/email_messages.py:1389
 #, python-format
 msgid "Your pre-reservation for %(name)s was cancelled at your request."
 msgstr ""
 "La Sua pre-prenotazione per %(name)s è stata annullata su Sua richiesta."
 
-#: reservations/services/email_messages.py:1332
-msgid "Customer"
-msgstr "Cliente"
-
-#: reservations/services/email_messages.py:1348
+#: reservations/services/email_messages.py:1413
 #: reservations/templates/reservations/payment_success.html:68
 msgid "Open my reservations"
 msgstr "Apra le mie prenotazioni"
 
-#: reservations/services/email_messages.py:1362
+#: reservations/services/email_messages.py:1427
 msgid "Open in administration"
 msgstr "Aprire nell'amministrazione"
 
-#: reservations/services/email_messages.py:1374
-#: reservations/templates/reservations/partials/sale_case_card.html:251
+#: reservations/services/email_messages.py:1439
+#: reservations/templates/reservations/partials/sale_case_card.html:265
 msgid "Continue to reservation deposit"
 msgstr "Continui con l'acconto di prenotazione"
 
-#: reservations/services/email_messages.py:1400
+#: reservations/services/email_messages.py:1465
 msgid "Complete pre-reservation payment"
 msgstr "Completa il pagamento della pre-prenotazione"
 
@@ -6056,8 +6305,8 @@ msgstr "Questo acquisto non è in attesa di pagamento."
 #: reservations/services/payment.py:68 reservations/services/payment.py:88
 msgid "Payment setup is temporarily unavailable. Your place remains held."
 msgstr ""
-"La configurazione del pagamento è temporaneamente non disponibile. Il vostro"
-" posto rimane riservato."
+"La configurazione del pagamento è temporaneamente non disponibile. Il vostro "
+"posto rimane riservato."
 
 #: reservations/services/payment.py:74
 msgid "Unable to initialize payment."
@@ -6067,8 +6316,8 @@ msgstr "Impossibile inizializzare il pagamento."
 msgid "This purchase is no longer payable."
 msgstr "Questo acquisto non è più pagabile."
 
-#: reservations/services/payment.py:139 reservations/views.py:419
-#: reservations/views.py:434 reservations/views.py:599
+#: reservations/services/payment.py:139 reservations/views.py:427
+#: reservations/views.py:442 reservations/views.py:607
 msgid "This payment cannot be retried."
 msgstr "Questo pagamento non può essere ripetuto."
 
@@ -6103,8 +6352,8 @@ msgstr "Stripe ha restituito un checkout senza identificatore."
 
 #: reservations/services/payment.py:258
 msgid ""
-"The online payment could not be reconciled safely. Try again before changing"
-" this process."
+"The online payment could not be reconciled safely. Try again before changing "
+"this process."
 msgstr ""
 "Il pagamento online non è stato riconciliato in sicurezza. Riprovare prima "
 "di modificare questo processo."
@@ -6122,8 +6371,8 @@ msgid ""
 "The open online payment could not be closed safely. Try again before "
 "changing this process."
 msgstr ""
-"Il pagamento online aperto non può essere chiuso in sicurezza. Riprova prima"
-" di modificare questo processo."
+"Il pagamento online aperto non può essere chiuso in sicurezza. Riprova prima "
+"di modificare questo processo."
 
 #: reservations/services/payment.py:298
 msgid ""
@@ -6181,8 +6430,8 @@ msgstr "Questo rimborso non può essere elaborato."
 
 #: reservations/services/reservation.py:74
 msgid ""
-"Litters cannot be pre-reserved. Choose an individual dog after the litter is"
-" born."
+"Litters cannot be pre-reserved. Choose an individual dog after the litter is "
+"born."
 msgstr ""
 "I cuccioli non possono essere prenotati in anticipo. Scegli un cane "
 "individuale dopo la nascita del cucciolato."
@@ -6257,7 +6506,7 @@ msgid "Automatically accepted because staff created this process."
 msgstr ""
 "Accettata automaticamente perché questo processo è stato creato dallo staff."
 
-#: reservations/services/reservation.py:792 reservations/views.py:774
+#: reservations/services/reservation.py:792 reservations/views.py:782
 msgid "This pre-reservation can no longer be cancelled."
 msgstr "Questa pre-prenotazione non può più essere cancellata."
 
@@ -6269,7 +6518,7 @@ msgstr "Questa pre-prenotazione è già chiusa."
 msgid "This reservation offer has expired."
 msgstr "Questa offerta di prenotazione è scaduta."
 
-#: reservations/services/reservation.py:967 reservations/views.py:483
+#: reservations/services/reservation.py:967 reservations/views.py:491
 msgid "This reservation offer can no longer be paid."
 msgstr "L'offerta di prenotazione non può più essere pagata."
 
@@ -6279,8 +6528,8 @@ msgstr "I termini di prenotazione non sono disponibili."
 
 #: reservations/services/reservation.py:1005
 msgid ""
-"The amount is locked for the current payment attempt. Use the same promotion"
-" code or continue without changing the checkout."
+"The amount is locked for the current payment attempt. Use the same promotion "
+"code or continue without changing the checkout."
 msgstr ""
 "L'importo è bloccato per il tentativo di pagamento corrente. Utilizzare lo "
 "stesso codice promozionale o continuare senza modificare il checkout."
@@ -6315,8 +6564,8 @@ msgid ""
 "The reservation deposit percentage changed after payment. Review the pre-"
 "reservation before accepting it."
 msgstr ""
-"La percentuale di deposito per la prenotazione è cambiata dopo il pagamento."
-" Rivedere la pre-prenotazione prima di accettarla."
+"La percentuale di deposito per la prenotazione è cambiata dopo il pagamento. "
+"Rivedere la pre-prenotazione prima di accettarla."
 
 #: reservations/services/transfers.py:127
 msgid "Only an active pre-reservation or reservation can be transferred."
@@ -6381,36 +6630,19 @@ msgstr ""
 "Il pagamento online o l'accettazione dei termini del cliente richiede un "
 "cliente registrato."
 
-#: reservations/templates/admin/reservations/action_confirmation.html:16
-msgid "Purchase"
-msgstr "Acquista"
+#: reservations/templates/admin/reservations/action_confirmation.html:65
+msgid ""
+"\n"
+"          Please correct the error below.\n"
+"        "
+msgid_plural ""
+"\n"
+"          Please correct the errors below.\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
 
-#: reservations/templates/admin/reservations/action_confirmation.html:20
-#: reservations/templates/admin/reservations/action_confirmation.html:32
-msgid "Charged"
-msgstr "Addebitato"
-
-#: reservations/templates/admin/reservations/action_confirmation.html:21
-#: reservations/templates/admin/reservations/action_confirmation.html:33
-msgid "Already committed/refunded"
-msgstr "Già impegnato/rimborsato"
-
-#: reservations/templates/admin/reservations/action_confirmation.html:22
-#: reservations/templates/admin/reservations/action_confirmation.html:34
-msgid "Available to refund"
-msgstr "Disponibile per rimborso"
-
-#: reservations/templates/admin/reservations/action_confirmation.html:24
-#: reservations/templates/admin/reservations/action_confirmation.html:36
-msgid "Stripe fee"
-msgstr "Commissione Stripe"
-
-#: reservations/templates/admin/reservations/action_confirmation.html:25
-#: reservations/templates/admin/reservations/action_confirmation.html:37
-msgid "Stripe net retained"
-msgstr "Netto trattenuto da Stripe"
-
-#: reservations/templates/admin/reservations/action_confirmation.html:48
+#: reservations/templates/admin/reservations/action_confirmation.html:82
 #: reservations/templates/admin/reservations/prereservation/change_form.html:17
 msgid "Cancel"
 msgstr "Annulla"
@@ -6428,37 +6660,67 @@ msgstr "Apri il record della pre-prenotazione"
 msgid "Open reservation record"
 msgstr "Apri il record della prenotazione"
 
-#: reservations/templates/admin/reservations/confirm_target_delete.html:7
-#, python-format
+#: reservations/templates/admin/reservations/animalsalecase/change_form.html:30
+#, fuzzy
+#| msgid "final sale price"
+msgid "Open final sale record"
+msgstr "prezzo finale di vendita"
+
+#: reservations/templates/admin/reservations/confirm_target_delete.html:19
+msgid "Delete"
+msgstr ""
+
+#: reservations/templates/admin/reservations/confirm_target_delete.html:27
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "      This item has %(count)s pre-reservation in its history. It will "
+#| "disappear from the public website, but every reservation snapshot and "
+#| "payment record will remain accessible.\n"
+#| "    "
+#| msgid_plural ""
+#| "\n"
+#| "      This item has %(count)s pre-reservations in its history. It will "
+#| "disappear from the public website, but every reservation snapshot and "
+#| "payment record will remain accessible.\n"
+#| "    "
 msgid ""
 "\n"
-"      This item has %(count)s pre-reservation in its history. It will disappear from the public website, but every reservation snapshot and payment record will remain accessible.\n"
-"    "
+"        This item has %(count)s pre-reservation in its history. It will "
+"disappear from the public website, but every reservation snapshot and "
+"payment record will remain accessible.\n"
+"      "
 msgid_plural ""
 "\n"
-"      This item has %(count)s pre-reservations in its history. It will disappear from the public website, but every reservation snapshot and payment record will remain accessible.\n"
-"    "
+"        This item has %(count)s pre-reservations in its history. It will "
+"disappear from the public website, but every reservation snapshot and "
+"payment record will remain accessible.\n"
+"      "
 msgstr[0] ""
 "\n"
-"      Questo elemento ha %(count)s pre-prenotazione nella sua cronologia. Scomparirà dal sito pubblico, ma ogni istantanea della prenotazione e ogni registrazione di pagamento rimarranno accessibili.\n"
+"      Questo elemento ha %(count)s pre-prenotazione nella sua cronologia. "
+"Scomparirà dal sito pubblico, ma ogni istantanea della prenotazione e ogni "
+"registrazione di pagamento rimarranno accessibili.\n"
 "    "
 msgstr[1] ""
 "\n"
-"      Questo elemento ha %(count)s pre-prenotazioni nella sua cronologia. Scomparirà dal sito pubblico, ma ogni istantanea della prenotazione e ogni registrazione di pagamento rimarranno accessibili.\n"
+"      Questo elemento ha %(count)s pre-prenotazioni nella sua cronologia. "
+"Scomparirà dal sito pubblico, ma ogni istantanea della prenotazione e ogni "
+"registrazione di pagamento rimarranno accessibili.\n"
 "    "
 
-#: reservations/templates/admin/reservations/confirm_target_delete.html:13
+#: reservations/templates/admin/reservations/confirm_target_delete.html:34
 msgid ""
 "This is the second and final confirmation. This action cannot be undone."
 msgstr ""
 "Questa è la seconda e ultima conferma. Questa azione non può essere "
 "annullata."
 
-#: reservations/templates/admin/reservations/confirm_target_delete.html:19
+#: reservations/templates/admin/reservations/confirm_target_delete.html:40
 msgid "Yes, delete permanently"
 msgstr "Sì, elimina definitivamente"
 
-#: reservations/templates/admin/reservations/confirm_target_delete.html:20
+#: reservations/templates/admin/reservations/confirm_target_delete.html:42
 msgid "No, keep it"
 msgstr "No, mantienilo"
 
@@ -6471,10 +6733,25 @@ msgstr "Scarica PDF"
 msgid "Resend PDF"
 msgstr "Rinvia PDF"
 
-#: reservations/templates/admin/reservations/prereservation/change_form.html:7
-#: reservations/templates/admin/reservations/reservation/change_form.html:6
-msgid "Open sale process"
-msgstr "Apri il processo di vendita"
+#: reservations/templates/admin/reservations/includes/payment_summary.html:12
+msgid "Charged"
+msgstr "Addebitato"
+
+#: reservations/templates/admin/reservations/includes/payment_summary.html:22
+msgid "Already committed/refunded"
+msgstr "Già impegnato/rimborsato"
+
+#: reservations/templates/admin/reservations/includes/payment_summary.html:33
+msgid "Available to refund"
+msgstr "Disponibile per rimborso"
+
+#: reservations/templates/admin/reservations/includes/payment_summary.html:45
+msgid "Stripe fee"
+msgstr "Commissione Stripe"
+
+#: reservations/templates/admin/reservations/includes/payment_summary.html:60
+msgid "Stripe net retained"
+msgstr "Netto trattenuto da Stripe"
 
 #: reservations/templates/admin/reservations/prereservation/change_form.html:10
 #: reservations/templates/admin/reservations/reservation/change_form.html:9
@@ -6528,8 +6805,8 @@ msgid ""
 "Track pre-reservation review, reservation deposits, refunds, customer "
 "credit, promotions, and fiscal documents."
 msgstr ""
-"Tracciare la revisione della pre-prenotazione, i depositi di prenotazione, i"
-" rimborsi, il credito clienti, le promozioni e i documenti fiscali."
+"Tracciare la revisione della pre-prenotazione, i depositi di prenotazione, i "
+"rimborsi, il credito clienti, le promozioni e i documenti fiscali."
 
 #: reservations/templates/reservations/dashboard.html:18
 msgid "Financial history"
@@ -6541,7 +6818,7 @@ msgid "Original credit: %(original)s %(currency)s"
 msgstr "Creditto originale: %(original)s %(currency)s"
 
 #: reservations/templates/reservations/dashboard.html:34
-#: reservations/templates/reservations/partials/sale_case_card.html:197
+#: reservations/templates/reservations/partials/sale_case_card.html:211
 msgid "Credit"
 msgstr "Creditto"
 
@@ -6651,49 +6928,49 @@ msgid ""
 msgstr ""
 "Solo una pre-prenotazione accettata può passare al deposito di prenotazione."
 
-#: reservations/templates/reservations/partials/sale_case_card.html:205
+#: reservations/templates/reservations/partials/sale_case_card.html:219
 #, python-format
 msgid "This process was transferred to %(dog)s."
 msgstr "Questo processo è stato trasferito a %(dog)s."
 
-#: reservations/templates/reservations/partials/sale_case_card.html:210
+#: reservations/templates/reservations/partials/sale_case_card.html:224
 #, python-format
 msgid "This process received value transferred from %(dog)s."
 msgstr "Questo processo ha ricevuto il valore trasferito da %(dog)s."
 
-#: reservations/templates/reservations/partials/sale_case_card.html:216
+#: reservations/templates/reservations/partials/sale_case_card.html:230
 msgid "Fiscal documents"
 msgstr "Documenti fiscali"
 
-#: reservations/templates/reservations/partials/sale_case_card.html:228
+#: reservations/templates/reservations/partials/sale_case_card.html:242
 msgid ""
 "Reservation refunds are not automatic. Any refund, credit, or retained "
 "amount decided by the breeder appears separately in your history."
 msgstr ""
 "I rimborsi delle prenotazioni non sono automatici. Qualsiasi rimborso, "
-"accredito o importo trattenuto deciso dal selezionatore appare separatamente"
-" nella tua cronologia."
+"accredito o importo trattenuto deciso dal selezionatore appare separatamente "
+"nella tua cronologia."
 
-#: reservations/templates/reservations/partials/sale_case_card.html:230
+#: reservations/templates/reservations/partials/sale_case_card.html:244
 msgid ""
-"The pre-reservation is non-refundable by nature. A refund or customer credit"
-" only exists when the breeder expressly records one."
+"The pre-reservation is non-refundable by nature. A refund or customer credit "
+"only exists when the breeder expressly records one."
 msgstr ""
-"La pre-prenotazione è di natura non rimborsabile. Un rimborso o un accredito"
-" al cliente esistono solo quando il selezionatore ne registra espressamente "
+"La pre-prenotazione è di natura non rimborsabile. Un rimborso o un accredito "
+"al cliente esistono solo quando il selezionatore ne registra espressamente "
 "uno."
 
-#: reservations/templates/reservations/partials/sale_case_card.html:237
+#: reservations/templates/reservations/partials/sale_case_card.html:251
 #: reservations/templates/reservations/payment_cancelled.html:24
 msgid "Continue pre-reservation payment"
 msgstr "Continuare il pagamento della pre-prenotazione"
 
-#: reservations/templates/reservations/partials/sale_case_card.html:239
+#: reservations/templates/reservations/partials/sale_case_card.html:253
 #: reservations/templates/reservations/payment_cancelled.html:26
 msgid "Cancel and release"
 msgstr "Annulla e rilascia"
 
-#: reservations/templates/reservations/partials/sale_case_card.html:245
+#: reservations/templates/reservations/partials/sale_case_card.html:259
 msgid "Try payment again"
 msgstr "Riprova il pagamento"
 
@@ -6760,8 +7037,8 @@ msgstr "Scarica il documento fiscale"
 
 #: reservations/templates/reservations/payment_success.html:63
 msgid ""
-"Payment is confirmed. Your fiscal document is being prepared and will appear"
-" in your dashboard."
+"Payment is confirmed. Your fiscal document is being prepared and will appear "
+"in your dashboard."
 msgstr ""
 "Il pagamento è confermato. Il documento fiscale è in fase di preparazione e "
 "apparirà nel tuo cruscotto."
@@ -6823,10 +7100,6 @@ msgstr "Termini di prenotazione"
 msgid "The reservation amount has been updated."
 msgstr "L'importo della prenotazione è stato aggiornato."
 
-#: reservations/templates/reservations/reservation_terms.html:9
-msgid "Reservations"
-msgstr "Prenotazioni"
-
 #: reservations/views.py:72
 msgid ""
 "Litters cannot be pre-reserved. Subscribe to birth updates and choose an "
@@ -6846,44 +7119,43 @@ msgstr ""
 "La tua pre-prenotazione è pagata e in attesa di revisione da parte del "
 "selezionatore."
 
-#: reservations/views.py:473
+#: reservations/views.py:481
 msgid "Reservation terms are not currently available."
 msgstr "I termini di prenotazione non sono attualmente disponibili."
 
-#: reservations/views.py:577
+#: reservations/views.py:585
 msgid "Your reservation is confirmed."
 msgstr "La tua prenotazione è confermata."
 
-#: reservations/views.py:612
+#: reservations/views.py:620
 msgid "Payment confirmation is missing."
 msgstr "Manca la conferma del pagamento."
 
-#: reservations/views.py:621
+#: reservations/views.py:629
 msgid "We could not verify the payment yet. Please check your dashboard."
 msgstr ""
 "Non è stato ancora possibile verificare il pagamento. Controlla il tuo "
 "dashboard."
 
-#: reservations/views.py:797
-msgid ""
-"Your pre-reservation was cancelled. No refund is created automatically."
+#: reservations/views.py:805
+msgid "Your pre-reservation was cancelled. No refund is created automatically."
 msgstr ""
 "La tua pre-prenotazione è stata annullata. Non viene creato automaticamente "
 "alcun rimborso."
 
-#: reservations/views.py:822
+#: reservations/views.py:830
 msgid "Your fiscal document is ready."
 msgstr "Il documento fiscale è pronto."
 
-#: reservations/views.py:827
+#: reservations/views.py:835
 msgid "The fiscal document is temporarily unavailable. Please try again."
 msgstr "Il documento fiscale è temporaneamente non disponibile. Riprovare."
 
-#: reservations/views.py:958
+#: reservations/views.py:966
 msgid "Enter a promotion code."
 msgstr "Inserisci un codice promozionale."
 
-#: reservations/views.py:991
+#: reservations/views.py:999
 msgid ""
 "The amount is locked for the current payment attempt. Continue with the "
 "existing promotion."
@@ -6915,35 +7187,23 @@ msgstr "Amministrazione del sito Django"
 msgid "Django administration"
 msgstr "Amministrazione Django"
 
-msgid "Required. Enter the country calling code and phone number."
-msgstr "Obbligatorio. Inserisci il prefisso internazionale e il numero di telefono."
+#~ msgid "Required. Enter your phone number."
+#~ msgstr "Necessario. Inserisci il tuo numero di telefono."
 
-msgid "Enter a valid country calling code, for example +351."
-msgstr "Inserisci un prefisso internazionale valido, ad esempio +351."
+#~ msgid "Enter your phone number"
+#~ msgstr "Inserisci il tuo numero di telefono"
 
-msgid "Enter a valid phone number."
-msgstr "Inserisci un numero di telefono valido."
+#~ msgid "This dog is reserved by a different customer."
+#~ msgstr "Questo cane è riservato da un cliente diverso."
 
-msgid "Enter a valid phone number for this country calling code."
-msgstr "Inserisci un numero di telefono valido per questo prefisso internazionale."
+#~ msgid "sold to"
+#~ msgstr "venduto a"
 
-msgid "Enter the phone number in international format."
-msgstr "Inserisci il numero di telefono in formato internazionale."
+#~ msgid "Your Phone"
+#~ msgstr "Il tuo telefono"
 
-msgid "Country calling code"
-msgstr "Prefisso internazionale"
-
-msgid "Phone number"
-msgstr "Numero di telefono"
-
-msgid "912 345 678"
-msgstr "912 345 678"
-
-msgid ""
-"Enter the country calling code separately, for example +351 and 912 345 678."
-msgstr ""
-"Inserisci separatamente il prefisso internazionale, ad esempio +351, e il "
-"numero 912 345 678."
-
-msgid "Enter the country calling code, for example +351."
-msgstr "Inserisci il prefisso internazionale, ad esempio +351."
+#~ msgid ""
+#~ "Please include your country code. Example for Portugal: (+351) 912 345 678"
+#~ msgstr ""
+#~ "Per favore includi il codice del tuo paese. Esempio per il Portogallo: "
+#~ "(+351) 912 345 678"
