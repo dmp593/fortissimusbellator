@@ -1,0 +1,8 @@
+---
+deployment:
+  tasks:
+    - /home/fortissi/virtualenv/fortissimusbellator/3.12/bin/python3.12_bin /home/fortissi/fortissimusbellator/manage.py migrate --noinput
+    - /home/fortissi/virtualenv/fortissimusbellator/3.12/bin/python3.12_bin /home/fortissi/fortissimusbellator/manage.py compilemessages --ignore=.git --ignore=.models --ignore=.venv --ignore=media --ignore=node_modules --ignore=static
+    - /home/fortissi/virtualenv/fortissimusbellator/3.12/bin/python3.12_bin /home/fortissi/fortissimusbellator/manage.py collectstatic --noinput
+    - /home/fortissi/virtualenv/fortissimusbellator/3.12/bin/python3.12_bin /home/fortissi/fortissimusbellator/manage.py loaddata animalskinds breeds certifications faqs blog/categories quiz/quiz chat_models
+    - /home/fortissi/virtualenv/fortissimusbellator/3.12/bin/python3.12_bin /home/fortissi/fortissimusbellator/manage.py rebuild_chat_search_index

@@ -75,41 +75,43 @@ Do not reload `chat_search_entries` or terms fixtures over a live installation:
 - the chat migration/rebuild preserves reviewed aliases;
 - used terms are contractual history and must be superseded by a new version.
 
-### Production preparation command
+### cPanel deployment
 
-For a direct-host deployment, migrations, compiled translations, and collected
-static files can be prepared with one idempotent command:
+The repository root contains a checked-in [`.cpanel.yml`](../.cpanel.yml).
+When cPanel deploys a clean commit, it runs these tasks in order:
 
-```bash
-poetry run python manage.py prepare_production
-```
+1. apply pending database migrations without prompting;
+2. compile translation catalogues;
+3. collect static files without prompting.
 
-This command does not load fixtures unless `--loaddata` is present. Passing the
-option without labels loads only the production-safe defaults:
+This configuration assumes that cPanel's Repository Path is also the Django
+application root. It does not copy the checkout to `public_html`. If the
+runtime application uses a different directory, define and review an explicit
+deployment path instead of copying the whole repository or using wildcards.
 
-```bash
-poetry run python manage.py prepare_production --loaddata
-```
+The deployment intentionally does not load fixtures. Fixtures modify business
+data and remain an explicit initial-setup operation using the commands above.
 
-The defaults are `animalskinds`, `breeds`, `certifications`, `faqs`,
-`blog/categories`, `quiz/quiz`, and `chat_models`. Demo `animals` and `litters`
-are deliberately excluded.
+Before the first deployment:
 
-Pass fixture labels separated by spaces or commas to override the defaults:
+- install Poetry and the locked Python dependencies on the cPanel account;
+- configure the production `.env`, database, `STATIC_ROOT`, and `MEDIA_ROOT`;
+- make `poetry` available on the deployment user's `PATH`;
+- build and commit `assets/css/styles.css` with `npm run prod`;
+- compile and commit changed translation catalogues before pushing.
 
-```bash
-poetry run python manage.py prepare_production \
-  --loaddata faqs,chat_models quiz/quiz
-```
+The last two steps keep the cPanel-managed Git working tree clean after the
+deployment tasks. A dirty working tree prevents cPanel from deploying a later
+commit. If deployment fails, inspect cPanel's
+`~/.cpanel/logs/vc_TIMESTAMP_git_deploy.log`.
 
-After fixture loading, the command rebuilds the chat search projection without
-replacing reviewed aliases. Any failed step stops the command with a non-zero
-exit status.
+Dependency installation is not performed on every deployment because native
+packages such as `llama-cpp-python` are expensive to rebuild on shared hosting.
+Run `poetry install --only main --no-root` explicitly when `poetry.lock`
+changes.
 
-In immutable container deployments, translations and static assets must remain
-part of the image build. Use the command in a persistent release environment,
-or run migrations separately when an ephemeral container cannot persist
-compiled or collected files.
+Immutable container deployments continue to build translations and static
+assets into the image and run migrations as a release operation.
 
 ### Frontend development
 

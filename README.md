@@ -56,14 +56,11 @@ docker compose up -d
 The Compose stack runs MariaDB, Gunicorn, and one reservation reconciliation
 scheduler. Replace every default secret before exposing it outside localhost.
 
-On a direct-host deployment, run all required Django preparation steps with:
-
-```bash
-poetry run python manage.py prepare_production
-```
-
-Add `--loaddata` to load the production-safe default fixtures, or list specific
-fixtures after the option. See the operations guide for exact behavior.
+Direct cPanel deployments use the checked-in [`.cpanel.yml`](.cpanel.yml) to
+apply migrations, compile translations, and collect static files. Poetry and
+the production `.env` must already be configured on the cPanel account.
+Fixtures are never loaded automatically; see the operations guide for initial
+fixture setup and deployment prerequisites.
 
 Pre-reservation deployment, Stripe webhook, TOConline, and reconciliation
 instructions are documented in
