@@ -700,7 +700,7 @@ class AdminSaleWorkflowTests(ReservationTestMixin, TestCase):
             reverse('admin:breeding_animal_change', args=[self.dog.pk]),
         )
         self.assertNotContains(animal_page, 'Register direct final sale')
-        self.assertContains(animal_page, 'Open active sale process')
+        self.assertContains(animal_page, 'Open sale process')
 
         add_page = self.client.get(
             reverse('admin:reservations_animalsalecase_add'),

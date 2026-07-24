@@ -362,7 +362,7 @@ class AnimalAdmin(
                 ),
             ).first()
             if active_case is None:
-                return _('An existing process is holding this dog.')
+                return _('This dog is already held by another process.')
             url = reverse(
                 'admin:reservations_animalsalecase_change',
                 args=[active_case.pk],
@@ -370,7 +370,7 @@ class AnimalAdmin(
             return format_html(
                 '<a href="{}">{}</a>',
                 url,
-                _('Open active sale process'),
+                _('Open sale process'),
             )
         if completed_sale_case is None:
             url = (
