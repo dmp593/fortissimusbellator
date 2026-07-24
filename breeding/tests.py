@@ -350,6 +350,74 @@ class LitterAnimalGenerationAdminTests(TestCase):
         self.assertFalse(litter.animals.exists())
 
 
+@override_settings(STATIC_ROOT=None, STORAGES=TEST_STORAGES)
+class ParentGenderAdminTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        kind = AnimalKind.objects.create(name='Dog')
+        breed = Breed.objects.create(
+            kind=kind,
+            name='German Shepherd',
+            cover='breeds/test.jpg',
+        )
+        today = timezone.localdate()
+        cls.male = Animal.objects.create(
+            breed=breed,
+            name='Male parent',
+            birth_date=today,
+            gender='M',
+        )
+        cls.female = Animal.objects.create(
+            breed=breed,
+            name='Female parent',
+            birth_date=today,
+            gender='F',
+        )
+        cls.unknown = Animal.objects.create(
+            breed=breed,
+            name='Unknown parent',
+            birth_date=today,
+            gender='?',
+        )
+        cls.superuser = get_user_model().objects.create_superuser(
+            username='parent-admin',
+            email='parent-admin@example.com',
+            password='test-password',
+        )
+
+    def setUp(self):
+        self.client.force_login(self.superuser)
+
+    def test_parent_autocomplete_filters_gender_for_animals_and_litters(self):
+        cases = (
+            ('animal', 'father', self.male),
+            ('animal', 'mother', self.female),
+            ('litter', 'father', self.male),
+            ('litter', 'mother', self.female),
+        )
+
+        for model_name, field_name, expected_parent in cases:
+            with self.subTest(
+                model_name=model_name,
+                field_name=field_name,
+            ):
+                response = self.client.get(
+                    reverse('admin:autocomplete'),
+                    {
+                        'app_label': 'breeding',
+                        'model_name': model_name,
+                        'field_name': field_name,
+                        'term': 'parent',
+                    },
+                )
+
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(
+                    {result['id'] for result in response.json()['results']},
+                    {str(expected_parent.pk)},
+                )
+
+
 @override_settings(
     EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
     DEFAULT_FROM_EMAIL='noreply@example.com',

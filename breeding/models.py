@@ -281,12 +281,14 @@ class Animal(models.Model):
     )
 
     father = models.ForeignKey(
-        'self', on_delete=models.CASCADE,
+        'self',
+        on_delete=models.CASCADE,
         null=True,
         blank=True,
         verbose_name=_('father'),
         related_name='children_father',
         related_query_name='child_father',
+        limit_choices_to={'gender': 'M'},
     )
 
     mother = models.ForeignKey(
@@ -297,6 +299,7 @@ class Animal(models.Model):
         verbose_name=_('mother'),
         related_name='children_mother',
         related_query_name='child_mother',
+        limit_choices_to={'gender': 'F'},
     )
 
     litter = models.ForeignKey(
@@ -527,21 +530,25 @@ class Litter(models.Model):
     )
 
     father = models.ForeignKey(
-        Animal, on_delete=models.CASCADE,
+        Animal,
+        on_delete=models.CASCADE,
         null=True,
         blank=True,
         verbose_name=_('father'),
         related_name='litter_father',
         related_query_name='litter_father',
+        limit_choices_to={'gender': 'M'},
     )
 
     mother = models.ForeignKey(
-        Animal, on_delete=models.CASCADE,
+        Animal,
+        on_delete=models.CASCADE,
         null=True,
         blank=True,
         verbose_name=_('mother'),
         related_name='litter_mother',
         related_query_name='litter_mother',
+        limit_choices_to={'gender': 'F'},
     )
 
     expected_birth_date = models.DateField(

@@ -15,6 +15,7 @@ from django.utils.translation import gettext_lazy as _
 from modeltranslation.admin import TranslationAdmin
 
 from breeding.models import Animal
+from reservations.availability import available_dogs_for_new_sale_process
 from reservations.exceptions import (
     ERPIntegrationError,
     PaymentError,
@@ -396,8 +397,10 @@ class AnimalSaleCaseAdmin(ImmutableWorkflowAdmin):
             }:
                 initial['start_stage'] = stage
             try:
-                animal = Animal.objects.filter(
-                    pk=request.GET.get('animal'),
+                animal = available_dogs_for_new_sale_process(
+                    Animal.objects.filter(
+                        pk=request.GET.get('animal'),
+                    ),
                 ).first()
             except (TypeError, ValueError):
                 animal = None

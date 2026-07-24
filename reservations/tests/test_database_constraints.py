@@ -28,6 +28,16 @@ class CrossDatabaseConstraintTests(ReservationTestMixin, TestCase):
 
         self.assertEqual(replacement.blocking_animal_key, self.dog.pk)
 
+    def test_sold_sale_case_also_blocks_a_second_process(self):
+        sold_case = self._create_sale_case(
+            status=AnimalSaleCase.Status.SOLD,
+        )
+
+        with self.assertRaises(IntegrityError), transaction.atomic():
+            self._create_sale_case()
+
+        self.assertEqual(sold_case.blocking_animal_key, self.dog.pk)
+
     def test_only_one_active_pre_reservation_can_hold_a_dog(self):
         first = self.reserve(self.dog)
 
@@ -71,11 +81,15 @@ class CrossDatabaseConstraintTests(ReservationTestMixin, TestCase):
         self.assertEqual(document.sale_payment_key, pre_reservation.payment.pk)
         self.assertEqual(document.sale_charge_key, pre_reservation.charge.pk)
 
-    def _create_sale_case(self):
+    def _create_sale_case(
+        self,
+        *,
+        status=AnimalSaleCase.Status.PRE_RESERVATION,
+    ):
         return AnimalSaleCase.objects.create(
             user=self.other_user,
             animal=self.dog,
-            status=AnimalSaleCase.Status.PRE_RESERVATION,
+            status=status,
             target_name=self.dog.name,
             target_breed=self.breed.name,
             customer_name='Other Customer',

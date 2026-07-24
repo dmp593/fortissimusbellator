@@ -16,8 +16,11 @@ from reservations.availability import (
     dog_inventory_unavailability_reason,
 )
 from reservations.exceptions import PaymentError, ReservationUnavailable
+from reservations.forms import AdminSaleProcessForm, AdminWorkflowTransferForm
 from reservations.models import (
+    AnimalSale,
     AnimalSaleCase,
+    AnimalWorkflowTransfer,
     Charge,
     CustomerCredit,
     ERPDocument,
@@ -102,6 +105,75 @@ class AdminSaleWorkflowTests(ReservationTestMixin, TestCase):
             payment_reference='admin-reference',
             payment_note='Received by staff.',
         )
+
+    def assert_new_processes_are_rejected(
+        self,
+        *,
+        expected_message,
+    ):
+        customer_data = self.customer_data()
+        customer_data.update(
+            customer_name='Other Customer',
+            customer_email=self.other_user.email,
+        )
+        initial_counts = {
+            AnimalSaleCase: AnimalSaleCase.objects.count(),
+            PreReservation: PreReservation.objects.count(),
+            Reservation: Reservation.objects.count(),
+            AnimalSale: AnimalSale.objects.count(),
+            AnimalWorkflowTransfer: AnimalWorkflowTransfer.objects.count(),
+        }
+        attempts = (
+            (
+                'pre-reservation',
+                lambda: create_admin_pre_reservation(
+                    animal_id=self.dog.pk,
+                    user=self.other_user,
+                    customer_data=customer_data,
+                    fee_amount=decimal.Decimal('50.00'),
+                    payment_provider=Payment.Provider.STRIPE,
+                    created_by=self.superuser,
+                ),
+            ),
+            (
+                'reservation',
+                lambda: create_admin_reservation(
+                    animal_id=self.dog.pk,
+                    user=self.other_user,
+                    customer_data=customer_data,
+                    deposit_amount=decimal.Decimal('500.00'),
+                    payment_provider=Payment.Provider.CASH,
+                    created_by=self.superuser,
+                    terms_accepted_in_person=True,
+                    payment_reference='conflicting-reservation',
+                    payment_note='Must never be recorded.',
+                ),
+            ),
+            (
+                'final sale',
+                lambda: create_admin_sale(
+                    animal_id=self.dog.pk,
+                    user=self.other_user,
+                    customer_data=customer_data,
+                    final_price=decimal.Decimal('1500.00'),
+                    payment_provider=Payment.Provider.CASH,
+                    sold_at=timezone.localdate(),
+                    created_by=self.superuser,
+                    payment_reference='conflicting-sale',
+                    payment_note='Must never be recorded.',
+                ),
+            ),
+        )
+
+        for stage, attempt in attempts:
+            with self.subTest(stage=stage):
+                with self.assertRaisesMessage(
+                    ReservationUnavailable,
+                    expected_message,
+                ):
+                    attempt()
+                for model, expected_count in initial_counts.items():
+                    self.assertEqual(model.objects.count(), expected_count)
 
     def test_direct_manual_reservation_has_no_fake_pre_reservation(self):
         reservation = self.create_direct_reservation()
@@ -499,6 +571,149 @@ class AdminSaleWorkflowTests(ReservationTestMixin, TestCase):
         self.assertEqual(
             str(dog_inventory_unavailability_reason(self.dog)),
             'This dog is already pre-reserved.',
+        )
+
+    def test_pending_pre_reservation_blocks_every_new_admin_starting_stage(self):
+        original = create_admin_pre_reservation(
+            animal_id=self.dog.pk,
+            user=self.user,
+            customer_data=self.customer_data(),
+            fee_amount=decimal.Decimal('50.00'),
+            payment_provider=Payment.Provider.STRIPE,
+            created_by=self.superuser,
+        )
+
+        self.assert_new_processes_are_rejected(
+            expected_message='This dog is already pre-reserved.',
+        )
+
+        original.refresh_from_db()
+        original.sale_case.refresh_from_db()
+        self.assertEqual(
+            original.status,
+            PreReservation.Status.PENDING_PAYMENT,
+        )
+        self.assertEqual(original.sale_case.user, self.user)
+        self.assertEqual(
+            original.sale_case.status,
+            AnimalSaleCase.Status.PRE_RESERVATION,
+        )
+
+    def test_offered_reservation_blocks_every_new_admin_starting_stage(self):
+        original = self.create_direct_reservation(
+            provider=Payment.Provider.STRIPE,
+        )
+
+        self.assert_new_processes_are_rejected(
+            expected_message='This dog is already pre-reserved.',
+        )
+
+        original.refresh_from_db()
+        original.sale_case.refresh_from_db()
+        self.assertEqual(original.status, Reservation.Status.OFFERED)
+        self.assertEqual(original.sale_case.user, self.user)
+        self.assertEqual(
+            original.sale_case.status,
+            AnimalSaleCase.Status.RESERVATION,
+        )
+
+    def test_confirmed_reservation_blocks_every_new_admin_starting_stage(self):
+        original = self.create_direct_reservation()
+
+        self.assert_new_processes_are_rejected(
+            expected_message='This dog is already reserved.',
+        )
+
+        original.refresh_from_db()
+        original.sale_case.refresh_from_db()
+        self.assertEqual(original.status, Reservation.Status.CONFIRMED)
+        self.assertEqual(original.sale_case.user, self.user)
+        self.assertEqual(
+            original.sale_case.status,
+            AnimalSaleCase.Status.RESERVATION,
+        )
+
+    def test_completed_sale_blocks_every_new_admin_starting_stage(self):
+        original = create_admin_sale(
+            animal_id=self.dog.pk,
+            user=self.user,
+            customer_data=self.customer_data(),
+            final_price=decimal.Decimal('1500.00'),
+            payment_provider=Payment.Provider.CASH,
+            sold_at=timezone.localdate(),
+            created_by=self.superuser,
+            payment_reference='original-sale',
+            payment_note='Paid at the kennel.',
+        )
+
+        self.assert_new_processes_are_rejected(
+            expected_message='This dog is no longer available.',
+        )
+
+        original.refresh_from_db()
+        original.sale_case.refresh_from_db()
+        self.assertIsNone(original.voided_at)
+        self.assertEqual(original.sale_case.user, self.user)
+        self.assertEqual(
+            original.sale_case.status,
+            AnimalSaleCase.Status.SOLD,
+        )
+
+    def test_admin_selectors_and_shortcut_hide_a_dog_with_an_active_process(self):
+        original = create_admin_pre_reservation(
+            animal_id=self.dog.pk,
+            user=self.user,
+            customer_data=self.customer_data(),
+            fee_amount=decimal.Decimal('50.00'),
+            payment_provider=Payment.Provider.STRIPE,
+            created_by=self.superuser,
+        )
+        sale_form = AdminSaleProcessForm()
+        self.assertFalse(
+            sale_form.fields['animal'].queryset.filter(pk=self.dog.pk).exists()
+        )
+
+        source_dog = Animal.objects.create(
+            breed=self.breed,
+            name='Transfer Source',
+            birth_date=self.dog.birth_date,
+            gender='M',
+            active=True,
+            for_sale=True,
+            price_in_euros='1500.00',
+        )
+        source_reservation = self.create_direct_reservation(
+            animal=source_dog,
+            provider=Payment.Provider.STRIPE,
+        )
+        transfer_form = AdminWorkflowTransferForm(
+            source_case=source_reservation.sale_case,
+        )
+        self.assertFalse(
+            transfer_form.fields['target_animal']
+            .queryset.filter(pk=self.dog.pk)
+            .exists()
+        )
+
+        self.client.force_login(self.superuser)
+        animal_page = self.client.get(
+            reverse('admin:breeding_animal_change', args=[self.dog.pk]),
+        )
+        self.assertNotContains(animal_page, 'Register direct final sale')
+        self.assertContains(animal_page, 'Open active sale process')
+
+        add_page = self.client.get(
+            reverse('admin:reservations_animalsalecase_add'),
+            {
+                'animal': self.dog.pk,
+                'start_stage': AdminSaleProcessForm.Stage.SALE,
+            },
+        )
+        self.assertIsNone(add_page.context['form']['animal'].value())
+        original.refresh_from_db()
+        self.assertEqual(
+            original.status,
+            PreReservation.Status.PENDING_PAYMENT,
         )
 
     def test_unstarted_admin_checkout_can_be_closed_without_stripe(self):

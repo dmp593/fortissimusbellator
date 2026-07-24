@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block object-tools-items %}
-  {% if original and not original.is_sold %}
+  {% if original and not original.is_sold and not original.has_blocking_sale_case and not original.has_blocking_pre_reservation and not original.has_confirmed_reservation %}
     <li>
       <a href="{% url 'admin:reservations_animalsalecase_add' %}?animal={{ original.pk }}&amp;start_stage=sale">
         {% translate "Register direct final sale" %}

@@ -340,7 +340,7 @@ class AnimalAdmin(
     def sale_summary(self, obj):
         if not obj or not obj.pk:
             return '-'
-        sale_case = (
+        completed_sale_case = (
             obj.sale_cases.filter(
                 sale__isnull=False,
                 sale__voided_at__isnull=True,
@@ -348,7 +348,29 @@ class AnimalAdmin(
             .select_related('sale', 'user')
             .first()
         )
-        if sale_case is None:
+        if completed_sale_case is None and (
+            obj.has_blocking_sale_case
+            or obj.has_blocking_pre_reservation
+            or obj.has_confirmed_reservation
+        ):
+            active_case = obj.sale_cases.filter(
+                status__in=(
+                    'pre_reservation',
+                    'reservation',
+                ),
+            ).first()
+            if active_case is None:
+                return _('An existing process is holding this dog.')
+            url = reverse(
+                'admin:reservations_animalsalecase_change',
+                args=[active_case.pk],
+            )
+            return format_html(
+                '<a href="{}">{}</a>',
+                url,
+                _('Open active sale process'),
+            )
+        if completed_sale_case is None:
             url = (
                 f"{reverse('admin:reservations_animalsalecase_add')}"
                 f'?animal={obj.pk}&start_stage=sale'
@@ -358,9 +380,9 @@ class AnimalAdmin(
                 url,
                 _('Register a direct final sale'),
             )
-        sale = sale_case.sale
+        sale = completed_sale_case.sale
         price = (
-            f'{sale.final_price} {sale_case.currency}'
+            f'{sale.final_price} {completed_sale_case.currency}'
             if sale.final_price is not None
             else str(_('Final price not recorded (legacy sale)'))
         )

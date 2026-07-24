@@ -79,6 +79,19 @@ def annotate_dog_availability(queryset):
     )
 
 
+def available_dogs_for_new_sale_process(queryset=None):
+    """Return dogs that can safely start a new commercial workflow."""
+    queryset = queryset if queryset is not None else Animal.objects.all()
+    return annotate_dog_availability(queryset).filter(
+        active=True,
+        for_sale=True,
+        has_completed_sale=False,
+        has_blocking_sale_case=False,
+        has_blocking_pre_reservation=False,
+        has_confirmed_reservation=False,
+    )
+
+
 def annotate_litter_availability(queryset):
     """Compatibility annotation for pages that no longer sell litter places."""
     return queryset.annotate(

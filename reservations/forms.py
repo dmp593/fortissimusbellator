@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from breeding.models import Animal
 from fortissimusbellator.form_fields import InternationalPhoneField
-from reservations.availability import annotate_dog_availability
+from reservations.availability import available_dogs_for_new_sale_process
 from reservations.models import (
     AnimalSaleCase,
     Charge,
@@ -476,13 +476,9 @@ class AdminSaleProcessForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['animal'].queryset = (
-            annotate_dog_availability(
-                Animal.objects.select_related('breed').filter(
-                    active=True,
-                    for_sale=True,
-                )
+            available_dogs_for_new_sale_process(
+                Animal.objects.select_related('breed'),
             )
-            .filter(has_completed_sale=False)
             .order_by('name', 'pk')
         )
         self.fields['user'].queryset = (
@@ -767,13 +763,9 @@ class AdminWorkflowTransferForm(forms.Form):
         self.source_case = source_case
         super().__init__(*args, **kwargs)
         self.fields['target_animal'].queryset = (
-            annotate_dog_availability(
-                Animal.objects.select_related('breed').filter(
-                    active=True,
-                    for_sale=True,
-                )
+            available_dogs_for_new_sale_process(
+                Animal.objects.select_related('breed'),
             )
-            .filter(has_completed_sale=False)
             .exclude(pk=source_case.animal_id)
             .order_by('name', 'pk')
         )

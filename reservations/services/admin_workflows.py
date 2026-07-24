@@ -653,15 +653,21 @@ def create_admin_sale(
     notes='',
 ) -> AnimalSale:
     animal = _lock_available_animal(animal_id)
-    sale_case = AnimalSaleCase.objects.create(
-        **_sale_case_values(
-            animal=animal,
-            user=user,
-            customer_data=customer_data,
-            created_by=created_by,
-            status=AnimalSaleCase.Status.SOLD,
-        ),
-    )
+    try:
+        with transaction.atomic():
+            sale_case = AnimalSaleCase.objects.create(
+                **_sale_case_values(
+                    animal=animal,
+                    user=user,
+                    customer_data=customer_data,
+                    created_by=created_by,
+                    status=AnimalSaleCase.Status.SOLD,
+                ),
+            )
+    except IntegrityError as exc:
+        raise ReservationUnavailable(
+            _('This dog is already held by another process.')
+        ) from exc
     return _complete_sale_locked(
         sale_case=sale_case,
         final_price=final_price,
